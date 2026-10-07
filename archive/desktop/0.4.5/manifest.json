@@ -1,0 +1,28 @@
+{
+  "desktopVersion": "0.4.5",
+  "sourceCommit": "ef83823fb6d60d7d1bb9f331fe4fa57f9fa8b0b3",
+  "sourceSnapshotSha256": "261be481121bc29d6ef512cd0165f681e5abe39618c71d9f97958be05d83fa5f",
+  "sourceFileCount": 591,
+  "installers": [
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.5-win10-x64.exe",
+      "bytes": 120743055,
+      "sha256": "4e73655b427eabb3662c2d32c32f11ee5aec22e98a7fe4f530da884297d1540a"
+    },
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.5-win10-x86.exe",
+      "bytes": 100927728,
+      "sha256": "63282ba8d8857a347c64d834ba3daaedc31d3131a3f85b6820a737cdb05f5e6c"
+    },
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.5-win11-x64.exe",
+      "bytes": 120743189,
+      "sha256": "2ecdcf56a53ba34eb7eb7fd4c34e511097050b40a12933e50c1f7f9dd658406e"
+    },
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.5-win11-x86.exe",
+      "bytes": 100927838,
+      "sha256": "360e43d8b5a4b34a10e68002b7d5e6a2c2b43848f906f1652d06abec40bb5afb"
+    }
+  ]
+}

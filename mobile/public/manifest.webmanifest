@@ -1,0 +1,21 @@
+{
+  "name": "溪泉洗浴移动点单",
+  "short_name": "溪泉点单",
+  "description": "溪泉洗浴搓澡师与三层服务员移动点单端",
+  "lang": "zh-CN",
+  "id": "/mobile/",
+  "start_url": "/mobile/",
+  "scope": "/mobile/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "icons": [
+    {
+      "src": "/mobile/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

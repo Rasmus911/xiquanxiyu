@@ -1,0 +1,360 @@
+{
+  "format": 1,
+  "latestDesktop": "0.4.8",
+  "latestAndroid": "1.2.6",
+  "desktop": [
+    {
+      "desktopVersion": "0.4.2",
+      "sourceCommit": "40f3cfff2aad9fdefe798455cf2ab328ece8e726",
+      "sourceSnapshotSha256": "3c1142049c0614f9489a946f0db5810a00b544397c068baf1d5bca30e8f7559e",
+      "sourceFileCount": 437,
+      "installers": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x64.exe",
+          "bytes": 120735880,
+          "sha256": "585c3bafba201d0949adf3af73bde6c5b7a10e038d2515d6788715de3fdc2e58"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x86.exe",
+          "bytes": 100920615,
+          "sha256": "efd9c4d61171a5c6b319e24eb84847a4f824a545600632c2086ba8d0e92666bf"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x64.exe",
+          "bytes": 120736058,
+          "sha256": "5a6389f6c1f42042d334245a2927e6a7ed0d912f5f7b583ac94254f348a5bfa6"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x86.exe",
+          "bytes": 100920877,
+          "sha256": "e2e5f3fb3a1d018c173371f6c8c82d697ffd35d71a42254c439385c150872723"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win7-x64.exe",
+          "bytes": 77828915,
+          "sha256": "2ed911b40b00c7528d42581d10c29812b0416dd635d8d9be8b830d54fb903786"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win7-x86.exe",
+          "bytes": 74198225,
+          "sha256": "c3e80bed57175bd2e77eef60f7be9909d86c2b524a1d447a8c1cc52a94a007b6"
+        }
+      ]
+    },
+    {
+      "desktopVersion": "0.4.3",
+      "sourceCommit": "09e3b110c1ee53cfe5c0795e1a3142b9db0a82b5",
+      "sourceSnapshotSha256": "e8816fa7a4f47375d519710fb6c0fa4c0e623000bd315395aaf30c1672e036df",
+      "sourceFileCount": 533,
+      "installers": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.3-win11-x64.exe",
+          "bytes": 120741941,
+          "sha256": "51b683b4aa06b06d94ca423d3f374d341614431558dd2d2a11132b85e828dcb7"
+        }
+      ]
+    },
+    {
+      "desktopVersion": "0.4.4",
+      "sourceCommit": "31ed3ffd7cf44863609601a2f833de30b8eaefab",
+      "sourceSnapshotSha256": "559fd75e8d7c679527d8fdbb7c5799933e7582c339a01a250b103499499411c7",
+      "sourceFileCount": 575,
+      "installers": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.4-win10-x64.exe",
+          "bytes": 120742484,
+          "sha256": "923276adcfeb407a94aa91ba09bd7d939af9389c14f03b367ab31d2c8ad4e2b9"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.4-win10-x86.exe",
+          "bytes": 100927330,
+          "sha256": "bdcbc5a339d43e0fc2ba02da397265a1f5ae288fc069fb2f81993b34b69c58f3"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.4-win11-x64.exe",
+          "bytes": 120742732,
+          "sha256": "3566f20921f256dbeafddbe986f92d5db6122df7c1a36eb70ef8a059a1ac9739"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.4-win11-x86.exe",
+          "bytes": 100927264,
+          "sha256": "d20786d4618855d3a66c45790828211ac8bd5ba93ce99ba04efcb3d0941c6211"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.4-win7-x64.exe",
+          "bytes": 77835526,
+          "sha256": "3294a7f82a9005928cac3a77f5ab93ce7a420743b906e074ba33fba8570d415a"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.4-win7-x86.exe",
+          "bytes": 74204671,
+          "sha256": "9d4f890cb78908362d6758b17195acab42eed2c8ff61dc0865acbb965d4e5473"
+        }
+      ]
+    },
+    {
+      "desktopVersion": "0.4.5",
+      "sourceCommit": "ef83823fb6d60d7d1bb9f331fe4fa57f9fa8b0b3",
+      "sourceSnapshotSha256": "261be481121bc29d6ef512cd0165f681e5abe39618c71d9f97958be05d83fa5f",
+      "sourceFileCount": 591,
+      "installers": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.5-win10-x64.exe",
+          "bytes": 120743055,
+          "sha256": "4e73655b427eabb3662c2d32c32f11ee5aec22e98a7fe4f530da884297d1540a"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.5-win10-x86.exe",
+          "bytes": 100927728,
+          "sha256": "63282ba8d8857a347c64d834ba3daaedc31d3131a3f85b6820a737cdb05f5e6c"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.5-win11-x64.exe",
+          "bytes": 120743189,
+          "sha256": "2ecdcf56a53ba34eb7eb7fd4c34e511097050b40a12933e50c1f7f9dd658406e"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.5-win11-x86.exe",
+          "bytes": 100927838,
+          "sha256": "360e43d8b5a4b34a10e68002b7d5e6a2c2b43848f906f1652d06abec40bb5afb"
+        }
+      ]
+    },
+    {
+      "desktopVersion": "0.4.6",
+      "sourceCommit": "5bbe92344f2fec4caaf5701b846e6970638fe8da",
+      "sourceSnapshotSha256": "41939664a5cdcec10f3e195cfe3e86f1e87dddae9e19a57fe4d06506434848e0",
+      "sourceFileCount": 611,
+      "installers": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.6-win10-x64.exe",
+          "bytes": 120744074,
+          "sha256": "98e2f27b798b5561326bcc3467aa68b5eef6f7ae5f2f0d77ee6ab77ad0452b6a"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.6-win10-x86.exe",
+          "bytes": 100928740,
+          "sha256": "9f1ebe45b5322ea65b2cbdcc38eeacfb6517e79ecebaa4f40f7aec3e75d9b6a4"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.6-win11-x64.exe",
+          "bytes": 120744096,
+          "sha256": "943742ffddaf9f7fbb459264faa84fcac3fb0461f5830a9086191616588711ca"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.6-win11-x86.exe",
+          "bytes": 100928915,
+          "sha256": "d143b1fb21d1814b48aaed90caab960e3fe9320eaf190bbdfd2cead3294aca42"
+        }
+      ]
+    },
+    {
+      "desktopVersion": "0.4.7",
+      "sourceCommit": "daeabbba33db7d2fba02a0a2d8914fc3c0b099fc",
+      "sourceSnapshotSha256": "308130d8481bb480d7b159e1c20a415b8291c56ec9b30383aa6f7b03b5d36f6b",
+      "sourceFileCount": 636,
+      "installers": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.7-win10-x64.exe",
+          "bytes": 120747251,
+          "sha256": "d61775a444b88476150fe65b472a3252b03d3d9645d6aa182e38bc468d5c0427"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.7-win10-x86.exe",
+          "bytes": 100932004,
+          "sha256": "6d7aed77dc1f658e5e6e17f13d3802e1cceff2dd9eab90cc3ff4fb359aa36e14"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.7-win11-x64.exe",
+          "bytes": 120747286,
+          "sha256": "4f9f27a2f3bc3d6fca5b60e2948ceafe18f849b1ab4b48f5a9eac4e239b8f019"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.7-win11-x86.exe",
+          "bytes": 100931926,
+          "sha256": "088eb9c46efd8fb1eb508fbc47ff2c15aa97cdd36341fc3a3c882ea7833bbd8c"
+        }
+      ]
+    },
+    {
+      "desktopVersion": "0.4.8",
+      "sourceCommit": "03861f7ca097dbeb5907c71861417a85ff524d7d",
+      "sourceSnapshotSha256": "86abe3f7864741d47489a4bcf438a1866fc55e8ade0913399470ee678bca467a",
+      "sourceFileCount": 654,
+      "installers": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.8-win10-x64.exe",
+          "bytes": 120753097,
+          "sha256": "c08afaab99f9223492a50a958f3f3bd6bc63688231f0f4c5085aa1033860ac32"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.8-win10-x86.exe",
+          "bytes": 100937861,
+          "sha256": "f116ca88eaa3f6ececcf598244a1967af3d49bf7f3bd18346884c82cf30ce867"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.8-win11-x64.exe",
+          "bytes": 120753190,
+          "sha256": "f9f0ef9d2df4b2b04d77d3473becd5453905fafbd368e2d0c2caa2aaaa32b214"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.8-win11-x86.exe",
+          "bytes": 100937807,
+          "sha256": "1be524288180628da4e63b26fd2a00542a1bea6eaa5f35281f522dd9dc2f746a"
+        }
+      ]
+    },
+    {
+      "desktopVersion": "0.1.0",
+      "sourceCommit": null,
+      "note": "Historical binary only; exact matching source snapshot unavailable",
+      "installers": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.1.0.exe",
+          "bytes": 102831988,
+          "sha256": "dcc659d56ededfe10ea84c541404a5b3aa2d304254e59a22bd7e0d78687a3817"
+        }
+      ]
+    },
+    {
+      "desktopVersion": "0.2.3",
+      "sourceCommit": null,
+      "note": "Historical binary only; exact matching source snapshot unavailable",
+      "installers": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.2.3.exe",
+          "bytes": 120242005,
+          "sha256": "c951b9f06e0c6a6440c4bf174d5e8b2ac3084da8e1f2882297c8a0ec4a221ac4"
+        }
+      ]
+    },
+    {
+      "desktopVersion": "0.4.0",
+      "sourceCommit": null,
+      "note": "Historical binary only; exact matching source snapshot unavailable",
+      "installers": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.0.exe",
+          "bytes": 120268755,
+          "sha256": "6451e1e2e04b465612a2458c3ab64f66a557c0540c3e1cb9f72ef78733472f24"
+        }
+      ]
+    }
+  ],
+  "android": [
+    {
+      "androidVersion": "1.0.0",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.0.0.apk",
+        "bytes": 3305083,
+        "sha256": "995e7c33c480e5c40778cc11029e24cb5ce767d18cffac9afbec5631089915bb"
+      }
+    },
+    {
+      "androidVersion": "1.0.1",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.0.1.apk",
+        "bytes": 3305221,
+        "sha256": "619a23f7fda9f1657d0dabe23a8aa22c7a61033219ca68eb36010e6a7c39ac43"
+      }
+    },
+    {
+      "androidVersion": "1.0.2",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.0.2.apk",
+        "bytes": 3305217,
+        "sha256": "9ba4f502aac1c00cbcf54a93c79616a5c607a30c5f520b5f4adfce91c066c233"
+      }
+    },
+    {
+      "androidVersion": "1.0.3",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.0.3.apk",
+        "bytes": 3314143,
+        "sha256": "bc13e950686e310ff9ac0347c004d8b0af1d6d8e8d2dd0c799bb90a51f169802"
+      }
+    },
+    {
+      "androidVersion": "1.1.0",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.1.0.apk",
+        "bytes": 3343958,
+        "sha256": "7b97ceff3cd40a9e2be86e70ffa7073c265ab7c84c16f1d6d8f963954beb73a5"
+      }
+    },
+    {
+      "androidVersion": "1.1.1",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.1.1.apk",
+        "bytes": 3343996,
+        "sha256": "72312dac652a0ddff06f036e946724f8e93680ece3cccc08e827d1bd69d78432"
+      }
+    },
+    {
+      "androidVersion": "1.2.0",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.2.0.apk",
+        "bytes": 3344044,
+        "sha256": "cd73056319b725072703de1a4fb37f6ae4c80dd33c80461e6b35ed997dda13ae"
+      }
+    },
+    {
+      "androidVersion": "1.2.1",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.2.1.apk",
+        "bytes": 3350731,
+        "sha256": "7ea51bf6c942a3cc9532f8d469d6c2bd0708df5c79c969618659fa31aa685062"
+      }
+    },
+    {
+      "androidVersion": "1.2.2",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.2.2.apk",
+        "bytes": 3354461,
+        "sha256": "869e52d5d76265591ff7936f27706eacbb690df5afb7952a11b128eeba6af04c"
+      }
+    },
+    {
+      "androidVersion": "1.2.3",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.2.3.apk",
+        "bytes": 3362765,
+        "sha256": "6b5c43b5e54f999fd4be7fe98d0a0b368f59ce56a0db4b1f51b839afd37a61b0"
+      }
+    },
+    {
+      "androidVersion": "1.2.4",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.2.4.apk",
+        "bytes": 3362894,
+        "sha256": "f01aff12e2c0378bbe2d587980cf2d1ce29a1b0e753d4e8e02bc0d6ba611d915"
+      }
+    },
+    {
+      "androidVersion": "1.2.5",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.2.5.apk",
+        "bytes": 3365605,
+        "sha256": "96eac02ad0094669b41b7d89394b01442c50096cee2492c2eccfa7bbab916fd6"
+      }
+    },
+    {
+      "androidVersion": "1.2.6",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.2.6.apk",
+        "bytes": 3367337,
+        "sha256": "64cc34d961ca6aca36eb31a9be566a414fd70e3c14432ebe9ca53e7d43ba1b8c"
+      }
+    }
+  ],
+  "exclusions": [
+    "credentials",
+    "signing private keys",
+    "keystores",
+    "databases and backups",
+    "business inventory photo data",
+    "failed candidate builds",
+    "reconstructible unpacked runtime and dependency caches"
+  ],
+  "cleanupPolicy": "No local historical files removed before corresponding remote assets are verified. Private excluded material is retained outside the development folder."
+}

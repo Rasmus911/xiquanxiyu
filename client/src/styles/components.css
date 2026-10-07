@@ -1,0 +1,25 @@
+.xq-card,
+.el-card {
+  border-color: var(--xq-border);
+  border-radius: var(--xq-radius-lg);
+  box-shadow: var(--xq-shadow-card);
+}
+
+.xq-panel {
+  padding: 20px;
+  border: 1px solid var(--xq-border);
+  border-radius: var(--xq-radius-lg);
+  background: var(--xq-bg-card);
+  box-shadow: var(--xq-shadow-card);
+}
+
+.xq-section-title { margin: 0; color: var(--xq-text-1); font-size: 17px; }
+.xq-section-copy { margin: 5px 0 0; color: var(--xq-text-3); font-size: 13px; }
+.xq-number { font-variant-numeric: tabular-nums; }
+
+.el-button { font-weight: 650; }
+.el-button--large { min-height: 46px; }
+.el-input__wrapper,
+.el-select__wrapper { border-radius: var(--xq-radius-sm); }
+.el-table { --el-table-border-color: #edf1f6; --el-table-header-bg-color: #f8fafc; }
+.el-table th.el-table__cell { color: var(--xq-text-2); font-weight: 750; }

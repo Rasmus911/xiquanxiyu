@@ -1,0 +1,13 @@
+{
+  "desktopVersion": "0.4.3",
+  "sourceCommit": "09e3b110c1ee53cfe5c0795e1a3142b9db0a82b5",
+  "sourceSnapshotSha256": "e8816fa7a4f47375d519710fb6c0fa4c0e623000bd315395aaf30c1672e036df",
+  "sourceFileCount": 533,
+  "installers": [
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.3-win11-x64.exe",
+      "bytes": 120741941,
+      "sha256": "51b683b4aa06b06d94ca423d3f374d341614431558dd2d2a11132b85e828dcb7"
+    }
+  ]
+}

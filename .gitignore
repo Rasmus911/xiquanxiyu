@@ -1,0 +1,76 @@
+# Python
+server/.venv/
+server/__pycache__/
+__pycache__/
+server/**/*.pyc
+server/.pytest_cache/
+server/.coverage
+server/htmlcov/
+server/instance/
+server/dist/
+server/build/
+server/*.spec
+
+# Node / Electron
+client/node_modules/
+client/dist/
+client/dist-electron/
+client/release/
+client/.vite/
+client/.npm-cache/
+client/.electron-cache/
+client/.electron-builder-cache/
+mobile/node_modules/
+mobile/dist/
+mobile/.npm-cache/
+/release/
+private/
+*.jks
+*.keystore
+mobile/android/keystore.properties
+
+# Local configuration
+.env
+server/.env
+client/.env.local
+*.local
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and backups
+*.log
+backups/
+*.dump
+*.sqlite
+*.db
+
+# Private configuration and signing material
+.env.*
+!.env.example
+!**/.env.example
+*.pem
+*.p12
+*.pfx
+*.key
+mobile/android/.gradle/
+mobile/android/**/build/
+mobile/android/local.properties
+mobile/android/app/src/main/assets/public/
+mobile/android/app/src/main/assets/capacitor.config.json
+mobile/android/app/src/main/assets/capacitor.plugins.json
+mobile/android/capacitor-cordova-android-plugins/
+deploy/cloud/nginx/active.conf
+deploy/cloud/updates/
+deploy/cloud/releases/
+deploy/cloud/mobile/
+deploy/cloud/web/
+scripts/ssh_*.py
+/六个版本安装包*/
+/最新版安装包*/
+/.ruff_cache/
+/.superpowers/
+mobile/public/download-config.json

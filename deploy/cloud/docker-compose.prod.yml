@@ -1,0 +1,168 @@
+name: ${COMPOSE_PROJECT_NAME:-xiquan}
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TZ: ${TZ:-Asia/Shanghai}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    shm_size: 128mb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - backend
+    logging: *default-logging
+
+  api:
+    image: xiquan-api:owner-reset
+    build:
+      context: ../../server
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      FLASK_DEBUG: "0"
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      AUDIT_HMAC_KEY: ${AUDIT_HMAC_KEY:-}
+      XIQUAN_PRODUCTION: "1"
+      TRUST_PROXY_HEADERS: "1"
+      RUNTIME_DATABASE_URL: ${RUNTIME_DATABASE_URL:?Set the dedicated runtime URL}
+      BOOTSTRAP_TOKEN: ${BOOTSTRAP_TOKEN}
+      DATABASE_URL: ${RUNTIME_DATABASE_URL:?Set the dedicated runtime URL}
+      RESET_DATABASE_URL: ${RESET_DATABASE_URL:?Set the dedicated reset URL}
+      RESET_BACKUP_DATABASE_URL: ${RESET_BACKUP_DATABASE_URL:?Set the read-only backup URL}
+      RESET_PRIVATE_DIR: /var/lib/xiquan-reset
+      PG_DUMP_PATH: /usr/lib/postgresql/17/bin/pg_dump
+      PG_RESTORE_PATH: /usr/lib/postgresql/17/bin/pg_restore
+      API_WORKERS: "1"
+      WEB_CONCURRENCY: "1"
+      API_REPLICAS: "1"
+      CORS_ORIGINS: ${CORS_ORIGINS:-null}
+      AUTO_CREATE_DB: "0"
+      RUN_MIGRATIONS: "0"
+      SEED_DEFAULTS: "0"
+      SOCKETIO_ASYNC_MODE: gevent
+      XIQUAN_HOST: 0.0.0.0
+      XIQUAN_PORT: "5000"
+      TZ: ${TZ:-Asia/Shanghai}
+      SMS_ENABLED: ${SMS_ENABLED:-0}
+      SMS_ADMIN_PHONE: ${SMS_ADMIN_PHONE:-18631459666}
+      SMS_SIGN_NAME: ${SMS_SIGN_NAME:-溪泉洗浴}
+      SMS_STORED_CARD_TEMPLATE_CODE: ${SMS_STORED_CARD_TEMPLATE_CODE:-}
+      SMS_PASS_CARD_TEMPLATE_CODE: ${SMS_PASS_CARD_TEMPLATE_CODE:-}
+      SMS_ADMIN_TEMPLATE_CODE: ${SMS_ADMIN_TEMPLATE_CODE:-}
+      SMS_ENDPOINT: ${SMS_ENDPOINT:-dysmsapi.aliyuncs.com}
+      ALIBABA_CLOUD_ACCESS_KEY_ID: ${ALIBABA_CLOUD_ACCESS_KEY_ID:-}
+      ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${ALIBABA_CLOUD_ACCESS_KEY_SECRET:-}
+    volumes:
+      - reset_private:/var/lib/xiquan-reset
+    expose:
+      - "5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - backend
+      - public
+    logging: *default-logging
+
+  # Explicit one-shot user maintenance, never invoked by normal API startup.
+  maintenance:
+    image: xiquan-api:owner-reset
+    profiles: ["maintenance"]
+    entrypoint: ["flask", "--app", "run.py"]
+    command: ["--help"]
+    restart: "no"
+    environment:
+      DATABASE_URL: ${MAINTENANCE_DATABASE_URL:?Set the schema-owner maintenance URL}
+      RESET_BACKUP_DATABASE_URL: ${RESET_BACKUP_DATABASE_URL:?Set the read-only backup URL}
+      RESET_PRIVATE_DIR: /var/lib/xiquan-operations
+      PG_DUMP_PATH: /usr/lib/postgresql/17/bin/pg_dump
+      PG_RESTORE_PATH: /usr/lib/postgresql/17/bin/pg_restore
+      MAINTENANCE_PROCESS: "1"
+      RESET_WORKER_ENABLED: "0"
+      FLASK_DEBUG: "0"
+      XIQUAN_PRODUCTION: "1"
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      AUDIT_HMAC_KEY: ${AUDIT_HMAC_KEY:-}
+      AUTO_CREATE_DB: "0"
+      RUN_MIGRATIONS: "0"
+      SEED_DEFAULTS: "0"
+      API_WORKERS: "1"
+      WEB_CONCURRENCY: "1"
+      API_REPLICAS: "1"
+      SOCKETIO_ASYNC_MODE: gevent
+      TZ: ${TZ:-Asia/Shanghai}
+      SMS_ENABLED: "0"
+    volumes:
+      - operations_private:/var/lib/xiquan-operations
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - backend
+    logging: *default-logging
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/active.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./updates:/var/www/updates:ro
+      - ./mobile:/var/www/mobile:ro
+      - ./releases:/var/www/releases:ro
+      - ./web:/var/www/app:ro
+      - certbot_www:/var/www/certbot:ro
+      - letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - public
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/nginx-health >/dev/null 2>&1 || exit 1"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    logging: *default-logging
+
+  certbot:
+    image: certbot/certbot:latest
+    profiles: ["tools"]
+    volumes:
+      - certbot_www:/var/www/certbot
+      - letsencrypt:/etc/letsencrypt
+    networks:
+      - public
+
+volumes:
+  postgres_data:
+  certbot_www:
+  letsencrypt:
+  reset_private:
+  operations_private:
+
+networks:
+  backend:
+    internal: true
+  public:

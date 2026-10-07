@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: xiquan-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bathhouse
+      POSTGRES_USER: bathhouse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-before-production}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - xiquan_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bathhouse -d bathhouse"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  xiquan_postgres_data:
+
