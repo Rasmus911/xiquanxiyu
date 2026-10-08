@@ -290,10 +290,10 @@
         "versionCode": 14,
         "minimumVersionCode": 9,
         "applicationId": "com.xiquan.mobileordering",
-      "formalApk": "archive/android/1.2.7/xiquan-mobile-ordering-1.2.7.apk",
-      "sha256": "27b7b289e578ce25adcd4e2dd94ee8230c4c8861b7716ad37b96a2cff6535485",
-      "bytes": 3370738,
-      "cloudPublicationVerified": false
+        "formalApk": "archive/android/1.2.7/xiquan-mobile-ordering-1.2.7.apk",
+        "sha256": "27b7b289e578ce25adcd4e2dd94ee8230c4c8861b7716ad37b96a2cff6535485",
+        "bytes": 3370738,
+        "cloudPublicationVerified": false
       }
     }
   ],
@@ -423,39 +423,21 @@
   "cleanupPolicy": "Remove redundant local copies only after byte/part SHA256 and Git blob checks plus exact remote commit verification. Keep latest delivery, original signing/build prerequisites and private development Git history. Retain private excluded evidence outside the project. This archive is not an ECS deployment receipt.",
   "latestAndroidSource": "1.2.7",
   "archiveVerification": {
-    "checkedAt": "2026-10-08T10:33:29.561Z",
-    "publicMainBeforePreparation": "bb7938b58525d37984bb41c51d62c1fcfdd530e4",
-    "sourceCommitUploadPending": false,
-    "verifiedBinaryReleases": [
-      "desktop-v0.4.3"
-    ],
-    "partiallyVerifiedBinaryReleases": [
-      {
-        "tag": "desktop-v0.4.4",
-        "verifiedTargets": ["win10-x64", "win10-x86", "win11-x64"],
-        "pendingTargets": ["win11-x86", "win7-x64", "win7-x86"],
-        "archiveComplete": false
-      },
-      {
-        "tag": "desktop-v0.4.5",
-        "verifiedTargets": ["win10-x64", "win10-x86"],
-        "pendingTargets": ["win11-x64", "win11-x86"],
-        "archiveComplete": false
-      }
-    ],
-    "pendingBinaryDesktop": [
-      "0.4.2",
-      "0.4.4",
-      "0.4.5",
-      "0.4.6",
-      "0.4.7",
-      "0.4.8",
-      "0.1.0",
-      "0.2.3",
-      "0.4.0",
-      "0.4.9"
-    ],
-    "pendingAndroidBinaryVersions": [
+    "checkedAt": "2026-10-08T22:24:20+08:00",
+    "verifiedArtifactCommit": "fb03bd44011ecf1253c5cdb8f13c3830802dea3d",
+    "uploadApplication": "GitHub Desktop",
+    "remoteCommitMatched": true,
+    "committedBinaryBytesVerified": true,
+    "sha256ReassemblyVerified": true,
+    "verifiedMultipartDesktopInstallers": 35,
+    "verifiedDesktopParts": 136,
+    "verifiedPublishedFullInstaller": {
+      "tag": "desktop-v0.4.3",
+      "name": "Xiquan-Bathhouse-Setup-0.4.3-win11-x64.exe",
+      "bytes": 120741941,
+      "sha256": "51b683b4aa06b06d94ca423d3f374d341614431558dd2d2a11132b85e828dcb7"
+    },
+    "verifiedAndroidBinaryVersions": [
       "1.0.0",
       "1.0.1",
       "1.0.2",
@@ -471,10 +453,13 @@
       "1.2.6",
       "1.2.7"
     ],
-    "localOriginalsMoved": true,
-    "recoverablyMovedFileCount": 12,
-    "completeLocalTidy": false,
-    "remainingArchiveBlocker": "Final verified-parts batch is pending GitHub Desktop push; local cleanup requires fresh remote commit verification",
-    "storageMethod": "32 MiB byte-concatenation parts with SHA256 manifests; APKs stored directly; sanitized cloud snapshots classified separately"
+    "verifiedSanitizedCloudSnapshots": 39,
+    "pendingBinaryDesktop": [],
+    "pendingAndroidBinaryVersions": [],
+    "completeLocalTidy": true,
+    "archiveWorkRemoved": false,
+    "archiveWorkRemovalStatus": "Automatic deletion blocked by execution environment; directory retained for user removal",
+    "privateRetention": "Local-only; not uploaded",
+    "ecsChanged": false
   }
 }
