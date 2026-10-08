@@ -7,6 +7,7 @@ export interface MobileEmployee {
   role: MobileRole
   role_label: string
   capabilities?: {
+    registration_token_view?: boolean
     orders_view?: boolean
     order_all?: boolean
     catalog_all?: boolean

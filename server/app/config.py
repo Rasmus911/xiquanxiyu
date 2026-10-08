@@ -20,6 +20,7 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-secret-change-me-use-32-bytes")
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "dev-only-jwt-secret-change-me-use-32-bytes")
     AUDIT_HMAC_KEY = os.getenv("AUDIT_HMAC_KEY", "").strip()
+    REGISTRATION_TOKEN_SECRET = os.getenv('REGISTRATION_TOKEN_SECRET', '').strip()
     PRODUCTION = os.getenv("XIQUAN_PRODUCTION", "0") == "1"
     TRUST_PROXY_HEADERS = os.getenv("TRUST_PROXY_HEADERS", "0") == "1"
     MAX_CONTENT_LENGTH = 512 * 1024
@@ -35,7 +36,7 @@ class Config:
         ).split(",")
         if item.strip()
     ]
-    AUTO_CREATE_DB = os.getenv("AUTO_CREATE_DB", "1") == "1"
+    AUTO_CREATE_DB = os.getenv("AUTO_CREATE_DB", "0") == "1"
     SOCKETIO_ASYNC_MODE = os.getenv("SOCKETIO_ASYNC_MODE") or None
     ACCESS_POLICY_LEGACY_COMPAT = False
     # This release supports one API process and one replica, including sockets.

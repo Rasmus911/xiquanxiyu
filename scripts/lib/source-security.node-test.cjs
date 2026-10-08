@@ -115,7 +115,7 @@ test('048 reviewed deployment tools enter SOURCE while unreviewed neighboring sc
     'scripts/tests/test_desktop_048_source.py', 'scripts/tests/test_desktop_048_entrypoints.py',
     'scripts/tests/test_android_126_publication.py']
   for (const name of reviewed) write(root, name)
-  for (const name of ['deploy/cloud/scripts/desktop_049_deploy.py', 'scripts/invoke-desktop-049.ps1',
+  for (const name of ['deploy/cloud/scripts/desktop_050_deploy.py', 'scripts/invoke-desktop-050.ps1',
     'scripts/ssh_desktop048.py', 'private/desktop048.pem']) write(root, name)
   assert.deepEqual(api().enumerateSourceFiles(root), [...reviewed].sort())
 })

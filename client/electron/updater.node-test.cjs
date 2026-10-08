@@ -89,3 +89,18 @@ test('0.4.4 through 0.4.7 verify and download 0.4.8 through matching Win10/11 si
     }
   }
 })
+
+test('0.4.4 through 0.4.8 metadata verifies and downloads signed 0.4.9 on each matching Win10/11 channel', async () => {
+  for (const currentVersion of ['0.4.4','0.4.5','0.4.6','0.4.7','0.4.8']) {
+    for (const target of ['win10-x86','win10-x64','win11-x86','win11-x64']) {
+      const f=loadAdapter({target,currentVersion,latestVersion:'0.4.9'})
+      try {
+        f.adapter.start('https://api.pqxqxy.xyz/api',()=>null)
+        await f.adapter.checkForUpdates()
+        assert.equal(f.adapter.getState().status,'downloaded',`${currentVersion}/${target}`)
+        assert.equal(f.calls.includes(`https://api.pqxqxy.xyz/updates/desktop/${target}/`),true)
+        assert.equal(f.calls.some(value=>value==='https://api.pqxqxy.xyz/updates/'),false)
+      } finally {f.close()}
+    }
+  }
+})

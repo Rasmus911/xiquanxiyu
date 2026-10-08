@@ -418,6 +418,11 @@ class IdempotencyRecord(PeriodMixin, db.Model):
     created_at = db.Column(db.DateTime(timezone=True), nullable=False, default=utcnow)
 
 
+from .registration_models import (  # noqa: E402,F401: register additive metadata
+    RegistrationRateLimit, RegistrationReceipt, RegistrationTokenState, RegistrationTokenView,
+)
+
+
 @event.listens_for(db.metadata, "after_create")
 def _install_database_guards(_metadata, connection, **_kwargs):
     from .database_guards import install_database_guards, install_period_guards

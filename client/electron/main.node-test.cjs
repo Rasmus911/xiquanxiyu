@@ -19,12 +19,13 @@ async function fixture({ software = false, lock = true, startupError = '', rende
   class BrowserWindow extends EventEmitter {
     constructor(options) {
       super(); this.options = options; this.webContents = Object.assign(new EventEmitter(), {
-        id: windows.length + 1, setWindowOpenHandler() {}, send() {},
+        id: windows.length + 1, setWindowOpenHandler() {}, send() {}, print(_options, callback) { callback(true) },
         getPrintersAsync: async () => [{ name: 'XP-58', displayName: 'XP-58', status: 0 }],
       }); windows.push(this)
     }
     loadURL() { return Promise.resolve() } loadFile() { return Promise.resolve() }
-    show() {} focus() { calls.push('focus') } isMinimized() { return false } isDestroyed() { return false }
+    maximize() { calls.push(`maximize:${windows.indexOf(this)}`) }
+    show() { calls.push(`show:${windows.indexOf(this)}`) } destroy() {} focus() { calls.push('focus') } isMinimized() { return false } isDestroyed() { return false }
     static getAllWindows() { return windows }
   }
   let busy = null
@@ -85,6 +86,19 @@ test('busy operations block window close and rendering restart without writing p
   } finally { f.close() }
 })
 function appEvent(app) { app.emit('before-quit', { preventDefault() {} }) }
+
+test('main maximizes before showing once while receipt windows remain hidden', async () => {
+  const f=await fixture()
+  try {
+    assert.equal(f.calls.some(value=>value.startsWith('maximize:')),false)
+    f.windows[0].emit('ready-to-show');f.windows[0].emit('ready-to-show')
+    assert.deepEqual(f.calls.filter(value=>/^(maximize|show):/.test(value)),['maximize:0','show:0'])
+    await f.handlers.get('printer:receipt')(f.event,{},'XP-58')
+    f.windows[1].emit('ready-to-show')
+    assert.equal(f.windows[1].options.show,false)
+    assert.deepEqual(f.calls.filter(value=>/^(maximize|show):/.test(value)),['maximize:0','show:0'])
+  } finally {f.close()}
+})
 
 test('duplicate instances and invalid packaged identities do not open business windows', async () => {
   for (const options of [{ lock: false }, { startupError: '安装目标无效' }]) {

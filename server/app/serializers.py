@@ -100,8 +100,23 @@ def iso(value):
     return value.isoformat() if value else None
 
 
-def employee_dict(item: Employee):
+def employee_dict(item: Employee, channel=None):
     from .employee_access import is_protected_employee
+    from .employee_access import session_ui
+    from .auth_service import ROLE_PERMISSIONS
+    from flask_jwt_extended import get_jwt
+    permissions = ROLE_PERMISSIONS.get(item.role, set())
+    try:
+        claims = get_jwt()
+    except RuntimeError:
+        claims = {}
+    if claims.get('sub') == item.id:
+        from .access_policy import effective_permissions
+        channel = claims.get('client_channel')
+        permissions = effective_permissions(item, claims)
+    elif channel:
+        from .access_policy import session_permissions
+        permissions = session_permissions(item, channel)
     return {
         "id": item.id,
         "username": item.username,
@@ -113,6 +128,7 @@ def employee_dict(item: Employee):
         "deleted_at": iso(item.deleted_at),
         "protected_account": is_protected_employee(item),
         "last_login_at": iso(item.last_login_at),
+        **session_ui(item, channel, permissions),
     }
 
 

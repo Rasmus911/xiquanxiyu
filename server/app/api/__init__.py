@@ -13,7 +13,10 @@ from .terminals import bp as terminals_bp
 from .visits import bp as visits_bp
 from .wristbands import bp as wristbands_bp
 
+from .registration import bp as registration_bp
+
 BLUEPRINTS = [
+    registration_bp,
     business_bp,
     auth_bp,
     terminals_bp,

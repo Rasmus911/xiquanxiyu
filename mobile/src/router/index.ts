@@ -17,6 +17,7 @@ const router = createRouter({ history: createWebHashHistory(), routes: [
     { path: 'inventory', name: 'inventory', component: () => import('../views/InventoryView.vue') },
     { path: 'catalog', name: 'catalog', component: () => import('../views/CatalogView.vue') },
     { path: 'profile', name: 'profile', component: () => import('../views/ProfileView.vue') },
+    { path: 'registration-token', name: 'registration-token', component: () => import('../views/RegistrationTokenView.vue') },
   ] },
   { path: '/:pathMatch(.*)*', redirect: '/orders' },
 ] })

@@ -48,6 +48,7 @@ function checkUpdate() {
       </section>
       <button class="outline-button" @click="business.refreshBootstrap()">立即同步营业数据</button>
       <button class="outline-button" @click="checkUpdate">检查应用更新</button>
+      <button v-if="session.employee?.capabilities?.registration_token_view === true" class="outline-button" @click="router.push('/registration-token')">查看注册授权码</button>
       <button class="danger-button" @click="logout">退出登录</button>
       <BusinessResetPanel />
     </main>

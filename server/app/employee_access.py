@@ -36,11 +36,13 @@ def is_protected_employee(employee):
 
 
 def session_ui(employee, channel, permissions):
+    from .registration_access import can_view_registration_token
     def permits(permission):
         return '*' in permissions or permission in permissions
 
     mobile = channel == 'mobile'
     caps = {
+        'registration_token_view': can_view_registration_token(employee, channel),
         'visit_clear': not mobile and permits('visit:clear'),
         'member_delete': not mobile and permits('member:delete'),
         'catalog_delete': not mobile and permits('catalog:delete'),

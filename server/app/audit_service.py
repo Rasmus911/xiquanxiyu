@@ -58,7 +58,8 @@ def lock_audit_chain():
 
 
 def write_audit(action, entity_type, entity_id, details, employee_id=None, terminal_id=None,
-                record_id=None, session=None, original_context=None, original_request_id=None):
+                record_id=None, session=None, original_context=None, original_request_id=None,
+                anonymous=False):
     session = session or db.session
     from .business_barrier import shared_barrier
     shared_barrier(session.connection())
@@ -67,8 +68,13 @@ def write_audit(action, entity_type, entity_id, details, employee_id=None, termi
         claims = get_jwt()
     except RuntimeError:
         pass
-    employee_id = employee_id or claims.get("sub") or getattr(g, "audit_employee_id", None)
-    terminal_id = terminal_id or claims.get("terminal_id") or getattr(g, "audit_terminal_id", None)
+    if anonymous:
+        employee_id = None
+        claims = {}
+    else:
+        employee_id = employee_id or claims.get("sub") or getattr(g, "audit_employee_id", None)
+    if not anonymous:
+        terminal_id = terminal_id or claims.get("terminal_id") or getattr(g, "audit_terminal_id", None)
     employee = session.get(Employee, employee_id) if employee_id else None
     terminal = session.get(Terminal, terminal_id) if terminal_id else None
     if session.get_bind().dialect.name == 'postgresql':
@@ -80,8 +86,8 @@ def write_audit(action, entity_type, entity_id, details, employee_id=None, termi
         "employee_role": employee.role if employee else None,
         "terminal_code": terminal.code if terminal else None,
         "terminal_name": terminal.name if terminal else None,
-        "session_id": claims.get("session_id") or getattr(g, "audit_session_id", None),
-        "identity_verified": bool(getattr(g, "audit_authenticated", False)),
+        "session_id": None if anonymous else claims.get("session_id") or getattr(g, "audit_session_id", None),
+        "identity_verified": not anonymous and bool(getattr(g, "audit_authenticated", False)),
     }
     if has_request_context():
         context.update(

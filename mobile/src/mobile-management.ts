@@ -1,6 +1,7 @@
 export type MobileTab = 'orders' | 'reports' | 'inventory' | 'catalog'
 
 interface ManagementCapabilities {
+  registration_token_view?: boolean
   orders_view?: boolean
   reports_view?: boolean
   inventory_manage?: boolean
@@ -12,6 +13,7 @@ interface ManagementCapabilities {
 export function scopedMobileCapabilities(capabilities: ManagementCapabilities | undefined, scope: string[]) {
   const allowed = (permission: string) => scope.includes(permission) || scope.includes('*')
   return {
+    registration_token_view: capabilities?.registration_token_view === true,
     orders_view: capabilities?.orders_view === true && allowed('mobile:order'),
     reports_view: (capabilities?.reports_view ?? capabilities?.reports) === true && allowed('report:read'),
     inventory_manage: (capabilities?.inventory_manage ?? capabilities?.inventory_add) === true && allowed('inventory:read') && allowed('inventory:write'),

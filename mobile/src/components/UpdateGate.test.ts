@@ -17,11 +17,13 @@ test('Android downloads inside the old app, blocks duplicate download and opens 
   let complete!: (result:{path:string}) => void
   native.download.mockImplementation(() => new Promise(resolve => { complete = resolve }))
   const host=document.createElement('div'); document.body.append(host)
-  const app=createApp(UpdateGate,{policy:{ latestVersion:'1.2.4',latestVersionCode:11,minimumVersionCode:9,required:false,
-    downloadUrl:'https://api.pqxqxy.xyz/mobile/downloads/xiquan-mobile-ordering-1.2.4.apk',sha256:'a'.repeat(64),releaseNotes:[] },
+  const app=createApp(UpdateGate,{policy:{ latestVersion:'1.2.7',latestVersionCode:14,minimumVersionCode:9,required:false,
+    downloadUrl:'https://api.pqxqxy.xyz/mobile/downloads/xiquan-mobile-ordering-1.2.7.apk',sha256:'a'.repeat(64),releaseNotes:['新增管理员注册授权码'] },
     decision:'optional',businessBusy:null })
   app.mount(host); cleanup=() => { app.unmount(); host.remove() }
   await nextTick()
+  expect(host.textContent).toContain('1.2.7')
+  expect(host.textContent).toContain('新增管理员注册授权码')
   const button=host.querySelector('.update-primary') as HTMLButtonElement
   button.click(); button.click(); await nextTick()
   expect(button.disabled).toBe(true)

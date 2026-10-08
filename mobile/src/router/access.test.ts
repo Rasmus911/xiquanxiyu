@@ -4,6 +4,12 @@ import { mobileLanding, routeAccess } from './access'
 const ownerSession = { capabilities: { orders_view: true, reports_view: true, inventory_manage: true } }
 const ordinarySession = { capabilities: { orders_view: true, reports_view: false, inventory_manage: false } }
 
+it('requires explicit server token-view capability, including direct route access',()=>{
+  expect(routeAccess('registration-token',null)).toBe('login')
+  expect(routeAccess('registration-token',ownerSession)).toBe('forbidden')
+  expect(routeAccess('registration-token',{capabilities:{registration_token_view:true}})).toBe('allow')
+})
+
 it('inventory-only accounts land on inventory and cannot visit an ordering route', () => {
   const capabilities = { orders_view: false, reports_view: false, inventory_manage: true }
   expect(mobileLanding(capabilities)).toBe('/inventory')

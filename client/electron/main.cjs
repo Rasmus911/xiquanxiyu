@@ -108,7 +108,10 @@ function createWindow() {
       webviewTag: false,
     },
   })
-  mainWindow.once('ready-to-show', () => mainWindow.show())
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.maximize()
+    mainWindow.show()
+  })
   mainWindow.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
   mainWindow.webContents.on('will-navigate', (event, url) => {
     if (!isTrustedPage(url, trustedRendererUrl)) event.preventDefault()

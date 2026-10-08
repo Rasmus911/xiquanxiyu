@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "latestDesktop": "0.4.8",
+  "latestDesktop": "0.4.9",
   "latestAndroid": "1.2.6",
   "desktop": [
     {
@@ -239,6 +239,59 @@
           "sha256": "6451e1e2e04b465612a2458c3ab64f66a557c0540c3e1cb9f72ef78733472f24"
         }
       ]
+    },
+    {
+      "desktopVersion": "0.4.9",
+      "sourceCommit": "4f11626373298754d2e0ceacd82ae7ff5dd71204",
+      "sourceSnapshotSha256": "f34c4c6dc63e611553901646d4b803e48ec9b217a404ce52e621ebe4209c0294",
+      "sourceFileCount": 687,
+      "installers": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.9-win10-x86.exe",
+          "bytes": 100934038,
+          "sha256": "da14822747d04fd8c0cd110d30ad9a54160d90c8c77f4f79222d2d60dd0a39db"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.9-win10-x64.exe",
+          "bytes": 120749227,
+          "sha256": "4d0002c1ac3958cdd07340983deffd1447e18435249efaaf4e4362d04226ef02"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.9-win11-x86.exe",
+          "bytes": 100934083,
+          "sha256": "11a0e074fd3127bd162cc372da6aba038ae5adb3f6671b99153ca7526e3ce52d"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.9-win11-x64.exe",
+          "bytes": 120749494,
+          "sha256": "f657470086727bda13719f0fd401585075ab95ca595e5351f11ea4f7eb29c6b2"
+        }
+      ],
+      "releaseNotes": [
+        "新增 账号注册功能"
+      ],
+      "buildId": "registration049-delivery-20261008",
+      "state": {
+        "sourcePrepared": true,
+        "installersBuilt": true,
+        "originalUpdateSigned": false,
+        "authenticodeSigned": false,
+        "uploaded": false,
+        "cloudDeployed": false,
+        "deviceTested": false
+      },
+      "sourceSnapshot": {
+        "name": "source-0.4.9.zip",
+        "bytes": 1510894,
+        "sha256": "f34c4c6dc63e611553901646d4b803e48ec9b217a404ce52e621ebe4209c0294"
+      },
+      "android": {
+        "version": "1.2.7",
+        "versionCode": 14,
+        "minimumVersionCode": 9,
+        "applicationId": "com.xiquan.mobileordering",
+        "formalApk": "pending-human-original-certificate-hidden-password"
+      }
     }
   ],
   "android": [
@@ -356,5 +409,60 @@
     "failed candidate builds",
     "reconstructible unpacked runtime and dependency caches"
   ],
-  "cleanupPolicy": "No local historical files removed before corresponding remote assets are verified. Private excluded material is retained outside the development folder."
+  "cleanupPolicy": "Keep every local original until that exact remote asset name/size/SHA256 is verified. Twelve matching historical installer originals/copies were moved recoverably outside the project after exact published-asset checks; no permanent deletion. Keep all unverified originals, live prerequisites, private material, nested repositories and current development state usable.",
+  "latestAndroidSource": "1.2.7",
+  "archiveVerification": {
+    "checkedAt": "2026-10-08T10:33:29.561Z",
+    "publicMainBeforePreparation": "bb7938b58525d37984bb41c51d62c1fcfdd530e4",
+    "sourceCommitUploadPending": true,
+    "verifiedBinaryReleases": [
+      "desktop-v0.4.3"
+    ],
+    "partiallyVerifiedBinaryReleases": [
+      {
+        "tag": "desktop-v0.4.4",
+        "verifiedTargets": ["win10-x64", "win10-x86", "win11-x64"],
+        "pendingTargets": ["win11-x86", "win7-x64", "win7-x86"],
+        "archiveComplete": false
+      },
+      {
+        "tag": "desktop-v0.4.5",
+        "verifiedTargets": ["win10-x64", "win10-x86"],
+        "pendingTargets": ["win11-x64", "win11-x86"],
+        "archiveComplete": false
+      }
+    ],
+    "pendingBinaryDesktop": [
+      "0.4.2",
+      "0.4.4",
+      "0.4.5",
+      "0.4.6",
+      "0.4.7",
+      "0.4.8",
+      "0.1.0",
+      "0.2.3",
+      "0.4.0",
+      "0.4.9"
+    ],
+    "pendingAndroidBinaryVersions": [
+      "1.0.0",
+      "1.0.1",
+      "1.0.2",
+      "1.0.3",
+      "1.1.0",
+      "1.1.1",
+      "1.2.0",
+      "1.2.1",
+      "1.2.2",
+      "1.2.3",
+      "1.2.4",
+      "1.2.5",
+      "1.2.6",
+      "1.2.7"
+    ],
+    "localOriginalsMoved": true,
+    "recoverablyMovedFileCount": 12,
+    "completeLocalTidy": false,
+    "remainingArchiveBlocker": "GitHub binary storage-request uploads failed; remaining original files are retained"
+  }
 }

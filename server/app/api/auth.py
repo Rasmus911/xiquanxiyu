@@ -155,7 +155,7 @@ def login():
         {
             "access_token": access_token,
             "refresh_token": refresh_token,
-            "employee": employee_dict(employee),
+            "employee": employee_dict(employee, channel),
             "terminal": terminal_dict(terminal),
             "business_state": business_state_data(employee, channel),
             "permissions": claims['permission_scope'],
@@ -188,6 +188,7 @@ def refresh():
             ),
             'business_state': business_state_data(employee),
             'permissions': sorted(effective_permissions(employee, claims)),
+            'employee': employee_dict(employee, old_claims.get('client_channel')),
         }
     )
 

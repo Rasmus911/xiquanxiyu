@@ -48,6 +48,11 @@ SELECT 'REVOKE ALL ON schema_upgrade_markers FROM xiquan_app'
 WHERE to_regclass('public.schema_upgrade_markers') IS NOT NULL \gexec
 SELECT 'GRANT SELECT ON schema_upgrade_markers TO xiquan_app'
 WHERE to_regclass('public.schema_upgrade_markers') IS NOT NULL \gexec
+-- Additive 0.4.9 security state; no runtime deletion or receipt rewriting.
+SELECT 'REVOKE DELETE,TRUNCATE ON registration_token_state,registration_rate_limits FROM xiquan_app'
+WHERE to_regclass('public.registration_token_state') IS NOT NULL \gexec
+SELECT 'REVOKE UPDATE,DELETE,TRUNCATE ON registration_receipts,registration_token_views FROM xiquan_app'
+WHERE to_regclass('public.registration_receipts') IS NOT NULL \gexec
 REVOKE DELETE, TRUNCATE ON settlements FROM xiquan_app;
 REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON alembic_version FROM xiquan_app;
 REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON business_state, business_periods,

@@ -9,6 +9,11 @@ const TREES = ['server/app', 'server/migrations', 'server/tests', 'client/src',
   'mobile/android/app/src/test/java', 'mobile/android/app/src/androidTest/java',
   'docs/superpowers', 'docs/releases']
 const FILES = new Set([
+  ...['build-desktop-049.ps1','sign-desktop-049.ps1','invoke-desktop-049.ps1',
+    'desktop-049-deploy-entry.ps1','desktop-049-publish-entry.ps1','desktop-049-android-entry.ps1'].map(file => `scripts/${file}`),
+  ...['desktop_049_guard.py','desktop_049_deploy.py','android_127_publication.py'].map(file => `deploy/cloud/scripts/${file}`),
+  ...['test_desktop_049_guard.py','test_desktop_049_source.py','test_desktop_049_entrypoints.py',
+    'test_android_127_publication.py'].map(file => `scripts/tests/${file}`),
   'scripts/build-desktop-048.ps1', 'scripts/sign-desktop-048.ps1',
   'scripts/desktop-048-deploy-entry.ps1', 'scripts/desktop-048-publish-entry.ps1',
   'scripts/desktop-048-android-entry.ps1', 'scripts/invoke-desktop-048.ps1',

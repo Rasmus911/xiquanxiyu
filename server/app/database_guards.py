@@ -1,4 +1,6 @@
 APPEND_ONLY_TABLES = (
+    'registration_receipts',
+    'registration_token_views',
     "audit_logs",
     "payments",
     "stored_value_ledgers",

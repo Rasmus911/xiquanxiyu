@@ -8,6 +8,7 @@ import { useRuntimeStore } from '../stores/runtime'
 import { StaleBusinessResponse } from '../business/state'
 import { businessState } from '../business/state'
 import { landingPath } from '../navigation/access'
+import RegistrationDialog from '../components/auth/RegistrationDialog.vue'
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -29,6 +30,8 @@ let active = true
 onBeforeUnmount(() => { active = false })
 const setupOpen = ref(false)
 const bootstrapOpen = ref(false)
+const registrationOpen = ref(false)
+function registered(username: string) { form.username = username; form.password = ''; ElMessage.success('注册成功，请登录') }
 const form = reactive({ username: '', password: '' })
 const config = reactive({
   serverUrl: getApiBaseUrl(),
@@ -105,12 +108,14 @@ async function submitBootstrap() {
         <el-button type="primary" size="large" class="full-width" :loading="loading" @click="submitLogin">登录</el-button>
       </el-form>
       <div class="login-actions">
+        <el-button v-if="desktopUpdates" data-testid="login-register" link @click="registrationOpen = true">注册账号</el-button>
         <el-button v-if="desktopUpdates" data-testid="login-check-updates" link :loading="checkingUpdates" @click="checkUpdates">检查更新</el-button>
         <el-button link @click="setupOpen = true">服务器与终端设置</el-button>
         <el-button link @click="bootstrapOpen = true">首次初始化管理员</el-button>
       </div>
       <div class="terminal-info">终端：{{ config.terminalName }}（{{ config.terminalCode }}）</div>
     </el-card>
+    <RegistrationDialog v-if="desktopUpdates" v-model="registrationOpen" :terminal-code="config.terminalCode" @registered="registered" />
 
     <el-dialog v-model="setupOpen" title="服务器与终端设置" width="520px">
       <el-form label-position="top">
@@ -140,6 +145,6 @@ async function submitBootstrap() {
 .logo { width: 58px; height: 58px; border-radius: 18px; display: grid; place-items: center; margin: 0 auto; background: #1aa994; color: white; font-weight: 800; font-size: 30px; }
 h1 { text-align: center; margin: 16px 0 5px; }
 p { text-align: center; margin: 0 0 22px; }
-.login-actions { display: flex; justify-content: space-between; margin-top: 14px; }
+.login-actions { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .terminal-info { margin-top: 12px; text-align: center; color: #8791a5; font-size: 12px; }
 </style>

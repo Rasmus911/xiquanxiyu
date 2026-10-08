@@ -4,10 +4,14 @@ import { availableMobileTabs, mobileReportCards, reportRange, scopedMobileCapabi
 it('cached capabilities cannot restore pages removed from the current signed session scope', () => {
   const cached = { orders_view: true, reports_view: true, inventory_manage: true }
   expect(scopedMobileCapabilities(cached, ['inventory:read', 'inventory:write']))
-    .toEqual({ orders_view: false, reports_view: false, inventory_manage: true, catalog_manage: false })
-  expect(scopedMobileCapabilities(cached, [])).toEqual({ orders_view: false, reports_view: false, inventory_manage: false, catalog_manage: false })
+    .toEqual({ orders_view: false, reports_view: false, inventory_manage: true, catalog_manage: false, registration_token_view: false })
+  expect(scopedMobileCapabilities(cached, [])).toEqual({ orders_view: false, reports_view: false, inventory_manage: false, catalog_manage: false, registration_token_view: false })
   expect(scopedMobileCapabilities(cached, ['inventory:read']).inventory_manage).toBe(false)
   expect(scopedMobileCapabilities(undefined, ['catalog:read','catalog:write']).catalog_manage).toBe(true)
+})
+it('registration-token entry passes only explicit server capability without adding business permissions',()=>{
+  expect(scopedMobileCapabilities({registration_token_view:true},[]).registration_token_view).toBe(true)
+  expect(scopedMobileCapabilities(undefined,['*']).registration_token_view).toBe(false)
 })
 
 describe('mobile management navigation', () => {
