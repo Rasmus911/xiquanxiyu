@@ -1,0 +1,18 @@
+{
+    "schema":  1,
+    "source_commit":  "ac4b0397bedeb99d2ba7e71eb1984ce6c8d13bc5",
+    "build_id":  "operations-offline-20261004-190513-bb38f4aa",
+    "desktop_target":  "win11-x64",
+    "release_root":  "F:\\溪泉洗浴系统\\release\\windows\\0.4.3\\operations-offline-20261004-190513-bb38f4aa",
+    "installer_directory":  "F:\\溪泉洗浴系统\\最新版安装包-0.4.3",
+    "source_zip":  "F:\\溪泉洗浴系统\\release\\cloud\\xiquan-operations-SOURCE-WEB-20261004-190930-b1949129.zip",
+    "source_sha256":  "21f1d2dc5e3d2179f0214f115150d303d274ad25d2c5df6686f5a62db91da949",
+    "status":  "original-signatures-verified",
+    "pending":  [
+                    "isolated-PG17-role-concurrency-restore",
+                    "Win11-and-Android-real-device",
+                    "USB003-printing",
+                    "user-ECS-deployment"
+                ],
+    "uploaded":  false
+}

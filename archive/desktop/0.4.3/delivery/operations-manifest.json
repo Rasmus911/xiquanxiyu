@@ -1,0 +1,44 @@
+{
+    "schema":  1,
+    "source_commit":  "ac4b0397bedeb99d2ba7e71eb1984ce6c8d13bc5",
+    "desktop_version":  "0.4.3",
+    "android_version":  "1.2.2",
+    "android_version_code":  9,
+    "build_id":  "operations-offline-20261004-190513-bb38f4aa",
+    "trust_key_id":  "b26477a9ed540ad0",
+    "signature_status":  "verified",
+    "targets":  [
+                    {
+                        "size":  120741941,
+                        "runtime":  "44.5.1",
+                        "sha256":  "51b683b4aa06b06d94ca423d3f374d341614431558dd2d2a11132b85e828dcb7",
+                        "arch":  "x64",
+                        "target":  "win11-x64",
+                        "file":  "win11-x64/Xiquan-Bathhouse-Setup-0.4.3-win11-x64.exe"
+                    }
+                ],
+    "android":  {
+                    "certificate_sha256":  "15257f00ccafcabfbac7c105b3a4606127f4d04afa55e44994171994a1ce50e9",
+                    "sha256":  "869e52d5d76265591ff7936f27706eacbb690df5afb7952a11b128eeba6af04c",
+                    "certificate_status":  "verified",
+                    "file":  "xiquan-mobile-ordering-1.2.2.apk",
+                    "size":  3354461
+                },
+    "source_web":  {
+                       "sha256":  "21f1d2dc5e3d2179f0214f115150d303d274ad25d2c5df6686f5a62db91da949",
+                       "file":  "xiquan-operations-SOURCE-WEB-20261004-190930-b1949129.zip",
+                       "size":  1732668
+                   },
+    "test_results":  {
+                         "release":  "passed",
+                         "backend":  "passed",
+                         "pg17_restore":  "not-tested",
+                         "desktop":  "passed",
+                         "mobile":  "passed"
+                     },
+    "real_device_checks":  {
+                               "usb_printer":  "not-tested",
+                               "android":  "not-tested",
+                               "windows11":  "not-tested"
+                           }
+}

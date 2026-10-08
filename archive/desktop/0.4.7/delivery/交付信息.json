@@ -1,0 +1,17 @@
+﻿{
+    "ProjectRoot":  "F:\\溪泉洗浴系统",
+    "ReleaseRoot":  "F:\\溪泉洗浴系统\\release\\windows\\0.4.7\\desktop047-20261007-153900-73f755db",
+    "OutputDirectory":  "F:\\溪泉洗浴系统\\最新版安装包-报表库存升级-0.4.7",
+    "SourceCommit":  "daeabbba33db7d2fba02a0a2d8914fc3c0b099fc",
+    "SourceZipFile":  "xiquan-operations-SOURCE-WEB-20261007-192808-f3913f21.zip",
+    "SourceSha256":  "96d7c6c75d8ce8131ddc70a86e08224c3cbb6f3522983129eb5fa49050ba33f3",
+    "Version":  "0.4.7",
+    "Targets":  [
+                    "win10-x86",
+                    "win10-x64",
+                    "win11-x86",
+                    "win11-x64"
+                ],
+    "CloudChanged":  false,
+    "UpdateSignature":  "pending-original-key"
+}
