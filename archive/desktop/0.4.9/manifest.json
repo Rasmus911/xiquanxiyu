@@ -48,6 +48,9 @@
     "versionCode": 14,
     "minimumVersionCode": 9,
     "applicationId": "com.xiquan.mobileordering",
-    "formalApk": "pending-human-original-certificate-hidden-password"
+    "formalApk": "archive/android/1.2.7/xiquan-mobile-ordering-1.2.7.apk",
+    "sha256": "27b7b289e578ce25adcd4e2dd94ee8230c4c8861b7716ad37b96a2cff6535485",
+    "bytes": 3370738,
+    "cloudPublicationVerified": false
   }
 }

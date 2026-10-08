@@ -1,7 +1,7 @@
 {
   "format": 1,
   "latestDesktop": "0.4.9",
-  "latestAndroid": "1.2.6",
+  "latestAndroid": "1.2.7",
   "desktop": [
     {
       "desktopVersion": "0.4.2",
@@ -290,7 +290,10 @@
         "versionCode": 14,
         "minimumVersionCode": 9,
         "applicationId": "com.xiquan.mobileordering",
-        "formalApk": "pending-human-original-certificate-hidden-password"
+      "formalApk": "archive/android/1.2.7/xiquan-mobile-ordering-1.2.7.apk",
+      "sha256": "27b7b289e578ce25adcd4e2dd94ee8230c4c8861b7716ad37b96a2cff6535485",
+      "bytes": 3370738,
+      "cloudPublicationVerified": false
       }
     }
   ],
@@ -398,6 +401,14 @@
         "bytes": 3367337,
         "sha256": "64cc34d961ca6aca36eb31a9be566a414fd70e3c14432ebe9ca53e7d43ba1b8c"
       }
+    },
+    {
+      "androidVersion": "1.2.7",
+      "asset": {
+        "name": "xiquan-mobile-ordering-1.2.7.apk",
+        "bytes": 3370738,
+        "sha256": "27b7b289e578ce25adcd4e2dd94ee8230c4c8861b7716ad37b96a2cff6535485"
+      }
     }
   ],
   "exclusions": [
@@ -409,12 +420,12 @@
     "failed candidate builds",
     "reconstructible unpacked runtime and dependency caches"
   ],
-  "cleanupPolicy": "Keep every local original until that exact remote asset name/size/SHA256 is verified. Twelve matching historical installer originals/copies were moved recoverably outside the project after exact published-asset checks; no permanent deletion. Keep all unverified originals, live prerequisites, private material, nested repositories and current development state usable.",
+  "cleanupPolicy": "Remove redundant local copies only after byte/part SHA256 and Git blob checks plus exact remote commit verification. Keep latest delivery, original signing/build prerequisites and private development Git history. Retain private excluded evidence outside the project. This archive is not an ECS deployment receipt.",
   "latestAndroidSource": "1.2.7",
   "archiveVerification": {
     "checkedAt": "2026-10-08T10:33:29.561Z",
     "publicMainBeforePreparation": "bb7938b58525d37984bb41c51d62c1fcfdd530e4",
-    "sourceCommitUploadPending": true,
+    "sourceCommitUploadPending": false,
     "verifiedBinaryReleases": [
       "desktop-v0.4.3"
     ],
@@ -463,6 +474,7 @@
     "localOriginalsMoved": true,
     "recoverablyMovedFileCount": 12,
     "completeLocalTidy": false,
-    "remainingArchiveBlocker": "GitHub binary storage-request uploads failed; remaining original files are retained"
+    "remainingArchiveBlocker": "Final verified-parts batch is pending GitHub Desktop push; local cleanup requires fresh remote commit verification",
+    "storageMethod": "32 MiB byte-concatenation parts with SHA256 manifests; APKs stored directly; sanitized cloud snapshots classified separately"
   }
 }

@@ -1,0 +1,560 @@
+[
+    {
+        "originalName":  "xiquan-cloud-20260829-115035.zip",
+        "originalSha256":  "fc0fbb970f8d2afb1bb9add896a1077dcbd68ab3fbc72eac63d8d80528e0d947",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260829-115035-SANITIZED.zip",
+        "sha256":  "702f15e69d8abd450cd70d0f9db7aeff84300cac9400bb800e3b713f56bcb2cc",
+        "bytes":  55071,
+        "publicSourceFiles":  46,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260829-115127.zip",
+        "originalSha256":  "f75b5f72f69ab554a08618e6bb3255e24a4d912c21fc9a163740b91dd583693e",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260829-115127-SANITIZED.zip",
+        "sha256":  "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+        "bytes":  22,
+        "publicSourceFiles":  0,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260829-115210.zip",
+        "originalSha256":  "c7697b0f5e47ac00c67931a6694b3c921494f7bc8f8d155152fe6f087f923eda",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260829-115210-SANITIZED.zip",
+        "sha256":  "702f15e69d8abd450cd70d0f9db7aeff84300cac9400bb800e3b713f56bcb2cc",
+        "bytes":  55071,
+        "publicSourceFiles":  46,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260829-115458.zip",
+        "originalSha256":  "322b33a4dbb2a28ca6a000ec4d4c60748193511e2583120907b0f1a6fa7537b1",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260829-115458-SANITIZED.zip",
+        "sha256":  "e9bb3f86dd9ccabfa4ef33cdd8dbc3583148e618185571c82aa503061e08de35",
+        "bytes":  55868,
+        "publicSourceFiles":  46,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260829-115614.zip",
+        "originalSha256":  "cf3f076ae3edc2ff04b4fd4994a971e2c3348b66c5d85d15ac2813d61b1bf2ff",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260829-115614-SANITIZED.zip",
+        "sha256":  "f1f7baaf3cc2ae3773115cebe2daf2d12ad24baf75522312585e564535a4db36",
+        "bytes":  55902,
+        "publicSourceFiles":  46,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260829-121108.zip",
+        "originalSha256":  "9d55c4003a4b774d84f1b4152ac0e08ff16df5cfa177de6a245303f175914618",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260829-121108-SANITIZED.zip",
+        "sha256":  "e234c1681ce6d9d7d804d6876811a41470b5d4d47af37f226c8fdc35fafb52e7",
+        "bytes":  56078,
+        "publicSourceFiles":  46,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260829-133505.zip",
+        "originalSha256":  "ea0ab80a198f20c5db3660ebac7834289285042a23550f1cea1e89ac34f2a91d",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260829-133505-SANITIZED.zip",
+        "sha256":  "e234c1681ce6d9d7d804d6876811a41470b5d4d47af37f226c8fdc35fafb52e7",
+        "bytes":  56078,
+        "publicSourceFiles":  46,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260829-133700.zip",
+        "originalSha256":  "b8549c48697ab7ddb9c06792856ec35e21d5b2786292037b8203b705dec52370",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260829-133700-SANITIZED.zip",
+        "sha256":  "e234c1681ce6d9d7d804d6876811a41470b5d4d47af37f226c8fdc35fafb52e7",
+        "bytes":  56078,
+        "publicSourceFiles":  46,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260920-145704.zip",
+        "originalSha256":  "81ad5c6181f3dc6120367b6b07a344414d7451cebc05de1e5026fbc21d5a37f8",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260920-145704-SANITIZED.zip",
+        "sha256":  "1e9bb6a246ddbfbbd101725cff82517160931299f41bb812a6da3c8865b7516c",
+        "bytes":  65494,
+        "publicSourceFiles":  50,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260920-145844.zip",
+        "originalSha256":  "70d75bc4b93029e2f644ffc1048436cf4a02b5585b74cbdaa3637d4bf0cb7ba3",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260920-145844-SANITIZED.zip",
+        "sha256":  "91b57772a228c25b5d6267549581030155f4ed53b93c3e002ff24b42a4ba6017",
+        "bytes":  65537,
+        "publicSourceFiles":  50,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260920-161316.zip",
+        "originalSha256":  "2990fe76bf5c3cdf4e5a323d11fbb7f537e1b1c3beca3c095c599d35113dc32e",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260920-161316-SANITIZED.zip",
+        "sha256":  "8e217eb840ca775aa781be2659c80ab215b19ee121c8c32cf9e0987d457c2f2b",
+        "bytes":  65548,
+        "publicSourceFiles":  50,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260920-171547.zip",
+        "originalSha256":  "84dd04fae6df1d83f1fa4873124c41840d991b5597185ca2e14d7199e20631a5",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260920-171547-SANITIZED.zip",
+        "sha256":  "8a3d7945f49e27bc7044f28376897e1c7376b816948409115441d4d4c6de453e",
+        "bytes":  66102,
+        "publicSourceFiles":  50,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260920-171703.zip",
+        "originalSha256":  "72627d0e6acf72e35b5da7e1f119777b78e71ec755036e3a57446112cefc85d9",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260920-171703-SANITIZED.zip",
+        "sha256":  "8a3d7945f49e27bc7044f28376897e1c7376b816948409115441d4d4c6de453e",
+        "bytes":  66102,
+        "publicSourceFiles":  50,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260920-172128.zip",
+        "originalSha256":  "6f77c98cfe22895ffcc76096b5d173b4cc5c0450dc6bda1de7c29e6e55c667ed",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260920-172128-SANITIZED.zip",
+        "sha256":  "8a3d7945f49e27bc7044f28376897e1c7376b816948409115441d4d4c6de453e",
+        "bytes":  66102,
+        "publicSourceFiles":  50,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260920-173017.zip",
+        "originalSha256":  "9fbcf914534d08f2c9781ae2ef54d5b8b57ddcb08ed552b91f383dbc831cd656",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260920-173017-SANITIZED.zip",
+        "sha256":  "63263e78bec7ee7ff3a851b625f56dc6f6bc6640004cf743dd76f12440ccb57c",
+        "bytes":  66172,
+        "publicSourceFiles":  50,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260920-173310.zip",
+        "originalSha256":  "bb68cfb60ddab4263e4fcf8c13a846cb299ecb32e765336e3ac638d69039cb90",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260920-173310-SANITIZED.zip",
+        "sha256":  "0d4fc2b18fe98af6242b864ba70133a4722f2f570030bd7da59726461cd2ee99",
+        "bytes":  67024,
+        "publicSourceFiles":  51,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260927-182808.zip",
+        "originalSha256":  "f3c1d4af13f8ad18644c25bf6e8a5dfd39e2923aa8ef99f95d044f67f97ce360",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260927-182808-SANITIZED.zip",
+        "sha256":  "d945a9cfdfbf3c28f7b5c23ab2e159c8597f6ef699f9b92b9a3b982d6879c10f",
+        "bytes":  67180,
+        "publicSourceFiles":  51,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260927-194836.zip",
+        "originalSha256":  "56265cf96b741c6dbac73e116c0291bc0c0215655df204c0a840ea49243eb36c",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260927-194836-SANITIZED.zip",
+        "sha256":  "5452fce27d65e6ea52dfbb3983a69eec313311710b0924527acd7a6ff9eb62e9",
+        "bytes":  69000,
+        "publicSourceFiles":  53,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260927-195652.zip",
+        "originalSha256":  "ec5a49c64ca9412c4438f167c264f562872483571fe215714b84f19cc3c18c4d",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260927-195652-SANITIZED.zip",
+        "sha256":  "5452fce27d65e6ea52dfbb3983a69eec313311710b0924527acd7a6ff9eb62e9",
+        "bytes":  69000,
+        "publicSourceFiles":  53,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260930-211623.zip",
+        "originalSha256":  "2f29fcfa84c4a86f14c21e3f5815f9d6485a8f9bf2e4b2450b3680edc50f2a79",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260930-211623-SANITIZED.zip",
+        "sha256":  "c9a62180daf98142831a54b583052bfba44cb990357d0872371c08b3edf2ede6",
+        "bytes":  78364,
+        "publicSourceFiles":  57,
+        "exclusions":  [
+                           {
+                               "path":  "deploy/cloud/.env.example",
+                               "line":  20,
+                               "rule":  "credential-dsn"
+                           }
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260930-212614.zip",
+        "originalSha256":  "1354c0cb5c11695739a0535e10947eb09c4d7e3f2349a1f89208a012d18f0d86",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260930-212614-SANITIZED.zip",
+        "sha256":  "c9a62180daf98142831a54b583052bfba44cb990357d0872371c08b3edf2ede6",
+        "bytes":  78364,
+        "publicSourceFiles":  57,
+        "exclusions":  [
+                           {
+                               "path":  "deploy/cloud/.env.example",
+                               "line":  20,
+                               "rule":  "credential-dsn"
+                           }
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-cloud-20260930-222423.zip",
+        "originalSha256":  "4d4422f98fb12e02e3a2a9b4c6da28cbcc2364ec68b23d3ce98db1a47825e036",
+        "desktopVersion":  null,
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/unknown-version/xiquan-cloud-20260930-222423-SANITIZED.zip",
+        "sha256":  "c9a62180daf98142831a54b583052bfba44cb990357d0872371c08b3edf2ede6",
+        "bytes":  78364,
+        "publicSourceFiles":  57,
+        "exclusions":  [
+                           {
+                               "path":  "deploy/cloud/.env.example",
+                               "line":  20,
+                               "rule":  "credential-dsn"
+                           }
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261004-185031-e022b26c.zip",
+        "originalSha256":  "5d03c8111bff3e57a8d9578ce9eafe8d1b18316409128735524f21e8dec79659",
+        "desktopVersion":  "0.4.3",
+        "sourceCommit":  "ac4b0397bedeb99d2ba7e71eb1984ce6c8d13bc5",
+        "sanitizedArchive":  "cloud/0.4.3/xiquan-operations-SOURCE-WEB-20261004-185031-e022b26c-SANITIZED.zip",
+        "sha256":  "f92e93f1d8fb217dd28cef4f50c9e709d6b5fec8aafebca4d6d0d657aa28b97c",
+        "bytes":  501478,
+        "publicSourceFiles":  360,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261004-185738-c7faf8cc.zip",
+        "originalSha256":  "fb9c52d44e29f52a06c4ce5fa553ac27946965ec2af87b9093ba16fa93a38543",
+        "desktopVersion":  "0.4.3",
+        "sourceCommit":  "ac4b0397bedeb99d2ba7e71eb1984ce6c8d13bc5",
+        "sanitizedArchive":  "cloud/0.4.3/xiquan-operations-SOURCE-WEB-20261004-185738-c7faf8cc-SANITIZED.zip",
+        "sha256":  "3f6a09dd9033be45c4d58002ce0eb286fa03373bce9c58651e13f39d31cc1efd",
+        "bytes":  501478,
+        "publicSourceFiles":  360,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261004-190930-b1949129.zip",
+        "originalSha256":  "21f1d2dc5e3d2179f0214f115150d303d274ad25d2c5df6686f5a62db91da949",
+        "desktopVersion":  "0.4.3",
+        "sourceCommit":  "ac4b0397bedeb99d2ba7e71eb1984ce6c8d13bc5",
+        "sanitizedArchive":  "cloud/0.4.3/xiquan-operations-SOURCE-WEB-20261004-190930-b1949129-SANITIZED.zip",
+        "sha256":  "337512fb632d608bbb6331084ba4de2694b604ad38a14ecc118302683592eaae",
+        "bytes":  501478,
+        "publicSourceFiles":  360,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261004-200551-c7b5ae33.zip",
+        "originalSha256":  "4530957afa00ea050278d6d7ce2932983dcbe33f460b1f71723991de34da14ad",
+        "desktopVersion":  "0.4.3",
+        "sourceCommit":  "c29b5d8819498fab9b360288f7199187969c76d4",
+        "sanitizedArchive":  "cloud/0.4.3/xiquan-operations-SOURCE-WEB-20261004-200551-c7b5ae33-SANITIZED.zip",
+        "sha256":  "58a291f216cab73cc6c31c67242ed1460ae9d52264361ec4610e5a7476a55804",
+        "bytes":  519331,
+        "publicSourceFiles":  363,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261004-200630-dd2bf5f6.zip",
+        "originalSha256":  "a1279c97d9e1aa15c518bb3395b503812e1339dc9bea10f06853029a72333428",
+        "desktopVersion":  "0.4.3",
+        "sourceCommit":  "56a4d0eeaf552a4f78ef87f1ee76e4fa0b8107f5",
+        "sanitizedArchive":  "cloud/0.4.3/xiquan-operations-SOURCE-WEB-20261004-200630-dd2bf5f6-SANITIZED.zip",
+        "sha256":  "6ca92f63f5ed16a7aa34afd0ce78abb68f70b9280d381d0fce197221d693f5f5",
+        "bytes":  519331,
+        "publicSourceFiles":  363,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261007-013328-21e4d157.zip",
+        "originalSha256":  "2a3e9a44425ce905829812208223edcc5eaaacff33f7fe80c7a090fb35202aa9",
+        "desktopVersion":  "0.4.5",
+        "sourceCommit":  "ef83823fb6d60d7d1bb9f331fe4fa57f9fa8b0b3",
+        "sanitizedArchive":  "cloud/0.4.5/xiquan-operations-SOURCE-WEB-20261007-013328-21e4d157-SANITIZED.zip",
+        "sha256":  "ca3713661b5ae1d233be8517dd1cbf6e560d9ccc31d74dda1e4ba628ca903141",
+        "bytes":  642456,
+        "publicSourceFiles":  401,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261007-024150-ec5ef10d.zip",
+        "originalSha256":  "44e5cb8e77df2aac00baf4f706c779b20d680dbd0184c99ee1effae080eef7f8",
+        "desktopVersion":  "0.4.6",
+        "sourceCommit":  "5bbe92344f2fec4caaf5701b846e6970638fe8da",
+        "sanitizedArchive":  "cloud/0.4.6/xiquan-operations-SOURCE-WEB-20261007-024150-ec5ef10d-SANITIZED.zip",
+        "sha256":  "34e1f090a2c7fdd3cc685d7adaa41030a58a4031af0b7f6032eaa4d06bae6763",
+        "bytes":  661279,
+        "publicSourceFiles":  410,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261007-153918-3ab78ef6.zip",
+        "originalSha256":  "09d59186b026a3abab42d07d35ecf834d1b805e0f12ca5cb350bd225d39cccc8",
+        "desktopVersion":  "0.4.7",
+        "sourceCommit":  "34e2ee41f047bc5027c4b61400c85d42540a9f1d",
+        "sanitizedArchive":  "cloud/0.4.7/xiquan-operations-SOURCE-WEB-20261007-153918-3ab78ef6-SANITIZED.zip",
+        "sha256":  "55047f6fb0e8352d200332c3ee97264561f4d0ea4a0ac6a2c812f0e3ed13d188",
+        "bytes":  692378,
+        "publicSourceFiles":  424,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261007-192808-f3913f21.zip",
+        "originalSha256":  "96d7c6c75d8ce8131ddc70a86e08224c3cbb6f3522983129eb5fa49050ba33f3",
+        "desktopVersion":  "0.4.7",
+        "sourceCommit":  "daeabbba33db7d2fba02a0a2d8914fc3c0b099fc",
+        "sanitizedArchive":  "cloud/0.4.7/xiquan-operations-SOURCE-WEB-20261007-192808-f3913f21-SANITIZED.zip",
+        "sha256":  "318b3821ccf1688517d20c2ef5eb2b0cd410265a9cea5641de686818ec4e5a0b",
+        "bytes":  692740,
+        "publicSourceFiles":  424,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261007-213450-2adffcbf.zip",
+        "originalSha256":  "01e46137db14ea5bcf683b5a7bd86763f45e776fabc67a5088a6348ce98bddf6",
+        "desktopVersion":  "0.4.8",
+        "sourceCommit":  "04061b0c39cfcbe00fbde4954562740c0bfd7ae0",
+        "sanitizedArchive":  "cloud/0.4.8/xiquan-operations-SOURCE-WEB-20261007-213450-2adffcbf-SANITIZED.zip",
+        "sha256":  "4b01f8831e27f489631412d4073e5c8ec76bbb0fa9d7eea7a18f6e5e9c3fe7f9",
+        "bytes":  716331,
+        "publicSourceFiles":  430,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261007-213751-f37e13bc.zip",
+        "originalSha256":  "d8109f5bca5f5170b42d4862dc15636ac70cb5bb04fc8f1189805b81fe0b63e0",
+        "desktopVersion":  "0.4.8",
+        "sourceCommit":  "03861f7ca097dbeb5907c71861417a85ff524d7d",
+        "sanitizedArchive":  "cloud/0.4.8/xiquan-operations-SOURCE-WEB-20261007-213751-f37e13bc-SANITIZED.zip",
+        "sha256":  "59e91f2283ebfa8f36935d74fb555b8e29919e4bda593d89dd104bea593412e0",
+        "bytes":  716495,
+        "publicSourceFiles":  430,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-operations-SOURCE-WEB-20261008-182458-f6a90325.zip",
+        "originalSha256":  "b3b78893411c4a9dea59e7b3a981eee5002343f755689b21a7ec430f4ffb365b",
+        "desktopVersion":  "0.4.9",
+        "sourceCommit":  "4f11626373298754d2e0ceacd82ae7ff5dd71204",
+        "sanitizedArchive":  "cloud/0.4.9/xiquan-operations-SOURCE-WEB-20261008-182458-f6a90325-SANITIZED.zip",
+        "sha256":  "895d6c276129cd1e31a76ff4b64d99390b10d66405f10c50a5b628590a38682e",
+        "bytes":  761365,
+        "publicSourceFiles":  448,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-owner-reset-SOURCE-WEB-20261003-101047801-fab6739891654027b07905a8b33998da.zip",
+        "originalSha256":  "3ddfb5282576d2de15259a7956a032c42822d8ee884d25ba5862720151f1a385",
+        "desktopVersion":  "0.4.1",
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/0.4.1/xiquan-owner-reset-SOURCE-WEB-20261003-101047801-fab6739891654027b07905a8b33998da-SANITIZED.zip",
+        "sha256":  "1b4445b827872db1979353db5872becd0884b9c71b52c688f4b0cd1ce2b893e3",
+        "bytes":  314776,
+        "publicSourceFiles":  242,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-owner-reset-SOURCE-WEB-20261003-112323438-55ef6fbba03146f59fe343dda5ce9d1f.zip",
+        "originalSha256":  "9d370a0304f26e4034ddb48836d0699209683ac4ad5a39ffeead3077a263d0a8",
+        "desktopVersion":  "0.4.1",
+        "sourceCommit":  null,
+        "sanitizedArchive":  "cloud/0.4.1/xiquan-owner-reset-SOURCE-WEB-20261003-112323438-55ef6fbba03146f59fe343dda5ce9d1f-SANITIZED.zip",
+        "sha256":  "4018dc0014937b1bee16c772a8bbaa0b448f0115d93d9dba7fdbb0b5d805f97d",
+        "bytes":  325739,
+        "publicSourceFiles":  246,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-stock-SOURCE-WEB-20261005-124301-3f0ffd6a.zip",
+        "originalSha256":  "5c4f33c1f12d10777fd351dc1d7cebf3f936ced50c69141295a489123ec9fd34",
+        "desktopVersion":  "0.4.4",
+        "sourceCommit":  "24c229faca39e9519181136ea017da163cadb253",
+        "sanitizedArchive":  "cloud/0.4.4/xiquan-stock-SOURCE-WEB-20261005-124301-3f0ffd6a-SANITIZED.zip",
+        "sha256":  "25df5ad2a7c2c41ab3b6b4bf62339e3a6f5abb854061831957122c2278bc239e",
+        "bytes":  626105,
+        "publicSourceFiles":  396,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-stock-SOURCE-WEB-20261005-124810-98d6fdf7.zip",
+        "originalSha256":  "85949b62f6544006048d31ee74f9f50b3a01cf87bfc422d75ba96a12500c62fc",
+        "desktopVersion":  "0.4.4",
+        "sourceCommit":  "01c0f4c9b933ba3ee1e57df560b5f73d5de597bd",
+        "sanitizedArchive":  "cloud/0.4.4/xiquan-stock-SOURCE-WEB-20261005-124810-98d6fdf7-SANITIZED.zip",
+        "sha256":  "16942d0296b57dd379cda5032ae064b96185e858d3a5ee097c06b5fdf8913ae3",
+        "bytes":  626105,
+        "publicSourceFiles":  396,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    },
+    {
+        "originalName":  "xiquan-stock-SOURCE-WEB-20261005-131735-9db6283a.zip",
+        "originalSha256":  "5d5545aa5f7c0586ecfedc87c987893e6c88b2f4ca0882fd6bc99d767e6a804a",
+        "desktopVersion":  "0.4.4",
+        "sourceCommit":  "c468e73486c864fb732b6d09987d1d23cf222cfe",
+        "sanitizedArchive":  "cloud/0.4.4/xiquan-stock-SOURCE-WEB-20261005-131735-9db6283a-SANITIZED.zip",
+        "sha256":  "f9a8e692a3d47af3a536832dc48023f60a2b8ba08c029f5f6a7f660fb321a5f4",
+        "bytes":  626792,
+        "publicSourceFiles":  396,
+        "exclusions":  [
+
+                       ],
+        "note":  "Sanitized source only; generated installers, private configuration, business data and unsafe/unknown paths excluded. Raw originals retained privately. Not a deployable bundle."
+    }
+]
