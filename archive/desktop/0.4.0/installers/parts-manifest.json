@@ -1,0 +1,34 @@
+{
+  "version": "0.4.0",
+  "format": "byte-concatenation",
+  "chunkBytes": 33554432,
+  "installers": [
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.0.exe",
+      "bytes": 120268755,
+      "sha256": "6451e1e2e04b465612a2458c3ab64f66a557c0540c3e1cb9f72ef78733472f24",
+      "parts": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.0.exe.part001",
+          "bytes": 33554432,
+          "sha256": "de3e03cd33c7789776a4e6ec3f6c3ce8b725e6c8d1966f7c6f09d569f9813abe"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.0.exe.part002",
+          "bytes": 33554432,
+          "sha256": "7dbf305e4b3981170dfaa14b6e20d5cd90ce55eb3e29f19a71ae5334c9a744a4"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.0.exe.part003",
+          "bytes": 33554432,
+          "sha256": "05dc9b04f244e4e2344481d9329778bba7ba3bf8d37b62b8673bfba412fbe0d3"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.0.exe.part004",
+          "bytes": 19605459,
+          "sha256": "639e318c3cf2ca7319d9f6f8daefd52900760b04ca81ba4ed6921b61c005de55"
+        }
+      ]
+    }
+  ]
+}
