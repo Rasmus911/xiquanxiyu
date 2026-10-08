@@ -1,0 +1,159 @@
+{
+  "version": "0.4.2",
+  "format": "byte-concatenation",
+  "chunkBytes": 33554432,
+  "installers": [
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x64.exe",
+      "bytes": 120735880,
+      "sha256": "585c3bafba201d0949adf3af73bde6c5b7a10e038d2515d6788715de3fdc2e58",
+      "parts": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x64.exe.part001",
+          "bytes": 33554432,
+          "sha256": "9178218a0ba8a88fc779517baf75e7c91ccc2d21128f7124fce424535878288b"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x64.exe.part002",
+          "bytes": 33554432,
+          "sha256": "73c3629c590fb2495e1295484e186a93d1e76b8c9da1fae8df4683d41988274a"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x64.exe.part003",
+          "bytes": 33554432,
+          "sha256": "a4d013c0a1215991a68be95ad5a7e62528ee3298ba0dcf8a8b3ff2475153265c"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x64.exe.part004",
+          "bytes": 20072584,
+          "sha256": "569f4f4d93fcafab3482f0226517d0fadc8a655c57e90a84cce4600839479ee2"
+        }
+      ]
+    },
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x86.exe",
+      "bytes": 100920615,
+      "sha256": "efd9c4d61171a5c6b319e24eb84847a4f824a545600632c2086ba8d0e92666bf",
+      "parts": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x86.exe.part001",
+          "bytes": 33554432,
+          "sha256": "af704da8a987d451b731235966dff4cc52a163a7a8afe89c95b492f573d8fb77"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x86.exe.part002",
+          "bytes": 33554432,
+          "sha256": "306564073b26ae581cb9a5d2cd55c1d3496a342bb3b9635d72cbea3c92cf174f"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x86.exe.part003",
+          "bytes": 33554432,
+          "sha256": "cc797fbab119f05f689188c80d6ad7d81f00f43866fc139ecb735a5477c91e89"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win10-x86.exe.part004",
+          "bytes": 257319,
+          "sha256": "f242cec607257b1d7c9c4cbae3db8ae7f679518af7df278a68b194f6c6d78962"
+        }
+      ]
+    },
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x64.exe",
+      "bytes": 120736058,
+      "sha256": "5a6389f6c1f42042d334245a2927e6a7ed0d912f5f7b583ac94254f348a5bfa6",
+      "parts": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x64.exe.part001",
+          "bytes": 33554432,
+          "sha256": "d25feff81a04734a9cc4d9cd6adcc94f5050aa1c42bc9d56510ff2b69d7ab84f"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x64.exe.part002",
+          "bytes": 33554432,
+          "sha256": "92b76808773327eaf3662ef5c52a8c6f5ae82da248dd1d50659b90e1a5c450b9"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x64.exe.part003",
+          "bytes": 33554432,
+          "sha256": "7f415ef18fb83b7b8e29356057f49b5708dc32f20dd83b9d4e0704627f54aaa3"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x64.exe.part004",
+          "bytes": 20072762,
+          "sha256": "90d2bc66fc24f04161b5cf3831766ea6b4cfa2119eef666458515e4f65a42bd0"
+        }
+      ]
+    },
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x86.exe",
+      "bytes": 100920877,
+      "sha256": "e2e5f3fb3a1d018c173371f6c8c82d697ffd35d71a42254c439385c150872723",
+      "parts": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x86.exe.part001",
+          "bytes": 33554432,
+          "sha256": "b4fd6fa9037ca15d3de17fe65f38ec63e7ab5e268ed13474f80fa5fa27da9680"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x86.exe.part002",
+          "bytes": 33554432,
+          "sha256": "047dac6a822d531854c78091a771102d51b6bb9199b2806fdd73a4a0855abcca"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x86.exe.part003",
+          "bytes": 33554432,
+          "sha256": "af616d9b73fbb5dff30e41a36a8bc6b444fe77a9659792b16174ffd02fdbce89"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win11-x86.exe.part004",
+          "bytes": 257581,
+          "sha256": "6c5e6589a83889caf1172f728a2143252612cf09a6477f9fc8fbc9c0ab532837"
+        }
+      ]
+    },
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.2-win7-x64.exe",
+      "bytes": 77828915,
+      "sha256": "2ed911b40b00c7528d42581d10c29812b0416dd635d8d9be8b830d54fb903786",
+      "parts": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win7-x64.exe.part001",
+          "bytes": 33554432,
+          "sha256": "f855a5d2134c5573fefd929d94c9eeabe892f7b5039d7d391f78925833e5229f"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win7-x64.exe.part002",
+          "bytes": 33554432,
+          "sha256": "81971c9a7428aa3135d2b5db842b05ab9796a2e48ab694ae3e112f425863cdaa"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win7-x64.exe.part003",
+          "bytes": 10720051,
+          "sha256": "755b0b358a387e50aaf14f40dc115ffdaf518de6102897a0a4a18519385d81a7"
+        }
+      ]
+    },
+    {
+      "name": "Xiquan-Bathhouse-Setup-0.4.2-win7-x86.exe",
+      "bytes": 74198225,
+      "sha256": "c3e80bed57175bd2e77eef60f7be9909d86c2b524a1d447a8c1cc52a94a007b6",
+      "parts": [
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win7-x86.exe.part001",
+          "bytes": 33554432,
+          "sha256": "cc461616e2c25303d5bed7d5212ad62af33be3c222bed87ab0815761fd4138b6"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win7-x86.exe.part002",
+          "bytes": 33554432,
+          "sha256": "c24fa4a64473d994c70985d30ff64f083a95c2b81fd970696677ea82aa81d82f"
+        },
+        {
+          "name": "Xiquan-Bathhouse-Setup-0.4.2-win7-x86.exe.part003",
+          "bytes": 7089361,
+          "sha256": "5b12fd2970aa45ece3927aa7d601150ef9bd3c5235f5651c5aba5750bb577bbd"
+        }
+      ]
+    }
+  ]
+}
