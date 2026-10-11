@@ -1,3 +1,4 @@
 *.part* -text
 *.apk -text
 *.zip -text
+archive/**/delivery-20261011/** -text
