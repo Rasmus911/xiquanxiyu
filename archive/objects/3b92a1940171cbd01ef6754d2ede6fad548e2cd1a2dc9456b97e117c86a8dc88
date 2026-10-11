@@ -1,0 +1,5 @@
+{
+  "ToolSha256": "9f8fe703809858c3c4cae5232971f3bb877973c7e47f70fd01ef5c2eefde1650",
+  "SourceCommit": "0f2e049fe95abc3a72956c709c0f5d06a0e2cdb5",
+  "Scope": "Private receipt worker configuration only; no API recreation or migration"
+}

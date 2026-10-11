@@ -1,0 +1,108 @@
+[CmdletBinding()]
+param(
+    [ValidateSet('verify','all')][string]$Mode='all',
+    [string]$EcsTarget='root@39.96.217.210',
+    [switch]$StageOnly
+)
+$ErrorActionPreference='Stop'
+Set-StrictMode -Version Latest
+$project=Split-Path -Parent $PSScriptRoot
+$commit='0f2e049fe95abc3a72956c709c0f5d06a0e2cdb5'
+$sourceHash='b768a8d7f7a027b6524d72e448781f19d3ed3efda8e05879fc183eed69919175'
+$oldStage='/opt/xiquan-releases/desktop050-stage-ca224fc2f46a4401b4bdb3ea7497476f'
+$job='/opt/xiquan-backups/desktop050-cutover-6cf722350a264fffb77bfd44f3c6f635'
+$probe=Join-Path $project 'deploy\cloud\scripts\desktop_050_probe_recovery.py'
+if($EcsTarget-notmatch '^[A-Za-z0-9_-]+@[A-Za-z0-9.-]+$'){throw 'Invalid SSH target'}
+$deliveries=@(Get-ChildItem -LiteralPath $PSScriptRoot -Filter '*.json' -File | ForEach-Object {
+    $candidate=Get-Content -LiteralPath $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+    if($candidate.PSObject.Properties.Name-contains 'SourceZipFile'){$candidate}
+})
+if($deliveries.Count-ne 1){throw 'Exact delivery metadata missing or duplicated'}
+$delivery=$deliveries[0]
+if($delivery.SourceCommit-cne $commit -or $delivery.SourceSha256-cne $sourceHash -or $delivery.ProjectRoot-cne $project){throw 'Corrected delivery identity differs'}
+$bundle=Join-Path $PSScriptRoot $delivery.SourceZipFile
+if((Get-FileHash -LiteralPath $bundle -Algorithm SHA256).Hash.ToLowerInvariant()-cne $sourceHash){throw 'Corrected SOURCE hash differs'}
+& node.exe (Join-Path $project 'scripts\lib\reviewed-source.cjs') $project $commit
+if($LASTEXITCODE-ne 0){throw 'Reviewed source differs'}
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$zip=[IO.Compression.ZipFile]::OpenRead($bundle)
+try{
+    $entry=$zip.GetEntry('xiquan/source-manifest.json')
+    $reader=[IO.StreamReader]::new($entry.Open(),[Text.Encoding]::UTF8)
+    try{$manifest=$reader.ReadToEnd()|ConvertFrom-Json}finally{$reader.Dispose()}
+    if($manifest.source_commit-cne $commit){throw 'Corrected ZIP commit differs'}
+    $record=@($manifest.files|Where-Object{$_.file-ceq 'deploy/cloud/scripts/desktop_050_probe_recovery.py'})
+    $probeHash=(Get-FileHash -LiteralPath $probe -Algorithm SHA256).Hash.ToLowerInvariant()
+    if($record.Count-ne 1 -or $record[0].sha256-cne $probeHash){throw 'Recovery tool differs from frozen corrected SOURCE'}
+}finally{$zip.Dispose()}
+if($StageOnly){[pscustomobject]@{SourceCommit=$commit;ProbeSha256=$probeHash;Job=$job;CloudChanged=$false};return}
+. (Join-Path $project 'scripts\lib\mobile-128-transport.ps1')
+$check=@"
+import hashlib,json
+from pathlib import Path
+p=Path('$job')
+if any(item.is_symlink() for item in (p,*p.parents)): raise SystemExit('UNSAFE_CHECKPOINT')
+receipt=p/'probe-fix-verified.json'
+if not receipt.exists():
+    print(json.dumps({'verified':False}))
+else:
+    if any((p/name).exists() for name in ('after.json','completed.json','maintenance-released.json')): raise SystemExit('MIGRATION_ALREADY_STARTED_USE_EXACT_RESUME_OR_PUBLICATION')
+    r=json.loads(receipt.read_text());c=json.loads((p/'context.json').read_text());proof=json.loads((p/'clone-proof.json').read_text())
+    assert r['source_commit']=='$commit' and r['source_sha256']=='$sourceHash' and r['image_id']==c['image_id']
+    assert c['source_commit']=='$commit' and r['proof_sha256']==hashlib.sha256((p/'clone-proof.json').read_bytes()).hexdigest()
+    assert r['production_schema_unchanged'] is True and r['api_started'] is False
+    assert all(proof.get(key) is True for key in ('pg17','isolated','one_use','expiry_after_lock','immutable','runtime_grants','identity_immutable','receipt_immutable','receipt_cleanup','retained_rows'))
+    print(json.dumps({'verified':True,'stage':c['stage'],'job':'$job','source_commit':'$commit','source_sha256':'$sourceHash'}))
+"@
+$checked=Invoke-TokenNative -Executable 'ssh.exe' -Arguments @('-T','-o','ConnectTimeout=20','-o','ServerAliveInterval=15','-o','ServerAliveCountMax=3',$EcsTarget,'python3 -') -InputText ($check-replace "`r",'') -TimeoutSeconds 90 -Label 'READ VERIFIED RECOVERY RECEIPT'
+if($checked.ExitCode-ne 0){throw 'Existing checkpoint is not classified for this repair; do not repeat deployment.'}
+$known=$checked.Stdout|ConvertFrom-Json
+if($known.verified){
+    $results=@($known)
+    Write-Host 'Existing exact corrected image and real PG17 proof verified. No upload, rebuild or repeated proof.'
+}else{
+$encodedTool=[Convert]::ToBase64String([IO.File]::ReadAllBytes($probe))
+$encodedBundle=[Convert]::ToBase64String([IO.File]::ReadAllBytes($bundle))
+$remote='/tmp/xiquan-desktop050-probe-'+[guid]::NewGuid().ToString('N')
+$program=@"
+import base64,hashlib,os,runpy,sys
+from pathlib import Path
+os.umask(0o077)
+root=Path('$remote')
+if any(item.is_symlink() for item in (root,*root.parents)): raise SystemExit('RECOVERY_PATH_INVALID')
+root.mkdir(mode=0o700)
+for name,encoded,expected in [('repair.py','$encodedTool','$probeHash'),('source.zip','$encodedBundle','$sourceHash')]:
+    data=base64.b64decode(encoded,validate=True)
+    if hashlib.sha256(data).hexdigest()!=expected: raise SystemExit('RECOVERY_SHA256_MISMATCH')
+    with (root/name).open('xb') as writer: writer.write(data)
+    (root/name).chmod(0o600)
+    print('UPLOAD_AND_SHA256_VERIFIED='+name,flush=True)
+sys.argv=[str(root/'repair.py'),'--stage','$oldStage','--job','$job','--bundle',str(root/'source.zip'),'--sha256','$sourceHash','--commit','$commit']
+runpy.run_path(str(root/'repair.py'),run_name='__main__')
+"@
+Write-Host 'Adopt only reviewed receipt fixes and verify in isolated PG17. Production remains paused.'
+$verified=Invoke-TokenNative -Executable 'ssh.exe' -Arguments @('-T','-o','ConnectTimeout=20','-o','ServerAliveInterval=15','-o','ServerAliveCountMax=3',$EcsTarget,'python3 -') -InputText ($program-replace "`r",'') -TimeoutSeconds 600 -Label 'DESKTOP050 CORRECTED SOURCE PROOF'
+$verified.Stdout -split "`r?`n" | Where-Object {$_} | ForEach-Object {Write-Host $_}
+if($verified.ExitCode-ne 0){
+    $verified.Stderr -split "`r?`n" | Where-Object {$_-match '^DESKTOP050_PROBE_RECOVERY_STOPPED:'} | ForEach-Object {Write-Host $_}
+    throw ('Corrected proof failed. Keep exact job/evidence; no production migration: '+$job)
+}
+if($verified.Stdout-notmatch 'DESKTOP050_CORRECTED_SOURCE_AND_PG17_VERIFIED'){throw 'Verified proof marker missing'}
+$results=@($verified.Stdout -split "`r?`n" | Where-Object {$_-match '^\s*\{'} | ForEach-Object {
+    $row=$_|ConvertFrom-Json
+    if($row.PSObject.Properties.Name-contains 'source_commit'){$row}
+})
+}
+if($results.Count-ne 1 -or $results[0].source_commit-cne $commit -or $results[0].source_sha256-cne $sourceHash -or
+    $results[0].job-cne $job -or $results[0].stage-notmatch '^/opt/xiquan-releases/desktop050-stage-[0-9a-f]{32}$'){throw 'Exact corrected recovery checkpoint missing'}
+$stage=$results[0].stage
+$results[0]|ConvertTo-Json | Set-Content -LiteralPath (Join-Path $PSScriptRoot 'cloud-recovery-checkpoint.json') -Encoding UTF8
+if($Mode-eq 'verify'){Write-Host 'Corrected image and isolated proof verified only. API is still paused.';return}
+Write-Host 'Resume the exact corrected checkpoint. No second image rebuild or database reset.'
+$invoke=Join-Path $project 'scripts\invoke-desktop-050.ps1'
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $invoke -Mode resume -BundlePath $bundle -ExpectedSha256 $sourceHash -SourceCommit $commit -Stage $stage -Job $job -EcsTarget $EcsTarget
+if($LASTEXITCODE-ne 0){throw ('Resume stopped. Keep exact job/evidence; do not redeploy or restore: '+$job)}
+[pscustomobject]@{SourceCommit=$commit;SourceSha256=$sourceHash;Stage=$stage;Job=$job;CloudChanged=$true} |
+    ConvertTo-Json | Set-Content -LiteralPath (Join-Path $PSScriptRoot 'cloud-recovery-result.json') -Encoding UTF8
+Write-Host 'Cloud resume completed. Run the existing 02 signing/publication script with the exact -Job printed here.'
+Write-Host ('COMPLETED_JOB='+$job)

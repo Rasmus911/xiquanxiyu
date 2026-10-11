@@ -1,0 +1,3 @@
+!define XQ_TARGET_FAMILY "win11"
+!define XQ_TARGET_ARCH "x64"
+!include "F:\溪泉洗浴系统\client\build\windows-target.nsh"
