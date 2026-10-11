@@ -1,10 +1,12 @@
 # 0.5.1 实体卡消费源码与页面
 
-冻结源码提交：`ecafa62c23e179ae7b0008fa2bdaa0059f1299b2`。
+最终冻结源码提交：`03c0e083d1be6ec599354a57ff484e88e0149fe2`。
 
-源码/网页压缩包：`xiquan-desktop051-SOURCE-WEB-20261012-051425-ddeead1c.zip`。
+当前源码/网页压缩包：`xiquan-desktop051-SOURCE-WEB-20261012-052210-6e668508.zip`。
 
-SHA256：`348335a2644cab6e43818f6da6c88fc7542a4ef93bcb7182b84a68990c6b8da8`。
+SHA256：`8237353c0f81eacbd92fbfc879b09a891b11317e1b148bbf6a2677ed12f0e3a8`。
+
+此前预发布候选 `xiquan-desktop051-SOURCE-WEB-20261012-051425-ddeead1c.zip`（ecafa62，SHA256 `348335a2644cab6e43818f6da6c88fc7542a4ef93bcb7182b84a68990c6b8da8`）保留作历史证据；不是当前交付。最终提交另外校正了旧README中的手牌号及清空密码说明。
 
 本次更新日志：1. 增加实体卡消费功能。
 
@@ -14,9 +16,9 @@ SHA256：`348335a2644cab6e43818f6da6c88fc7542a4ef93bcb7182b84a68990c6b8da8`。
 
 四个本地候选安装包SHA256：
 
-- Win10 x86：`4a8af6f25e40062785a4282b74a8151a0ca79f90c3ff5ab7839048cdf540a5ba`
-- Win10 x64：`254dfe8f9a045f3bdf063f542e27d477e67a2544f35496295218caf83a0780f0`
-- Win11 x86：`58b44737dd6153196c69fcccd706f6ff5ffa5a817adcf077a70958149298fbde`
-- Win11 x64：`219dd7676cbc51cc70d19b215046ee3380dfe442964b5a4af742a0f084011c8c`
+- Win10 x86：`7901e1ee0281a7bf664aa3de86d10963cab99046070f1c6ba4341b9d973592f9`
+- Win10 x64：`80b3b7c84da5da237b0ea374ce4d0b203899d835c9d32a8f406f15b0419a4ae8`
+- Win11 x86：`a521aed51a775a092724516f471ffefea17e0be9ebf5fa584cb60e275f45a6bc`
+- Win11 x64：`d765a29d62ef1d7e3f91987ddf00d3608659ec10d8767ce07548fb73ed50119e`
 
 完整构建和部署说明见压缩包内 `xiquan/docs/releases/desktop-0.5.1.md`。密钥必须继续在本机私有保留，不能推送到此公共仓库。
