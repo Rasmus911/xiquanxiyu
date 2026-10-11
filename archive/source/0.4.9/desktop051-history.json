@@ -1,0 +1,34 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-账号注册-0.4.9/xiquan-operations-SOURCE-WEB-20261008-182458-f6a90325.zip",
+      "version": "0.4.9",
+      "size": 2230410,
+      "sha256": "b3b78893411c4a9dea59e7b3a981eee5002343f755689b21a7ec430f4ffb365b",
+      "category": "source/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/b3b78893411c4a9dea59e7b3a981eee5002343f755689b21a7ec430f4ffb365b",
+          "size": 2230410,
+          "sha256": "b3b78893411c4a9dea59e7b3a981eee5002343f755689b21a7ec430f4ffb365b"
+        }
+      ]
+    },
+    {
+      "path": "release/cloud/xiquan-operations-SOURCE-WEB-20261008-182458-f6a90325.zip",
+      "version": "0.4.9",
+      "size": 2230410,
+      "sha256": "b3b78893411c4a9dea59e7b3a981eee5002343f755689b21a7ec430f4ffb365b",
+      "category": "source/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/b3b78893411c4a9dea59e7b3a981eee5002343f755689b21a7ec430f4ffb365b",
+          "size": 2230410,
+          "sha256": "b3b78893411c4a9dea59e7b3a981eee5002343f755689b21a7ec430f4ffb365b"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/01-部署云端.ps1",
+      "version": "0.5.0",
+      "size": 1183,
+      "sha256": "45bd04f1c5950a44561179c1e2b6cf2fc1a9307d9adddb533f04982c955e9640",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/45bd04f1c5950a44561179c1e2b6cf2fc1a9307d9adddb533f04982c955e9640",
+          "size": 1183,
+          "sha256": "45bd04f1c5950a44561179c1e2b6cf2fc1a9307d9adddb533f04982c955e9640"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/02-签名并发布桌面更新.ps1",
+      "version": "0.5.0",
+      "size": 3337,
+      "sha256": "c2d43c41b25b0459ce92e453413d8abe8ce3b8a61234e1dc07e54565c9bda56a",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/c2d43c41b25b0459ce92e453413d8abe8ce3b8a61234e1dc07e54565c9bda56a",
+          "size": 3337,
+          "sha256": "c2d43c41b25b0459ce92e453413d8abe8ce3b8a61234e1dc07e54565c9bda56a"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/04-修复隔离检查并续部署.ps1",
+      "version": "0.5.0",
+      "size": 7862,
+      "sha256": "30a95a3e5b1e1da717d9eec7149df838dc9b2e1e214ecf07f2e2cf6f08af8ff3",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/30a95a3e5b1e1da717d9eec7149df838dc9b2e1e214ecf07f2e2cf6f08af8ff3",
+          "size": 7862,
+          "sha256": "30a95a3e5b1e1da717d9eec7149df838dc9b2e1e214ecf07f2e2cf6f08af8ff3"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/05-修复小票清理任务.ps1",
+      "version": "0.5.0",
+      "size": 3120,
+      "sha256": "e83921718a9a659b558d7f2b01cb2da84712fbd32c17bf4e8ba0434a4dcfdb39",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/e83921718a9a659b558d7f2b01cb2da84712fbd32c17bf4e8ba0434a4dcfdb39",
+          "size": 3120,
+          "sha256": "e83921718a9a659b558d7f2b01cb2da84712fbd32c17bf4e8ba0434a4dcfdb39"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/2026-10-11-desktop-050.md",
+      "version": "0.5.0",
+      "size": 5531,
+      "sha256": "b94e39c76edd582a9acac77a8356dbc853f95252e760c03630743706bfb5355c",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/b94e39c76edd582a9acac77a8356dbc853f95252e760c03630743706bfb5355c",
+          "size": 5531,
+          "sha256": "b94e39c76edd582a9acac77a8356dbc853f95252e760c03630743706bfb5355c"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/SHA256SUMS.txt",
+      "version": "0.5.0",
+      "size": 762,
+      "sha256": "997fbbfb328f915ac0eb5e529be4c3241baf83a3973e9992493dee7f42d2aa1f",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/997fbbfb328f915ac0eb5e529be4c3241baf83a3973e9992493dee7f42d2aa1f",
+          "size": 762,
+          "sha256": "997fbbfb328f915ac0eb5e529be4c3241baf83a3973e9992493dee7f42d2aa1f"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/__pycache__/receipt_cleanup_recovery.cpython-312.pyc",
+      "version": "0.5.0",
+      "size": 20018,
+      "sha256": "f86a5c126f292fad9bb6e11eafc29c182ccbfd280281d2745dea54212de6fe29",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/f86a5c126f292fad9bb6e11eafc29c182ccbfd280281d2745dea54212de6fe29",
+          "size": 20018,
+          "sha256": "f86a5c126f292fad9bb6e11eafc29c182ccbfd280281d2745dea54212de6fe29"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/_checks/__pycache__/test_cleanup_recovery.cpython-312-pytest-8.4.2.pyc",
+      "version": "0.5.0",
+      "size": 12834,
+      "sha256": "bbdb89ff0d8f3e3182af37c558ff7242c9a201ff53bdc6842621d20ce1633d98",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/bbdb89ff0d8f3e3182af37c558ff7242c9a201ff53bdc6842621d20ce1633d98",
+          "size": 12834,
+          "sha256": "bbdb89ff0d8f3e3182af37c558ff7242c9a201ff53bdc6842621d20ce1633d98"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/_checks/test_cleanup_recovery.py",
+      "version": "0.5.0",
+      "size": 4607,
+      "sha256": "dc2ff99630964a2c7da5fea9b5dd3f749e82a4e572350f6061448097e19f1df2",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/dc2ff99630964a2c7da5fea9b5dd3f749e82a4e572350f6061448097e19f1df2",
+          "size": 4607,
+          "sha256": "dc2ff99630964a2c7da5fea9b5dd3f749e82a4e572350f6061448097e19f1df2"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/cloud-recovery-checkpoint.json",
+      "version": "0.5.0",
+      "size": 367,
+      "sha256": "029a9980f953502e250dc0c5258d31adb72c77d59f7d31a0f8d2321445980906",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/029a9980f953502e250dc0c5258d31adb72c77d59f7d31a0f8d2321445980906",
+          "size": 367,
+          "sha256": "029a9980f953502e250dc0c5258d31adb72c77d59f7d31a0f8d2321445980906"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/receipt-recovery-sha256.json",
+      "version": "0.5.0",
+      "size": 237,
+      "sha256": "3b92a1940171cbd01ef6754d2ede6fad548e2cd1a2dc9456b97e117c86a8dc88",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/3b92a1940171cbd01ef6754d2ede6fad548e2cd1a2dc9456b97e117c86a8dc88",
+          "size": 237,
+          "sha256": "3b92a1940171cbd01ef6754d2ede6fad548e2cd1a2dc9456b97e117c86a8dc88"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/receipt_cleanup_recovery.py",
+      "version": "0.5.0",
+      "size": 13288,
+      "sha256": "9f8fe703809858c3c4cae5232971f3bb877973c7e47f70fd01ef5c2eefde1650",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/9f8fe703809858c3c4cae5232971f3bb877973c7e47f70fd01ef5c2eefde1650",
+          "size": 13288,
+          "sha256": "9f8fe703809858c3c4cae5232971f3bb877973c7e47f70fd01ef5c2eefde1650"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/交付信息.json",
+      "version": "0.5.0",
+      "size": 765,
+      "sha256": "edf530e8507598fe1c8662c33a2f1c80a94da7be4012942899dcf09a1acf57e2",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/edf530e8507598fe1c8662c33a2f1c80a94da7be4012942899dcf09a1acf57e2",
+          "size": 765,
+          "sha256": "edf530e8507598fe1c8662c33a2f1c80a94da7be4012942899dcf09a1acf57e2"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/完整PowerShell指令.md",
+      "version": "0.5.0",
+      "size": 5966,
+      "sha256": "5eba7d9ab609d156918981ce37ef744ff1d891714ed7b178d1c62a49186d318c",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/5eba7d9ab609d156918981ce37ef744ff1d891714ed7b178d1c62a49186d318c",
+          "size": 5966,
+          "sha256": "5eba7d9ab609d156918981ce37ef744ff1d891714ed7b178d1c62a49186d318c"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/归档与发布状态.json",
+      "version": "0.5.0",
+      "size": 928,
+      "sha256": "746cadfbc99d4112b4747c7f7a94d276e3971c49b77feca358a3e85ba3cb83b2",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/746cadfbc99d4112b4747c7f7a94d276e3971c49b77feca358a3e85ba3cb83b2",
+          "size": 928,
+          "sha256": "746cadfbc99d4112b4747c7f7a94d276e3971c49b77feca358a3e85ba3cb83b2"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/本地验证结果.json",
+      "version": "0.5.0",
+      "size": 1573,
+      "sha256": "7178b46c77b2f1c11eb093f1faa2ef12018d2b0f296b3c323ba8bf5743f5faf2",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/7178b46c77b2f1c11eb093f1faa2ef12018d2b0f296b3c323ba8bf5743f5faf2",
+          "size": 1573,
+          "sha256": "7178b46c77b2f1c11eb093f1faa2ef12018d2b0f296b3c323ba8bf5743f5faf2"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/本次部署失败修复说明.md",
+      "version": "0.5.0",
+      "size": 2535,
+      "sha256": "115a04119a88aa082879ee24f112cfd961159a6a5c9fc21d4d64478e74dfb5b7",
+      "category": "documents/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/115a04119a88aa082879ee24f112cfd961159a6a5c9fc21d4d64478e74dfb5b7",
+          "size": 2535,
+          "sha256": "115a04119a88aa082879ee24f112cfd961159a6a5c9fc21d4d64478e74dfb5b7"
+        }
+      ]
+    }
+  ]
+}

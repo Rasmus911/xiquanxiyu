@@ -1,0 +1,10 @@
+version: 0.5.0
+files:
+  - url: Xiquan-Bathhouse-Setup-0.5.0-win10-x64.exe
+    sha512: >-
+      Mxk4tF9On76BnDjbfz0MM3V4xTQanA8qsUd7sEIdRxNDaBZXldnn3CGNgFy68ZT7TcPHopRfKlCJ3ud4F4XHxw==
+    size: 120752218
+path: Xiquan-Bathhouse-Setup-0.5.0-win10-x64.exe
+sha512: >-
+  Mxk4tF9On76BnDjbfz0MM3V4xTQanA8qsUd7sEIdRxNDaBZXldnn3CGNgFy68ZT7TcPHopRfKlCJ3ud4F4XHxw==
+releaseDate: '2026-10-11T16:22:37.645Z'

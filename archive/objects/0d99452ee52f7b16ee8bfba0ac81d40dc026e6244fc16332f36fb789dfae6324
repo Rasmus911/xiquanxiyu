@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "version": "0.4.9",
+  "buildId": "registration049-delivery-20261008",
+  "complete": true,
+  "requestedTargets": [
+    "win11-x64"
+  ],
+  "allTargets": false,
+  "signed": true,
+  "testOnly": false,
+  "releaseTrust": {
+    "keyId": "b26477a9ed540ad0",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAg5Euc1O6oXK6xaPLK8bFabECK024fg76iz7g0kjTEo0=\n-----END PUBLIC KEY-----\n",
+    "testOnly": false
+  },
+  "acceptance": {
+    "realOs": "not-tested",
+    "usbPrinter": "not-tested",
+    "inPlaceUpdate": "not-tested",
+    "runtimeSmoke": "not-tested"
+  },
+  "targets": [
+    {
+      "profile": {
+        "targetId": "win11-x64",
+        "arch": "x64",
+        "electronVersion": "44.5.1",
+        "runtimeFamily": "windows-x64",
+        "allowedHosts": [
+          "win11"
+        ]
+      },
+      "version": "0.4.9",
+      "buildId": "registration049-delivery-20261008",
+      "releaseTrust": {
+        "keyId": "b26477a9ed540ad0",
+        "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAg5Euc1O6oXK6xaPLK8bFabECK024fg76iz7g0kjTEo0=\n-----END PUBLIC KEY-----\n",
+        "testOnly": false
+      },
+      "payloadArch": "x64",
+      "artifact": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.4.9-win11-x64.exe",
+        "size": 120749494,
+        "sha256": "f657470086727bda13719f0fd401585075ab95ca595e5351f11ea4f7eb29c6b2",
+        "sha512": "m1woeHRnMvLK2C6Yn436/IGRG3sghexmxW3U+6QSy5RiGyXx5OLUyMH0H7lbPd1zGFIrKH0f1MFovnN1qOzrmw=="
+      },
+      "blockmap": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.4.9-win11-x64.exe.blockmap",
+        "size": 126702,
+        "sha256": "89fe0704e0b997981c43ea4b16836fd1cbd8ca50b8cb8e5805f185823ee86223",
+        "sha512": "6W+yYotQEZJpoUS7ik8lHsvZf+4Cbie9yC53Zq759HjM/6sh9GpWZVlVKHLIXZBvMMCAipkbkaoq8hBuXJiHPQ=="
+      },
+      "updaterManifest": {
+        "fileName": "latest.yml",
+        "size": 395,
+        "sha256": "68891db7ac4665ba8e43dd7e6bb7359b1caa49bca8900cd39baa62471ed89420",
+        "sha512": "EAHsSQYgcgSJkhA6vj9FRl9bGR+yxp0IHKestZLzoXXZ5Pw2lR28cdJN71Gbitc8FSh7ck+ucL9FDcLDXcRwpA=="
+      }
+    }
+  ]
+}

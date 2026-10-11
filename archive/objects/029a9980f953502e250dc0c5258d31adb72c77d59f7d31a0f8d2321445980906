@@ -1,0 +1,7 @@
+﻿{
+    "verified":  true,
+    "stage":  "/opt/xiquan-releases/desktop050-stage-c16520341d01404e820cded1d65b2ff2",
+    "job":  "/opt/xiquan-backups/desktop050-cutover-6cf722350a264fffb77bfd44f3c6f635",
+    "source_commit":  "0f2e049fe95abc3a72956c709c0f5d06a0e2cdb5",
+    "source_sha256":  "b768a8d7f7a027b6524d72e448781f19d3ed3efda8e05879fc183eed69919175"
+}

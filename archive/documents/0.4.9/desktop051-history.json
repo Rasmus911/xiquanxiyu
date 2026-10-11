@@ -1,0 +1,174 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-账号注册-0.4.9/01-部署云端.ps1",
+      "version": "0.4.9",
+      "size": 865,
+      "sha256": "d4dc10ae4e73972f2cd050f2656320d703796dd304442ea969631826ed284126",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/d4dc10ae4e73972f2cd050f2656320d703796dd304442ea969631826ed284126",
+          "size": 865,
+          "sha256": "d4dc10ae4e73972f2cd050f2656320d703796dd304442ea969631826ed284126"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号注册-0.4.9/02-签名并发布桌面更新.ps1",
+      "version": "0.4.9",
+      "size": 1093,
+      "sha256": "1f03cf4c30cf4619a60446e6ea0abd38196abbed72c71b33e0c7864cfc8435b2",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/1f03cf4c30cf4619a60446e6ea0abd38196abbed72c71b33e0c7864cfc8435b2",
+          "size": 1093,
+          "sha256": "1f03cf4c30cf4619a60446e6ea0abd38196abbed72c71b33e0c7864cfc8435b2"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号注册-0.4.9/03-构建并发布安卓应用内更新.ps1",
+      "version": "0.4.9",
+      "size": 5003,
+      "sha256": "b429b7521e6e02fbd92f52032e746db38b43ff67344e067468ef3b92145f9c71",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/b429b7521e6e02fbd92f52032e746db38b43ff67344e067468ef3b92145f9c71",
+          "size": 5003,
+          "sha256": "b429b7521e6e02fbd92f52032e746db38b43ff67344e067468ef3b92145f9c71"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号注册-0.4.9/04-只读检查部署失败.ps1",
+      "version": "0.4.9",
+      "size": 4207,
+      "sha256": "64af1f08709cf56e39ebb2cebf21f3287fac827ac2f368fdb5c0458b913093d3",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/64af1f08709cf56e39ebb2cebf21f3287fac827ac2f368fdb5c0458b913093d3",
+          "size": 4207,
+          "sha256": "64af1f08709cf56e39ebb2cebf21f3287fac827ac2f368fdb5c0458b913093d3"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号注册-0.4.9/05-修复备份并继续部署.ps1",
+      "version": "0.4.9",
+      "size": 2510,
+      "sha256": "9e428ed034ce8ec848992a35bb0a5829813248ccaf13bc71a81a557be64675c1",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/9e428ed034ce8ec848992a35bb0a5829813248ccaf13bc71a81a557be64675c1",
+          "size": 2510,
+          "sha256": "9e428ed034ce8ec848992a35bb0a5829813248ccaf13bc71a81a557be64675c1"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号注册-0.4.9/05-恢复说明.md",
+      "version": "0.4.9",
+      "size": 1815,
+      "sha256": "9cc6b86332a73ec8cc6d39ee666ac982244d7d47271143b39d5e16efbb6fa15a",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/9cc6b86332a73ec8cc6d39ee666ac982244d7d47271143b39d5e16efbb6fa15a",
+          "size": 1815,
+          "sha256": "9cc6b86332a73ec8cc6d39ee666ac982244d7d47271143b39d5e16efbb6fa15a"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号注册-0.4.9/2026-10-08-desktop-049.md",
+      "version": "0.4.9",
+      "size": 8087,
+      "sha256": "f1d44df02d2147ede72cb1ade089e1e92dbb9528d9bf280295cc90e14a211ea2",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/f1d44df02d2147ede72cb1ade089e1e92dbb9528d9bf280295cc90e14a211ea2",
+          "size": 8087,
+          "sha256": "f1d44df02d2147ede72cb1ade089e1e92dbb9528d9bf280295cc90e14a211ea2"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号注册-0.4.9/__pycache__/registration049_backup_recovery.cpython-312.pyc",
+      "version": "0.4.9",
+      "size": 22549,
+      "sha256": "2c1be124ea6f0aedf95fcde9240212b47f577465d7b563615ca33178b6e82f0b",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/2c1be124ea6f0aedf95fcde9240212b47f577465d7b563615ca33178b6e82f0b",
+          "size": 22549,
+          "sha256": "2c1be124ea6f0aedf95fcde9240212b47f577465d7b563615ca33178b6e82f0b"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号注册-0.4.9/registration049_backup_recovery.py",
+      "version": "0.4.9",
+      "size": 13803,
+      "sha256": "90ca91bada6631bea18d7da7c4ab6a72e4eb64c5e047cff2d4a193cf0e6520ad",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/90ca91bada6631bea18d7da7c4ab6a72e4eb64c5e047cff2d4a193cf0e6520ad",
+          "size": 13803,
+          "sha256": "90ca91bada6631bea18d7da7c4ab6a72e4eb64c5e047cff2d4a193cf0e6520ad"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号注册-0.4.9/xiquan-mobile-ordering-1.2.7.apk",
+      "version": "0.4.9",
+      "size": 3370738,
+      "sha256": "27b7b289e578ce25adcd4e2dd94ee8230c4c8861b7716ad37b96a2cff6535485",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/27b7b289e578ce25adcd4e2dd94ee8230c4c8861b7716ad37b96a2cff6535485",
+          "size": 3370738,
+          "sha256": "27b7b289e578ce25adcd4e2dd94ee8230c4c8861b7716ad37b96a2cff6535485"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号注册-0.4.9/交付信息.json",
+      "version": "0.4.9",
+      "size": 768,
+      "sha256": "6554f9834c71e8aa77ee5beeca0e2602b14e37b16ef611392609d9f33ad9e973",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/6554f9834c71e8aa77ee5beeca0e2602b14e37b16ef611392609d9f33ad9e973",
+          "size": 768,
+          "sha256": "6554f9834c71e8aa77ee5beeca0e2602b14e37b16ef611392609d9f33ad9e973"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-账号注册-0.4.9/归档整理说明.md",
+      "version": "0.4.9",
+      "size": 2317,
+      "sha256": "b1c6618114af1a275064151338ec17bdd89dfe6d5f9ce049d382bfbfa36f4ab1",
+      "category": "documents/0.4.9",
+      "pieces": [
+        {
+          "file": "archive/objects/b1c6618114af1a275064151338ec17bdd89dfe6d5f9ce049d382bfbfa36f4ab1",
+          "size": 2317,
+          "sha256": "b1c6618114af1a275064151338ec17bdd89dfe6d5f9ce049d382bfbfa36f4ab1"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-账号与小票-0.5.0/xiquan-operations-SOURCE-WEB-20261011-235004-101b8f7a.zip",
+      "version": "0.5.0",
+      "size": 2395593,
+      "sha256": "b768a8d7f7a027b6524d72e448781f19d3ed3efda8e05879fc183eed69919175",
+      "category": "source/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/b768a8d7f7a027b6524d72e448781f19d3ed3efda8e05879fc183eed69919175",
+          "size": 2395593,
+          "sha256": "b768a8d7f7a027b6524d72e448781f19d3ed3efda8e05879fc183eed69919175"
+        }
+      ]
+    },
+    {
+      "path": "release/cloud/xiquan-operations-SOURCE-WEB-20261011-225407-1a104878.zip",
+      "version": "0.5.0",
+      "size": 2386755,
+      "sha256": "5a1baa5ab2b63c897c3932da5e0a6c4c92b77e761fdc356dcc98f0e5f4a3181a",
+      "category": "source/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/5a1baa5ab2b63c897c3932da5e0a6c4c92b77e761fdc356dcc98f0e5f4a3181a",
+          "size": 2386755,
+          "sha256": "5a1baa5ab2b63c897c3932da5e0a6c4c92b77e761fdc356dcc98f0e5f4a3181a"
+        }
+      ]
+    },
+    {
+      "path": "release/cloud/xiquan-operations-SOURCE-WEB-20261011-234016-72b2c455.zip",
+      "version": "0.5.0",
+      "size": 2393953,
+      "sha256": "f5924a033c5f1f2ac264300c10f8b3e14c7fc9efbcb41482805a7e6a1ac5e868",
+      "category": "source/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/f5924a033c5f1f2ac264300c10f8b3e14c7fc9efbcb41482805a7e6a1ac5e868",
+          "size": 2393953,
+          "sha256": "f5924a033c5f1f2ac264300c10f8b3e14c7fc9efbcb41482805a7e6a1ac5e868"
+        }
+      ]
+    },
+    {
+      "path": "release/cloud/xiquan-operations-SOURCE-WEB-20261011-234408-ea66fa92.zip",
+      "version": "0.5.0",
+      "size": 2394190,
+      "sha256": "3f25233a1524b322e2e3cfcb7ae0998313cb9081435067afde2fa2fad2d7fa8a",
+      "category": "source/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/3f25233a1524b322e2e3cfcb7ae0998313cb9081435067afde2fa2fad2d7fa8a",
+          "size": 2394190,
+          "sha256": "3f25233a1524b322e2e3cfcb7ae0998313cb9081435067afde2fa2fad2d7fa8a"
+        }
+      ]
+    },
+    {
+      "path": "release/cloud/xiquan-operations-SOURCE-WEB-20261011-235004-101b8f7a.zip",
+      "version": "0.5.0",
+      "size": 2395593,
+      "sha256": "b768a8d7f7a027b6524d72e448781f19d3ed3efda8e05879fc183eed69919175",
+      "category": "source/0.5.0",
+      "pieces": [
+        {
+          "file": "archive/objects/b768a8d7f7a027b6524d72e448781f19d3ed3efda8e05879fc183eed69919175",
+          "size": 2395593,
+          "sha256": "b768a8d7f7a027b6524d72e448781f19d3ed3efda8e05879fc183eed69919175"
+        }
+      ]
+    }
+  ]
+}

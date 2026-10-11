@@ -1,0 +1,104 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-注册令牌-手机版1.2.8/01-修复云端令牌权限.ps1",
+      "version": "1.2.8",
+      "size": 458,
+      "sha256": "82fb29056b36a91f79a01b286cf715a62a12404fec26a5ef94ab0dbc36097d8f",
+      "category": "mobile/1.2.8",
+      "pieces": [
+        {
+          "file": "archive/objects/82fb29056b36a91f79a01b286cf715a62a12404fec26a5ef94ab0dbc36097d8f",
+          "size": 458,
+          "sha256": "82fb29056b36a91f79a01b286cf715a62a12404fec26a5ef94ab0dbc36097d8f"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-注册令牌-手机版1.2.8/02-构建并发布手机更新.ps1",
+      "version": "1.2.8",
+      "size": 797,
+      "sha256": "0bfaf85a899cc4f0701d03e4d5dffb3c97c17494e9fef65ad743a4a0371f4d10",
+      "category": "mobile/1.2.8",
+      "pieces": [
+        {
+          "file": "archive/objects/0bfaf85a899cc4f0701d03e4d5dffb3c97c17494e9fef65ad743a4a0371f4d10",
+          "size": 797,
+          "sha256": "0bfaf85a899cc4f0701d03e4d5dffb3c97c17494e9fef65ad743a4a0371f4d10"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-注册令牌-手机版1.2.8/03-检查本次API验证失败.ps1",
+      "version": "1.2.8",
+      "size": 5200,
+      "sha256": "1032bc3147bf94f51db0f77bef489829238ca9cd53f68013dd0763082c0f36e5",
+      "category": "mobile/1.2.8",
+      "pieces": [
+        {
+          "file": "archive/objects/1032bc3147bf94f51db0f77bef489829238ca9cd53f68013dd0763082c0f36e5",
+          "size": 5200,
+          "sha256": "1032bc3147bf94f51db0f77bef489829238ca9cd53f68013dd0763082c0f36e5"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-注册令牌-手机版1.2.8/xiquan-mobile-ordering-1.2.8.apk",
+      "version": "1.2.8",
+      "size": 3370670,
+      "sha256": "e3d66347fe55d8ab545d418464e6a48f920b98f6c97702ae0ca06eb70f438bc7",
+      "category": "mobile/1.2.8",
+      "pieces": [
+        {
+          "file": "archive/objects/e3d66347fe55d8ab545d418464e6a48f920b98f6c97702ae0ca06eb70f438bc7",
+          "size": 3370670,
+          "sha256": "e3d66347fe55d8ab545d418464e6a48f920b98f6c97702ae0ca06eb70f438bc7"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-注册令牌-手机版1.2.8/交付信息.json",
+      "version": "1.2.8",
+      "size": 507,
+      "sha256": "5de6d12d26bf9b0108acee11252c26594c7d64304dae943c0e84d6075d050479",
+      "category": "mobile/1.2.8",
+      "pieces": [
+        {
+          "file": "archive/objects/5de6d12d26bf9b0108acee11252c26594c7d64304dae943c0e84d6075d050479",
+          "size": 507,
+          "sha256": "5de6d12d26bf9b0108acee11252c26594c7d64304dae943c0e84d6075d050479"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-注册令牌-手机版1.2.8/操作说明.md",
+      "version": "1.2.8",
+      "size": 2958,
+      "sha256": "010763dfc49e849da564f3a89f11d14e3e84974b43e8b186a8426470ca216a52",
+      "category": "mobile/1.2.8",
+      "pieces": [
+        {
+          "file": "archive/objects/010763dfc49e849da564f3a89f11d14e3e84974b43e8b186a8426470ca216a52",
+          "size": 2958,
+          "sha256": "010763dfc49e849da564f3a89f11d14e3e84974b43e8b186a8426470ca216a52"
+        }
+      ]
+    },
+    {
+      "path": "release/mobile/xiquan-mobile-ordering-1.2.8.apk",
+      "version": "1.2.8",
+      "size": 3370670,
+      "sha256": "e3d66347fe55d8ab545d418464e6a48f920b98f6c97702ae0ca06eb70f438bc7",
+      "category": "mobile/1.2.8",
+      "pieces": [
+        {
+          "file": "archive/objects/e3d66347fe55d8ab545d418464e6a48f920b98f6c97702ae0ca06eb70f438bc7",
+          "size": 3370670,
+          "sha256": "e3d66347fe55d8ab545d418464e6a48f920b98f6c97702ae0ca06eb70f438bc7"
+        }
+      ]
+    }
+  ]
+}

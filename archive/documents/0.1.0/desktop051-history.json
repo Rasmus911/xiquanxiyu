@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "release/README-交付说明.md",
+      "version": "0.1.0",
+      "size": 3736,
+      "sha256": "ea4303e33b6a01a566aa6a8be45fe8874bd271e103bd4c78bb0e12fb4d65b7cc",
+      "category": "documents/0.1.0",
+      "pieces": [
+        {
+          "file": "archive/objects/ea4303e33b6a01a566aa6a8be45fe8874bd271e103bd4c78bb0e12fb4d65b7cc",
+          "size": 3736,
+          "sha256": "ea4303e33b6a01a566aa6a8be45fe8874bd271e103bd4c78bb0e12fb4d65b7cc"
+        }
+      ]
+    }
+  ]
+}
