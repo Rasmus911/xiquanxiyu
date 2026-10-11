@@ -1,0 +1,91 @@
+import importlib.util
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+import time
+
+import pytest
+
+SPEC = importlib.util.spec_from_file_location('cleanup_recovery', Path(__file__).parents[1] / 'receipt_cleanup_recovery.py')
+recovery = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(recovery)
+
+
+def test_healthcheck_never_imports_the_backend(tmp_path):
+    # Importing the full backend in a second process exhausted the 128 MiB cgroup.
+    app = tmp_path / 'app'
+    app.mkdir()
+    (app / '__init__.py').write_text("raise RuntimeError('BACKEND_IMPORTED_BY_HEALTHCHECK')")
+    command = recovery.worker_override('sha256:' + 'a' * 64)['services']['receipt-cleanup']['healthcheck']['test']
+    result = subprocess.run([sys.executable, *command[2:]], cwd=tmp_path, capture_output=True, text=True)
+    assert result.returncode == 1  # No heartbeat yet: unhealthy, not an import crash.
+    assert result.stderr == ''
+
+
+@pytest.mark.parametrize('value,expected', [
+    ({'ok': True, 'checked_at': 1000}, 0),
+    ({'ok': False, 'checked_at': 1000}, 1),
+    ({'ok': True, 'checked_at': 879}, 1),
+    ({'ok': True, 'checked_at': 1001}, 1),
+    ({'ok': True}, 1),
+])
+def test_healthcheck_uses_real_fresh_successful_heartbeat(tmp_path, value, expected):
+    heartbeat = tmp_path / 'heartbeat.json'
+    heartbeat.write_text(json.dumps(value))
+    code = recovery.worker_override('sha256:' + 'a' * 64)['services']['receipt-cleanup']['healthcheck']['test'][3]
+    # Inject only the clock/path; execute the actual healthcheck without Flask.
+    prefix = "import time; time.time=lambda:1000\n"
+    code = code.replace("'/tmp/xiquan-receipt-cleanup-health.json'", repr(str(heartbeat)))
+    result = subprocess.run([sys.executable, '-c', prefix + code], capture_output=True, text=True)
+    assert result.returncode == expected
+    assert result.stderr == ''
+
+
+def test_recovery_override_changes_only_private_worker():
+    override = recovery.worker_override('sha256:' + 'a' * 64)
+    assert list(override['services']) == ['receipt-cleanup']
+    worker = override['services']['receipt-cleanup']
+    assert worker['image'] == 'sha256:' + 'a' * 64
+    assert set(worker) == {'image', 'mem_limit', 'memswap_limit', 'healthcheck'}
+    # Allows one ~100 MiB backend plus a tiny stdlib checker, with headroom.
+    assert recovery.memory_budget(512 * 1024 * 1024, 128 * 1024 * 1024)['additional_mib'] == 128
+    with pytest.raises(ValueError):
+        recovery.memory_budget(200 * 1024 * 1024, 128 * 1024 * 1024)
+
+
+def test_finalization_rejects_unreleased_or_different_checkpoint():
+    state = {'pg_major': 17, 'schema_revision': '20261011_service_receipts',
+             'pending_resets': 0, 'business_state': {'maintenance': False, 'policy_version': 2},
+             'active_policy': {'policy_version': 2}}
+    ready = {'source_commit': recovery.COMMIT, 'image_id': recovery.IMAGE}
+    recovery.require_final_state(state, ready, released=True)
+    with pytest.raises(ValueError):
+        recovery.require_final_state(state, ready, released=False)
+    with pytest.raises(ValueError):
+        recovery.require_final_state({**state, 'schema_revision': '20261008_registration_token'}, ready, released=True)
+    with pytest.raises(ValueError):
+        recovery.require_final_state(state, {**ready, 'image_id': 'sha256:' + 'f' * 64}, released=True)
+    with pytest.raises(ValueError):
+        recovery.require_final_state({**state, 'pending_resets': 1}, ready, released=True)
+
+
+def test_worker_verification_rejects_public_or_wrong_owner_settings():
+    env = {'DATABASE_URL': 'private-owner', 'MAINTENANCE_DATABASE_URL': 'private-owner',
+           'MAINTENANCE_PROCESS': '1', 'RESET_WORKER_ENABLED': '0',
+           'AUTO_CREATE_DB': '0', 'RUN_MIGRATIONS': '0', 'SEED_DEFAULTS': '0'}
+    info = {'Image': recovery.IMAGE, 'Config': {'Env': [k+'='+v for k,v in env.items()],
+            'Entrypoint': ['python', '-m', 'app.receipt_cleanup_worker'], 'Cmd': None},
+            'HostConfig': {'PortBindings': {}},
+            'NetworkSettings': {'Networks': {'xiquan_backend': {}}}}
+    recovery.require_worker_identity(info, 'xiquan_backend', 'private-owner')
+    info['HostConfig']['PortBindings'] = {'5000/tcp': [{'HostPort': '5000'}]}
+    with pytest.raises(ValueError):
+        recovery.require_worker_identity(info, 'xiquan_backend', 'private-owner')
+
+
+def test_origin_hash_keeps_exact_bytes_including_trailing_newline():
+    result = recovery.command([sys.executable, '-c', "import sys;sys.stdout.buffer.write(b'hello\\r\\nworld\\n')"], binary=True)
+    assert result == b'hello\r\nworld\n'
+
