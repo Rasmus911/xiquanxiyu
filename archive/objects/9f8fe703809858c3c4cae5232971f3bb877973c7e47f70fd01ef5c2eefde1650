@@ -1,0 +1,237 @@
+"""Scoped finalization after maintenance release; never replays a migration.
+
+Keep the frozen source/image. Only the private worker's resource limit and
+healthcheck change, in a retained Compose override. The API is never recreated.
+"""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+import time
+import uuid
+
+COMMIT = '0f2e049fe95abc3a72956c709c0f5d06a0e2cdb5'
+IMAGE = 'sha256:b7ad0b5eda4ea928a9ff09e70d910d588e7be0c5ed85ae1d1c17a4968a7ddc3f'
+SOURCE_SHA = 'b768a8d7f7a027b6524d72e448781f19d3ed3efda8e05879fc183eed69919175'
+JOB = '/opt/xiquan-backups/desktop050-cutover-6cf722350a264fffb77bfd44f3c6f635'
+STAGE = '/opt/xiquan-releases/desktop050-stage-c16520341d01404e820cded1d65b2ff2'
+HEAD = '20261011_service_receipts'
+MIB = 1024 * 1024
+HEALTH_CODE = """import json,sys,time
+from pathlib import Path
+try:
+    value=json.loads(Path('/tmp/xiquan-receipt-cleanup-health.json').read_text())
+    good=value['ok'] is True and 0 <= time.time()-value['checked_at'] <= 120
+except Exception:
+    good=False
+sys.exit(0 if good else 1)
+"""
+
+
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def worker_override(image):
+    return {'services': {'receipt-cleanup': {
+        'image': image, 'mem_limit': '256m', 'memswap_limit': '256m',
+        'healthcheck': {'test': ['CMD', 'python', '-c', HEALTH_CODE],
+                        'interval': '10s', 'timeout': '3s',
+                        'start_period': '15s', 'retries': 6}}}}
+
+
+def memory_budget(available, current_limit):
+    require(current_limit in (128 * MIB, 256 * MIB), 'Unexpected worker memory limit')
+    additional = 256 * MIB - current_limit
+    require(available >= additional + 128 * MIB, 'Not enough available memory for worker-only recovery')
+    return {'additional_mib': additional // MIB, 'reserve_mib': 128,
+            'available_mib': available // MIB, 'worker_limit_mib': 256}
+
+
+def require_final_state(state, ready, *, released):
+    require(released and ready == {'source_commit': COMMIT, 'image_id': IMAGE},
+            'Exact ready and released checkpoint required; do not rerun deployment')
+    require(state['pg_major'] == 17 and state['schema_revision'] == HEAD and
+            state['pending_resets'] == 0 and state['business_state']['maintenance'] is False and
+            state['active_policy']['policy_version'] == state['business_state']['policy_version'],
+            'Live schema, maintenance/reset or access-policy state differs')
+
+
+def require_worker_identity(info, network, owner):
+    env = dict(v.split('=', 1) for v in info['Config']['Env'] if '=' in v)
+    require(info['Image'] == IMAGE and
+            info['Config']['Entrypoint'] == ['python', '-m', 'app.receipt_cleanup_worker'] and
+            info['Config']['Cmd'] in (None, []) and
+            not info['HostConfig'].get('PortBindings') and
+            set(info['NetworkSettings']['Networks']) == {network} and
+            env.get('DATABASE_URL') == owner and env.get('MAINTENANCE_DATABASE_URL') == owner and
+            env.get('MAINTENANCE_PROCESS') == '1' and env.get('RESET_WORKER_ENABLED') == '0' and
+            all(env.get(k) == '0' for k in ('AUTO_CREATE_DB', 'RUN_MIGRATIONS', 'SEED_DEFAULTS')),
+            'Worker must remain private and use the original owner settings')
+
+
+def command(args, *, timeout=30, binary=False):
+    result = subprocess.run(args, capture_output=True, text=not binary, timeout=timeout)
+    if result.returncode:
+        # Never emit Docker configuration, DSNs, passwords or business SQL here.
+        raise ValueError('Command failed: ' + args[0] + '; private evidence retained')
+    return result.stdout
+
+
+def inspect(name):
+    return json.loads(command(['docker', 'inspect', name]))[0]
+
+
+def healthy_api(driver, expected_id=None):
+    api = inspect('xiquan-api-1')
+    env = dict(v.split('=', 1) for v in api['Config']['Env'] if '=' in v)
+    require(api['Image'] == IMAGE and api['State']['Running'] and
+            api['State'].get('Health', {}).get('Status') == 'healthy' and
+            env.get('RESET_WORKER_ENABLED') == '1' and
+            'MAINTENANCE_DATABASE_URL' not in env and
+            all(env.get(k, '') == driver.normal_env.get(k, '') for k in
+                ('DATABASE_URL', 'SECRET_KEY', 'JWT_SECRET_KEY', 'AUDIT_HMAC_KEY', 'REGISTRATION_TOKEN_SECRET')),
+            'Normal API image, identity or health differs')
+    if expected_id:
+        require(api['Id'] == expected_id, 'API was replaced during worker-only recovery')
+    require(json.loads(driver.origin('api/health')).get('success') is True, 'Origin API health failed')
+    return api
+
+
+def checkpoint(driver, query_cloud_state, json_read, digest_file):
+    require_final_state(query_cloud_state(), json_read(driver.job / 'ready.json'),
+                        released=(driver.job / 'maintenance-released.json').is_file())
+    require(driver.context['stage'] == STAGE and driver.context['source_commit'] == COMMIT and
+            driver.context['image_id'] == IMAGE and driver.report['source_commit'] == COMMIT and
+            driver.report['bundle_sha256'] == SOURCE_SHA,
+            'Exact reviewed stage/context differs')
+    from operations_deploy import CLOUD
+    require(digest_file(CLOUD / '.env') == driver.context['env_sha256'] and
+            digest_file(CLOUD / 'docker-compose.prod.yml') == driver.context['compose_sha256'],
+            'Private environment or base Compose changed')
+    driver.protected()
+    # The running image ID is content-addressed and identical to the already
+    # verified image. Reuse its exact PG17 proof, not another heavy container.
+    proof = json_read(driver.job / 'probe-fix-verified.json')
+    require(proof['source_commit'] == COMMIT and proof['source_sha256'] == SOURCE_SHA and
+            proof['image_id'] == IMAGE and proof['proof_sha256'] == digest_file(driver.job / 'clone-proof.json'),
+            'Original exact image/PG17 proof differs')
+    require(all(json_read(driver.job / 'clone-proof.json').get(k) is True for k in
+                ('pg17', 'isolated', 'identity_immutable', 'receipt_immutable', 'receipt_cleanup', 'retained_rows')),
+            'Original PG17 security/retention proof incomplete')
+    for relative, route in [('client/dist/index.html', 'app/index.html'),
+                            ('mobile/dist/index.html', 'mobile/index.html')]:
+        body = command(['curl', '--http1.1', '--fail', '--silent', '--show-error', '--max-time', '20',
+                        '--resolve', 'api.pqxqxy.xyz:443:127.0.0.1', 'https://api.pqxqxy.xyz/' + route], binary=True)
+        require(hashlib.sha256(body).hexdigest() ==
+                digest_file(driver.source / relative), 'Renderer does not match the verified source')
+    return healthy_api(driver)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('mode', choices=['verify', 'apply'])
+    args = parser.parse_args()
+    require(os.name == 'posix' and os.getuid() == 0, 'Use the existing ECS root session')
+    os.umask(0o077)
+    tools = Path(STAGE) / 'xiquan/deploy/cloud/scripts'
+    require(not any(p.is_symlink() for p in (tools, *tools.parents)), 'Linked stage forbidden')
+    sys.path.insert(0, str(tools))
+    from desktop_050_deploy import Desktop050
+    from operations_preflight import query_cloud_state, digest_file, no_links
+    from operations_deploy import json_read, json_write
+    import fcntl
+    with no_links('/run/lock/xiquan-stock-cutover.lock').open('a+') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        driver = Desktop050(STAGE, JOB)
+        api = checkpoint(driver, query_cloud_state, json_read, digest_file)
+        worker = inspect('xiquan-receipt-cleanup-1')
+        require_worker_identity(worker, driver.context['network'], driver.env['DATABASE_URL'])
+        print('API_HEALTHY_AND_EXACT_RELEASED_CHECKPOINT_VERIFIED', flush=True)
+        print('WORKER_STATE=' + json.dumps({'health': worker['State'].get('Health', {}).get('Status'),
+              'restarts': worker['RestartCount'], 'limit_mib': worker['HostConfig']['Memory'] // MIB}), flush=True)
+        if args.mode == 'verify':
+            print('READ_ONLY_WORKER_CHECK_FINISHED; no restart or database change')
+            return 0
+
+        completed = driver.job / 'completed.json'
+        if completed.exists():
+            row = json_read(completed)
+            require(row.get('source_commit') == COMMIT and row.get('source_sha256') == SOURCE_SHA and
+                    row.get('image_id') == IMAGE and row.get('schema') == HEAD and
+                    row.get('receipt_cleanup') is True and worker['State']['Running'] and
+                    worker['State'].get('Health', {}).get('Status') == 'healthy',
+                    'Existing completion evidence is not valid; no overwrite')
+            print('DESKTOP050_COMPLETED_ALREADY_VERIFIED; no restart')
+            return 0
+
+        available = re.search(r'^MemAvailable:\s+(\d+)\s+kB', Path('/proc/meminfo').read_text(), re.M)
+        require(available is not None, 'Cannot measure available memory')
+        print('WORKER_ONLY_MEMORY=' + json.dumps(memory_budget(int(available[1]) * 1024,
+                                                             worker['HostConfig']['Memory'])), flush=True)
+        override = driver.job / 'receipt-cleanup-256m.override.json'
+        value = worker_override(IMAGE)
+        if override.exists():
+            require(json_read(override) == value, 'Existing worker override differs; no overwrite')
+        else:
+            json_write(override, value)
+        evidence = driver.job / ('receipt-worker-recovery-' + uuid.uuid4().hex)
+        evidence.mkdir(mode=0o700)
+        json_write(evidence / 'before.json', {'api_id': api['Id'], 'api_started': api['State']['StartedAt'],
+                    'worker_id': worker['Id'], 'worker_restarts': worker['RestartCount'],
+                    'override_sha256': digest_file(override), 'source_commit': COMMIT})
+        print('PRIVATE_WORKER_RECOVERY=' + str(evidence), flush=True)
+        print('RECREATE_PRIVATE_WORKER_ONLY; API remains running', flush=True)
+        # --no-deps and only this service: no API, database or nginx recreation.
+        driver.compose('up', '-d', '--no-deps', '--no-build', 'receipt-cleanup', override=override)
+        deadline = time.monotonic() + 150
+        stable = 0
+        while time.monotonic() < deadline:
+            worker = inspect('xiquan-receipt-cleanup-1')
+            require_worker_identity(worker, driver.context['network'], driver.env['DATABASE_URL'])
+            require(worker['HostConfig']['Memory'] == 256 * MIB and
+                    worker['Config']['Healthcheck']['Test'] == ['CMD', 'python', '-c', HEALTH_CODE],
+                    'Worker resource/health override was not applied')
+            require(worker['RestartCount'] == 0 and not worker['State']['OOMKilled'],
+                    'Repaired worker still restarts; API left unchanged')
+            good = worker['State']['Running'] and worker['State'].get('Health', {}).get('Status') == 'healthy'
+            stable = stable + 1 if good else 0
+            print('WORKER_HEALTH=' + str(worker['State'].get('Health', {}).get('Status')) +
+                  ' STABLE_CHECKS=' + str(stable), flush=True)
+            checks = worker['State'].get('Health', {}).get('Log', [])
+            if stable >= 3 and len(checks) >= 2 and all(r['ExitCode'] == 0 for r in checks[-2:]):
+                break
+            time.sleep(5)
+        require(stable >= 3, 'Private worker is not stable; API left unchanged, keep checkpoint')
+        final_api = checkpoint(driver, query_cloud_state, json_read, digest_file)
+        require(final_api['Id'] == api['Id'] and final_api['State']['StartedAt'] == api['State']['StartedAt'],
+                'Normal API changed during recovery')
+        health_log = worker['State']['Health']['Log']
+        require(health_log and all(r['ExitCode'] == 0 for r in health_log[-2:]),
+                'Actual lightweight health checks must pass')
+        heartbeat = json.loads(command(['docker', 'exec', 'xiquan-receipt-cleanup-1', 'python', '-c',
+            "from pathlib import Path; print(Path('/tmp/xiquan-receipt-cleanup-health.json').read_text())"]))
+        require(heartbeat['ok'] is True and 0 <= time.time() - heartbeat['checked_at'] <= 120,
+                'Cleanup task did not report successful work')
+        row = {'source_commit': COMMIT, 'source_sha256': SOURCE_SHA, 'image_id': IMAGE,
+               'schema': HEAD, 'desktop_version': '0.5.0', 'receipt_cleanup': True,
+               'installer_publication': False, 'worker_override': str(override),
+               'worker_override_sha256': digest_file(override), 'api_id_unchanged': api['Id']}
+        json_write(evidence / 'verified.json', row)
+        json_write(completed, row)
+        print('DESKTOP050_COMPLETED_VERIFIED; normal API was not restarted; signing/publication remains')
+        return 0
+
+
+if __name__ == '__main__':
+    try:
+        raise SystemExit(main())
+    except Exception as error:
+        message = str(error) if type(error) is ValueError else type(error).__name__ + ': retain private checkpoint'
+        print('WORKER_RECOVERY_STOPPED: ' + message, file=sys.stderr)
+        raise SystemExit(1)
