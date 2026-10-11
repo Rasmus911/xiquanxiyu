@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "version": "0.5.0",
+  "buildId": "desktop050-final-20261011",
+  "complete": true,
+  "requestedTargets": [
+    "win11-x64"
+  ],
+  "allTargets": false,
+  "signed": true,
+  "testOnly": false,
+  "releaseTrust": {
+    "keyId": "b26477a9ed540ad0",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAg5Euc1O6oXK6xaPLK8bFabECK024fg76iz7g0kjTEo0=\n-----END PUBLIC KEY-----\n",
+    "testOnly": false
+  },
+  "acceptance": {
+    "realOs": "not-tested",
+    "usbPrinter": "not-tested",
+    "inPlaceUpdate": "not-tested",
+    "runtimeSmoke": "not-tested"
+  },
+  "targets": [
+    {
+      "profile": {
+        "targetId": "win11-x64",
+        "arch": "x64",
+        "electronVersion": "44.5.1",
+        "runtimeFamily": "windows-x64",
+        "allowedHosts": [
+          "win11"
+        ]
+      },
+      "version": "0.5.0",
+      "buildId": "desktop050-final-20261011",
+      "releaseTrust": {
+        "keyId": "b26477a9ed540ad0",
+        "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAg5Euc1O6oXK6xaPLK8bFabECK024fg76iz7g0kjTEo0=\n-----END PUBLIC KEY-----\n",
+        "testOnly": false
+      },
+      "payloadArch": "x64",
+      "artifact": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.5.0-win11-x64.exe",
+        "size": 120752221,
+        "sha256": "f62c7c9d5a93cf8fcfc928b8f928984d82a3d8c0cab0312845430e019f0603fe",
+        "sha512": "S0Zebeas7V6lpw7sN0OHN35j+vOTJ8otwr0qWfOTOEPpl1lEynAQlDPM6zQ8MLhGimxBd1QhspM1ycS8G8woGA=="
+      },
+      "blockmap": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.5.0-win11-x64.exe.blockmap",
+        "size": 126795,
+        "sha256": "f376b6ab7b4637262e8ffdf0c939a3678c323cea10f092f018ab60d3803dc183",
+        "sha512": "sJUE4xnhc/MYCbOXldwm1Zmv83ytSonVzTkwHcApVasgCUBwrJlJ/MFugY0LIz7mkjaldEHeN0o4SM/fGhGtbg=="
+      },
+      "updaterManifest": {
+        "fileName": "latest.yml",
+        "size": 395,
+        "sha256": "6286808adf7220dc15d3131eabecb405aff2a5146de95a5d11f28f4a5ed26133",
+        "sha512": "LK1A0oN4pTUzDREgIfba/xyQZMYKAlZC7UJpGCwC8a8axWgitDWolSJAtCHxXF/kiovzYSxPsBq1gSmX7bY1kQ=="
+      }
+    }
+  ]
+}

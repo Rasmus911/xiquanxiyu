@@ -1,0 +1,4 @@
+provider: generic
+url: https://api.pqxqxy.xyz/updates/desktop/win11-x64/
+channel: latest
+updaterCacheDirName: xiquan-bathhouse-client-updater

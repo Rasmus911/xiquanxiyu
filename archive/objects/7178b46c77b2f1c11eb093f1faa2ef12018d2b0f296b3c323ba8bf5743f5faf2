@@ -1,0 +1,46 @@
+﻿{
+  "Version": "0.5.0",
+  "SourceCommit": "0f2e049fe95abc3a72956c709c0f5d06a0e2cdb5",
+  "SourceSha256": "b768a8d7f7a027b6524d72e448781f19d3ed3efda8e05879fc183eed69919175",
+  "CandidateVerified": true,
+  "DeliveryChecksumsVerified": true,
+  "ActualInstallersBuilt": 4,
+  "UpdateSigned": false,
+  "CloudDeployed": false,
+  "ApiRegression": {
+    "OriginalSourceCommit": "7ee0b77af83b7dc47b12fba1b21f13248fdf9390",
+    "OriginalPassed": 755,
+    "OriginalSkipped": 1,
+    "RepairTargetedPassed": 45,
+    "RepairFullSuite": "not-rerun; targeted tests and actual isolated PostgreSQL verification used"
+  },
+  "ClientVue": {
+    "Files": 59,
+    "Passed": 246
+  },
+  "ElectronAndBuildNode": {
+    "Passed": 125
+  },
+  "MobileVue": {
+    "Files": 37,
+    "Passed": 210
+  },
+  "DeploymentPython": {
+    "Passed": 170
+  },
+  "ActualOsCoverInstall": "pending-user-test",
+  "Usb58mmPrint": "pending-user-test",
+  "OriginalCompletedAt": "2026-10-11T23:00:48.0961630+08:00",
+  "RepairStatus": "actual-isolated-PG17-passed; production remains paused awaiting user resume",
+  "ActualIsolatedPostgreSQL17": {
+    "Passed": true,
+    "AdditiveMigration": true,
+    "RoleAndImmutableEvidence": true,
+    "RegistrationConcurrencyAndExpiry": true,
+    "ReceiptCleanupPreservesOtherRows": true,
+    "ProductionSchemaChanged": false,
+    "ApiStarted": false,
+    "Job": "/opt/xiquan-backups/desktop050-cutover-6cf722350a264fffb77bfd44f3c6f635",
+    "CorrectedStage": "/opt/xiquan-releases/desktop050-stage-c16520341d01404e820cded1d65b2ff2"
+  }
+}

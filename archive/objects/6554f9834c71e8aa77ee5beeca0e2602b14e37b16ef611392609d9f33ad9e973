@@ -1,0 +1,17 @@
+﻿{
+    "ProjectRoot":  "F:\\溪泉洗浴系统",
+    "ReleaseRoot":  "F:\\溪泉洗浴系统\\release\\windows\\0.4.9\\registration049-delivery-20261008",
+    "OutputDirectory":  "F:\\溪泉洗浴系统\\最新版安装包-账号注册-0.4.9",
+    "SourceCommit":  "4f11626373298754d2e0ceacd82ae7ff5dd71204",
+    "SourceZipFile":  "xiquan-operations-SOURCE-WEB-20261008-182458-f6a90325.zip",
+    "SourceSha256":  "b3b78893411c4a9dea59e7b3a981eee5002343f755689b21a7ec430f4ffb365b",
+    "Version":  "0.4.9",
+    "Targets":  [
+                    "win10-x86",
+                    "win10-x64",
+                    "win11-x86",
+                    "win11-x64"
+                ],
+    "CloudChanged":  false,
+    "UpdateSignature":  "pending-original-key"
+}
