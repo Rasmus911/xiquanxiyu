@@ -1,0 +1,56 @@
+[CmdletBinding()]
+param(
+    [ValidateSet('verify','apply')][string]$Mode = 'apply',
+    [string]$EcsTarget = 'root@39.96.217.210'
+)
+$ErrorActionPreference = 'Stop'
+Set-StrictMode -Version Latest
+$project = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
+Set-Location -LiteralPath $project
+if ($EcsTarget -notmatch '^[A-Za-z0-9_-]+@[A-Za-z0-9.-]+$') { throw 'Invalid SSH target' }
+& node.exe (Join-Path $project 'scripts\lib\reviewed-source.cjs') $project '0f2e049fe95abc3a72956c709c0f5d06a0e2cdb5'
+if ($LASTEXITCODE -ne 0) { throw 'Frozen source differs; nothing changed' }
+$tool = Join-Path $PSScriptRoot 'receipt_cleanup_recovery.py'
+if (-not (Test-Path -LiteralPath $tool -PathType Leaf)) { throw 'Missing scoped recovery tool' }
+$bytes = [IO.File]::ReadAllBytes($tool)
+$encoded = [Convert]::ToBase64String($bytes)
+$hash = (Get-FileHash -LiteralPath $tool -Algorithm SHA256).Hash.ToLowerInvariant()
+$manifest = Join-Path $PSScriptRoot 'receipt-recovery-sha256.json'
+$expected = Get-Content -LiteralPath $manifest -Encoding UTF8 -Raw | ConvertFrom-Json
+if ($hash -cne $expected.ToolSha256) { throw 'Recovery tool SHA256 differs; nothing changed' }
+. (Join-Path $project 'scripts\lib\mobile-128-transport.ps1')
+if ($Mode -eq 'apply') {
+    Write-Host 'Only recreate the private receipt-cleanup worker. Main API stays online. No migration or database reset.'
+    $confirmation = Read-Host 'Type FINISH 0.5.0'
+    if ($confirmation -cne 'FINISH 0.5.0') { throw 'Cancelled; nothing changed' }
+}
+$program = @"
+import base64,hashlib,os,sys,uuid
+from pathlib import Path
+data=base64.b64decode('$encoded',validate=True)
+if hashlib.sha256(data).hexdigest()!='$hash': raise SystemExit('RECOVERY_TRANSPORT_HASH_MISMATCH')
+if '$Mode'=='apply':
+    parent=Path('/opt/xiquan-backups/desktop050-cutover-6cf722350a264fffb77bfd44f3c6f635')
+    if any(v.is_symlink() for v in (parent,*parent.parents)) or not parent.is_dir(): raise SystemExit('EXACT_JOB_REQUIRED')
+    p=parent/('receipt-recovery-tool-'+uuid.uuid4().hex+'.py')
+    with p.open('xb') as f:
+        f.write(data); f.flush(); os.fsync(f.fileno())
+    p.chmod(0o600)
+    print('PRIVATE_RECOVERY_TOOL='+str(p),flush=True)
+sys.argv=['receipt-recovery.py','$Mode']
+exec(compile(data,'<verified-receipt-recovery>','exec'))
+"@
+$result = Invoke-TokenNative -Executable 'ssh.exe' `
+    -Arguments @('-T','-o','BatchMode=yes','-o','ConnectTimeout=20','-o','ServerAliveInterval=5','-o','ServerAliveCountMax=2',$EcsTarget,'python3 -') `
+    -InputText ($program -replace "`r", '') -TimeoutSeconds 480 -Label 'PRIVATE RECEIPT WORKER ONLY'
+if ($result.Stdout) { Write-Host $result.Stdout }
+if ($result.Stderr) { Write-Host $result.Stderr }
+if ($result.ExitCode -ne 0) {
+    throw 'Receipt worker recovery stopped. Main API is not restarted or rolled back. Retain this exact checkpoint.'
+}
+if ($Mode -eq 'apply') {
+    if ($result.Stdout -notmatch 'DESKTOP050_COMPLETED_(VERIFIED|ALREADY_VERIFIED)') {
+        throw 'Verified completion marker missing; do not publish'
+    }
+    Write-Host 'Cloud 0.5.0 verified. Continue with delivery step 02 using the exact -Job.'
+}

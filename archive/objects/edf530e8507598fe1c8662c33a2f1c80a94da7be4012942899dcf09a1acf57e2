@@ -1,0 +1,17 @@
+﻿{
+    "ProjectRoot":  "F:\\溪泉洗浴系统",
+    "ReleaseRoot":  "F:\\溪泉洗浴系统\\release\\windows\\0.5.0\\desktop050-final-20261011",
+    "OutputDirectory":  "F:\\溪泉洗浴系统\\最新版安装包-账号与小票-0.5.0",
+    "SourceCommit":  "0f2e049fe95abc3a72956c709c0f5d06a0e2cdb5",
+    "SourceZipFile":  "xiquan-operations-SOURCE-WEB-20261011-235004-101b8f7a.zip",
+    "SourceSha256":  "b768a8d7f7a027b6524d72e448781f19d3ed3efda8e05879fc183eed69919175",
+    "Version":  "0.5.0",
+    "Targets":  [
+                    "win10-x86",
+                    "win10-x64",
+                    "win11-x86",
+                    "win11-x64"
+                ],
+    "CloudChanged":  false,
+    "UpdateSignature":  "pending-original-key"
+}

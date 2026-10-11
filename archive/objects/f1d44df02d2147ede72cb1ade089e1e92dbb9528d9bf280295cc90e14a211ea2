@@ -1,0 +1,74 @@
+# 0.4.9 账号注册交付
+
+公开更新说明仅为：
+
+新增 账号注册功能
+
+桌面版本 0.4.9，只交付 win10-x86、win10-x64、win11-x86、win11-x64，不生成 Win7。安卓版本 1.2.7，versionCode 14，minimumVersionCode 9，应用 ID 保持 com.xiquan.mobileordering。已有订单、会员、余额、次卡、库存、审计及账号 UUID 绑定全部保留，不进行清库、账号激活、物料导入或旧服务分类转换。
+
+## 构建与交付目录
+
+在已审核且全部提交的源码目录执行。以下均为 PowerShell 命令，使用子进程绕过当前默认执行策略，不需要改系统策略。
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'F:\溪泉洗浴系统\scripts\build-desktop-049.ps1' -DryRun
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'F:\溪泉洗浴系统\scripts\build-desktop-049.ps1'
+```
+
+默认公开前置文件为项目目录下 `release\trust\release-public-key.pem` 与 `release\runtime-cache\current-windows`。整理人员须先从旧发布目录复制原公开 Ed25519 公钥并比对内容与 keyId；只复制现有已验证 `electron-v43.7.7-win32-ia32.zip`、`electron-v44.5.1-win32-x64.zip`，核验固定官方哈希。未验证迁移前保留原目录。可用 `-PublicKeyPath`、`-OfflineRuntimeCache` 指向原位置；不生成新签名根。DryRun 验证配置但不代替正式安装包构建、签名或设备验收。
+
+默认输出为 `最新版安装包-账号注册-0.4.9`，可通过 `-OutputDirectory` 指定不存在的新目录。包含四个 EXE、SOURCE/WEB ZIP、本文、三个中文入口和 `交付信息.json`。交付信息记录源码 commit、ZIP SHA256、目标、`CloudChanged=false` 和 `pending-original-key`，这不是部署或发布成功凭据。
+
+## 1. 云端源码与网页
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'F:\溪泉洗浴系统\最新版安装包-账号注册-0.4.9\01-部署云端.ps1' -StageOnly
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'F:\溪泉洗浴系统\最新版安装包-账号注册-0.4.9\01-部署云端.ps1'
+```
+
+StageOnly 逐项核对 ZIP 内容、清单、源码身份和传输工具，不连接云端。正式入口自动解析并核对私有 stage，不要求人工抄 stage。确认暂停写入时输入 `UPDATE 0.4.9`。前置 schema 必须为 `20261007_ordering_cost`；最终仅新增 `20261008_registration_token` 的四张注册安全表及其权限。
+
+阶段依次为：原策略/schema/无冲突 reset 检查；核对仅增加注册配置的 Compose 差异；私有环境备份和注册专用密钥初始化；在旧 API 正常时构建并验证本地依赖的固定镜像；停写并取得本任务维护屏障；备份及 PG17 隔离恢复验证；隔离库增量迁移、全业务快照对比、实际并发一次性使用、等待行锁期间过期、不可变触发器和运行角色授权验证；生产增量迁移及再次核对原表、ACL、角色和 UUID；迁移后备份；源码和资源切换；固定新 API 以 reset worker 暂停模式启动并检查配置及 nginx；释放本任务维护屏障；正常 worker 启动与公网健康/资源检查；写 completed 凭据。部署不发布 EXE/APK 更新通道。
+
+内存沿用原有限额：维护容器 384 MiB、隔离 PG 256 MiB、余量 128 MiB。正常 API 存活时前置需可用 512 MiB，停写后恢复演练需可用 768 MiB，备份磁盘需 6 GiB。不清理历史镜像或缓存来伪造资源达标。
+
+注册专用 `REGISTRATION_TOKEN_SECRET` 只在远端私有 `.env` 中生成，至少 32 字节；存在有效值时保持，异常值停止。修改前私有备份，权限 0600，不打印值、不写进源码/安装包。会员短信配置保持原值。注册功能不发短信。
+
+## 失败与恢复
+
+保留控制台 `PRIVATE_DESKTOP_JOB`、`FAILED_PHASE` 及 stage。任务目录固定前缀 `/opt/xiquan-backups/desktop049-cutover-`，stage 固定前缀 `/opt/xiquan-releases/desktop049-stage-`；不得挪用旧任务。
+
+迁移前：不自动恢复备份或重复 DDL；按明确失败阶段检查。仅停 API 后发现恢复内存不足、且未取得维护/未做任何数据库改动时，可在 schema 与容器/镜像/配置都未变的校验下重启原容器。生产迁移后绝不回启旧 API。迁移后但缺少可核验的 after 快照、部分备份或维护释放凭据时，停止并保留证据，由维护人员按该阶段恢复，不猜测数据状态。
+
+具备完整迁移后快照和可用固定镜像时，可恢复备份完成/资源切换/API 启动阶段。已释放维护的任务不会再次迁移、停健康 API 或覆盖业务数据。将下例两个占位值替换为此次失败记录：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'F:\溪泉洗浴系统\最新版安装包-账号注册-0.4.9\01-部署云端.ps1' -Mode resume -Stage '/opt/xiquan-releases/desktop049-stage-<此次32位标识>' -Job '/opt/xiquan-backups/desktop049-cutover-<此次32位标识>'
+```
+
+## 2. 原信任桌面签名发布
+
+云端验收后执行；输入 `PUBLISH 0.4.9`，在本机提供原私钥路径。工具先验证四个在线原信任签名策略与实际候选包，序号取已验证四通道最大序号加一，各目标最低版本沿用自身策略，再用原 Ed25519 私钥签名并发布。无法验证在线策略时停止，不猜序号、不换根。
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'F:\溪泉洗浴系统\最新版安装包-账号注册-0.4.9\02-签名并发布桌面更新.ps1'
+```
+
+未登录的桌面登录页保留检查/下载更新入口。具备已验证目标身份与原信任的旧版可使用原通道；已验证的是源码适配器及隔离签名测试，不代表每一个历史安装二进制都已实机验证。旧程序没有可信更新身份时，使用对应目标原签名安装包覆盖安装；保留本机终端与业务配置。
+
+## 3. 安卓构建与应用内更新
+
+先 build，验收后 publish；两步都校验源码身份、实际 APK 应用 ID、版本、不可调试标志、原证书以及旧版原签名 APK。构建读取原签名库，密码用本机隐藏输入；不得创建新证书或让员工卸载绕过签名。原证书 SHA256 为 `15257f00ccafcabfbac7c105b3a4606127f4d04afa55e44994171994a1ce50e9`。
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'F:\溪泉洗浴系统\最新版安装包-账号注册-0.4.9\03-构建并发布安卓应用内更新.ps1' -Mode build -PreviousApkPath 'F:\溪泉洗浴系统\release\mobile\xiquan-mobile-ordering-1.2.6.apk'
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'F:\溪泉洗浴系统\最新版安装包-账号注册-0.4.9\03-构建并发布安卓应用内更新.ps1' -Mode publish -PreviousApkPath 'F:\溪泉洗浴系统\release\mobile\xiquan-mobile-ordering-1.2.6.apk'
+```
+
+发布输入 `PUBLISH ANDROID 1.2.7`。校验失败不上传；同 versionCode 的不同 APK 不覆盖；已有更高版本/更高最低版本策略停止。旧 APK、桌面和网页策略保留。员工打开原 APP，在应用内检查/下载更新并调用安装器覆盖安装，不跳网页。
+
+## 验收与证据边界
+
+注册入口在桌面登录页。两名既有最高权限账号在手机个人页进入账号授权，六位码按服务端每 180 秒更换，成功注册立即消费并更换。新增员工仅能查看在用手牌和加单；确认会员短信、原账号权限、订单/余额/次卡/库存无变化。手机号 15133863898 与其他账号不能查看授权码。
+
+本地工具测试与 DryRun 不是已部署、已签名或 PostgreSQL 实测证明。真实隔离 PG17 演练是正式部署中的强制步骤；正式签名、上传、旧设备覆盖安装与云端验收均由人执行。公开源码使用 GitHub Desktop 上传到指定仓库；历史二进制按版本置于 Releases，远端校验完成后才移动本地原件。私钥、签名库、密码、私有环境、数据库备份与实际业务数据不能进入公开产物。
