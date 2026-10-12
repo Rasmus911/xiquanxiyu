@@ -1,0 +1,48 @@
+{
+  "version": "0.5.1",
+  "buildId": "card-checkout-fix-20261012-1610",
+  "baseCommit": "39b9e7a15e35e5205ee1f3562eae35bab2a4b5a7",
+  "includesLocalBugfix": true,
+  "purpose": "实体卡成功查询后关闭动画不再清空会员，允许余额和次卡结账",
+  "installMode": "manual-in-place-same-version",
+  "cloudChanged": false,
+  "databaseChanged": false,
+  "published": false,
+  "releasePublicKeyId": "b26477a9ed540ad0",
+  "physicalReaderTested": false,
+  "verification": {
+    "frontendTestsPassed": 321,
+    "desktopTestsPassed": 86,
+    "localServerTestsPassed": 87,
+    "typeCheckPassed": true,
+    "productionRendererBuilt": true,
+    "fourTargetPackageValidationPassed": true,
+    "packagedCardScanMatchesFixedRenderer": true
+  },
+  "installers": [
+    {
+      "target": "win10-x64",
+      "fileName": "Xiquan-Bathhouse-Setup-0.5.1-win10-x64.exe",
+      "size": 120764025,
+      "sha256": "506e3f022d5bfa0bbe95fd34219d2afbd39a703f0235d9903e6d2843534f9598"
+    },
+    {
+      "target": "win11-x64",
+      "fileName": "Xiquan-Bathhouse-Setup-0.5.1-win11-x64.exe",
+      "size": 120764225,
+      "sha256": "ae089f62866f95e2332a3097b67f2579569b47389b20b8fa9e3e87472e639bf5"
+    },
+    {
+      "target": "win10-x86",
+      "fileName": "Xiquan-Bathhouse-Setup-0.5.1-win10-x86.exe",
+      "size": 100948861,
+      "sha256": "c3dd1ddaca0ced39ee9fc2093d5037a676955062a7aa018dda7ba611684969c6"
+    },
+    {
+      "target": "win11-x86",
+      "fileName": "Xiquan-Bathhouse-Setup-0.5.1-win11-x86.exe",
+      "size": 100948928,
+      "sha256": "59e28cf623176f445675a5d278fb17756c2bcb5d7941c592ea767c75091aebd5"
+    }
+  ]
+}

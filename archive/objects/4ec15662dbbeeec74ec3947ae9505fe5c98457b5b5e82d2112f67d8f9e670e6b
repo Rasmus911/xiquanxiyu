@@ -1,0 +1,12 @@
+﻿[CmdletBinding()]
+param(
+    [ValidateSet('all','sign','publish','verify')][string]$Mode = 'all',
+    [string]$EcsTarget = 'root@39.96.217.210',
+    [string]$PrivateKeyPath,
+    [switch]$PreflightOnly
+)
+$ErrorActionPreference = 'Stop'
+$project = Split-Path -Parent $PSScriptRoot
+$parameters = @{ DeliveryRoot=$PSScriptRoot; Mode=$Mode; EcsTarget=$EcsTarget; PreflightOnly=[bool]$PreflightOnly }
+if ($PrivateKeyPath) { $parameters.PrivateKeyPath=$PrivateKeyPath }
+& (Join-Path $project 'scripts\publish-desktop-052.ps1') @parameters

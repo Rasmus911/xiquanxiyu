@@ -1,0 +1,42 @@
+# 0.5.1 实体卡结账修复包
+
+本次仅修复“刷卡查询会员一闪而过、无法消费”的问题，版本仍为 0.5.1，构建标识为 `card-checkout-fix-20261012-1610`。
+
+## 安装
+
+1. 完成当前收款、打印等操作，正常退出溪泉洗浴软件。
+2. 选择本目录下对应操作系统和**原来安装的应用位数**的 EXE：
+
+   - `Xiquan-Bathhouse-Setup-0.5.1-win10-x64.exe`：Win10，64 位应用。
+   - `Xiquan-Bathhouse-Setup-0.5.1-win10-x86.exe`：Win10，32 位应用。
+   - `Xiquan-Bathhouse-Setup-0.5.1-win11-x64.exe`：Win11，64 位应用。
+   - `Xiquan-Bathhouse-Setup-0.5.1-win11-x86.exe`：Win11，32 位应用。
+
+3. 双击安装到原应用目录，覆盖安装即可；不要先卸载，也不要清空应用配置。
+4. 重新登录并刷实体卡，窗口关闭后等待 3 秒，会员应继续显示，随后可选择余额或次卡付款。
+
+有持卡人姓的卡仍须核实。有余额不足的情况，按原规则补足其他付款方式后确认收款。
+
+同版本不会触发旧客户端的“检查更新”提示，因此本次手动覆盖安装一次。不需要运行旧交付目录中的云端部署或签名发布脚本，不需要上传至 ECS 或改数据库。也未替换已经发布的原 0.5.1 文件；以后更高版本的更新通道保持原样。
+
+完整修复说明：`F:\溪泉洗浴系统\docs\bugfixes\2026-10-12-physical-card-checkout.md`。
+
+## 校验安装包
+
+在 PowerShell 中执行以下代码，仅校验文件，不会修改软件或服务器：
+
+```powershell
+& {
+    $ErrorActionPreference = 'Stop'
+    $folder = 'F:\溪泉洗浴系统\最新版安装包-实体卡结账修复-0.5.1'
+    $manifest = Get-Content -LiteralPath (Join-Path $folder '修复包信息.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach ($file in $manifest.installers) {
+        $path = Join-Path $folder $file.fileName
+        $actual = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()
+        if ($actual -ne $file.sha256) { throw ('安装包校验失败：' + $file.fileName) }
+        Write-Host ('校验通过：' + $file.fileName)
+    }
+}
+```
+
+本机未连接 D5 读卡器完成实际扣款测试，请先在营业低峰对一笔正常订单验收，确认会员余额／次卡扣减和结算记录正确后，再给其他收款电脑覆盖安装。
