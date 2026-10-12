@@ -1,0 +1,76 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-安装器修复-手机版1.2.9/01-构建并发布手机修复.ps1",
+      "version": "1.2.9",
+      "category": "mobile/1.2.9",
+      "size": 872,
+      "sha256": "b991a355ae107cf528d726df88a300bc18dfc1fe8132070bb3a4e7efac1009e3",
+      "pieces": [
+        {
+          "file": "archive/objects/b991a355ae107cf528d726df88a300bc18dfc1fe8132070bb3a4e7efac1009e3",
+          "size": 872,
+          "sha256": "b991a355ae107cf528d726df88a300bc18dfc1fe8132070bb3a4e7efac1009e3"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-安装器修复-手机版1.2.9/xiquan-mobile-ordering-1.2.9.apk",
+      "version": "1.2.9",
+      "category": "mobile/1.2.9",
+      "size": 3370779,
+      "sha256": "d5fdab05253d009319147e6e3775d5d667f2b8a13464cbc44c0caf2130a2472d",
+      "pieces": [
+        {
+          "file": "archive/objects/d5fdab05253d009319147e6e3775d5d667f2b8a13464cbc44c0caf2130a2472d",
+          "size": 3370779,
+          "sha256": "d5fdab05253d009319147e6e3775d5d667f2b8a13464cbc44c0caf2130a2472d"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-安装器修复-手机版1.2.9/交付信息.json",
+      "version": "1.2.9",
+      "category": "mobile/1.2.9",
+      "size": 507,
+      "sha256": "8f6541d4005c47b3521a6fd07ed784d9df72856fd27783446aae9b221cff1761",
+      "pieces": [
+        {
+          "file": "archive/objects/8f6541d4005c47b3521a6fd07ed784d9df72856fd27783446aae9b221cff1761",
+          "size": 507,
+          "sha256": "8f6541d4005c47b3521a6fd07ed784d9df72856fd27783446aae9b221cff1761"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-安装器修复-手机版1.2.9/操作说明.md",
+      "version": "1.2.9",
+      "category": "mobile/1.2.9",
+      "size": 1457,
+      "sha256": "af869c942ded1e20c0a389cbda8a352dfc315e73e084209187331a168aea02b6",
+      "pieces": [
+        {
+          "file": "archive/objects/af869c942ded1e20c0a389cbda8a352dfc315e73e084209187331a168aea02b6",
+          "size": 1457,
+          "sha256": "af869c942ded1e20c0a389cbda8a352dfc315e73e084209187331a168aea02b6"
+        }
+      ]
+    },
+    {
+      "path": "release/mobile/xiquan-mobile-ordering-1.2.9.apk",
+      "version": "1.2.9",
+      "category": "mobile/1.2.9",
+      "size": 3370779,
+      "sha256": "d5fdab05253d009319147e6e3775d5d667f2b8a13464cbc44c0caf2130a2472d",
+      "pieces": [
+        {
+          "file": "archive/objects/d5fdab05253d009319147e6e3775d5d667f2b8a13464cbc44c0caf2130a2472d",
+          "size": 3370779,
+          "sha256": "d5fdab05253d009319147e6e3775d5d667f2b8a13464cbc44c0caf2130a2472d"
+        }
+      ]
+    }
+  ]
+}

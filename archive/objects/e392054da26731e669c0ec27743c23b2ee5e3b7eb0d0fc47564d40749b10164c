@@ -1,0 +1,43 @@
+﻿[CmdletBinding()]
+param([string]$EcsTarget='root@39.96.217.210',[switch]$PreflightOnly)
+$ErrorActionPreference='Stop'
+Set-StrictMode -Version Latest
+$delivery=Get-Content -LiteralPath (Join-Path $PSScriptRoot '交付信息.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$stage='/opt/xiquan-releases/desktop051-stage-20e6f724180a4587a507e2f51b935021'
+$job='/opt/xiquan-backups/desktop051-cutover-c8b92cf4062842b78cc31a6e47ca116a'
+$image='sha256:5a5a908408a89aab12e08f55bedfc3b70341d4da4a0aa0191bd643ec63ec0dbe'
+if($EcsTarget -cne 'root@39.96.217.210'){throw 'This recovery is only for the exact affected ECS.'}
+if($delivery.SourceCommit -cne '39b9e7a15e35e5205ee1f3562eae35bab2a4b5a7' -or
+   $delivery.SourceSha256 -cne '7d37b3b1afc33f348ace5a895a3bd8a02fe008bcb4acf223fa3696cbab47636f'){
+    throw 'Delivery identity differs. Do not use this recovery on another release.'
+}
+& node.exe (Join-Path $delivery.ProjectRoot 'scripts\lib\desktop-051.cjs') verify-delivery $PSScriptRoot
+if($LASTEXITCODE -ne 0){throw 'Original delivered bytes differ; stopped.'}
+. (Join-Path $delivery.ProjectRoot 'scripts\lib\desktop-051-transport.ps1')
+$options=@('-o','ConnectTimeout=20','-o','ServerAliveInterval=15','-o','ServerAliveCountMax=3')
+$helper=Join-Path $delivery.ProjectRoot 'scripts\lib\desktop-051-backup-resume.py'
+$hash=(Get-FileHash -LiteralPath $helper -Algorithm SHA256).Hash.ToLowerInvariant()
+$remote='/tmp/xiquan-desktop051-backup-recovery-'+[guid]::NewGuid().ToString('N')+'.py'
+Write-Host 'Resume ONLY the retained checkpoint. No new image, SOURCE change, clearing or rollback.'
+$upload=Invoke-TokenNative -Executable 'scp.exe' -Arguments @($options+@('--',$helper,($EcsTarget+':'+$remote))) -TimeoutSeconds 180 -Label 'BACKUP recovery upload'
+if($upload.ExitCode -ne 0){throw 'Recovery helper upload failed; deployment not resumed.'}
+$base='test "$(sha256sum '+$remote+' | cut -d" " -f1)" = '+$hash+' && python3 '+$remote+
+      ' --stage '+$stage+' --job '+$job+' --commit '+$delivery.SourceCommit+' --sha256 '+$delivery.SourceSha256+' --image '+$image
+$check=Invoke-TokenNative -Executable 'ssh.exe' -Arguments @($options+@($EcsTarget,$base+' --preflight-only')) -TimeoutSeconds 180 -Label 'READ ONLY recovery identity'
+$check.Stdout -split "`r?`n" | Where-Object { $_ -match '^(DESKTOP051_PHASE=|RECOVERY_PREFLIGHT_OK)' } | ForEach-Object { Write-Host $_ }
+if($check.ExitCode -ne 0){throw 'Exact recovery preflight failed; no deployment resumed.'}
+if($PreflightOnly){return}
+if((Read-Host 'Resume this exact backup checkpoint and finish deployment. Type UPDATE 0.5.1') -cne 'UPDATE 0.5.1'){
+    throw 'Cancelled; no deployment resumed.'
+}
+$identityRoot=Join-Path $delivery.ProjectRoot 'private\desktop051-transports'
+[void](New-Item -ItemType Directory -Force -Path $identityRoot)
+$identity=Join-Path $identityRoot ('backup-recovery-'+[guid]::NewGuid().ToString('N')+'.json')
+$operation=Invoke-Desktop051Operation -Executable 'ssh.exe' -Arguments @($options+@($EcsTarget,$base)) `
+    -Stage $stage -Job $job -IdentityFile $identity -TimeoutSeconds 14430
+if($operation.ExitCode -ne 0){throw ('Recovery stopped; retain exact checkpoint and output: '+$identity+'; do not rerun deploy.')}
+if($operation.Stdout -notmatch '(?m)^DESKTOP051_PHASE=completed$'){throw 'Exact completed marker missing; do not publish.'}
+$result=[ordered]@{Stage=$stage;Job=$job;SourceCommit=$delivery.SourceCommit;SourceSha256=$delivery.SourceSha256;CloudChanged=$true}
+[IO.File]::WriteAllText((Join-Path $PSScriptRoot '云端部署结果.json'),($result|ConvertTo-Json -Depth 6),[Text.UTF8Encoding]::new($false))
+& (Join-Path $PSScriptRoot '03-验证三端与更新.ps1') -EcsTarget $EcsTarget | Out-Host
+Write-Host 'Exact cloud completion verified. Next run 02-签名并发布桌面更新.ps1; no Windows channels published by this recovery.'

@@ -1,0 +1,62 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-实体卡结账修复-0.5.2/01-签名并发布修复更新.ps1",
+      "version": "0.5.2",
+      "category": "documents/0.5.2",
+      "size": 535,
+      "sha256": "4ec15662dbbeeec74ec3947ae9505fe5c98457b5b5e82d2112f67d8f9e670e6b",
+      "pieces": [
+        {
+          "file": "archive/objects/4ec15662dbbeeec74ec3947ae9505fe5c98457b5b5e82d2112f67d8f9e670e6b",
+          "size": 535,
+          "sha256": "4ec15662dbbeeec74ec3947ae9505fe5c98457b5b5e82d2112f67d8f9e670e6b"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡结账修复-0.5.2/README.md",
+      "version": "0.5.2",
+      "category": "documents/0.5.2",
+      "size": 3276,
+      "sha256": "ad2978c4ca87ca6d6763059b8241315fa586f829c9512ad5f2bbd56cdee737e6",
+      "pieces": [
+        {
+          "file": "archive/objects/ad2978c4ca87ca6d6763059b8241315fa586f829c9512ad5f2bbd56cdee737e6",
+          "size": 3276,
+          "sha256": "ad2978c4ca87ca6d6763059b8241315fa586f829c9512ad5f2bbd56cdee737e6"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡结账修复-0.5.2/SHA256SUMS.txt",
+      "version": "0.5.2",
+      "category": "documents/0.5.2",
+      "size": 436,
+      "sha256": "959202492be8dd7d6dab11119984d362550359dbd62c3fa0134e0e0a3c86e739",
+      "pieces": [
+        {
+          "file": "archive/objects/959202492be8dd7d6dab11119984d362550359dbd62c3fa0134e0e0a3c86e739",
+          "size": 436,
+          "sha256": "959202492be8dd7d6dab11119984d362550359dbd62c3fa0134e0e0a3c86e739"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡结账修复-0.5.2/交付信息.json",
+      "version": "0.5.2",
+      "category": "documents/0.5.2",
+      "size": 3856,
+      "sha256": "fc9a24a38d848b981972cc9d31fd8c3b92cceb72957c4514f91ef52ca280d92b",
+      "pieces": [
+        {
+          "file": "archive/objects/fc9a24a38d848b981972cc9d31fd8c3b92cceb72957c4514f91ef52ca280d92b",
+          "size": 3856,
+          "sha256": "fc9a24a38d848b981972cc9d31fd8c3b92cceb72957c4514f91ef52ca280d92b"
+        }
+      ]
+    }
+  ]
+}

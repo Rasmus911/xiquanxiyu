@@ -1,0 +1,2484 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/Xiquan-Bathhouse-Setup-0.5.1-win10-x86.exe",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 100949061,
+      "sha256": "fbb97ee779ae229dd70c7f7b3557067de9e9f1966d15efe7e203301abcf601c7",
+      "pieces": [
+        {
+          "file": "archive/objects/e8dc25aad260e5077078d6c90860010a64df64d6f43c4ae3b97aa65989784ae6",
+          "size": 33554432,
+          "sha256": "e8dc25aad260e5077078d6c90860010a64df64d6f43c4ae3b97aa65989784ae6"
+        },
+        {
+          "file": "archive/objects/4aecb0e09ec0bf63c5a54b68db9ea2439d7b58f0fc14003d0232ab5820e606ff",
+          "size": 33554432,
+          "sha256": "4aecb0e09ec0bf63c5a54b68db9ea2439d7b58f0fc14003d0232ab5820e606ff"
+        },
+        {
+          "file": "archive/objects/c7976f73cf67b52ba1b9379ddb20c326bedb032a0658659588b3c09b560894c2",
+          "size": 33554432,
+          "sha256": "c7976f73cf67b52ba1b9379ddb20c326bedb032a0658659588b3c09b560894c2"
+        },
+        {
+          "file": "archive/objects/102765960795ab6cc93478073f5baa01f75b5386d59570060b5b7100e6519712",
+          "size": 285765,
+          "sha256": "102765960795ab6cc93478073f5baa01f75b5386d59570060b5b7100e6519712"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡结账修复-0.5.1/Xiquan-Bathhouse-Setup-0.5.1-win10-x86.exe",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 100948861,
+      "sha256": "c3dd1ddaca0ced39ee9fc2093d5037a676955062a7aa018dda7ba611684969c6",
+      "pieces": [
+        {
+          "file": "archive/objects/ddc95575f40b64cbf721950a9e9ffec4340f9ab72bef27f7eb4f8b279cc6b374",
+          "size": 33554432,
+          "sha256": "ddc95575f40b64cbf721950a9e9ffec4340f9ab72bef27f7eb4f8b279cc6b374"
+        },
+        {
+          "file": "archive/objects/050a44f8c44ea3ac9846a7960b533daf3a5867decd5dc6ff08865328fa8340cd",
+          "size": 33554432,
+          "sha256": "050a44f8c44ea3ac9846a7960b533daf3a5867decd5dc6ff08865328fa8340cd"
+        },
+        {
+          "file": "archive/objects/c7dbf000f6c65d02b1bcd6c94680813a61eed1d1a2bfb9a6e1cefb5a31753d8b",
+          "size": 33554432,
+          "sha256": "c7dbf000f6c65d02b1bcd6c94680813a61eed1d1a2bfb9a6e1cefb5a31753d8b"
+        },
+        {
+          "file": "archive/objects/783cb65f4348f30aed1eaac637cb0574e78ac6e44fa00924a86577003ed777d9",
+          "size": 285565,
+          "sha256": "783cb65f4348f30aed1eaac637cb0574e78ac6e44fa00924a86577003ed777d9"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/configs/win10-x86.nsh",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 128,
+      "sha256": "ec260e214255f46c82d4b74714e514ec788e7e67b5ab25c37f5634390058d6a4",
+      "pieces": [
+        {
+          "file": "archive/objects/ec260e214255f46c82d4b74714e514ec788e7e67b5ab25c37f5634390058d6a4",
+          "size": 128,
+          "sha256": "ec260e214255f46c82d4b74714e514ec788e7e67b5ab25c37f5634390058d6a4"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/Xiquan-Bathhouse-Setup-0.5.1-win10-x86.exe",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 100948861,
+      "sha256": "c3dd1ddaca0ced39ee9fc2093d5037a676955062a7aa018dda7ba611684969c6",
+      "pieces": [
+        {
+          "file": "archive/objects/ddc95575f40b64cbf721950a9e9ffec4340f9ab72bef27f7eb4f8b279cc6b374",
+          "size": 33554432,
+          "sha256": "ddc95575f40b64cbf721950a9e9ffec4340f9ab72bef27f7eb4f8b279cc6b374"
+        },
+        {
+          "file": "archive/objects/050a44f8c44ea3ac9846a7960b533daf3a5867decd5dc6ff08865328fa8340cd",
+          "size": 33554432,
+          "sha256": "050a44f8c44ea3ac9846a7960b533daf3a5867decd5dc6ff08865328fa8340cd"
+        },
+        {
+          "file": "archive/objects/c7dbf000f6c65d02b1bcd6c94680813a61eed1d1a2bfb9a6e1cefb5a31753d8b",
+          "size": 33554432,
+          "sha256": "c7dbf000f6c65d02b1bcd6c94680813a61eed1d1a2bfb9a6e1cefb5a31753d8b"
+        },
+        {
+          "file": "archive/objects/783cb65f4348f30aed1eaac637cb0574e78ac6e44fa00924a86577003ed777d9",
+          "size": 285565,
+          "sha256": "783cb65f4348f30aed1eaac637cb0574e78ac6e44fa00924a86577003ed777d9"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/Xiquan-Bathhouse-Setup-0.5.1-win10-x86.exe.blockmap",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 105554,
+      "sha256": "ca68008f00c4310a0cc22982372945f3bffde529d97fd9b7c1b7b72286430561",
+      "pieces": [
+        {
+          "file": "archive/objects/ca68008f00c4310a0cc22982372945f3bffde529d97fd9b7c1b7b72286430561",
+          "size": 105554,
+          "sha256": "ca68008f00c4310a0cc22982372945f3bffde529d97fd9b7c1b7b72286430561"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/builder-debug.yml",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 7677,
+      "sha256": "8880c1464cae45013dfcb1d81286717011d313f2f36a623e72233781f42c6b97",
+      "pieces": [
+        {
+          "file": "archive/objects/8880c1464cae45013dfcb1d81286717011d313f2f36a623e72233781f42c6b97",
+          "size": 7677,
+          "sha256": "8880c1464cae45013dfcb1d81286717011d313f2f36a623e72233781f42c6b97"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/latest.yml",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 381,
+      "sha256": "2f05a24c46c3ef3d1f21a80ecd0f12b1c09aca0576325b6a57f8b647c1cc513d",
+      "pieces": [
+        {
+          "file": "archive/objects/2f05a24c46c3ef3d1f21a80ecd0f12b1c09aca0576325b6a57f8b647c1cc513d",
+          "size": 381,
+          "sha256": "2f05a24c46c3ef3d1f21a80ecd0f12b1c09aca0576325b6a57f8b647c1cc513d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/LICENSE.electron.txt",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1096,
+      "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d",
+      "pieces": [
+        {
+          "file": "archive/objects/5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d",
+          "size": 1096,
+          "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/LICENSES.chromium.html",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 20313960,
+      "sha256": "c971fa90cb787337e9df73773f3b43cd5621f035e53cded439bd927b3b759e0c",
+      "pieces": [
+        {
+          "file": "archive/objects/c971fa90cb787337e9df73773f3b43cd5621f035e53cded439bd927b3b759e0c",
+          "size": 20313960,
+          "sha256": "c971fa90cb787337e9df73773f3b43cd5621f035e53cded439bd927b3b759e0c"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/chrome_100_percent.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 119905,
+      "sha256": "d76fe8fa3a14cd73e4c858746e2ab2d2fa6f2df38a906fa5814b50a8a895fc96",
+      "pieces": [
+        {
+          "file": "archive/objects/d76fe8fa3a14cd73e4c858746e2ab2d2fa6f2df38a906fa5814b50a8a895fc96",
+          "size": 119905,
+          "sha256": "d76fe8fa3a14cd73e4c858746e2ab2d2fa6f2df38a906fa5814b50a8a895fc96"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/chrome_200_percent.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 197089,
+      "sha256": "b74ad439f3d3762657f3ba533a6af3ac63315c838ed46519891366f43d834a0e",
+      "pieces": [
+        {
+          "file": "archive/objects/b74ad439f3d3762657f3ba533a6af3ac63315c838ed46519891366f43d834a0e",
+          "size": 197089,
+          "sha256": "b74ad439f3d3762657f3ba533a6af3ac63315c838ed46519891366f43d834a0e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/d3dcompiler_47.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 4147544,
+      "sha256": "0ae6e52072857c3acfde53b98f56c3c6d9bd0e7b09f247ae7f40bfd451593c4c",
+      "pieces": [
+        {
+          "file": "archive/objects/0ae6e52072857c3acfde53b98f56c3c6d9bd0e7b09f247ae7f40bfd451593c4c",
+          "size": 4147544,
+          "sha256": "0ae6e52072857c3acfde53b98f56c3c6d9bd0e7b09f247ae7f40bfd451593c4c"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/ffmpeg.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 2787328,
+      "sha256": "36b5750cedcf467027788b4547553163e4d70cf14a9827e64dd5e372f43d44d7",
+      "pieces": [
+        {
+          "file": "archive/objects/36b5750cedcf467027788b4547553163e4d70cf14a9827e64dd5e372f43d44d7",
+          "size": 2787328,
+          "sha256": "36b5750cedcf467027788b4547553163e4d70cf14a9827e64dd5e372f43d44d7"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/icudtl.dat",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 10876560,
+      "sha256": "bd8c145abdf3f8383276ce01dfa4ae48709bef9fef1c0711eb7c3fab4f6eb7c2",
+      "pieces": [
+        {
+          "file": "archive/objects/bd8c145abdf3f8383276ce01dfa4ae48709bef9fef1c0711eb7c3fab4f6eb7c2",
+          "size": 10876560,
+          "sha256": "bd8c145abdf3f8383276ce01dfa4ae48709bef9fef1c0711eb7c3fab4f6eb7c2"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/libEGL.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 391680,
+      "sha256": "bb959fa5f4993729541406562cffaab40cf7a2d6a26ce1bca3f46b5b9e7437eb",
+      "pieces": [
+        {
+          "file": "archive/objects/bb959fa5f4993729541406562cffaab40cf7a2d6a26ce1bca3f46b5b9e7437eb",
+          "size": 391680,
+          "sha256": "bb959fa5f4993729541406562cffaab40cf7a2d6a26ce1bca3f46b5b9e7437eb"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/libGLESv2.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 7237120,
+      "sha256": "abede86e342b4b80a93378e1a347cfb06849ad1096898f587d110884e56444d2",
+      "pieces": [
+        {
+          "file": "archive/objects/abede86e342b4b80a93378e1a347cfb06849ad1096898f587d110884e56444d2",
+          "size": 7237120,
+          "sha256": "abede86e342b4b80a93378e1a347cfb06849ad1096898f587d110884e56444d2"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/af.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 614017,
+      "sha256": "dcf39c3edbb6b0a625baee0263a9b426eadd1a6d1bfbf03a209501a18bc4b0e4",
+      "pieces": [
+        {
+          "file": "archive/objects/dcf39c3edbb6b0a625baee0263a9b426eadd1a6d1bfbf03a209501a18bc4b0e4",
+          "size": 614017,
+          "sha256": "dcf39c3edbb6b0a625baee0263a9b426eadd1a6d1bfbf03a209501a18bc4b0e4"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/am.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 994699,
+      "sha256": "b1d444f2346105a6e15f9b14fc5653e1edaa2b435290fb8f1238347a4d4ca8f9",
+      "pieces": [
+        {
+          "file": "archive/objects/b1d444f2346105a6e15f9b14fc5653e1edaa2b435290fb8f1238347a4d4ca8f9",
+          "size": 994699,
+          "sha256": "b1d444f2346105a6e15f9b14fc5653e1edaa2b435290fb8f1238347a4d4ca8f9"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/ar.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1096145,
+      "sha256": "0baa84907ae148d2fc772cdd6c62dbeedfcc45aa4bc67c9d7164906ff0c69247",
+      "pieces": [
+        {
+          "file": "archive/objects/0baa84907ae148d2fc772cdd6c62dbeedfcc45aa4bc67c9d7164906ff0c69247",
+          "size": 1096145,
+          "sha256": "0baa84907ae148d2fc772cdd6c62dbeedfcc45aa4bc67c9d7164906ff0c69247"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/bg.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1138139,
+      "sha256": "e4a5bea23a26a06af611a7cb518b22a1d53ec5df45a6322f0e264b99c7318441",
+      "pieces": [
+        {
+          "file": "archive/objects/e4a5bea23a26a06af611a7cb518b22a1d53ec5df45a6322f0e264b99c7318441",
+          "size": 1138139,
+          "sha256": "e4a5bea23a26a06af611a7cb518b22a1d53ec5df45a6322f0e264b99c7318441"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/bn.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1461103,
+      "sha256": "8e4aebe835b6b46f31c4a902e833d645cfe2990dcf354d1d3c5851e468b4c277",
+      "pieces": [
+        {
+          "file": "archive/objects/8e4aebe835b6b46f31c4a902e833d645cfe2990dcf354d1d3c5851e468b4c277",
+          "size": 1461103,
+          "sha256": "8e4aebe835b6b46f31c4a902e833d645cfe2990dcf354d1d3c5851e468b4c277"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/ca.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 692259,
+      "sha256": "8a472eabdc3f30d94c56367d526f6d345ad65732827097aac747438f233a536f",
+      "pieces": [
+        {
+          "file": "archive/objects/8a472eabdc3f30d94c56367d526f6d345ad65732827097aac747438f233a536f",
+          "size": 692259,
+          "sha256": "8a472eabdc3f30d94c56367d526f6d345ad65732827097aac747438f233a536f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/cs.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 718691,
+      "sha256": "5804ba5b76974b48b15922cf91c3e9dbbf549e2d88218dc767e4650520503135",
+      "pieces": [
+        {
+          "file": "archive/objects/5804ba5b76974b48b15922cf91c3e9dbbf549e2d88218dc767e4650520503135",
+          "size": 718691,
+          "sha256": "5804ba5b76974b48b15922cf91c3e9dbbf549e2d88218dc767e4650520503135"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/da.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 644715,
+      "sha256": "57f4637094de41122da569415c16c5524794bc90aa3af226da14703d04981db0",
+      "pieces": [
+        {
+          "file": "archive/objects/57f4637094de41122da569415c16c5524794bc90aa3af226da14703d04981db0",
+          "size": 644715,
+          "sha256": "57f4637094de41122da569415c16c5524794bc90aa3af226da14703d04981db0"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/de.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 693336,
+      "sha256": "4919ce127533d3cac698d837306161c00cf69ce30f9fa4b25b80fda171d78f89",
+      "pieces": [
+        {
+          "file": "archive/objects/4919ce127533d3cac698d837306161c00cf69ce30f9fa4b25b80fda171d78f89",
+          "size": 693336,
+          "sha256": "4919ce127533d3cac698d837306161c00cf69ce30f9fa4b25b80fda171d78f89"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/el.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1251062,
+      "sha256": "48d430dca8785ce24fc605851b2bb739164b8e5fb5588909329a82e58f6902d0",
+      "pieces": [
+        {
+          "file": "archive/objects/48d430dca8785ce24fc605851b2bb739164b8e5fb5588909329a82e58f6902d0",
+          "size": 1251062,
+          "sha256": "48d430dca8785ce24fc605851b2bb739164b8e5fb5588909329a82e58f6902d0"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/en-GB.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 559903,
+      "sha256": "7d3f5c381b1ec39bc57d6cee58f9bd69be9b36aa98ffca0b94e81f4df92e5388",
+      "pieces": [
+        {
+          "file": "archive/objects/7d3f5c381b1ec39bc57d6cee58f9bd69be9b36aa98ffca0b94e81f4df92e5388",
+          "size": 559903,
+          "sha256": "7d3f5c381b1ec39bc57d6cee58f9bd69be9b36aa98ffca0b94e81f4df92e5388"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/en-US.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 566095,
+      "sha256": "74404352908184e834397df60b238f23462e77d69ac4136b4f20af2db6191436",
+      "pieces": [
+        {
+          "file": "archive/objects/74404352908184e834397df60b238f23462e77d69ac4136b4f20af2db6191436",
+          "size": 566095,
+          "sha256": "74404352908184e834397df60b238f23462e77d69ac4136b4f20af2db6191436"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/es-419.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 683097,
+      "sha256": "cd173ec7abdc3609b8ea33764fa8e106147121ee2d262cf5aef22d50fd386fb9",
+      "pieces": [
+        {
+          "file": "archive/objects/cd173ec7abdc3609b8ea33764fa8e106147121ee2d262cf5aef22d50fd386fb9",
+          "size": 683097,
+          "sha256": "cd173ec7abdc3609b8ea33764fa8e106147121ee2d262cf5aef22d50fd386fb9"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/es.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 679701,
+      "sha256": "9ff88eabacab95f8bbef9e95f63d3619fa8d640ec03523d80abb26243b059a65",
+      "pieces": [
+        {
+          "file": "archive/objects/9ff88eabacab95f8bbef9e95f63d3619fa8d640ec03523d80abb26243b059a65",
+          "size": 679701,
+          "sha256": "9ff88eabacab95f8bbef9e95f63d3619fa8d640ec03523d80abb26243b059a65"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/et.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 620420,
+      "sha256": "0292298736847491828465a3dcf04cf4a0d9bd63d4b1a9d183c7eeb389343d26",
+      "pieces": [
+        {
+          "file": "archive/objects/0292298736847491828465a3dcf04cf4a0d9bd63d4b1a9d183c7eeb389343d26",
+          "size": 620420,
+          "sha256": "0292298736847491828465a3dcf04cf4a0d9bd63d4b1a9d183c7eeb389343d26"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/fa.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1026888,
+      "sha256": "61323fafa841e5cb977e80d27b2c2746ab3eee7fdeec4e9312915d9e0c45b52e",
+      "pieces": [
+        {
+          "file": "archive/objects/61323fafa841e5cb977e80d27b2c2746ab3eee7fdeec4e9312915d9e0c45b52e",
+          "size": 1026888,
+          "sha256": "61323fafa841e5cb977e80d27b2c2746ab3eee7fdeec4e9312915d9e0c45b52e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/fi.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 632436,
+      "sha256": "0535e2acd4517ce8099aa0a4a3e562af37ca6a699faca1de3b348b8bfacf2a8b",
+      "pieces": [
+        {
+          "file": "archive/objects/0535e2acd4517ce8099aa0a4a3e562af37ca6a699faca1de3b348b8bfacf2a8b",
+          "size": 632436,
+          "sha256": "0535e2acd4517ce8099aa0a4a3e562af37ca6a699faca1de3b348b8bfacf2a8b"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/fil.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 715769,
+      "sha256": "f9e86324deee168d160a51402588da9987646c8c5899b76b6255d7e3a46a7bb5",
+      "pieces": [
+        {
+          "file": "archive/objects/f9e86324deee168d160a51402588da9987646c8c5899b76b6255d7e3a46a7bb5",
+          "size": 715769,
+          "sha256": "f9e86324deee168d160a51402588da9987646c8c5899b76b6255d7e3a46a7bb5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/fr.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 738348,
+      "sha256": "843d7236fef5375ef08b9af9eb7e443ecafe0593deebc18a45ba5cf67a3a1f00",
+      "pieces": [
+        {
+          "file": "archive/objects/843d7236fef5375ef08b9af9eb7e443ecafe0593deebc18a45ba5cf67a3a1f00",
+          "size": 738348,
+          "sha256": "843d7236fef5375ef08b9af9eb7e443ecafe0593deebc18a45ba5cf67a3a1f00"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/gu.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1443762,
+      "sha256": "34e4d54d66a0b0471542ee76c55cc9d3b27fcaf15cdf63c3d7e7b46cfdfb3f4f",
+      "pieces": [
+        {
+          "file": "archive/objects/34e4d54d66a0b0471542ee76c55cc9d3b27fcaf15cdf63c3d7e7b46cfdfb3f4f",
+          "size": 1443762,
+          "sha256": "34e4d54d66a0b0471542ee76c55cc9d3b27fcaf15cdf63c3d7e7b46cfdfb3f4f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/he.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 898800,
+      "sha256": "75fbe196eda1791775243822da4e7f9737710f627b6ee27cc4c6d975865ea7cd",
+      "pieces": [
+        {
+          "file": "archive/objects/75fbe196eda1791775243822da4e7f9737710f627b6ee27cc4c6d975865ea7cd",
+          "size": 898800,
+          "sha256": "75fbe196eda1791775243822da4e7f9737710f627b6ee27cc4c6d975865ea7cd"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/hi.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1529643,
+      "sha256": "7557c5d5b46c8ff4ebc159bbdf0477d28e4baa7c3bedcb947d59028301ff21e6",
+      "pieces": [
+        {
+          "file": "archive/objects/7557c5d5b46c8ff4ebc159bbdf0477d28e4baa7c3bedcb947d59028301ff21e6",
+          "size": 1529643,
+          "sha256": "7557c5d5b46c8ff4ebc159bbdf0477d28e4baa7c3bedcb947d59028301ff21e6"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/hr.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 691185,
+      "sha256": "9ef77921560c91e5d6e42df6504589b8b7efb84c9b5119ac51e9a10d8c83a089",
+      "pieces": [
+        {
+          "file": "archive/objects/9ef77921560c91e5d6e42df6504589b8b7efb84c9b5119ac51e9a10d8c83a089",
+          "size": 691185,
+          "sha256": "9ef77921560c91e5d6e42df6504589b8b7efb84c9b5119ac51e9a10d8c83a089"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/hu.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 738546,
+      "sha256": "31e407f43bbd0cd0692755f961bb39d10af1f9f0af205455dd70fb4c7eeb85a5",
+      "pieces": [
+        {
+          "file": "archive/objects/31e407f43bbd0cd0692755f961bb39d10af1f9f0af205455dd70fb4c7eeb85a5",
+          "size": 738546,
+          "sha256": "31e407f43bbd0cd0692755f961bb39d10af1f9f0af205455dd70fb4c7eeb85a5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/id.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 612462,
+      "sha256": "e7957c9c58f890b5d053ea50c5fcb4b66cbc3c47478c42a5962810cb15814249",
+      "pieces": [
+        {
+          "file": "archive/objects/e7957c9c58f890b5d053ea50c5fcb4b66cbc3c47478c42a5962810cb15814249",
+          "size": 612462,
+          "sha256": "e7957c9c58f890b5d053ea50c5fcb4b66cbc3c47478c42a5962810cb15814249"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/it.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 669241,
+      "sha256": "4b06d5f8a4f75b3122bc3f1c54af59eadf6117507758d4efbcb5f1f88f322e61",
+      "pieces": [
+        {
+          "file": "archive/objects/4b06d5f8a4f75b3122bc3f1c54af59eadf6117507758d4efbcb5f1f88f322e61",
+          "size": 669241,
+          "sha256": "4b06d5f8a4f75b3122bc3f1c54af59eadf6117507758d4efbcb5f1f88f322e61"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/ja.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 815509,
+      "sha256": "89178f1acd5af747dde41399ba0c1e229eb53e2800d4b15ea2d9f3358e69edd3",
+      "pieces": [
+        {
+          "file": "archive/objects/89178f1acd5af747dde41399ba0c1e229eb53e2800d4b15ea2d9f3358e69edd3",
+          "size": 815509,
+          "sha256": "89178f1acd5af747dde41399ba0c1e229eb53e2800d4b15ea2d9f3358e69edd3"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/kn.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1661701,
+      "sha256": "9744dbadbb7c31cc6393a0682daf91045be270bab934dff7dbad79b76287616e",
+      "pieces": [
+        {
+          "file": "archive/objects/9744dbadbb7c31cc6393a0682daf91045be270bab934dff7dbad79b76287616e",
+          "size": 1661701,
+          "sha256": "9744dbadbb7c31cc6393a0682daf91045be270bab934dff7dbad79b76287616e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/ko.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 694030,
+      "sha256": "fa24cc7d4089c81247ed9d5e81d8b67890a09a82ff6d450fe94a654374a2a46e",
+      "pieces": [
+        {
+          "file": "archive/objects/fa24cc7d4089c81247ed9d5e81d8b67890a09a82ff6d450fe94a654374a2a46e",
+          "size": 694030,
+          "sha256": "fa24cc7d4089c81247ed9d5e81d8b67890a09a82ff6d450fe94a654374a2a46e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/lt.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 752001,
+      "sha256": "bc5d99751f1b252ed074bfc4bf6dc94321b3f785a0a0d4300209acae40220f74",
+      "pieces": [
+        {
+          "file": "archive/objects/bc5d99751f1b252ed074bfc4bf6dc94321b3f785a0a0d4300209acae40220f74",
+          "size": 752001,
+          "sha256": "bc5d99751f1b252ed074bfc4bf6dc94321b3f785a0a0d4300209acae40220f74"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/lv.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 749059,
+      "sha256": "e91342ed84e1847968b40194250b4d76bbd2ea13133675b8b099dca45ee0f197",
+      "pieces": [
+        {
+          "file": "archive/objects/e91342ed84e1847968b40194250b4d76bbd2ea13133675b8b099dca45ee0f197",
+          "size": 749059,
+          "sha256": "e91342ed84e1847968b40194250b4d76bbd2ea13133675b8b099dca45ee0f197"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/ml.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1705593,
+      "sha256": "b813f87ec80ffb496413949ef7bc8208db6fb7ceaaf88145f160bf8abcfe2f01",
+      "pieces": [
+        {
+          "file": "archive/objects/b813f87ec80ffb496413949ef7bc8208db6fb7ceaaf88145f160bf8abcfe2f01",
+          "size": 1705593,
+          "sha256": "b813f87ec80ffb496413949ef7bc8208db6fb7ceaaf88145f160bf8abcfe2f01"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/mr.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1415199,
+      "sha256": "fa87d519a8545b2748c52ccd7704b320877b2d03385991ceabe75c2745200331",
+      "pieces": [
+        {
+          "file": "archive/objects/fa87d519a8545b2748c52ccd7704b320877b2d03385991ceabe75c2745200331",
+          "size": 1415199,
+          "sha256": "fa87d519a8545b2748c52ccd7704b320877b2d03385991ceabe75c2745200331"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/ms.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 644669,
+      "sha256": "2ab44645c1ed7b68c9121ee0ab9cdf8c7b9d1721d131b08f258b8a85b8ed0af0",
+      "pieces": [
+        {
+          "file": "archive/objects/2ab44645c1ed7b68c9121ee0ab9cdf8c7b9d1721d131b08f258b8a85b8ed0af0",
+          "size": 644669,
+          "sha256": "2ab44645c1ed7b68c9121ee0ab9cdf8c7b9d1721d131b08f258b8a85b8ed0af0"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/nb.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 616327,
+      "sha256": "8eaa23c418a3fafb9e85b5445e73fb2f5e13be1f033ff2487c4081148aaa2f4e",
+      "pieces": [
+        {
+          "file": "archive/objects/8eaa23c418a3fafb9e85b5445e73fb2f5e13be1f033ff2487c4081148aaa2f4e",
+          "size": 616327,
+          "sha256": "8eaa23c418a3fafb9e85b5445e73fb2f5e13be1f033ff2487c4081148aaa2f4e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/nl.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 642143,
+      "sha256": "432dcf6ae7f418986244ed3c953aa36176fce7218de4e48158213389594e7dcd",
+      "pieces": [
+        {
+          "file": "archive/objects/432dcf6ae7f418986244ed3c953aa36176fce7218de4e48158213389594e7dcd",
+          "size": 642143,
+          "sha256": "432dcf6ae7f418986244ed3c953aa36176fce7218de4e48158213389594e7dcd"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/pl.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 717729,
+      "sha256": "5e47475490d1514e3670c44f55a2061672c8e7f6219211b3d907bacbe5aa0a5c",
+      "pieces": [
+        {
+          "file": "archive/objects/5e47475490d1514e3670c44f55a2061672c8e7f6219211b3d907bacbe5aa0a5c",
+          "size": 717729,
+          "sha256": "5e47475490d1514e3670c44f55a2061672c8e7f6219211b3d907bacbe5aa0a5c"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/pt-BR.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 673197,
+      "sha256": "0be502c6b71b94ccd76b30a0b8ce3a816d7223ab1d4c0a81c150df0cf3fc43f5",
+      "pieces": [
+        {
+          "file": "archive/objects/0be502c6b71b94ccd76b30a0b8ce3a816d7223ab1d4c0a81c150df0cf3fc43f5",
+          "size": 673197,
+          "sha256": "0be502c6b71b94ccd76b30a0b8ce3a816d7223ab1d4c0a81c150df0cf3fc43f5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/pt-PT.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 676984,
+      "sha256": "98daa1072e7c405e3f5e030bfe25ef1e12b31a96e0b1db245d6805a564390f75",
+      "pieces": [
+        {
+          "file": "archive/objects/98daa1072e7c405e3f5e030bfe25ef1e12b31a96e0b1db245d6805a564390f75",
+          "size": 676984,
+          "sha256": "98daa1072e7c405e3f5e030bfe25ef1e12b31a96e0b1db245d6805a564390f75"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/ro.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 702574,
+      "sha256": "da5c79d06ae972aa460724ef378f91bf4afda911b167a896963f6e0d4daf9aec",
+      "pieces": [
+        {
+          "file": "archive/objects/da5c79d06ae972aa460724ef378f91bf4afda911b167a896963f6e0d4daf9aec",
+          "size": 702574,
+          "sha256": "da5c79d06ae972aa460724ef378f91bf4afda911b167a896963f6e0d4daf9aec"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/ru.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1163483,
+      "sha256": "e4236ef1cad608c76dc1594645c345feb3459f8ccdcdf4ed2f5b33ba188dabeb",
+      "pieces": [
+        {
+          "file": "archive/objects/e4236ef1cad608c76dc1594645c345feb3459f8ccdcdf4ed2f5b33ba188dabeb",
+          "size": 1163483,
+          "sha256": "e4236ef1cad608c76dc1594645c345feb3459f8ccdcdf4ed2f5b33ba188dabeb"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/sk.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 730264,
+      "sha256": "ca41ac3e8b3352f1bdd66ce54afaddfaf86c1cebfd5bfa3e82a23bded674a83f",
+      "pieces": [
+        {
+          "file": "archive/objects/ca41ac3e8b3352f1bdd66ce54afaddfaf86c1cebfd5bfa3e82a23bded674a83f",
+          "size": 730264,
+          "sha256": "ca41ac3e8b3352f1bdd66ce54afaddfaf86c1cebfd5bfa3e82a23bded674a83f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/sl.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 699179,
+      "sha256": "2bc385d457dc844794f9396458c4090e6233afec5a08b4a5a92e45ef31e07b78",
+      "pieces": [
+        {
+          "file": "archive/objects/2bc385d457dc844794f9396458c4090e6233afec5a08b4a5a92e45ef31e07b78",
+          "size": 699179,
+          "sha256": "2bc385d457dc844794f9396458c4090e6233afec5a08b4a5a92e45ef31e07b78"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/sr.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1075898,
+      "sha256": "c3b4a5aba1e86ea0088e5c33002bb055ed567840b2859b277014be0a7283013e",
+      "pieces": [
+        {
+          "file": "archive/objects/c3b4a5aba1e86ea0088e5c33002bb055ed567840b2859b277014be0a7283013e",
+          "size": 1075898,
+          "sha256": "c3b4a5aba1e86ea0088e5c33002bb055ed567840b2859b277014be0a7283013e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/sv.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 624021,
+      "sha256": "3af85c15ce3e76344404c37325a60932ce53763539c8cd8b3120424f709f73de",
+      "pieces": [
+        {
+          "file": "archive/objects/3af85c15ce3e76344404c37325a60932ce53763539c8cd8b3120424f709f73de",
+          "size": 624021,
+          "sha256": "3af85c15ce3e76344404c37325a60932ce53763539c8cd8b3120424f709f73de"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/sw.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 660623,
+      "sha256": "a806d782b21930ec6243b8e5b393e7fa970ce9d297e96b02e6596fa6ce6c8a86",
+      "pieces": [
+        {
+          "file": "archive/objects/a806d782b21930ec6243b8e5b393e7fa970ce9d297e96b02e6596fa6ce6c8a86",
+          "size": 660623,
+          "sha256": "a806d782b21930ec6243b8e5b393e7fa970ce9d297e96b02e6596fa6ce6c8a86"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/ta.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1696711,
+      "sha256": "516660683214c01341300fa8d15c7e39aecc38792b76fe74bdcc464024f4294f",
+      "pieces": [
+        {
+          "file": "archive/objects/516660683214c01341300fa8d15c7e39aecc38792b76fe74bdcc464024f4294f",
+          "size": 1696711,
+          "sha256": "516660683214c01341300fa8d15c7e39aecc38792b76fe74bdcc464024f4294f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/te.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1571940,
+      "sha256": "5439181ded31f8cc5dbcc1eed358753d4b7449ad29380baabe4cb893d8751a06",
+      "pieces": [
+        {
+          "file": "archive/objects/5439181ded31f8cc5dbcc1eed358753d4b7449ad29380baabe4cb893d8751a06",
+          "size": 1571940,
+          "sha256": "5439181ded31f8cc5dbcc1eed358753d4b7449ad29380baabe4cb893d8751a06"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/th.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1320867,
+      "sha256": "946b4a45a9d43b15359927f33307fc35f50d7e880f02890b07bdfd1160f2db59",
+      "pieces": [
+        {
+          "file": "archive/objects/946b4a45a9d43b15359927f33307fc35f50d7e880f02890b07bdfd1160f2db59",
+          "size": 1320867,
+          "sha256": "946b4a45a9d43b15359927f33307fc35f50d7e880f02890b07bdfd1160f2db59"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/tr.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 672669,
+      "sha256": "98151ed08e518b76f33cf20926717e0d8e28d8e4eb111e0c6e33b95c8acaa99e",
+      "pieces": [
+        {
+          "file": "archive/objects/98151ed08e518b76f33cf20926717e0d8e28d8e4eb111e0c6e33b95c8acaa99e",
+          "size": 672669,
+          "sha256": "98151ed08e518b76f33cf20926717e0d8e28d8e4eb111e0c6e33b95c8acaa99e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/uk.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1172739,
+      "sha256": "6cdfc2782df67c0b72962fc62d2c2eb8d93102255115dae093dde530e345c643",
+      "pieces": [
+        {
+          "file": "archive/objects/6cdfc2782df67c0b72962fc62d2c2eb8d93102255115dae093dde530e345c643",
+          "size": 1172739,
+          "sha256": "6cdfc2782df67c0b72962fc62d2c2eb8d93102255115dae093dde530e345c643"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/ur.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1010270,
+      "sha256": "d57cd219249e207d34c21a619935d0f0a7814a0ccdd36051a42400c60a599e47",
+      "pieces": [
+        {
+          "file": "archive/objects/d57cd219249e207d34c21a619935d0f0a7814a0ccdd36051a42400c60a599e47",
+          "size": 1010270,
+          "sha256": "d57cd219249e207d34c21a619935d0f0a7814a0ccdd36051a42400c60a599e47"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/vi.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 799770,
+      "sha256": "37f2c01a308ad8bb93d9525d81480880f97d54191dbe7c1c1e75aa9fcf009450",
+      "pieces": [
+        {
+          "file": "archive/objects/37f2c01a308ad8bb93d9525d81480880f97d54191dbe7c1c1e75aa9fcf009450",
+          "size": 799770,
+          "sha256": "37f2c01a308ad8bb93d9525d81480880f97d54191dbe7c1c1e75aa9fcf009450"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/zh-CN.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 571748,
+      "sha256": "e2c2d278e66e1cd806f707259fabf8fed43f0e2e04edb23e4808c46fb872d8d7",
+      "pieces": [
+        {
+          "file": "archive/objects/e2c2d278e66e1cd806f707259fabf8fed43f0e2e04edb23e4808c46fb872d8d7",
+          "size": 571748,
+          "sha256": "e2c2d278e66e1cd806f707259fabf8fed43f0e2e04edb23e4808c46fb872d8d7"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/locales/zh-TW.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 564374,
+      "sha256": "f4c2f92b0de0326377b7d441fab0fe7441ab3d09c188c530445c210a88377234",
+      "pieces": [
+        {
+          "file": "archive/objects/f4c2f92b0de0326377b7d441fab0fe7441ab3d09c188c530445c210a88377234",
+          "size": 564374,
+          "sha256": "f4c2f92b0de0326377b7d441fab0fe7441ab3d09c188c530445c210a88377234"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/resources/app-update.yml",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 142,
+      "sha256": "f39eda5f97ec15505a00c791447c65f4e0a5b3cda66a08b869e3b105093eca02",
+      "pieces": [
+        {
+          "file": "archive/objects/f39eda5f97ec15505a00c791447c65f4e0a5b3cda66a08b869e3b105093eca02",
+          "size": 142,
+          "sha256": "f39eda5f97ec15505a00c791447c65f4e0a5b3cda66a08b869e3b105093eca02"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/resources/app.asar",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 72325369,
+      "sha256": "34d07b73010eeef45efe954a1b81a1d4a4531be66a79777e5783e05201f791e6",
+      "pieces": [
+        {
+          "file": "archive/objects/e8c32a5513facd13c66d7000d4f0eac8db5c06fab74c565e8b285c89d23a0126",
+          "size": 33554432,
+          "sha256": "e8c32a5513facd13c66d7000d4f0eac8db5c06fab74c565e8b285c89d23a0126"
+        },
+        {
+          "file": "archive/objects/06276318aa7526c8ae6c77a1ba55d32b9e0148965b7572547839c236478447b3",
+          "size": 33554432,
+          "sha256": "06276318aa7526c8ae6c77a1ba55d32b9e0148965b7572547839c236478447b3"
+        },
+        {
+          "file": "archive/objects/099d53aeef94fbd298fd182218714de6190a6cbe7a6af86953ef76f878f77d04",
+          "size": 5216505,
+          "sha256": "099d53aeef94fbd298fd182218714de6190a6cbe7a6af86953ef76f878f77d04"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/resources/default_app.asar",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 110862,
+      "sha256": "0eb2491b0a9ac94790389d39c09dd5005c6c1f0665842943829bbd0193f6cc4f",
+      "pieces": [
+        {
+          "file": "archive/objects/0eb2491b0a9ac94790389d39c09dd5005c6c1f0665842943829bbd0193f6cc4f",
+          "size": 110862,
+          "sha256": "0eb2491b0a9ac94790389d39c09dd5005c6c1f0665842943829bbd0193f6cc4f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/resources/elevate.exe",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 107520,
+      "sha256": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37",
+      "pieces": [
+        {
+          "file": "archive/objects/9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37",
+          "size": 107520,
+          "sha256": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/resources.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 7236872,
+      "sha256": "b88115979b34be771ce2547a550cc46cb11fa19882e02f54f84a5471fa94f9f3",
+      "pieces": [
+        {
+          "file": "archive/objects/b88115979b34be771ce2547a550cc46cb11fa19882e02f54f84a5471fa94f9f3",
+          "size": 7236872,
+          "sha256": "b88115979b34be771ce2547a550cc46cb11fa19882e02f54f84a5471fa94f9f3"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/sdk-evidence.json",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 258,
+      "sha256": "fba225eae8ff9c0f4208a96c2743accb5cc6c75153cf152d19d7829edbd89fb2",
+      "pieces": [
+        {
+          "file": "archive/objects/fba225eae8ff9c0f4208a96c2743accb5cc6c75153cf152d19d7829edbd89fb2",
+          "size": 258,
+          "sha256": "fba225eae8ff9c0f4208a96c2743accb5cc6c75153cf152d19d7829edbd89fb2"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/snapshot_blob.bin",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 354888,
+      "sha256": "ef570eff8ebbdf8ec58cffef40f214065066cd0ad1cd989c50eecae66284b08f",
+      "pieces": [
+        {
+          "file": "archive/objects/ef570eff8ebbdf8ec58cffef40f214065066cd0ad1cd989c50eecae66284b08f",
+          "size": 354888,
+          "sha256": "ef570eff8ebbdf8ec58cffef40f214065066cd0ad1cd989c50eecae66284b08f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/v8_context_snapshot.bin",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 730944,
+      "sha256": "c906c1ce2463f38afcc2eccdd0ba4d0503b28caec87e103e22b4b670a72f07e0",
+      "pieces": [
+        {
+          "file": "archive/objects/c906c1ce2463f38afcc2eccdd0ba4d0503b28caec87e103e22b4b670a72f07e0",
+          "size": 730944,
+          "sha256": "c906c1ce2463f38afcc2eccdd0ba4d0503b28caec87e103e22b4b670a72f07e0"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/version",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 6,
+      "sha256": "1156fb2b66ba8286d7757bd34cd2762cd3da6b7d110595728b48fc3782e1dfaf",
+      "pieces": [
+        {
+          "file": "archive/objects/1156fb2b66ba8286d7757bd34cd2762cd3da6b7d110595728b48fc3782e1dfaf",
+          "size": 6,
+          "sha256": "1156fb2b66ba8286d7757bd34cd2762cd3da6b7d110595728b48fc3782e1dfaf"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/vk_swiftshader.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 4951040,
+      "sha256": "c8d97569699a64469f12120b643032b46f3990937c55c1fe84062ad3da1b06b1",
+      "pieces": [
+        {
+          "file": "archive/objects/c8d97569699a64469f12120b643032b46f3990937c55c1fe84062ad3da1b06b1",
+          "size": 4951040,
+          "sha256": "c8d97569699a64469f12120b643032b46f3990937c55c1fe84062ad3da1b06b1"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/vk_swiftshader_icd.json",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 106,
+      "sha256": "32d83ff113fef532a9f97e0d2831f8656628ab1c99e9060f0332b1532839afd9",
+      "pieces": [
+        {
+          "file": "archive/objects/32d83ff113fef532a9f97e0d2831f8656628ab1c99e9060f0332b1532839afd9",
+          "size": 106,
+          "sha256": "32d83ff113fef532a9f97e0d2831f8656628ab1c99e9060f0332b1532839afd9"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/vulkan-1.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 829952,
+      "sha256": "69ba2ffdb8cbf3f786a0df25a3812e2bbe4a3e81bf1b75af3349be093159f778",
+      "pieces": [
+        {
+          "file": "archive/objects/69ba2ffdb8cbf3f786a0df25a3812e2bbe4a3e81bf1b75af3349be093159f778",
+          "size": 829952,
+          "sha256": "69ba2ffdb8cbf3f786a0df25a3812e2bbe4a3e81bf1b75af3349be093159f778"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/card-checkout-fix-20261012-1610/win10-x86/win-ia32-unpacked/溪泉洗浴管理系统.exe",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 205389312,
+      "sha256": "e25e4d502b02e193c96805cdd84b94430fd86ba3b90cfa795f3c34ecc1dfd52b",
+      "pieces": [
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0001",
+          "size": 33554432,
+          "sha256": "65fd49d710b39ba19db94a348dceea399671542c6368c679f6459bc6eb3a8bca"
+        },
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0002",
+          "size": 33554432,
+          "sha256": "9295af03dc624f27f1c01838f459e09c4b8b6d5c58c516d64ea8caf00ca2a309"
+        },
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0003",
+          "size": 33554432,
+          "sha256": "114e79dc62ef5e7c937a3e321fc6ea552399d42f4c7d965f44d29ae1efb1e162"
+        },
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0004",
+          "size": 33554432,
+          "sha256": "898e3daa7ce4cf1b054f22645fc1016b53570595d11fbc3cbc5a83b9185090d1"
+        },
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0005",
+          "size": 33554432,
+          "sha256": "598a5ea112e3ac8306e811eea92cb8a7532fd50b6da425ca0460eae4c4a2ad8c"
+        },
+        {
+          "file": "archive/objects/1771223bf0a0dfcaefe68af9ae6735f0424fcd8892a741cfcdf34e7b6c2d375a",
+          "size": 33554432,
+          "sha256": "1771223bf0a0dfcaefe68af9ae6735f0424fcd8892a741cfcdf34e7b6c2d375a"
+        },
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0007",
+          "size": 4062720,
+          "sha256": "d3a53ec3db27796dc5d0ec05932d55713f1a3e1d79b19a7e8096f120d02200ff"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/configs/win10-x86.nsh",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 128,
+      "sha256": "ec260e214255f46c82d4b74714e514ec788e7e67b5ab25c37f5634390058d6a4",
+      "pieces": [
+        {
+          "file": "archive/objects/ec260e214255f46c82d4b74714e514ec788e7e67b5ab25c37f5634390058d6a4",
+          "size": 128,
+          "sha256": "ec260e214255f46c82d4b74714e514ec788e7e67b5ab25c37f5634390058d6a4"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/Xiquan-Bathhouse-Setup-0.5.1-win10-x86.exe",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 100949061,
+      "sha256": "fbb97ee779ae229dd70c7f7b3557067de9e9f1966d15efe7e203301abcf601c7",
+      "pieces": [
+        {
+          "file": "archive/objects/e8dc25aad260e5077078d6c90860010a64df64d6f43c4ae3b97aa65989784ae6",
+          "size": 33554432,
+          "sha256": "e8dc25aad260e5077078d6c90860010a64df64d6f43c4ae3b97aa65989784ae6"
+        },
+        {
+          "file": "archive/objects/4aecb0e09ec0bf63c5a54b68db9ea2439d7b58f0fc14003d0232ab5820e606ff",
+          "size": 33554432,
+          "sha256": "4aecb0e09ec0bf63c5a54b68db9ea2439d7b58f0fc14003d0232ab5820e606ff"
+        },
+        {
+          "file": "archive/objects/c7976f73cf67b52ba1b9379ddb20c326bedb032a0658659588b3c09b560894c2",
+          "size": 33554432,
+          "sha256": "c7976f73cf67b52ba1b9379ddb20c326bedb032a0658659588b3c09b560894c2"
+        },
+        {
+          "file": "archive/objects/102765960795ab6cc93478073f5baa01f75b5386d59570060b5b7100e6519712",
+          "size": 285765,
+          "sha256": "102765960795ab6cc93478073f5baa01f75b5386d59570060b5b7100e6519712"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/Xiquan-Bathhouse-Setup-0.5.1-win10-x86.exe.blockmap",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 105688,
+      "sha256": "bbb8b62dec74a38eef160d7468ea9c328b7c73e30c79d207e7e39d1ea8305d0f",
+      "pieces": [
+        {
+          "file": "archive/objects/bbb8b62dec74a38eef160d7468ea9c328b7c73e30c79d207e7e39d1ea8305d0f",
+          "size": 105688,
+          "sha256": "bbb8b62dec74a38eef160d7468ea9c328b7c73e30c79d207e7e39d1ea8305d0f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/builder-debug.yml",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 7684,
+      "sha256": "851f0c64868e432277c0fa831f34758d7918a437a9bbfa1e89cdc8e3921648b4",
+      "pieces": [
+        {
+          "file": "archive/objects/851f0c64868e432277c0fa831f34758d7918a437a9bbfa1e89cdc8e3921648b4",
+          "size": 7684,
+          "sha256": "851f0c64868e432277c0fa831f34758d7918a437a9bbfa1e89cdc8e3921648b4"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/latest.yml",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 395,
+      "sha256": "420146b3a8d8f90f8e6df8a7d3ac603cfcdeffc35f221a044658dd106e56bd98",
+      "pieces": [
+        {
+          "file": "archive/objects/420146b3a8d8f90f8e6df8a7d3ac603cfcdeffc35f221a044658dd106e56bd98",
+          "size": 395,
+          "sha256": "420146b3a8d8f90f8e6df8a7d3ac603cfcdeffc35f221a044658dd106e56bd98"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/release.json",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1917,
+      "sha256": "2e2957803a1b68451eec65f46898d08eed4207ab9371bc7aa1f60c540cab7208",
+      "pieces": [
+        {
+          "file": "archive/objects/2e2957803a1b68451eec65f46898d08eed4207ab9371bc7aa1f60c540cab7208",
+          "size": 1917,
+          "sha256": "2e2957803a1b68451eec65f46898d08eed4207ab9371bc7aa1f60c540cab7208"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/LICENSE.electron.txt",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1096,
+      "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d",
+      "pieces": [
+        {
+          "file": "archive/objects/5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d",
+          "size": 1096,
+          "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/LICENSES.chromium.html",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 20313960,
+      "sha256": "c971fa90cb787337e9df73773f3b43cd5621f035e53cded439bd927b3b759e0c",
+      "pieces": [
+        {
+          "file": "archive/objects/c971fa90cb787337e9df73773f3b43cd5621f035e53cded439bd927b3b759e0c",
+          "size": 20313960,
+          "sha256": "c971fa90cb787337e9df73773f3b43cd5621f035e53cded439bd927b3b759e0c"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/chrome_100_percent.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 119905,
+      "sha256": "d76fe8fa3a14cd73e4c858746e2ab2d2fa6f2df38a906fa5814b50a8a895fc96",
+      "pieces": [
+        {
+          "file": "archive/objects/d76fe8fa3a14cd73e4c858746e2ab2d2fa6f2df38a906fa5814b50a8a895fc96",
+          "size": 119905,
+          "sha256": "d76fe8fa3a14cd73e4c858746e2ab2d2fa6f2df38a906fa5814b50a8a895fc96"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/chrome_200_percent.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 197089,
+      "sha256": "b74ad439f3d3762657f3ba533a6af3ac63315c838ed46519891366f43d834a0e",
+      "pieces": [
+        {
+          "file": "archive/objects/b74ad439f3d3762657f3ba533a6af3ac63315c838ed46519891366f43d834a0e",
+          "size": 197089,
+          "sha256": "b74ad439f3d3762657f3ba533a6af3ac63315c838ed46519891366f43d834a0e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/d3dcompiler_47.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 4147544,
+      "sha256": "0ae6e52072857c3acfde53b98f56c3c6d9bd0e7b09f247ae7f40bfd451593c4c",
+      "pieces": [
+        {
+          "file": "archive/objects/0ae6e52072857c3acfde53b98f56c3c6d9bd0e7b09f247ae7f40bfd451593c4c",
+          "size": 4147544,
+          "sha256": "0ae6e52072857c3acfde53b98f56c3c6d9bd0e7b09f247ae7f40bfd451593c4c"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/ffmpeg.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 2787328,
+      "sha256": "36b5750cedcf467027788b4547553163e4d70cf14a9827e64dd5e372f43d44d7",
+      "pieces": [
+        {
+          "file": "archive/objects/36b5750cedcf467027788b4547553163e4d70cf14a9827e64dd5e372f43d44d7",
+          "size": 2787328,
+          "sha256": "36b5750cedcf467027788b4547553163e4d70cf14a9827e64dd5e372f43d44d7"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/icudtl.dat",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 10876560,
+      "sha256": "bd8c145abdf3f8383276ce01dfa4ae48709bef9fef1c0711eb7c3fab4f6eb7c2",
+      "pieces": [
+        {
+          "file": "archive/objects/bd8c145abdf3f8383276ce01dfa4ae48709bef9fef1c0711eb7c3fab4f6eb7c2",
+          "size": 10876560,
+          "sha256": "bd8c145abdf3f8383276ce01dfa4ae48709bef9fef1c0711eb7c3fab4f6eb7c2"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/libEGL.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 391680,
+      "sha256": "bb959fa5f4993729541406562cffaab40cf7a2d6a26ce1bca3f46b5b9e7437eb",
+      "pieces": [
+        {
+          "file": "archive/objects/bb959fa5f4993729541406562cffaab40cf7a2d6a26ce1bca3f46b5b9e7437eb",
+          "size": 391680,
+          "sha256": "bb959fa5f4993729541406562cffaab40cf7a2d6a26ce1bca3f46b5b9e7437eb"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/libGLESv2.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 7237120,
+      "sha256": "abede86e342b4b80a93378e1a347cfb06849ad1096898f587d110884e56444d2",
+      "pieces": [
+        {
+          "file": "archive/objects/abede86e342b4b80a93378e1a347cfb06849ad1096898f587d110884e56444d2",
+          "size": 7237120,
+          "sha256": "abede86e342b4b80a93378e1a347cfb06849ad1096898f587d110884e56444d2"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/af.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 614017,
+      "sha256": "dcf39c3edbb6b0a625baee0263a9b426eadd1a6d1bfbf03a209501a18bc4b0e4",
+      "pieces": [
+        {
+          "file": "archive/objects/dcf39c3edbb6b0a625baee0263a9b426eadd1a6d1bfbf03a209501a18bc4b0e4",
+          "size": 614017,
+          "sha256": "dcf39c3edbb6b0a625baee0263a9b426eadd1a6d1bfbf03a209501a18bc4b0e4"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/am.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 994699,
+      "sha256": "b1d444f2346105a6e15f9b14fc5653e1edaa2b435290fb8f1238347a4d4ca8f9",
+      "pieces": [
+        {
+          "file": "archive/objects/b1d444f2346105a6e15f9b14fc5653e1edaa2b435290fb8f1238347a4d4ca8f9",
+          "size": 994699,
+          "sha256": "b1d444f2346105a6e15f9b14fc5653e1edaa2b435290fb8f1238347a4d4ca8f9"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/ar.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1096145,
+      "sha256": "0baa84907ae148d2fc772cdd6c62dbeedfcc45aa4bc67c9d7164906ff0c69247",
+      "pieces": [
+        {
+          "file": "archive/objects/0baa84907ae148d2fc772cdd6c62dbeedfcc45aa4bc67c9d7164906ff0c69247",
+          "size": 1096145,
+          "sha256": "0baa84907ae148d2fc772cdd6c62dbeedfcc45aa4bc67c9d7164906ff0c69247"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/bg.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1138139,
+      "sha256": "e4a5bea23a26a06af611a7cb518b22a1d53ec5df45a6322f0e264b99c7318441",
+      "pieces": [
+        {
+          "file": "archive/objects/e4a5bea23a26a06af611a7cb518b22a1d53ec5df45a6322f0e264b99c7318441",
+          "size": 1138139,
+          "sha256": "e4a5bea23a26a06af611a7cb518b22a1d53ec5df45a6322f0e264b99c7318441"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/bn.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1461103,
+      "sha256": "8e4aebe835b6b46f31c4a902e833d645cfe2990dcf354d1d3c5851e468b4c277",
+      "pieces": [
+        {
+          "file": "archive/objects/8e4aebe835b6b46f31c4a902e833d645cfe2990dcf354d1d3c5851e468b4c277",
+          "size": 1461103,
+          "sha256": "8e4aebe835b6b46f31c4a902e833d645cfe2990dcf354d1d3c5851e468b4c277"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/ca.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 692259,
+      "sha256": "8a472eabdc3f30d94c56367d526f6d345ad65732827097aac747438f233a536f",
+      "pieces": [
+        {
+          "file": "archive/objects/8a472eabdc3f30d94c56367d526f6d345ad65732827097aac747438f233a536f",
+          "size": 692259,
+          "sha256": "8a472eabdc3f30d94c56367d526f6d345ad65732827097aac747438f233a536f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/cs.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 718691,
+      "sha256": "5804ba5b76974b48b15922cf91c3e9dbbf549e2d88218dc767e4650520503135",
+      "pieces": [
+        {
+          "file": "archive/objects/5804ba5b76974b48b15922cf91c3e9dbbf549e2d88218dc767e4650520503135",
+          "size": 718691,
+          "sha256": "5804ba5b76974b48b15922cf91c3e9dbbf549e2d88218dc767e4650520503135"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/da.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 644715,
+      "sha256": "57f4637094de41122da569415c16c5524794bc90aa3af226da14703d04981db0",
+      "pieces": [
+        {
+          "file": "archive/objects/57f4637094de41122da569415c16c5524794bc90aa3af226da14703d04981db0",
+          "size": 644715,
+          "sha256": "57f4637094de41122da569415c16c5524794bc90aa3af226da14703d04981db0"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/de.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 693336,
+      "sha256": "4919ce127533d3cac698d837306161c00cf69ce30f9fa4b25b80fda171d78f89",
+      "pieces": [
+        {
+          "file": "archive/objects/4919ce127533d3cac698d837306161c00cf69ce30f9fa4b25b80fda171d78f89",
+          "size": 693336,
+          "sha256": "4919ce127533d3cac698d837306161c00cf69ce30f9fa4b25b80fda171d78f89"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/el.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1251062,
+      "sha256": "48d430dca8785ce24fc605851b2bb739164b8e5fb5588909329a82e58f6902d0",
+      "pieces": [
+        {
+          "file": "archive/objects/48d430dca8785ce24fc605851b2bb739164b8e5fb5588909329a82e58f6902d0",
+          "size": 1251062,
+          "sha256": "48d430dca8785ce24fc605851b2bb739164b8e5fb5588909329a82e58f6902d0"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/en-GB.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 559903,
+      "sha256": "7d3f5c381b1ec39bc57d6cee58f9bd69be9b36aa98ffca0b94e81f4df92e5388",
+      "pieces": [
+        {
+          "file": "archive/objects/7d3f5c381b1ec39bc57d6cee58f9bd69be9b36aa98ffca0b94e81f4df92e5388",
+          "size": 559903,
+          "sha256": "7d3f5c381b1ec39bc57d6cee58f9bd69be9b36aa98ffca0b94e81f4df92e5388"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/en-US.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 566095,
+      "sha256": "74404352908184e834397df60b238f23462e77d69ac4136b4f20af2db6191436",
+      "pieces": [
+        {
+          "file": "archive/objects/74404352908184e834397df60b238f23462e77d69ac4136b4f20af2db6191436",
+          "size": 566095,
+          "sha256": "74404352908184e834397df60b238f23462e77d69ac4136b4f20af2db6191436"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/es-419.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 683097,
+      "sha256": "cd173ec7abdc3609b8ea33764fa8e106147121ee2d262cf5aef22d50fd386fb9",
+      "pieces": [
+        {
+          "file": "archive/objects/cd173ec7abdc3609b8ea33764fa8e106147121ee2d262cf5aef22d50fd386fb9",
+          "size": 683097,
+          "sha256": "cd173ec7abdc3609b8ea33764fa8e106147121ee2d262cf5aef22d50fd386fb9"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/es.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 679701,
+      "sha256": "9ff88eabacab95f8bbef9e95f63d3619fa8d640ec03523d80abb26243b059a65",
+      "pieces": [
+        {
+          "file": "archive/objects/9ff88eabacab95f8bbef9e95f63d3619fa8d640ec03523d80abb26243b059a65",
+          "size": 679701,
+          "sha256": "9ff88eabacab95f8bbef9e95f63d3619fa8d640ec03523d80abb26243b059a65"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/et.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 620420,
+      "sha256": "0292298736847491828465a3dcf04cf4a0d9bd63d4b1a9d183c7eeb389343d26",
+      "pieces": [
+        {
+          "file": "archive/objects/0292298736847491828465a3dcf04cf4a0d9bd63d4b1a9d183c7eeb389343d26",
+          "size": 620420,
+          "sha256": "0292298736847491828465a3dcf04cf4a0d9bd63d4b1a9d183c7eeb389343d26"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/fa.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1026888,
+      "sha256": "61323fafa841e5cb977e80d27b2c2746ab3eee7fdeec4e9312915d9e0c45b52e",
+      "pieces": [
+        {
+          "file": "archive/objects/61323fafa841e5cb977e80d27b2c2746ab3eee7fdeec4e9312915d9e0c45b52e",
+          "size": 1026888,
+          "sha256": "61323fafa841e5cb977e80d27b2c2746ab3eee7fdeec4e9312915d9e0c45b52e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/fi.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 632436,
+      "sha256": "0535e2acd4517ce8099aa0a4a3e562af37ca6a699faca1de3b348b8bfacf2a8b",
+      "pieces": [
+        {
+          "file": "archive/objects/0535e2acd4517ce8099aa0a4a3e562af37ca6a699faca1de3b348b8bfacf2a8b",
+          "size": 632436,
+          "sha256": "0535e2acd4517ce8099aa0a4a3e562af37ca6a699faca1de3b348b8bfacf2a8b"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/fil.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 715769,
+      "sha256": "f9e86324deee168d160a51402588da9987646c8c5899b76b6255d7e3a46a7bb5",
+      "pieces": [
+        {
+          "file": "archive/objects/f9e86324deee168d160a51402588da9987646c8c5899b76b6255d7e3a46a7bb5",
+          "size": 715769,
+          "sha256": "f9e86324deee168d160a51402588da9987646c8c5899b76b6255d7e3a46a7bb5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/fr.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 738348,
+      "sha256": "843d7236fef5375ef08b9af9eb7e443ecafe0593deebc18a45ba5cf67a3a1f00",
+      "pieces": [
+        {
+          "file": "archive/objects/843d7236fef5375ef08b9af9eb7e443ecafe0593deebc18a45ba5cf67a3a1f00",
+          "size": 738348,
+          "sha256": "843d7236fef5375ef08b9af9eb7e443ecafe0593deebc18a45ba5cf67a3a1f00"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/gu.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1443762,
+      "sha256": "34e4d54d66a0b0471542ee76c55cc9d3b27fcaf15cdf63c3d7e7b46cfdfb3f4f",
+      "pieces": [
+        {
+          "file": "archive/objects/34e4d54d66a0b0471542ee76c55cc9d3b27fcaf15cdf63c3d7e7b46cfdfb3f4f",
+          "size": 1443762,
+          "sha256": "34e4d54d66a0b0471542ee76c55cc9d3b27fcaf15cdf63c3d7e7b46cfdfb3f4f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/he.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 898800,
+      "sha256": "75fbe196eda1791775243822da4e7f9737710f627b6ee27cc4c6d975865ea7cd",
+      "pieces": [
+        {
+          "file": "archive/objects/75fbe196eda1791775243822da4e7f9737710f627b6ee27cc4c6d975865ea7cd",
+          "size": 898800,
+          "sha256": "75fbe196eda1791775243822da4e7f9737710f627b6ee27cc4c6d975865ea7cd"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/hi.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1529643,
+      "sha256": "7557c5d5b46c8ff4ebc159bbdf0477d28e4baa7c3bedcb947d59028301ff21e6",
+      "pieces": [
+        {
+          "file": "archive/objects/7557c5d5b46c8ff4ebc159bbdf0477d28e4baa7c3bedcb947d59028301ff21e6",
+          "size": 1529643,
+          "sha256": "7557c5d5b46c8ff4ebc159bbdf0477d28e4baa7c3bedcb947d59028301ff21e6"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/hr.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 691185,
+      "sha256": "9ef77921560c91e5d6e42df6504589b8b7efb84c9b5119ac51e9a10d8c83a089",
+      "pieces": [
+        {
+          "file": "archive/objects/9ef77921560c91e5d6e42df6504589b8b7efb84c9b5119ac51e9a10d8c83a089",
+          "size": 691185,
+          "sha256": "9ef77921560c91e5d6e42df6504589b8b7efb84c9b5119ac51e9a10d8c83a089"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/hu.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 738546,
+      "sha256": "31e407f43bbd0cd0692755f961bb39d10af1f9f0af205455dd70fb4c7eeb85a5",
+      "pieces": [
+        {
+          "file": "archive/objects/31e407f43bbd0cd0692755f961bb39d10af1f9f0af205455dd70fb4c7eeb85a5",
+          "size": 738546,
+          "sha256": "31e407f43bbd0cd0692755f961bb39d10af1f9f0af205455dd70fb4c7eeb85a5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/id.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 612462,
+      "sha256": "e7957c9c58f890b5d053ea50c5fcb4b66cbc3c47478c42a5962810cb15814249",
+      "pieces": [
+        {
+          "file": "archive/objects/e7957c9c58f890b5d053ea50c5fcb4b66cbc3c47478c42a5962810cb15814249",
+          "size": 612462,
+          "sha256": "e7957c9c58f890b5d053ea50c5fcb4b66cbc3c47478c42a5962810cb15814249"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/it.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 669241,
+      "sha256": "4b06d5f8a4f75b3122bc3f1c54af59eadf6117507758d4efbcb5f1f88f322e61",
+      "pieces": [
+        {
+          "file": "archive/objects/4b06d5f8a4f75b3122bc3f1c54af59eadf6117507758d4efbcb5f1f88f322e61",
+          "size": 669241,
+          "sha256": "4b06d5f8a4f75b3122bc3f1c54af59eadf6117507758d4efbcb5f1f88f322e61"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/ja.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 815509,
+      "sha256": "89178f1acd5af747dde41399ba0c1e229eb53e2800d4b15ea2d9f3358e69edd3",
+      "pieces": [
+        {
+          "file": "archive/objects/89178f1acd5af747dde41399ba0c1e229eb53e2800d4b15ea2d9f3358e69edd3",
+          "size": 815509,
+          "sha256": "89178f1acd5af747dde41399ba0c1e229eb53e2800d4b15ea2d9f3358e69edd3"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/kn.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1661701,
+      "sha256": "9744dbadbb7c31cc6393a0682daf91045be270bab934dff7dbad79b76287616e",
+      "pieces": [
+        {
+          "file": "archive/objects/9744dbadbb7c31cc6393a0682daf91045be270bab934dff7dbad79b76287616e",
+          "size": 1661701,
+          "sha256": "9744dbadbb7c31cc6393a0682daf91045be270bab934dff7dbad79b76287616e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/ko.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 694030,
+      "sha256": "fa24cc7d4089c81247ed9d5e81d8b67890a09a82ff6d450fe94a654374a2a46e",
+      "pieces": [
+        {
+          "file": "archive/objects/fa24cc7d4089c81247ed9d5e81d8b67890a09a82ff6d450fe94a654374a2a46e",
+          "size": 694030,
+          "sha256": "fa24cc7d4089c81247ed9d5e81d8b67890a09a82ff6d450fe94a654374a2a46e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/lt.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 752001,
+      "sha256": "bc5d99751f1b252ed074bfc4bf6dc94321b3f785a0a0d4300209acae40220f74",
+      "pieces": [
+        {
+          "file": "archive/objects/bc5d99751f1b252ed074bfc4bf6dc94321b3f785a0a0d4300209acae40220f74",
+          "size": 752001,
+          "sha256": "bc5d99751f1b252ed074bfc4bf6dc94321b3f785a0a0d4300209acae40220f74"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/lv.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 749059,
+      "sha256": "e91342ed84e1847968b40194250b4d76bbd2ea13133675b8b099dca45ee0f197",
+      "pieces": [
+        {
+          "file": "archive/objects/e91342ed84e1847968b40194250b4d76bbd2ea13133675b8b099dca45ee0f197",
+          "size": 749059,
+          "sha256": "e91342ed84e1847968b40194250b4d76bbd2ea13133675b8b099dca45ee0f197"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/ml.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1705593,
+      "sha256": "b813f87ec80ffb496413949ef7bc8208db6fb7ceaaf88145f160bf8abcfe2f01",
+      "pieces": [
+        {
+          "file": "archive/objects/b813f87ec80ffb496413949ef7bc8208db6fb7ceaaf88145f160bf8abcfe2f01",
+          "size": 1705593,
+          "sha256": "b813f87ec80ffb496413949ef7bc8208db6fb7ceaaf88145f160bf8abcfe2f01"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/mr.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1415199,
+      "sha256": "fa87d519a8545b2748c52ccd7704b320877b2d03385991ceabe75c2745200331",
+      "pieces": [
+        {
+          "file": "archive/objects/fa87d519a8545b2748c52ccd7704b320877b2d03385991ceabe75c2745200331",
+          "size": 1415199,
+          "sha256": "fa87d519a8545b2748c52ccd7704b320877b2d03385991ceabe75c2745200331"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/ms.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 644669,
+      "sha256": "2ab44645c1ed7b68c9121ee0ab9cdf8c7b9d1721d131b08f258b8a85b8ed0af0",
+      "pieces": [
+        {
+          "file": "archive/objects/2ab44645c1ed7b68c9121ee0ab9cdf8c7b9d1721d131b08f258b8a85b8ed0af0",
+          "size": 644669,
+          "sha256": "2ab44645c1ed7b68c9121ee0ab9cdf8c7b9d1721d131b08f258b8a85b8ed0af0"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/nb.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 616327,
+      "sha256": "8eaa23c418a3fafb9e85b5445e73fb2f5e13be1f033ff2487c4081148aaa2f4e",
+      "pieces": [
+        {
+          "file": "archive/objects/8eaa23c418a3fafb9e85b5445e73fb2f5e13be1f033ff2487c4081148aaa2f4e",
+          "size": 616327,
+          "sha256": "8eaa23c418a3fafb9e85b5445e73fb2f5e13be1f033ff2487c4081148aaa2f4e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/nl.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 642143,
+      "sha256": "432dcf6ae7f418986244ed3c953aa36176fce7218de4e48158213389594e7dcd",
+      "pieces": [
+        {
+          "file": "archive/objects/432dcf6ae7f418986244ed3c953aa36176fce7218de4e48158213389594e7dcd",
+          "size": 642143,
+          "sha256": "432dcf6ae7f418986244ed3c953aa36176fce7218de4e48158213389594e7dcd"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/pl.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 717729,
+      "sha256": "5e47475490d1514e3670c44f55a2061672c8e7f6219211b3d907bacbe5aa0a5c",
+      "pieces": [
+        {
+          "file": "archive/objects/5e47475490d1514e3670c44f55a2061672c8e7f6219211b3d907bacbe5aa0a5c",
+          "size": 717729,
+          "sha256": "5e47475490d1514e3670c44f55a2061672c8e7f6219211b3d907bacbe5aa0a5c"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/pt-BR.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 673197,
+      "sha256": "0be502c6b71b94ccd76b30a0b8ce3a816d7223ab1d4c0a81c150df0cf3fc43f5",
+      "pieces": [
+        {
+          "file": "archive/objects/0be502c6b71b94ccd76b30a0b8ce3a816d7223ab1d4c0a81c150df0cf3fc43f5",
+          "size": 673197,
+          "sha256": "0be502c6b71b94ccd76b30a0b8ce3a816d7223ab1d4c0a81c150df0cf3fc43f5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/pt-PT.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 676984,
+      "sha256": "98daa1072e7c405e3f5e030bfe25ef1e12b31a96e0b1db245d6805a564390f75",
+      "pieces": [
+        {
+          "file": "archive/objects/98daa1072e7c405e3f5e030bfe25ef1e12b31a96e0b1db245d6805a564390f75",
+          "size": 676984,
+          "sha256": "98daa1072e7c405e3f5e030bfe25ef1e12b31a96e0b1db245d6805a564390f75"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/ro.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 702574,
+      "sha256": "da5c79d06ae972aa460724ef378f91bf4afda911b167a896963f6e0d4daf9aec",
+      "pieces": [
+        {
+          "file": "archive/objects/da5c79d06ae972aa460724ef378f91bf4afda911b167a896963f6e0d4daf9aec",
+          "size": 702574,
+          "sha256": "da5c79d06ae972aa460724ef378f91bf4afda911b167a896963f6e0d4daf9aec"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/ru.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1163483,
+      "sha256": "e4236ef1cad608c76dc1594645c345feb3459f8ccdcdf4ed2f5b33ba188dabeb",
+      "pieces": [
+        {
+          "file": "archive/objects/e4236ef1cad608c76dc1594645c345feb3459f8ccdcdf4ed2f5b33ba188dabeb",
+          "size": 1163483,
+          "sha256": "e4236ef1cad608c76dc1594645c345feb3459f8ccdcdf4ed2f5b33ba188dabeb"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/sk.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 730264,
+      "sha256": "ca41ac3e8b3352f1bdd66ce54afaddfaf86c1cebfd5bfa3e82a23bded674a83f",
+      "pieces": [
+        {
+          "file": "archive/objects/ca41ac3e8b3352f1bdd66ce54afaddfaf86c1cebfd5bfa3e82a23bded674a83f",
+          "size": 730264,
+          "sha256": "ca41ac3e8b3352f1bdd66ce54afaddfaf86c1cebfd5bfa3e82a23bded674a83f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/sl.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 699179,
+      "sha256": "2bc385d457dc844794f9396458c4090e6233afec5a08b4a5a92e45ef31e07b78",
+      "pieces": [
+        {
+          "file": "archive/objects/2bc385d457dc844794f9396458c4090e6233afec5a08b4a5a92e45ef31e07b78",
+          "size": 699179,
+          "sha256": "2bc385d457dc844794f9396458c4090e6233afec5a08b4a5a92e45ef31e07b78"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/sr.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1075898,
+      "sha256": "c3b4a5aba1e86ea0088e5c33002bb055ed567840b2859b277014be0a7283013e",
+      "pieces": [
+        {
+          "file": "archive/objects/c3b4a5aba1e86ea0088e5c33002bb055ed567840b2859b277014be0a7283013e",
+          "size": 1075898,
+          "sha256": "c3b4a5aba1e86ea0088e5c33002bb055ed567840b2859b277014be0a7283013e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/sv.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 624021,
+      "sha256": "3af85c15ce3e76344404c37325a60932ce53763539c8cd8b3120424f709f73de",
+      "pieces": [
+        {
+          "file": "archive/objects/3af85c15ce3e76344404c37325a60932ce53763539c8cd8b3120424f709f73de",
+          "size": 624021,
+          "sha256": "3af85c15ce3e76344404c37325a60932ce53763539c8cd8b3120424f709f73de"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/sw.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 660623,
+      "sha256": "a806d782b21930ec6243b8e5b393e7fa970ce9d297e96b02e6596fa6ce6c8a86",
+      "pieces": [
+        {
+          "file": "archive/objects/a806d782b21930ec6243b8e5b393e7fa970ce9d297e96b02e6596fa6ce6c8a86",
+          "size": 660623,
+          "sha256": "a806d782b21930ec6243b8e5b393e7fa970ce9d297e96b02e6596fa6ce6c8a86"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/ta.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1696711,
+      "sha256": "516660683214c01341300fa8d15c7e39aecc38792b76fe74bdcc464024f4294f",
+      "pieces": [
+        {
+          "file": "archive/objects/516660683214c01341300fa8d15c7e39aecc38792b76fe74bdcc464024f4294f",
+          "size": 1696711,
+          "sha256": "516660683214c01341300fa8d15c7e39aecc38792b76fe74bdcc464024f4294f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/te.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1571940,
+      "sha256": "5439181ded31f8cc5dbcc1eed358753d4b7449ad29380baabe4cb893d8751a06",
+      "pieces": [
+        {
+          "file": "archive/objects/5439181ded31f8cc5dbcc1eed358753d4b7449ad29380baabe4cb893d8751a06",
+          "size": 1571940,
+          "sha256": "5439181ded31f8cc5dbcc1eed358753d4b7449ad29380baabe4cb893d8751a06"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/th.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1320867,
+      "sha256": "946b4a45a9d43b15359927f33307fc35f50d7e880f02890b07bdfd1160f2db59",
+      "pieces": [
+        {
+          "file": "archive/objects/946b4a45a9d43b15359927f33307fc35f50d7e880f02890b07bdfd1160f2db59",
+          "size": 1320867,
+          "sha256": "946b4a45a9d43b15359927f33307fc35f50d7e880f02890b07bdfd1160f2db59"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/tr.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 672669,
+      "sha256": "98151ed08e518b76f33cf20926717e0d8e28d8e4eb111e0c6e33b95c8acaa99e",
+      "pieces": [
+        {
+          "file": "archive/objects/98151ed08e518b76f33cf20926717e0d8e28d8e4eb111e0c6e33b95c8acaa99e",
+          "size": 672669,
+          "sha256": "98151ed08e518b76f33cf20926717e0d8e28d8e4eb111e0c6e33b95c8acaa99e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/uk.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1172739,
+      "sha256": "6cdfc2782df67c0b72962fc62d2c2eb8d93102255115dae093dde530e345c643",
+      "pieces": [
+        {
+          "file": "archive/objects/6cdfc2782df67c0b72962fc62d2c2eb8d93102255115dae093dde530e345c643",
+          "size": 1172739,
+          "sha256": "6cdfc2782df67c0b72962fc62d2c2eb8d93102255115dae093dde530e345c643"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/ur.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 1010270,
+      "sha256": "d57cd219249e207d34c21a619935d0f0a7814a0ccdd36051a42400c60a599e47",
+      "pieces": [
+        {
+          "file": "archive/objects/d57cd219249e207d34c21a619935d0f0a7814a0ccdd36051a42400c60a599e47",
+          "size": 1010270,
+          "sha256": "d57cd219249e207d34c21a619935d0f0a7814a0ccdd36051a42400c60a599e47"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/vi.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 799770,
+      "sha256": "37f2c01a308ad8bb93d9525d81480880f97d54191dbe7c1c1e75aa9fcf009450",
+      "pieces": [
+        {
+          "file": "archive/objects/37f2c01a308ad8bb93d9525d81480880f97d54191dbe7c1c1e75aa9fcf009450",
+          "size": 799770,
+          "sha256": "37f2c01a308ad8bb93d9525d81480880f97d54191dbe7c1c1e75aa9fcf009450"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/zh-CN.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 571748,
+      "sha256": "e2c2d278e66e1cd806f707259fabf8fed43f0e2e04edb23e4808c46fb872d8d7",
+      "pieces": [
+        {
+          "file": "archive/objects/e2c2d278e66e1cd806f707259fabf8fed43f0e2e04edb23e4808c46fb872d8d7",
+          "size": 571748,
+          "sha256": "e2c2d278e66e1cd806f707259fabf8fed43f0e2e04edb23e4808c46fb872d8d7"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/locales/zh-TW.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 564374,
+      "sha256": "f4c2f92b0de0326377b7d441fab0fe7441ab3d09c188c530445c210a88377234",
+      "pieces": [
+        {
+          "file": "archive/objects/f4c2f92b0de0326377b7d441fab0fe7441ab3d09c188c530445c210a88377234",
+          "size": 564374,
+          "sha256": "f4c2f92b0de0326377b7d441fab0fe7441ab3d09c188c530445c210a88377234"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/resources/app-update.yml",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 142,
+      "sha256": "f39eda5f97ec15505a00c791447c65f4e0a5b3cda66a08b869e3b105093eca02",
+      "pieces": [
+        {
+          "file": "archive/objects/f39eda5f97ec15505a00c791447c65f4e0a5b3cda66a08b869e3b105093eca02",
+          "size": 142,
+          "sha256": "f39eda5f97ec15505a00c791447c65f4e0a5b3cda66a08b869e3b105093eca02"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/resources/app.asar",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 72325853,
+      "sha256": "6205e4668fe7a1259a7c2846090705af02b53954593c75173e9d01a842e8bbee",
+      "pieces": [
+        {
+          "file": "archive/objects/a7ea78afd527d834defebd3e722f9fd74e34b3cf0637f456827b77eebd867f4c",
+          "size": 33554432,
+          "sha256": "a7ea78afd527d834defebd3e722f9fd74e34b3cf0637f456827b77eebd867f4c"
+        },
+        {
+          "file": "archive/objects/57db08d655e1c2a877775380e9763e2592c4675dc9e6a2e8c63b5ac842db0073",
+          "size": 33554432,
+          "sha256": "57db08d655e1c2a877775380e9763e2592c4675dc9e6a2e8c63b5ac842db0073"
+        },
+        {
+          "file": "archive/objects/938594f1e72b9bd3c04ce362eae0cfb55dfe5dc611c12393b80fcfc472b1c8df",
+          "size": 5216989,
+          "sha256": "938594f1e72b9bd3c04ce362eae0cfb55dfe5dc611c12393b80fcfc472b1c8df"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/resources/default_app.asar",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 110862,
+      "sha256": "0eb2491b0a9ac94790389d39c09dd5005c6c1f0665842943829bbd0193f6cc4f",
+      "pieces": [
+        {
+          "file": "archive/objects/0eb2491b0a9ac94790389d39c09dd5005c6c1f0665842943829bbd0193f6cc4f",
+          "size": 110862,
+          "sha256": "0eb2491b0a9ac94790389d39c09dd5005c6c1f0665842943829bbd0193f6cc4f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/resources/elevate.exe",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 107520,
+      "sha256": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37",
+      "pieces": [
+        {
+          "file": "archive/objects/9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37",
+          "size": 107520,
+          "sha256": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/resources.pak",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 7236872,
+      "sha256": "b88115979b34be771ce2547a550cc46cb11fa19882e02f54f84a5471fa94f9f3",
+      "pieces": [
+        {
+          "file": "archive/objects/b88115979b34be771ce2547a550cc46cb11fa19882e02f54f84a5471fa94f9f3",
+          "size": 7236872,
+          "sha256": "b88115979b34be771ce2547a550cc46cb11fa19882e02f54f84a5471fa94f9f3"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/sdk-evidence.json",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 258,
+      "sha256": "fba225eae8ff9c0f4208a96c2743accb5cc6c75153cf152d19d7829edbd89fb2",
+      "pieces": [
+        {
+          "file": "archive/objects/fba225eae8ff9c0f4208a96c2743accb5cc6c75153cf152d19d7829edbd89fb2",
+          "size": 258,
+          "sha256": "fba225eae8ff9c0f4208a96c2743accb5cc6c75153cf152d19d7829edbd89fb2"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/snapshot_blob.bin",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 354888,
+      "sha256": "ef570eff8ebbdf8ec58cffef40f214065066cd0ad1cd989c50eecae66284b08f",
+      "pieces": [
+        {
+          "file": "archive/objects/ef570eff8ebbdf8ec58cffef40f214065066cd0ad1cd989c50eecae66284b08f",
+          "size": 354888,
+          "sha256": "ef570eff8ebbdf8ec58cffef40f214065066cd0ad1cd989c50eecae66284b08f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/v8_context_snapshot.bin",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 730944,
+      "sha256": "c906c1ce2463f38afcc2eccdd0ba4d0503b28caec87e103e22b4b670a72f07e0",
+      "pieces": [
+        {
+          "file": "archive/objects/c906c1ce2463f38afcc2eccdd0ba4d0503b28caec87e103e22b4b670a72f07e0",
+          "size": 730944,
+          "sha256": "c906c1ce2463f38afcc2eccdd0ba4d0503b28caec87e103e22b4b670a72f07e0"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/version",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 6,
+      "sha256": "1156fb2b66ba8286d7757bd34cd2762cd3da6b7d110595728b48fc3782e1dfaf",
+      "pieces": [
+        {
+          "file": "archive/objects/1156fb2b66ba8286d7757bd34cd2762cd3da6b7d110595728b48fc3782e1dfaf",
+          "size": 6,
+          "sha256": "1156fb2b66ba8286d7757bd34cd2762cd3da6b7d110595728b48fc3782e1dfaf"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/vk_swiftshader.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 4951040,
+      "sha256": "c8d97569699a64469f12120b643032b46f3990937c55c1fe84062ad3da1b06b1",
+      "pieces": [
+        {
+          "file": "archive/objects/c8d97569699a64469f12120b643032b46f3990937c55c1fe84062ad3da1b06b1",
+          "size": 4951040,
+          "sha256": "c8d97569699a64469f12120b643032b46f3990937c55c1fe84062ad3da1b06b1"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/vk_swiftshader_icd.json",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 106,
+      "sha256": "32d83ff113fef532a9f97e0d2831f8656628ab1c99e9060f0332b1532839afd9",
+      "pieces": [
+        {
+          "file": "archive/objects/32d83ff113fef532a9f97e0d2831f8656628ab1c99e9060f0332b1532839afd9",
+          "size": 106,
+          "sha256": "32d83ff113fef532a9f97e0d2831f8656628ab1c99e9060f0332b1532839afd9"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/vulkan-1.dll",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 829952,
+      "sha256": "69ba2ffdb8cbf3f786a0df25a3812e2bbe4a3e81bf1b75af3349be093159f778",
+      "pieces": [
+        {
+          "file": "archive/objects/69ba2ffdb8cbf3f786a0df25a3812e2bbe4a3e81bf1b75af3349be093159f778",
+          "size": 829952,
+          "sha256": "69ba2ffdb8cbf3f786a0df25a3812e2bbe4a3e81bf1b75af3349be093159f778"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.1/desktop051-39b9e7a15e35-20261012100137/win10-x86/win-ia32-unpacked/溪泉洗浴管理系统.exe",
+      "version": "0.5.1",
+      "category": "desktop/0.5.1/win10-x86",
+      "size": 205389312,
+      "sha256": "850ad4abbc1071bad934a8ed30a23ef933e9a193d03abfccceb1da9fc7dedda8",
+      "pieces": [
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0001",
+          "size": 33554432,
+          "sha256": "65fd49d710b39ba19db94a348dceea399671542c6368c679f6459bc6eb3a8bca"
+        },
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0002",
+          "size": 33554432,
+          "sha256": "9295af03dc624f27f1c01838f459e09c4b8b6d5c58c516d64ea8caf00ca2a309"
+        },
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0003",
+          "size": 33554432,
+          "sha256": "114e79dc62ef5e7c937a3e321fc6ea552399d42f4c7d965f44d29ae1efb1e162"
+        },
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0004",
+          "size": 33554432,
+          "sha256": "898e3daa7ce4cf1b054f22645fc1016b53570595d11fbc3cbc5a83b9185090d1"
+        },
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0005",
+          "size": 33554432,
+          "sha256": "598a5ea112e3ac8306e811eea92cb8a7532fd50b6da425ca0460eae4c4a2ad8c"
+        },
+        {
+          "file": "archive/objects/06c0be550101823b517c1d829a7a44c295550da6a4e9986b302a176e984c07a1",
+          "size": 33554432,
+          "sha256": "06c0be550101823b517c1d829a7a44c295550da6a4e9986b302a176e984c07a1"
+        },
+        {
+          "file": "archive/objects/f4291ef1ba87b0a4cf8f31153e6015eece59d4e7ba7995978397fcc8a00b8512.part0007",
+          "size": 4062720,
+          "sha256": "d3a53ec3db27796dc5d0ec05932d55713f1a3e1d79b19a7e8096f120d02200ff"
+        }
+      ]
+    }
+  ]
+}

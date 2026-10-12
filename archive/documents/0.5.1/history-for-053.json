@@ -1,0 +1,188 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/01-部署云端.ps1",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 1705,
+      "sha256": "9a60bec15b151c89769485433b4292c24d9be0ef9fbe5ef4b509297a42c53ce0",
+      "pieces": [
+        {
+          "file": "archive/objects/9a60bec15b151c89769485433b4292c24d9be0ef9fbe5ef4b509297a42c53ce0",
+          "size": 1705,
+          "sha256": "9a60bec15b151c89769485433b4292c24d9be0ef9fbe5ef4b509297a42c53ce0"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/02-签名并发布桌面更新.ps1",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 1174,
+      "sha256": "d72cedca2bc2668f5eebe237880c6a685f5a30cf841d6c165bb61ce75fbbd3f0",
+      "pieces": [
+        {
+          "file": "archive/objects/d72cedca2bc2668f5eebe237880c6a685f5a30cf841d6c165bb61ce75fbbd3f0",
+          "size": 1174,
+          "sha256": "d72cedca2bc2668f5eebe237880c6a685f5a30cf841d6c165bb61ce75fbbd3f0"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/03-验证三端与更新.ps1",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 2471,
+      "sha256": "e70e04990095398b8caa09ba0e6c0562daa83d2519e4c9e32176236cf0effe03",
+      "pieces": [
+        {
+          "file": "archive/objects/e70e04990095398b8caa09ba0e6c0562daa83d2519e4c9e32176236cf0effe03",
+          "size": 2471,
+          "sha256": "e70e04990095398b8caa09ba0e6c0562daa83d2519e4c9e32176236cf0effe03"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/04-修复备份目录并续部署.ps1",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 3827,
+      "sha256": "e392054da26731e669c0ec27743c23b2ee5e3b7eb0d0fc47564d40749b10164c",
+      "pieces": [
+        {
+          "file": "archive/objects/e392054da26731e669c0ec27743c23b2ee5e3b7eb0d0fc47564d40749b10164c",
+          "size": 3827,
+          "sha256": "e392054da26731e669c0ec27743c23b2ee5e3b7eb0d0fc47564d40749b10164c"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/README-完整PowerShell.md",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 5460,
+      "sha256": "d1f27cabc0d02bd2122ec579a21d5cd50664d66a243d4ad323cd16fe69b5a6f2",
+      "pieces": [
+        {
+          "file": "archive/objects/d1f27cabc0d02bd2122ec579a21d5cd50664d66a243d4ad323cd16fe69b5a6f2",
+          "size": 5460,
+          "sha256": "d1f27cabc0d02bd2122ec579a21d5cd50664d66a243d4ad323cd16fe69b5a6f2"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/SHA256SUMS.txt",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 1017,
+      "sha256": "c1597475e69837c8da77874212c0f08abebbed2bf34b3d93bfa4a1c6db07cfca",
+      "pieces": [
+        {
+          "file": "archive/objects/c1597475e69837c8da77874212c0f08abebbed2bf34b3d93bfa4a1c6db07cfca",
+          "size": 1017,
+          "sha256": "c1597475e69837c8da77874212c0f08abebbed2bf34b3d93bfa4a1c6db07cfca"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/云端部署结果.json",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 364,
+      "sha256": "bbef80b891ba4d91724cde4c70af815838a025832d4cad88c05d6aa5e2ae3be3",
+      "pieces": [
+        {
+          "file": "archive/objects/bbef80b891ba4d91724cde4c70af815838a025832d4cad88c05d6aa5e2ae3be3",
+          "size": 364,
+          "sha256": "bbef80b891ba4d91724cde4c70af815838a025832d4cad88c05d6aa5e2ae3be3"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/云端预检结果.json",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 333,
+      "sha256": "7ce1d88e5e9123afafc1099ac3c2c665b3dcd70e85237d82c2c7945126937732",
+      "pieces": [
+        {
+          "file": "archive/objects/7ce1d88e5e9123afafc1099ac3c2c665b3dcd70e85237d82c2c7945126937732",
+          "size": 333,
+          "sha256": "7ce1d88e5e9123afafc1099ac3c2c665b3dcd70e85237d82c2c7945126937732"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/交付信息.json",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 3898,
+      "sha256": "b11812294896f04b9e321a21426d42112fff05730573d5d2ec198b5825a078ca",
+      "pieces": [
+        {
+          "file": "archive/objects/b11812294896f04b9e321a21426d42112fff05730573d5d2ec198b5825a078ca",
+          "size": 3898,
+          "sha256": "b11812294896f04b9e321a21426d42112fff05730573d5d2ec198b5825a078ca"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/更新日志.txt",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 42,
+      "sha256": "693161f83e85220a62991d90b94b136a9189afc4fde15f528dc09140fb7c0cb8",
+      "pieces": [
+        {
+          "file": "archive/objects/693161f83e85220a62991d90b94b136a9189afc4fde15f528dc09140fb7c0cb8",
+          "size": 42,
+          "sha256": "693161f83e85220a62991d90b94b136a9189afc4fde15f528dc09140fb7c0cb8"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡消费-0.5.1/部署修复验收.md",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 1581,
+      "sha256": "cb6d0fdde9e44925a492cf39d1094c57d37bc64a2900cb3e2b08386f59be2541",
+      "pieces": [
+        {
+          "file": "archive/objects/cb6d0fdde9e44925a492cf39d1094c57d37bc64a2900cb3e2b08386f59be2541",
+          "size": 1581,
+          "sha256": "cb6d0fdde9e44925a492cf39d1094c57d37bc64a2900cb3e2b08386f59be2541"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡结账修复-0.5.1/修复包信息.json",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 1627,
+      "sha256": "f097ee8b0147913d3fc5482e4919058ad460cd4f769569c27dc116afe7d8f28e",
+      "pieces": [
+        {
+          "file": "archive/objects/f097ee8b0147913d3fc5482e4919058ad460cd4f769569c27dc116afe7d8f28e",
+          "size": 1627,
+          "sha256": "f097ee8b0147913d3fc5482e4919058ad460cd4f769569c27dc116afe7d8f28e"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-实体卡结账修复-0.5.1/安装说明.md",
+      "version": "0.5.1",
+      "category": "documents/0.5.1",
+      "size": 2360,
+      "sha256": "4b245524809eba4eefd27506106d43d61b7ecbbee2129c1098015780eab893f9",
+      "pieces": [
+        {
+          "file": "archive/objects/4b245524809eba4eefd27506106d43d61b7ecbbee2129c1098015780eab893f9",
+          "size": 2360,
+          "sha256": "4b245524809eba4eefd27506106d43d61b7ecbbee2129c1098015780eab893f9"
+        }
+      ]
+    }
+  ]
+}
