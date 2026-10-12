@@ -1,0 +1,21 @@
+# 手机更新安装器修复 1.2.9
+
+本机已修复下载末尾进度把 APK 路径清空的问题。还需要用原证书构建并发布，不能把已有 1.2.8 APK 改名或覆盖其线上哈希。
+
+在本机 PowerShell 执行：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "F:\溪泉洗浴系统\最新版安装包-安装器修复-手机版1.2.9\01-构建并发布手机修复.ps1"
+```
+
+输入原证书的隐藏密码提示；发布确认输入 `PUBLISH ANDROID 1.2.9`。本流程只发布安卓和移动页面，不重启 API，不修改数据库，不更新桌面端。
+
+构建成功后安装包会在本目录与 `F:\溪泉洗浴系统\release\mobile\xiquan-mobile-ordering-1.2.9.apk`。
+
+发布成功后，出现旧安装器错误的手机，在手机系统浏览器打开以下地址下载并覆盖安装（不要卸载原 APP）：
+
+https://api.pqxqxy.xyz/mobile/downloads/xiquan-mobile-ordering-1.2.9.apk
+
+若系统提示，允许当前浏览器“安装未知应用”。从微信打开被阻止时，用系统浏览器打开。覆盖安装保留应用数据和终端信息；业务数据仍在云端。旧 APP 自身的更新代码存在此缺陷时，云端发布不能改写其本机代码，因此这次需要一次手动覆盖安装，后续使用修复版应用内更新。
+
+可用 `-Mode build` 只构建，或成功构建后用 `-Mode publish` 只发布；`-Mode validate` 只验证本机工具，不上传。

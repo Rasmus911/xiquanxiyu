@@ -1,0 +1,12 @@
+{
+  "ProjectRoot": "F:\\溪泉洗浴系统",
+  "SourceCommit": "ac5d436425287d4fc044494eb42cd200d74c025a",
+  "BaseCommit": "34df0213b3044441777c928b2cd7b54cb8acfca5",
+  "Version": "1.2.9",
+  "VersionCode": 16,
+  "MinimumVersionCode": 9,
+  "DesktopVersionUnchanged": "0.4.9",
+  "NavigationLabel": "注册令牌",
+  "ApiPatchSha256": "31889af111c17074a4cbb49ed1f610fa6338efea46e4698a87cdf91b71d4724b",
+  "OriginalAndroidCertificateSha256": "15257f00ccafcabfbac7c105b3a4606127f4d04afa55e44994171994a1ce50e9"
+}

@@ -1,0 +1,38 @@
+{
+  "Version": "0.5.2",
+  "BuildId": "desktop052-card-fix-20261012-1635",
+  "ReleaseRoot": "F:\\溪泉洗浴系统\\release\\windows\\0.5.2\\desktop052-card-fix-20261012-1635",
+  "ProjectRoot": "F:\\溪泉洗浴系统",
+  "Targets": ["win10-x86", "win10-x64", "win11-x86", "win11-x64"],
+  "StatusAtDelivery": "built-unsigned-unpublished",
+  "ReleaseKeyId": "b26477a9ed540ad0",
+  "Files": [
+    {"file":"01-签名并发布修复更新.ps1","size":535,"sha256":"4ec15662dbbeeec74ec3947ae9505fe5c98457b5b5e82d2112f67d8f9e670e6b"},
+    {"file":"README.md","size":3276,"sha256":"ad2978c4ca87ca6d6763059b8241315fa586f829c9512ad5f2bbd56cdee737e6"},
+    {"file":"SHA256SUMS.txt","size":436,"sha256":"959202492be8dd7d6dab11119984d362550359dbd62c3fa0134e0e0a3c86e739"},
+    {"file":"Xiquan-Bathhouse-Setup-0.5.2-win10-x64.exe","size":120764100,"sha256":"56c5d10a869a97d815f23c6239a1ba1fb4752a921fbc62107a7080f376f11c30"},
+    {"file":"Xiquan-Bathhouse-Setup-0.5.2-win10-x86.exe","size":100948868,"sha256":"7e752ff7eb1279826fa277e9bf593df2cb6d0aa5c0760b006d755b9dca482098"},
+    {"file":"Xiquan-Bathhouse-Setup-0.5.2-win11-x64.exe","size":120764321,"sha256":"5934a904f49bde94bcfb964c5418b7de9cd56d1e3d7c41a3729be75a466e7635"},
+    {"file":"Xiquan-Bathhouse-Setup-0.5.2-win11-x86.exe","size":100949092,"sha256":"906501ee68011d3a03defa19059b5d0f8475ce115a9caf192abf9e66f26fe48a"}
+  ],
+  "ProjectFiles": [
+    {"file":"scripts/publish-desktop-052.ps1","size":6029,"sha256":"214f7768aa1ff1b9a7aeca62ac4f188238a740bd2edfc4cf67e546842626fcd6"},
+    {"file":"scripts/sign-windows-release.ps1","size":1670,"sha256":"c87b28af676409f0d20ba4dae3de8a3b985cf3001e9988afcc129bbf3feececa"},
+    {"file":"scripts/lib/desktop-052.cjs","size":4850,"sha256":"f2017af4129cea3e83414c132567ab810a9151c45437f7e2bfd9c23336269153"},
+    {"file":"scripts/lib/desktop-045.cjs","size":2192,"sha256":"fc958f8d4dd6e4748fe3fa8206ef6c9e719230f17484adf967cd3fd07eb1f1f2"},
+    {"file":"scripts/lib/desktop-051.cjs","size":5802,"sha256":"79cc852abcf37cfaea7a6fcc5d8f91337c8b56f17f492a476a31d40ec68ebbf0"},
+    {"file":"scripts/lib/operations-release.cjs","size":5393,"sha256":"37f4536e326c6fadc9e9d8b525c832348ef786aad37f16aecc158cf48ef17f06"},
+    {"file":"scripts/lib/desktop-release.cjs","size":8182,"sha256":"46951d8bf0cff1d1f3618cc8c1a48b53d46379d455e926f6f8a5f54060ad3cac"},
+    {"file":"scripts/lib/desktop-signing.cjs","size":6394,"sha256":"b66e8fe58cdb50de511cd44280372fbb4538e4715bbc37e9f23a90dc1e7f01e5"},
+    {"file":"scripts/lib/windows-publish.cjs","size":8137,"sha256":"da16800493852eb8a8ba59cc72d00ae037d7e5c0f30a91e86378ea0a40fcd786"},
+    {"file":"scripts/lib/windows-public-recovery.cjs","size":8717,"sha256":"76e4f7ba2ad9edc811e7ad9e041ff51a01e81a619dbc8586e52abbda19efce7d"},
+    {"file":"scripts/lib/mobile-128-transport.ps1","size":4442,"sha256":"df8faea31f57ee59e1a4cc8d05f0db6d1f679d7d66ac1cf11731affdf0ecb66a"},
+    {"file":"client/electron/desktop-release.cjs","size":6780,"sha256":"92311f23e59fc037887a7e3d7c2950a81e91945c70061f88844ef019640b5d74"},
+    {"file":"client/electron/target-profiles.cjs","size":3537,"sha256":"f10e183f3c609880658032e334e671fb92fceb2e5c84b3b5f0cbed644a1eeeeb"},
+    {"file":"client/electron/update-policy.cjs","size":1672,"sha256":"00d228c5d13eaa727a9e6d8e05a142581a373101432cbfc230e423b70891485d"},
+    {"file":"client/electron/https-json.cjs","size":2982,"sha256":"e871aaf3a7908e85bf4b626174bff0ba559148d9037e00e66af000c0c6ec8d01"},
+    {"file":"client/electron/update-url.cjs","size":1462,"sha256":"b4f3d78dfd115157316ab2dbf6af5d628d3f3bf01cc60670c23b76fdd4d7b8d6"},
+    {"file":"client/build/windows-pack.cjs","size":6339,"sha256":"f92a5f53183e84553c08838e994b4b5175574dd44e336b87223521444def8ab9"},
+    {"file":"client/build/windows-config.cjs","size":1918,"sha256":"541c9859c2aaee7f7180e75a6297dfe3e9e19ec55e8c7fd9bf63388c7e024a2a"}
+  ]
+}
