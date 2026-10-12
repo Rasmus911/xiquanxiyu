@@ -1,0 +1,36 @@
+#!/bin/bash
+set -euo pipefail
+STAGE='/tmp/xiquan-windows-20261012-002300-237635d9'
+CLOUD='/opt/xiquan/xiquan/deploy/cloud'
+test -d "$CLOUD/updates"
+test -d "$CLOUD/releases"
+cd "$STAGE"
+sha256sum -c SHA256SUMS
+# Preflight all immutable names before activating any channel.
+while IFS= read -r file; do
+  if test -f "$CLOUD/$file"; then
+    cmp -s "$STAGE/$file" "$CLOUD/$file" || { printf 'Immutable file conflict: %s\n' "$file"; exit 1; }
+  fi
+done < immutable-files.txt
+python3 check-sequences.py "$STAGE" "$CLOUD"
+while IFS= read -r file; do
+  mkdir -p "$CLOUD/$(dirname "$file")"
+  if ! test -f "$CLOUD/$file"; then cp "$STAGE/$file" "$CLOUD/$file.new"; mv -f "$CLOUD/$file.new" "$CLOUD/$file"; fi
+done < immutable-files.txt
+# Requested EXEs and blockmaps now exist; expose only their YAML and signed policies.
+for id in win10-x86 win10-x64 win11-x86 win11-x64; do
+  mkdir -p "$CLOUD/updates/desktop/$id" "$CLOUD/releases/desktop"
+  cp "$STAGE/updates/desktop/$id/latest.yml" "$CLOUD/updates/desktop/$id/latest.yml.new"
+  mv -f "$CLOUD/updates/desktop/$id/latest.yml.new" "$CLOUD/updates/desktop/$id/latest.yml"
+  cp "$STAGE/releases/desktop/$id.json" "$CLOUD/releases/desktop/$id.json.new"
+  mv -f "$CLOUD/releases/desktop/$id.json.new" "$CLOUD/releases/desktop/$id.json"
+  printf 'Activated: %s\n' "$id"
+done
+# Preserve the currently deployed mobile/web entries, not a stale local policy copy.
+python3 merge-legacy-policy.py "$STAGE" "$CLOUD"
+cp updates/latest.yml "$CLOUD/updates/latest.yml.new"
+mv -f "$CLOUD/updates/latest.yml.new" "$CLOUD/updates/latest.yml"
+mv -f "$CLOUD/releases/client-policy.json.new" "$CLOUD/releases/client-policy.json"
+cp delivery-index.json "$CLOUD/releases/desktop/delivery-index.json.new"
+mv -f "$CLOUD/releases/desktop/delivery-index.json.new" "$CLOUD/releases/desktop/delivery-index.json"
+printf 'Requested channels activated. Existing data and unrequested channels preserved.\n'

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "desktop": {
+    "latestVersion": "0.5.0",
+    "minimumVersion": "0.4.2",
+    "required": false,
+    "downloadUrl": "https://api.pqxqxy.xyz/updates/Xiquan-Bathhouse-Setup-0.5.0-win10-x64.exe",
+    "sha256": "4779d2b914c3ff8632f87fc2484ac125f378bd798d619f49b964c8cc356e597b",
+    "releaseNotes": [
+      "优化主登录页面",
+      "新增账号密码修改功能",
+      "新增搓澡师下单打印小票的功能",
+      "新增每天小票补打的功能"
+    ],
+    "publishedAt": "2026-10-11T16:22:37.649Z"
+  },
+  "android": {
+    "releaseNotes": [
+      "新增云端数据重置功能"
+    ],
+    "latestVersionCode": 8,
+    "downloadUrl": "https://api.pqxqxy.xyz/mobile/downloads/xiquan-mobile-ordering-1.2.1.apk",
+    "required": false,
+    "latestVersion": "1.2.1",
+    "publishedAt": "2026-10-03T10:36:32.2757812+08:00",
+    "minimumVersionCode": 8,
+    "sha256": "7ea51bf6c942a3cc9532f8d469d6c2bd0708df5c79c969618659fa31aa685062"
+  },
+  "web": {
+    "buildId": "20261002-reset-041",
+    "releaseNotes": [
+      "于在跃账号经营数据重置与三端同步"
+    ],
+    "publishedAt": "2026-10-03T09:37:09.6107741+08:00",
+    "required": false
+  }
+}

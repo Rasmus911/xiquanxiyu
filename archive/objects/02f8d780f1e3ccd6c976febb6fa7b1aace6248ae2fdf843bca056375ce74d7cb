@@ -1,0 +1,9 @@
+import sys,json,base64,pathlib
+stage,cloud=map(pathlib.Path,sys.argv[1:])
+for file in (stage/'releases/desktop').glob('win*.json'):
+    old=cloud/'releases/desktop'/file.name
+    if old.exists():
+        a=json.loads(base64.b64decode(json.loads(old.read_text())['payload']))
+        b=json.loads(base64.b64decode(json.loads(file.read_text())['payload']))
+        if b['sequence']<a['sequence'] or (b['sequence']==a['sequence'] and old.read_bytes()!=file.read_bytes()):
+            raise SystemExit('Release sequence rollback/conflict: '+file.name)

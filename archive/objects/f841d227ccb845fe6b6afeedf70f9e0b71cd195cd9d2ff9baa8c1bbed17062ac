@@ -1,0 +1,9 @@
+import sys,json,pathlib
+stage,cloud=map(pathlib.Path,sys.argv[1:])
+current=cloud/'releases/client-policy.json'
+if not current.is_file(): raise SystemExit('Existing public mobile/web policy is missing; no legacy activation')
+policy=json.loads(current.read_text(encoding='utf-8-sig'))
+if policy.get('schemaVersion')!=1: raise SystemExit('Existing legacy policy schema is not 1')
+new=json.loads((stage/'releases/client-policy.json').read_text(encoding='utf-8'))
+policy['desktop']=new['desktop']
+(cloud/'releases/client-policy.json.new').write_text(json.dumps(policy,ensure_ascii=False,indent=2),encoding='utf-8')

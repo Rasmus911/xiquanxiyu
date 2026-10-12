@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "desktop": {
+    "latestVersion": "0.5.2",
+    "minimumVersion": "0.4.2",
+    "required": false,
+    "downloadUrl": "https://api.pqxqxy.xyz/updates/Xiquan-Bathhouse-Setup-0.5.2-win10-x64.exe",
+    "sha256": "56c5d10a869a97d815f23c6239a1ba1fb4752a921fbc62107a7080f376f11c30",
+    "releaseNotes": [
+      "修复实体卡结账时会员查询一闪而过、无法消费的问题"
+    ],
+    "publishedAt": "2026-10-12T08:52:57.504Z"
+  },
+  "android": {
+    "releaseNotes": [
+      "新增云端数据重置功能"
+    ],
+    "latestVersionCode": 8,
+    "downloadUrl": "https://api.pqxqxy.xyz/mobile/downloads/xiquan-mobile-ordering-1.2.1.apk",
+    "required": false,
+    "latestVersion": "1.2.1",
+    "publishedAt": "2026-10-03T10:36:32.2757812+08:00",
+    "minimumVersionCode": 8,
+    "sha256": "7ea51bf6c942a3cc9532f8d469d6c2bd0708df5c79c969618659fa31aa685062"
+  },
+  "web": {
+    "buildId": "20261002-reset-041",
+    "releaseNotes": [
+      "于在跃账号经营数据重置与三端同步"
+    ],
+    "publishedAt": "2026-10-03T09:37:09.6107741+08:00",
+    "required": false
+  }
+}
