@@ -1,0 +1,10 @@
+version: 0.5.2
+files:
+  - url: Xiquan-Bathhouse-Setup-0.5.2-win11-x86.exe
+    sha512: >-
+      k75lTnjXK17bspiq6rxzMuQeGjIvOeekZ+vcdPSGoz4fZQY2s5HzRnsp6wFGvckhXTswPOf+7iA5TkCgG1JGZg==
+    size: 100949092
+path: Xiquan-Bathhouse-Setup-0.5.2-win11-x86.exe
+sha512: >-
+  k75lTnjXK17bspiq6rxzMuQeGjIvOeekZ+vcdPSGoz4fZQY2s5HzRnsp6wFGvckhXTswPOf+7iA5TkCgG1JGZg==
+releaseDate: '2026-10-12T08:53:00.063Z'
