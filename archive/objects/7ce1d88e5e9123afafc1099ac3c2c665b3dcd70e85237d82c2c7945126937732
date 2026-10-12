@@ -1,0 +1,7 @@
+{
+    "stage":  "/opt/xiquan-releases/desktop051-stage-20e6f724180a4587a507e2f51b935021",
+    "phase":  "preflight",
+    "source_commit":  "39b9e7a15e35e5205ee1f3562eae35bab2a4b5a7",
+    "source_sha256":  "7d37b3b1afc33f348ace5a895a3bd8a02fe008bcb4acf223fa3696cbab47636f",
+    "target_schema":  "20261012_physical_membership"
+}

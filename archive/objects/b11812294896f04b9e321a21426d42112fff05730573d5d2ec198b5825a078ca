@@ -1,0 +1,78 @@
+{
+    "Version":  "0.5.1",
+    "ProjectRoot":  "F:\\溪泉洗浴系统",
+    "ReleaseRoot":  "F:\\溪泉洗浴系统\\release\\windows\\0.5.1\\desktop051-39b9e7a15e35-20261012100137",
+    "OutputDirectory":  "F:\\溪泉洗浴系统\\最新版安装包-实体卡消费-0.5.1",
+    "SourceCommit":  "39b9e7a15e35e5205ee1f3562eae35bab2a4b5a7",
+    "BuildId":  "desktop051-39b9e7a15e35-20261012100137",
+    "BuiltAt":  "2026-10-12T10:03:56.7252369+08:00",
+    "PublicationState":  "pending",
+    "SourceZipFile":  "xiquan-desktop051-SOURCE-WEB-20261012-100153-bb47426c.zip",
+    "SourceSha256":  "7d37b3b1afc33f348ace5a895a3bd8a02fe008bcb4acf223fa3696cbab47636f",
+    "Targets":  [
+                    "win10-x86",
+                    "win10-x64",
+                    "win11-x86",
+                    "win11-x64"
+                ],
+    "Files":  [
+                  {
+                      "file":  "01-部署云端.ps1",
+                      "size":  1705,
+                      "sha256":  "9a60bec15b151c89769485433b4292c24d9be0ef9fbe5ef4b509297a42c53ce0"
+                  },
+                  {
+                      "file":  "02-签名并发布桌面更新.ps1",
+                      "size":  1174,
+                      "sha256":  "d72cedca2bc2668f5eebe237880c6a685f5a30cf841d6c165bb61ce75fbbd3f0"
+                  },
+                  {
+                      "file":  "03-验证三端与更新.ps1",
+                      "size":  2471,
+                      "sha256":  "e70e04990095398b8caa09ba0e6c0562daa83d2519e4c9e32176236cf0effe03"
+                  },
+                  {
+                      "file":  "README-完整PowerShell.md",
+                      "size":  5460,
+                      "sha256":  "d1f27cabc0d02bd2122ec579a21d5cd50664d66a243d4ad323cd16fe69b5a6f2"
+                  },
+                  {
+                      "file":  "Xiquan-Bathhouse-Setup-0.5.1-win10-x64.exe",
+                      "size":  120764385,
+                      "sha256":  "faaf031a8cbfb15f377281a481278524faa2757c3a931c2c62c76ab002b214ea"
+                  },
+                  {
+                      "file":  "Xiquan-Bathhouse-Setup-0.5.1-win10-x86.exe",
+                      "size":  100949061,
+                      "sha256":  "fbb97ee779ae229dd70c7f7b3557067de9e9f1966d15efe7e203301abcf601c7"
+                  },
+                  {
+                      "file":  "Xiquan-Bathhouse-Setup-0.5.1-win11-x64.exe",
+                      "size":  120764407,
+                      "sha256":  "13fadc6dc800fb33ba12cfb818abb774eceebd9f71c2e93c69ae949f408ca94f"
+                  },
+                  {
+                      "file":  "Xiquan-Bathhouse-Setup-0.5.1-win11-x86.exe",
+                      "size":  100949114,
+                      "sha256":  "f73716308097168b12142f2853c55db15369cf9ce191b69f5d1d7f0c0e3c1ea6"
+                  },
+                  {
+                      "file":  "xiquan-desktop051-SOURCE-WEB-20261012-100153-bb47426c.zip",
+                      "size":  2568355,
+                      "sha256":  "7d37b3b1afc33f348ace5a895a3bd8a02fe008bcb4acf223fa3696cbab47636f"
+                  },
+                  {
+                      "file":  "更新日志.txt",
+                      "size":  42,
+                      "sha256":  "693161f83e85220a62991d90b94b136a9189afc4fde15f528dc09140fb7c0cb8"
+                  }
+              ],
+    "AndroidVersion":  "1.2.9",
+    "AndroidVersionCode":  16,
+    "AndroidApkPath":  "F:\\溪泉洗浴系统\\release\\mobile\\xiquan-mobile-ordering-1.2.9.apk",
+    "AndroidSha256":  "d5fdab05253d009319147e6e3775d5d667f2b8a13464cbc44c0caf2130a2472d",
+    "CompletionToolSha256":  "d60fd1786ce5dbfbe25f99f9e408d93b47e23f2cf81094f7f936dd2f6e5afe07",
+    "CloudChanged":  false,
+    "UpdateSignature":  "pending-original-key",
+    "ManualDevices":  "not-tested"
+}

@@ -1,0 +1,13 @@
+# 0.5.1 部署类型解析修正
+
+源码提交：39b9e7a15e35e5205ee1f3562eae35bab2a4b5a7。
+
+本次报错根因是 ECS 上 Docker Compose 的 JSON 把 mem_limit/memswap_limit 表示为十进制字符串，部署工具原先按整数比较，导致预检与后续启动检查误判。解析现在只接受非负整数或纯 ASCII 十进制字符串，转换后仍严格核对 API 512MiB、清理进程256MiB；没有取消保护门槛。
+
+验证：新增回归先观察到9项失败；修复后部署/恢复/预检/PG证明工具相关106项本地测试通过。通过现有失败stage的真实ECS配置，只读验证新旧Compose合并比较与类型解析通过，旧API仍running/healthy；未执行迁移、重启API或修改数据库。此检查不是正式部署成功证明。
+
+四个Win10/Win11 x86/x64安装包及网页/SOURCE重新从此提交构建，原AppID、公钥保持不变。Android仍1.2.9/code16。当前新版SOURCE：xiquan-desktop051-SOURCE-WEB-20261012-100153-bb47426c.zip，SHA256 7d37b3b1afc33f348ace5a895a3bd8a02fe008bcb4acf223fa3696cbab47636f。885项完整读取、保密扫描和本地运输工具一致性检查通过。
+
+旧03c交付、原始安装包和SOURCE以可恢复方式保存在private/desktop051-build-evidence/before-39b9e7a，没有删除密钥或业务数据。
+
+此前仅在preflight阶段停止且没有维护job，可从01-部署云端.ps1重新开始。脚本自动生成新stage，不沿用旧stage。部署成功后再执行02签名发布和03最终验证；正式部署、签名发布及真实设备验收仍待用户执行。
