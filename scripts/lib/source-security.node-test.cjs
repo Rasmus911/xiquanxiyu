@@ -54,6 +54,13 @@ test('credential findings give only locations and never sensitive values', t => 
   assert.throws(() => api().assertSourceSafe(root, ['server/app/bad.py']), /server\/app\/bad.py:1/)
 })
 
+test('source inventory admits the explicit055 tools but never private stock snapshots or keys',t=>{
+ const root=fixture(t)
+ const tools=['scripts/invoke-desktop-055.ps1','scripts/build-desktop-055.ps1','scripts/publish-mobile-1212.ps1','deploy/cloud/scripts/desktop_055_guard.py','deploy/cloud/scripts/android_1212_publication.py']
+ for(const name of [...tools,'private/desktop055/stock.json','scripts/unknown055-upload.py','private/溪泉发布密钥/key.pem'])write(root,name)
+ assert.deepEqual(api().enumerateSourceFiles(root),tools.sort())
+})
+
 test('paths outside allowlist are rejected before content is read', t => {
   const root = fixture(t)
   write(root, 'private/key.pem', 'do not read this')
@@ -115,7 +122,22 @@ test('048 reviewed deployment tools enter SOURCE while unreviewed neighboring sc
     'scripts/tests/test_desktop_048_source.py', 'scripts/tests/test_desktop_048_entrypoints.py',
     'scripts/tests/test_android_126_publication.py']
   for (const name of reviewed) write(root, name)
-  for (const name of ['deploy/cloud/scripts/desktop_050_deploy.py', 'scripts/invoke-desktop-050.ps1',
+  for (const name of ['deploy/cloud/scripts/desktop_052_deploy.py', 'scripts/invoke-desktop-052.ps1',
     'scripts/ssh_desktop048.py', 'private/desktop048.pem']) write(root, name)
   assert.deepEqual(api().enumerateSourceFiles(root), [...reviewed].sort())
+})
+
+test('reviewed deployment tests can contain fictional DSNs without opening production exceptions',t=>{
+  const root=fixture(t),data='postgresql://fixture:fake-unit-test@host/db\n'
+  write(root,'scripts/tests/test_desktop_051_recovery.py',data)
+  write(root,'deploy/cloud/scripts/desktop_051_deploy.py',data)
+  assert.deepEqual(api().scanSourceFiles(root,['scripts/tests/test_desktop_051_recovery.py']),[])
+  assert.equal(api().scanSourceFiles(root,['deploy/cloud/scripts/desktop_051_deploy.py']).length,1)
+})
+
+test('a password route is not a credential but an actual password in the same file is', t => {
+  const root=fixture(t)
+  write(root,'client/src/routes.ts',"'/account-password': 'account:self',\npassword: 'fictional-secret-only-test'\n")
+  assert.deepEqual(api().scanSourceFiles(root,['client/src/routes.ts']),[
+    {path:'client/src/routes.ts',line:2,rule:'literal-credential'}])
 })

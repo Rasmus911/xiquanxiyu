@@ -191,6 +191,9 @@ def register_employee(body, key, source):
         if receipt.terminal_id != terminal.id or not hmac.compare_digest(receipt.request_digest, request_digest):
             raise ApiError('注册请求编号已用于其他资料', 409, 'IDEMPOTENCY_CONFLICT')
         identity = _receipt_identity(receipt, body)
+        actual = db.session.get(Employee, receipt.employee_id, populate_existing=True, with_for_update=True)
+        if actual is None or actual.deleted_at:
+            raise ApiError('原注册账号已删除，请使用新的授权码重新注册', 409, 'REGISTERED_ACCOUNT_REMOVED')
         db.session.commit()
         return identity
     if now >= _utc(state.expires_at):

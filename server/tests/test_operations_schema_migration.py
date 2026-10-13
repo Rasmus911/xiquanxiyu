@@ -67,7 +67,14 @@ def test_structural_migration_preserves_original_money_stock_and_history(tmp_pat
             assert connection.execute(text('SELECT deleted_at FROM members')).scalar_one() is None
             assert connection.execute(text('SELECT deleted_at FROM catalog_items')).scalar_one() is None
             if not runtime:
-                assert connection.execute(text('SELECT version_num FROM alembic_version')).scalar_one() == '20261007_ordering_cost'
+                assert connection.execute(text('SELECT version_num FROM alembic_version')).scalar_one() == '20261013_manual_inventory_excel'
+            else:
+                # Portable SQLite must be usable by the current models too.
+                assert connection.execute(text("SELECT username FROM employee_identities WHERE id='e'")).scalar_one() == 'original'
+                assert {'service_print_jobs','service_print_attempts','settlement_print_attempts',
+                        'member_card_bindings','settlement_pass_redemptions'} <= set(inspect(connection).get_table_names())
+                assert connection.execute(text('SELECT holder_surname FROM members')).scalar_one() is None
+                assert connection.exec_driver_sql('PRAGMA foreign_key_check').all() == []
         if runtime: ensure_runtime_schema()
         else: upgrade(directory=migrations)
         assert verify_audit_chain() == (True, None)

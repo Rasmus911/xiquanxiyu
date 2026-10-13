@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$SourceRoot = (Join-Path $PSScriptRoot '..'), [switch]$Stock, [string]$AssetSourceCommit)
+param([string]$SourceRoot = (Join-Path $PSScriptRoot '..'), [switch]$Stock, [switch]$Desktop051, [string]$AssetSourceCommit)
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot 'lib\cloud-archive.ps1')
@@ -18,6 +18,13 @@ $inputJson = & node.exe -e $inspect $root (Join-Path $PSScriptRoot 'lib\source-s
 if ($LASTEXITCODE -ne 0) { throw 'SOURCE/WEB source preflight failed; no ZIP created.' }
 $source = $inputJson | ConvertFrom-Json
 $stockContract = $null
+if ($Stock -and $Desktop051) { throw 'Choose one exact source contract.' }
+if ($Desktop051) {
+    $contractJson = & node.exe (Join-Path $PSScriptRoot 'lib\desktop-051.cjs') inspect $root
+    if ($LASTEXITCODE -ne 0) { throw 'Committed desktop051 source preflight failed.' }
+    $stockContract = $contractJson | ConvertFrom-Json
+    if ($AssetSourceCommit -cne $source.commit) { throw 'Fresh desktop051 assets must match committed source.' }
+}
 if ($Stock) {
     $contractJson = & node.exe (Join-Path $PSScriptRoot 'lib\stock-source.cjs') inspect $root
     if ($LASTEXITCODE -ne 0) { throw 'Committed stock source preflight failed.' }
@@ -85,16 +92,18 @@ try {
     }
     $manifest = [ordered]@{schema=1;label='SOURCE/WEB';source_commit=$source.commit;files=$records;
         production_ready=$false;pending=@('pg17-roles-concurrency','actual-isolated-restore','original-signatures','real-device-tests','user-cloud-deployment')}
-    if ($Stock) {
+    if ($Stock -or $Desktop051) {
         foreach ($key in @('asset_source_commit','schema_head','required_migration','desktop_version','android_version','android_version_code')) {
             $manifest[$key] = $stockContract.$key
         }
+        if ($Desktop051) { $manifest['targets'] = $stockContract.targets }
     }
     [IO.File]::WriteAllText((Join-Path $payload 'source-manifest.json'),($manifest | ConvertTo-Json -Depth 8),[Text.UTF8Encoding]::new($false))
     [IO.File]::WriteAllText((Join-Path $payload 'SOURCE-WEB-NOT-PRODUCTION.txt'),
         'SOURCE/WEB only. No signed EXE/APK, credentials or published update feeds. No production deployment, PG17 role/concurrency or actual restore acceptance has been performed.',[Text.UTF8Encoding]::new($false))
     [void](New-Item -ItemType Directory -Path $output -Force)
     $prefix = 'xiquan-operations-SOURCE-WEB-'; if ($Stock) { $prefix = 'xiquan-stock-SOURCE-WEB-' }
+    if ($Desktop051) { $prefix = 'xiquan-desktop051-SOURCE-WEB-' }
     $zipPath = Join-Path $output ($prefix + (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0,8) + '.zip')
     New-CloudReleaseArchive -SourceDirectory $payload -DestinationPath $zipPath -PortableEntryNames
     $zip = [IO.Compression.ZipFile]::OpenRead($zipPath)

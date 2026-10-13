@@ -12,7 +12,7 @@ class ApiError(Exception):
     details: dict | None = None
 
 
-def success(data=None, message="操作成功", status=200):
+def success(data=None, message="操作成功", status=200, meta=None):
     return (
         jsonify(
             {
@@ -20,6 +20,7 @@ def success(data=None, message="操作成功", status=200):
                 "message": message,
                 "data": data,
                 "request_id": getattr(g, "request_id", None),
+                **({'meta':meta} if meta is not None else {}),
             }
         ),
         status,

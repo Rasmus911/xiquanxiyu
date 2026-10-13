@@ -48,7 +48,7 @@ def _ordinary(strict_owner_session, role, channels):
 
 
 @pytest.mark.parametrize('role,channel,pages,caps', [
-    ('cashier', 'desktop', ['wristbands', 'members', 'print-jobs', 'catalog', 'inventory', 'reports'],
+    ('cashier', 'desktop', ['wristbands', 'members', 'print-jobs', 'catalog', 'inventory', 'reports', 'wristband-bindings'],
         {'visit_open': True, 'visit_order': True, 'checkout_write': True, 'catalog_layout': True}),
     ('inventory', 'desktop', ['wristbands', 'members', 'print-jobs', 'catalog', 'inventory', 'reports'],
         {'visit_order': True, 'inventory_write': True, 'checkout_write': True}),
@@ -56,9 +56,9 @@ def _ordinary(strict_owner_session, role, channels):
         {'visit_order': True, 'inventory_write': True, 'checkout_write': False}),
     ('male_scrubber', 'mobile', ['wristbands'],
         {'visit_open': False, 'visit_order': True, 'checkout_write': False}),
-    ('female_scrubber', 'web', ['wristbands'],
+    ('female_scrubber', 'web', ['wristbands', 'print-jobs'],
         {'visit_manage': False, 'visit_order': True, 'inventory_write': False}),
-    ('floor_attendant', 'desktop', ['wristbands'],
+    ('floor_attendant', 'desktop', ['wristbands', 'print-jobs'],
         {'visit_manage': False, 'visit_order': True, 'member_write': False}),
 ])
 def test_real_login_emits_minimal_pages_and_capabilities(client, strict_owner_session, role, channel, pages, caps):
@@ -67,7 +67,7 @@ def test_real_login_emits_minimal_pages_and_capabilities(client, strict_owner_se
         'password': strict_owner_session['password'], 'terminal_code': 'ENTRY-TEST', 'client_channel': channel})
     assert response.status_code == 200
     state = response.get_json()['data']['business_state']
-    assert state['ui_pages'] == pages
+    assert state['ui_pages'] == (pages if channel == 'mobile' else [*pages, 'account-password'])
     for key, want in caps.items():
         assert state['capabilities'][key] is want
     assert state['owner_reset_allowed'] is False
@@ -101,7 +101,7 @@ def test_business_state_uses_verified_channel_not_request_hint(client, strict_ow
     assert response.status_code == 200
     state = response.get_json()['data']
     assert state['ui_pages'] == ['wristbands', 'members', 'print-jobs', 'catalog', 'inventory',
-                                  'reports', 'audit', 'employees', 'settings']
+                                  'reports', 'audit', 'employees', 'settings', 'wristband-bindings', 'account-password']
     assert state['capabilities']['checkout_write'] is True
 
 

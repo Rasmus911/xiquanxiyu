@@ -200,6 +200,15 @@ def me():
     return success(employee_dict(employee))
 
 
+@bp.post('/change-password')
+@jwt_required()
+def change_password():
+    from ..account_service import change_own_password
+    employee = current_employee()
+    change_own_password(employee, request.get_json(silent=True))
+    return success({'relogin_required': True}, '密码修改成功，请重新登录')
+
+
 @bp.post("/logout")
 @jwt_required()
 def logout():

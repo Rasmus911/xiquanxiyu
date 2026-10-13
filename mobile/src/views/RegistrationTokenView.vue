@@ -82,7 +82,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <MobileTopbar title="注册授权码" subtitle="用于批准桌面员工账号注册" back @back="router.push('/profile')" />
+    <MobileTopbar title="注册令牌" subtitle="用于批准桌面员工账号注册" back @back="router.push('/profile')" />
     <main class="mobile-page">
       <section class="mobile-card token-card">
         <p>请将授权码提供给需要注册的员工</p>

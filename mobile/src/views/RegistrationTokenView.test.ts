@@ -60,7 +60,12 @@ it('an ordinary bootstrap refresh for the same authorized employee preserves a u
 })
 it.each([false,true])('profile registration entry follows only explicit server capability %s',async(allowed)=>{
   const {root}=await render(allowed,ProfileView);await nextTick()
-  expect([...root.querySelectorAll('button')].some(button=>button.textContent==='查看注册授权码')).toBe(allowed)
+  expect([...root.querySelectorAll('button')].some(button=>button.textContent==='查看注册令牌')).toBe(allowed)
+})
+it('identifies the opened registration-token page with the same name as its navigation',async()=>{
+  http.defaults.adapter=async config=>({config,status:200,statusText:'',headers:{},data:{data:snapshot}})
+  const {root}=await render();await nextTick()
+  expect(root.querySelector('.mobile-topbar strong')?.textContent).toBe('注册令牌')
 })
 it('a failed current query clears a previously usable token immediately',async()=>{
   let count=0;http.defaults.adapter=async config=>{count++;if(count>1)throw new Error('云端请求失败');return {config,status:200,statusText:'',headers:{},data:{data:snapshot}}}

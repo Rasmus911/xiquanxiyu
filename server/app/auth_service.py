@@ -13,10 +13,11 @@ from .models import Employee, RevokedSession, Terminal
 password_hasher = PasswordHasher()
 
 ROLE_PERMISSIONS = {
-    "male_scrubber": {"visit:read", "visit:order", "mobile:order"},
-    "female_scrubber": {"visit:read", "visit:order", "mobile:order"},
-    "floor_attendant": {"visit:read", "visit:order", "mobile:order"},
+    "male_scrubber": {"visit:read", "visit:order", "mobile:order", "print:order"},
+    "female_scrubber": {"visit:read", "visit:order", "mobile:order", "print:order"},
+    "floor_attendant": {"visit:read", "visit:order", "mobile:order", "print:order"},
     "cashier": {
+        "wristband:bind",
         "report:read",
         "visit:clear", "member:delete", "catalog:delete",
         "visit:read",
@@ -98,7 +99,15 @@ def current_employee() -> Employee:
 
 def employee_for_claims(claims) -> Employee:
     """Shared HTTP/socket validation; callers verify JWT signature/type/expiry."""
-    employee = db.session.get(Employee, claims.get('sub'), populate_existing=True)
+    from flask import has_request_context, request
+    # Mutation requests lock their actual principal before financial/target locks.
+    # A deletion that has committed cannot leave a cached staff principal writing.
+    writing = has_request_context() and request.method not in {'GET', 'HEAD', 'OPTIONS'}
+    if writing and not request.path.startswith('/api/auth/registration-token/'):
+        connection = db.session.connection()
+        if connection.dialect.name == 'sqlite' and not connection.connection.driver_connection.in_transaction:
+            connection.exec_driver_sql('BEGIN IMMEDIATE')
+    employee = db.session.get(Employee, claims.get('sub'), populate_existing=True, with_for_update=writing)
     if not employee or not employee.is_active or employee.deleted_at:
         raise ApiError("账号不可用，请重新登录", 401, "ACCOUNT_DISABLED")
     locked_until = employee.locked_until

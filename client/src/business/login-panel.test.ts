@@ -18,7 +18,7 @@ test('desktop login clears password immediately and displays a credential denial
     await wrapper.find('form').trigger('submit')
     expect((wrapper.find('input[type="password"]').element as HTMLInputElement).value).toBe('')
     await flushPromises()
-    expect(document.body.textContent).toContain('账号或密码错误')
+    expect(wrapper.get('[role=alert]').text()).toContain('账号或密码错误')
   } finally { wrapper.unmount(); ElMessage.closeAll() }
 })
 test('registration is Electron-only and keeps logged-out update and terminal/bootstrap actions',async()=>{

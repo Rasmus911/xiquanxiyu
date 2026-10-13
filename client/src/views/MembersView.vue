@@ -2,13 +2,15 @@
 import { canAccess, canCapability, useBusinessGuard } from '../business/state'
 const guardBusinessOperation = useBusinessGuard()
 
-import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { apiData, apiErrorMessage, http } from '../api/http'
 import AppPageHeader from '../components/app/AppPageHeader.vue'
 import MemberDetailDrawer from '../components/members/MemberDetailDrawer.vue'
 import MemberTypeBadge from '../components/members/MemberTypeBadge.vue'
+import PhysicalMemberDialog from '../components/members/PhysicalMemberDialog.vue'
+import MemberCardBindingDialog from '../components/members/MemberCardBindingDialog.vue'
 import { subscribeRealtime } from '../realtime/events'
 import { clearPendingRequestKey, pendingRequestKey } from '../domain/requests/pending-key'
 import type { Member } from '../types'
@@ -22,11 +24,16 @@ const deleting = ref(false)
 const keyword = ref('')
 const cardFilter = ref<CardFilter>(['stored', 'pass'].includes(String(route.query.tab)) ? String(route.query.tab) as CardFilter : 'all')
 const createOpen = ref(false)
+const physicalOpen = ref(false)
+const physicalPending = ref(false)
+const bindingOpen = ref(false)
 const detailOpen = ref(false)
 const selected = ref<Member | null>(null)
 const detailTab = ref<'stored' | 'pass'>(route.query.tab === 'pass' ? 'pass' : 'stored')
 let unsubscribeRealtime: (() => void) | undefined
 const createForm = reactive({ phone: '', name: '', note: '' })
+let detailGeneration = 0
+watch(detailOpen, () => { detailGeneration++ }, { flush: 'sync' })
 
 const filteredRows = computed(() => rows.value.filter((row) => {
   if (cardFilter.value === 'stored') return row.has_stored_value
@@ -94,6 +101,26 @@ async function showDetail(row: Member) {
   }
 }
 
+async function refreshPhysicalMember(row: Member) {
+  const isCurrent = guardBusinessOperation('refreshPhysicalMember')
+  if (!isCurrent()) return
+  selected.value = row
+  detailOpen.value = true
+  const owned = detailGeneration
+  const ownsDetail = () => isCurrent() && detailOpen.value && detailGeneration === owned && selected.value?.id === row.id
+  try {
+    const data = apiData<Member>(await http.get(`/members/${row.id}`))
+    if (ownsDetail()) selected.value = data
+    if (isCurrent()) await load(true)
+  } catch (error) { if (ownsDetail()) ElMessage.error(apiErrorMessage(error)) }
+}
+
+function startCardBinding(row: Member) {
+  if (!guardBusinessOperation('startCardBinding')()) return
+  selected.value = row
+  bindingOpen.value = true
+}
+
 async function startRecharge(row: Member) {
   const isCurrent = guardBusinessOperation('startRecharge')
   if (!isCurrent()) return
@@ -150,11 +177,14 @@ onMounted(async () => {
   unsubscribeRealtime = subscribeRealtime(['members'], () => load(true))
 })
 onBeforeUnmount(() => unsubscribeRealtime?.())
+onBeforeRouteLeave(() => {
+  if (physicalPending.value) { ElMessage.warning('请先确认实体卡开户的原收款结果，再离开会员页面'); return false }
+})
 </script>
 
 <template>
   <div class="page member-page">
-    <AppPageHeader title="会员管理" description="储值余额与次卡次数分别展示，所有开卡先完成真实收款。" eyebrow="MEMBERS"><template #actions><el-input v-model="keyword" clearable placeholder="手机号或姓名" @keyup.enter="load()" /><el-button @click="load()">查询</el-button><el-button type="primary" @click="createOpen = true">新增会员</el-button></template></AppPageHeader>
+    <AppPageHeader title="会员管理" description="储值余额与次卡次数分别展示，所有开卡先完成真实收款。" eyebrow="MEMBERS"><template #actions><el-input v-model="keyword" clearable placeholder="手机号或姓名" @keyup.enter="load()" /><el-button @click="load()">查询</el-button><el-button type="primary" @click="createOpen = true">手机号开通会员</el-button><el-button data-testid="physical-member-open" type="primary" @click="physicalOpen = true">实体卡开通会员</el-button></template></AppPageHeader>
 
     <div class="card-filters">
       <button :class="{ active: cardFilter === 'all' }" @click="cardFilter = 'all'"><span>全部会员</span><strong>{{ counts.all }}</strong><small>完整会员列表</small></button>
@@ -164,8 +194,9 @@ onBeforeUnmount(() => unsubscribeRealtime?.())
 
     <el-card shadow="never">
       <el-table :data="filteredRows" @row-dblclick="showDetail">
-        <el-table-column prop="phone" label="手机号" width="145" />
+        <el-table-column label="手机号" width="145"><template #default="scope">{{ scope.row.phone || '未留手机号' }}</template></el-table-column>
         <el-table-column prop="name" label="姓名" min-width="100" />
+        <el-table-column label="实体卡号" min-width="170"><template #default="scope">{{ scope.row.card_binding?.is_active ? scope.row.card_binding.card_uid : '未绑定' }}</template></el-table-column>
         <el-table-column label="会员卡类型" width="190">
           <template #default="scope"><MemberTypeBadge :member="scope.row" /></template>
         </el-table-column>
@@ -176,12 +207,14 @@ onBeforeUnmount(() => unsubscribeRealtime?.())
       </el-table>
     </el-card>
 
-    <el-dialog v-model="createOpen" title="新增会员" width="460px">
+    <el-dialog v-model="createOpen" title="手机号开通会员" width="460px">
       <el-form label-position="top"><el-form-item label="手机号"><el-input v-model="createForm.phone" /></el-form-item><el-form-item label="姓名"><el-input v-model="createForm.name" /></el-form-item><el-form-item label="备注"><el-input v-model="createForm.note" /></el-form-item></el-form>
       <template #footer><el-button @click="createOpen = false">取消</el-button><el-button type="primary" @click="createMember">保存</el-button></template>
     </el-dialog>
 
-    <MemberDetailDrawer v-model="detailOpen" v-model:active-tab="detailTab" :member="selected" @recharge="startRecharge" @purchase-pass="startPassPurchase" @consume-pass="consumePass" />
+    <PhysicalMemberDialog v-model="physicalOpen" @opened="refreshPhysicalMember" @pending-change="physicalPending = $event" />
+    <MemberCardBindingDialog v-model="bindingOpen" :member="selected" @bound="refreshPhysicalMember" />
+    <MemberDetailDrawer v-model="detailOpen" v-model:active-tab="detailTab" :member="selected" @recharge="startRecharge" @purchase-pass="startPassPurchase" @consume-pass="consumePass" @bind-card="startCardBinding" />
   </div>
 </template>
 

@@ -1,0 +1,5 @@
+﻿[CmdletBinding()]
+param([ValidateSet('build','publish','all','validate')][string]$Mode='all',[string]$EcsTarget='root@39.96.217.210',[string]$PreviousApkPath)
+$ErrorActionPreference='Stop'
+$info=Get-Content -LiteralPath (Join-Path $PSScriptRoot '交付信息.json') -Raw -Encoding UTF8|ConvertFrom-Json
+& (Join-Path $info.ProjectRoot 'scripts\publish-mobile-1212.ps1') -DeliveryRoot $PSScriptRoot -Mode $Mode -EcsTarget $EcsTarget -PreviousApkPath $PreviousApkPath

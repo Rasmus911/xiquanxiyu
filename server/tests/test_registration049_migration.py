@@ -2,7 +2,7 @@
 from pathlib import Path
 
 from flask_migrate import upgrade
-from sqlalchemy import inspect, text
+from sqlalchemy import MetaData, Table, inspect, text
 
 from app import create_app
 from app.config import TestConfig
@@ -25,9 +25,21 @@ def test_registration_migration_preserves_existing_data_and_guards(tmp_path):
         employee = Employee(username='migration-existing', display_name='既有员工',
             password_hash='original-opaque-argon2-hash', role='cashier', session_version=7,
             allowed_channels=['desktop'])
-        member = Member(phone='13900001234', name='隔离会员', balance=188)
-        stock = StockItem(name='隔离库存', base_unit='瓶', stock_quantity=12, unit_cost=3)
-        db.session.add_all([employee, member, stock])
+        # The fixture is the historical schema, not the latest ORM's columns.
+        from types import SimpleNamespace
+        from app.models import new_uuid, utcnow
+        member = SimpleNamespace(id=new_uuid())
+        historical_members=Table('members',MetaData(),autoload_with=db.engine)
+        now=utcnow()
+        db.session.connection().execute(historical_members.insert().values(id=member.id,phone='13900001234',name='隔离会员',
+            balance=188,is_active=True,version=1,created_at=now,updated_at=now,
+            period_id=db.session.execute(text('SELECT period_id FROM business_state WHERE id=1')).scalar_one()))
+        stock = SimpleNamespace(id=new_uuid())
+        historical_stock=Table('stock_items',MetaData(),autoload_with=db.engine)
+        db.session.connection().execute(historical_stock.insert().values(id=stock.id,name='隔离库存',category='默认',
+            base_unit='瓶',package_unit='',units_per_package=1,package_spec='',stock_quantity=12,low_stock_threshold=0,
+            unit_cost=3,is_active=True,version=1,created_at=now,updated_at=now))
+        db.session.add(employee)
         db.session.flush()
         member_pass = MemberPass(member_id=member.id, name='隔离次卡', remaining_count=8)
         visit = Visit(wristband_id=Wristband.query.first().id, member_id=member.id, opened_by_id=employee.id)

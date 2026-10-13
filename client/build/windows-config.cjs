@@ -17,8 +17,10 @@ function makeWindowsConfig({ projectRoot, version, buildId, targetId, trust }) {
     directories: { output: path.join(releaseRoot, targetId) },
     files: ['dist/**/*', 'electron/**/*', '!electron/**/*.node-test.cjs', 'package.json'],
     extraMetadata: { version, xiquanDesktop: { schemaVersion: 1, ...profile, buildId, releaseTrust } },
-    win: { target: [{ target: 'nsis', arch: [profile.arch] }] },
+    win: { icon: path.join(projectRoot,'client/electron/assets/xiquan.ico'), target: [{ target: 'nsis', arch: [profile.arch] }] },
     nsis: {
+      installerIcon: path.join(projectRoot,'client/electron/assets/xiquan.ico'),
+      uninstallerIcon: path.join(projectRoot,'client/electron/assets/xiquan.ico'),
       oneClick: false,
       allowToChangeInstallationDirectory: true,
       createDesktopShortcut: true,

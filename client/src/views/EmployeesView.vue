@@ -11,7 +11,6 @@ import type { Employee } from '../types'
 const rows = ref<Employee[]>([]); const drawerOpen = ref(false); const editingId = ref('')
 type Channel = 'desktop' | 'web' | 'mobile'
 const form = reactive({ username: '', display_name: '', password: '', role: 'cashier', is_active: true, unlock: false, allowed_channels: ['desktop', 'web'] as Channel[] })
-const deletedFilter = ref('exclude')
 const saving = ref(false)
 const deleting = ref('')
 const protectedEditing = ref(false)
@@ -23,12 +22,11 @@ const roleChannels: Record<string, Channel[]> = {
 }
 const channelNames: Record<Channel, string> = { desktop: '桌面端', web: '网页端', mobile: '手机端' }
 watch(() => form.role, role => { if (!hydrating && !protectedEditing.value) form.allowed_channels = [...(roleChannels[role] || [])] }, { flush: 'sync' })
-watch(deletedFilter, () => { void load() })
 const roleNames: Record<string, string> = { male_scrubber: '男浴搓澡师', female_scrubber: '女浴搓澡师', floor_attendant: '三层服务员', cashier: '收银员', inventory: '库管', manager: '经理', admin: '系统管理员' }
 async function load() {
   const isCurrent = guardBusinessOperation('load')
   if (!isCurrent()) return
- try { const data = apiData<Employee[]>(await http.get('/employees', { params: { deleted: deletedFilter.value } })); if (!isCurrent()) return; rows.value = data } catch (error) { if (!isCurrent()) return; ElMessage.error(apiErrorMessage(error)) } }
+ try { const data = apiData<Employee[]>(await http.get('/employees')); if (!isCurrent()) return; rows.value = data } catch (error) { if (!isCurrent()) return; ElMessage.error(apiErrorMessage(error)) } }
 function createNew() {
   if (saving.value) return
   editingId.value = ''; protectedEditing.value = false
@@ -63,7 +61,7 @@ async function remove(row: Employee) {
   const isCurrent = guardBusinessOperation('delete')
   deleting.value = row.id
   try {
-    await ElMessageBox.confirm(`删除 ${row.display_name}（${row.username}）？将停用并退出该员工，历史操作记录永久保留。`, '删除员工账号', { type: 'warning', confirmButtonText: '删除账号', cancelButtonText: '取消' })
+    await ElMessageBox.confirm(`删除 ${row.display_name}（${row.username}）？将彻底移除登录账号并退出该员工；历史记录保留，该账号可重新注册。`, '删除员工账号', { type: 'warning', confirmButtonText: '删除账号', cancelButtonText: '取消' })
     if (!isCurrent()) return
     await http.delete(`/employees/${row.id}`)
     if (!isCurrent()) return
@@ -80,9 +78,6 @@ onMounted(load)
       <template #actions><el-button v-if="canAccess('*')" type="primary" @click="createNew">新增员工</el-button></template>
     </AppPageHeader>
     <el-card shadow="never">
-      <el-radio-group v-model="deletedFilter" style="margin-bottom: 16px">
-        <el-radio-button value="exclude">在职账号</el-radio-button><el-radio-button value="only">已删除账号</el-radio-button>
-      </el-radio-group>
       <el-table :data="rows">
         <el-table-column prop="username" label="登录账号" /><el-table-column prop="display_name" label="员工姓名" />
         <el-table-column label="岗位"><template #default="{ row }">{{ roleNames[row.role] }}</template></el-table-column>
@@ -91,7 +86,7 @@ onMounted(load)
           <span v-else>{{ row.allowed_channels?.map((channel: Channel) => channelNames[channel]).join(' / ') || '待授权' }}</span>
         </template></el-table-column>
         <el-table-column label="状态" width="90"><template #default="{ row }">
-          <el-tag :type="row.is_active ? 'success' : 'info'">{{ row.deleted_at ? '已删除' : row.is_active ? '启用' : '停用' }}</el-tag>
+          <el-tag :type="row.is_active ? 'success' : 'info'">{{ row.is_active ? '启用' : '停用' }}</el-tag>
         </template></el-table-column>
         <el-table-column v-if="canAccess('*')" label="操作" width="150"><template #default="{ row }">
           <el-button v-if="!row.deleted_at" link type="primary" @click="edit(row)">编辑</el-button>

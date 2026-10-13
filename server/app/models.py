@@ -79,6 +79,15 @@ class PeriodMixin:
     period_id = db.Column(db.String(36), db.ForeignKey("business_periods.id"), nullable=False, index=True)
 
 
+class EmployeeIdentity(db.Model):
+    __tablename__ = 'employee_identities'
+    id = db.Column(db.String(36), primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    display_name = db.Column(db.String(80), nullable=False)
+    role = db.Column(db.String(30), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), nullable=False)
+
+
 class Employee(TimestampMixin, db.Model):
     __tablename__ = "employees"
 
@@ -119,7 +128,7 @@ class AuditLog(db.Model):
 
     id = db.Column(db.String(36), primary_key=True, default=new_uuid)
     chain_index = db.Column(db.Integer, nullable=False, unique=True, index=True)
-    employee_id = db.Column(db.String(36), db.ForeignKey("employees.id"), index=True)
+    employee_id = db.Column(db.String(36), db.ForeignKey("employee_identities.id"), index=True)
     terminal_id = db.Column(db.String(36), db.ForeignKey("terminals.id"), index=True)
     action = db.Column(db.String(80), nullable=False, index=True)
     entity_type = db.Column(db.String(80), nullable=False, index=True)
@@ -143,7 +152,7 @@ class RevokedSession(db.Model):
     __tablename__ = "revoked_sessions"
 
     id = db.Column(db.String(36), primary_key=True)
-    employee_id = db.Column(db.String(36), db.ForeignKey("employees.id"), nullable=False)
+    employee_id = db.Column(db.String(36), db.ForeignKey("employee_identities.id"), nullable=False)
     revoked_at = db.Column(db.DateTime(timezone=True), nullable=False, default=utcnow)
 
 
@@ -157,12 +166,33 @@ class Wristband(TimestampMixin, db.Model):
     note = db.Column(db.String(255))
 
 
+class WristbandChipBinding(TimestampMixin, db.Model):
+    __tablename__ = 'wristband_chip_bindings'
+    wristband_id = db.Column(db.String(36), db.ForeignKey('wristbands.id'), nullable=False, unique=True)
+    # Nullable tombstone keeps optimistic version after explicit unbinding.
+    chip_uid = db.Column(db.String(64), unique=True)
+    changed_by_id = db.Column(db.String(36), db.ForeignKey('employee_identities.id'), nullable=False)
+    changed_terminal_id = db.Column(db.String(36), db.ForeignKey('terminals.id'), nullable=False)
+
+
+class WristbandScanSession(PeriodMixin, TimestampMixin, db.Model):
+    __tablename__ = 'wristband_scan_sessions'
+    auth_session_id = db.Column(db.String(36), nullable=False)
+    employee_id = db.Column(db.String(36), db.ForeignKey('employee_identities.id'), nullable=False)
+    terminal_id = db.Column(db.String(36), db.ForeignKey('terminals.id'), nullable=False)
+    party_id = db.Column(db.String(36), nullable=False)
+    expires_at = db.Column(db.DateTime(timezone=True), nullable=False)
+    members = db.Column(db.JSON, nullable=False, default=dict)
+    closed_at = db.Column(db.DateTime(timezone=True))
+
+
 class Member(PeriodMixin, TimestampMixin, db.Model):
     __tablename__ = "members"
 
     __table_args__ = (db.UniqueConstraint("period_id", "phone", name="uq_members_period_phone"),)
-    phone = db.Column(db.String(20), nullable=False, index=True)
+    phone = db.Column(db.String(20), nullable=True, index=True)
     name = db.Column(db.String(80))
+    holder_surname = db.Column(db.String(40))
     deleted_at = db.Column(db.DateTime(timezone=True))
     balance = db.Column(MONEY, nullable=False, default=Decimal("0.00"))
     is_active = db.Column(db.Boolean, nullable=False, default=True)
@@ -176,7 +206,7 @@ class Visit(PeriodMixin, TimestampMixin, db.Model):
     member_id = db.Column(db.String(36), db.ForeignKey("members.id"), index=True)
     party_id = db.Column(db.String(36), index=True)
     status = db.Column(db.String(20), nullable=False, default="open", index=True)
-    opened_by_id = db.Column(db.String(36), db.ForeignKey("employees.id"), nullable=False)
+    opened_by_id = db.Column(db.String(36), db.ForeignKey("employee_identities.id"), nullable=False)
     opened_at = db.Column(db.DateTime(timezone=True), nullable=False, default=utcnow)
     closed_at = db.Column(db.DateTime(timezone=True))
     note = db.Column(db.String(255))
@@ -228,9 +258,9 @@ class OrderItem(PeriodMixin, TimestampMixin, db.Model):
     __table_args__ = (db.CheckConstraint('covered_quantity >= 0 AND covered_quantity <= quantity', name='covered_quantity_bounds'),)
     total_amount = db.Column(MONEY, nullable=False)
     status = db.Column(db.String(20), nullable=False, default="active", index=True)
-    service_employee_id = db.Column(db.String(36), db.ForeignKey("employees.id"))
-    created_by_id = db.Column(db.String(36), db.ForeignKey("employees.id"), nullable=False)
-    voided_by_id = db.Column(db.String(36), db.ForeignKey("employees.id"))
+    service_employee_id = db.Column(db.String(36), db.ForeignKey("employee_identities.id"))
+    created_by_id = db.Column(db.String(36), db.ForeignKey("employee_identities.id"), nullable=False)
+    voided_by_id = db.Column(db.String(36), db.ForeignKey("employee_identities.id"))
     void_reason = db.Column(db.String(255))
     voided_at = db.Column(db.DateTime(timezone=True))
 
@@ -238,7 +268,7 @@ class OrderItem(PeriodMixin, TimestampMixin, db.Model):
 class Shift(PeriodMixin, TimestampMixin, db.Model):
     __tablename__ = "shifts"
 
-    employee_id = db.Column(db.String(36), db.ForeignKey("employees.id"), nullable=False, index=True)
+    employee_id = db.Column(db.String(36), db.ForeignKey("employee_identities.id"), nullable=False, index=True)
     terminal_id = db.Column(db.String(36), db.ForeignKey("terminals.id"), nullable=False, index=True)
     status = db.Column(db.String(20), nullable=False, default="open", index=True)
     opening_cash = db.Column(MONEY, nullable=False, default=Decimal("0.00"))
@@ -257,7 +287,7 @@ class Settlement(PeriodMixin, TimestampMixin, db.Model):
     status = db.Column(db.String(30), nullable=False, default="completed", index=True)
     total_amount = db.Column(MONEY, nullable=False)
     paid_amount = db.Column(MONEY, nullable=False)
-    created_by_id = db.Column(db.String(36), db.ForeignKey("employees.id"), nullable=False)
+    created_by_id = db.Column(db.String(36), db.ForeignKey("employee_identities.id"), nullable=False)
     terminal_id = db.Column(db.String(36), db.ForeignKey("terminals.id"), nullable=False)
     shift_id = db.Column(db.String(36), db.ForeignKey("shifts.id"), index=True)
     member_id = db.Column(db.String(36), db.ForeignKey("members.id"), index=True)
@@ -295,7 +325,7 @@ class StoredValueLedger(PeriodMixin, TimestampMixin, db.Model):
     payment_method = db.Column(db.String(30))
     shift_id = db.Column(db.String(36), db.ForeignKey("shifts.id"), index=True)
     settlement_id = db.Column(db.String(36), db.ForeignKey("settlements.id"))
-    operator_id = db.Column(db.String(36), db.ForeignKey("employees.id"), nullable=False)
+    operator_id = db.Column(db.String(36), db.ForeignKey("employee_identities.id"), nullable=False)
     note = db.Column(db.String(255))
     idempotency_key = db.Column(db.String(100), unique=True)
 
@@ -321,7 +351,7 @@ class PassLedger(PeriodMixin, TimestampMixin, db.Model):
     payment_method = db.Column(db.String(30))
     idempotency_key = db.Column(db.String(100), unique=True)
     settlement_id = db.Column(db.String(36), db.ForeignKey("settlements.id"))
-    operator_id = db.Column(db.String(36), db.ForeignKey("employees.id"), nullable=False)
+    operator_id = db.Column(db.String(36), db.ForeignKey("employee_identities.id"), nullable=False)
     note = db.Column(db.String(255))
 
 
@@ -334,7 +364,7 @@ class InventoryMovement(PeriodMixin, TimestampMixin, db.Model):
     balance_after = db.Column(QUANTITY, nullable=False)
     reference_type = db.Column(db.String(40))
     reference_id = db.Column(db.String(36), index=True)
-    operator_id = db.Column(db.String(36), db.ForeignKey("employees.id"), nullable=False)
+    operator_id = db.Column(db.String(36), db.ForeignKey("employee_identities.id"), nullable=False)
     note = db.Column(db.String(255))
     idempotency_key = db.Column(db.String(100), unique=True)
 
@@ -353,8 +383,37 @@ class StockItem(TimestampMixin, db.Model):
     low_stock_threshold = db.Column(QUANTITY, nullable=False, default=Decimal('0'))
     # Optional current base-unit reference cost; never rewrites receipt costs.
     unit_cost = db.Column(MONEY, nullable=True)
+    # Optional authoritative input; derives the other cost without round-trip loss.
+    reference_cost = db.Column(MONEY, nullable=True)
+    cost_basis = db.Column(db.String(7), nullable=True)
     is_active = db.Column(db.Boolean, nullable=False, default=True)
     legacy_catalog_item_id = db.Column(db.String(36), db.ForeignKey('catalog_items.id'), unique=True)
+
+
+class StockImportPending(TimestampMixin, db.Model):
+    """Immutable source row; never a balance until its units are confirmed."""
+    __tablename__ = 'stock_import_pending'
+    __table_args__ = (db.UniqueConstraint('source_sha256', 'source_row', name='uq_stock_pending_source'),
+                      db.CheckConstraint('base_quantity >= 0', name='stock_pending_nonnegative'))
+    name = db.Column(db.String(120), nullable=False)
+    base_quantity = db.Column(QUANTITY, nullable=False)
+    package_cost = db.Column(MONEY, nullable=True)
+    target_stock_item_id = db.Column(db.String(36), db.ForeignKey('stock_items.id'), nullable=True)
+    target_version = db.Column(db.Integer, nullable=True)
+    consumption_confirmed = db.Column(db.Boolean, nullable=False, default=False)
+    source_sha256 = db.Column(db.String(64), nullable=False)
+    source_row = db.Column(db.Integer, nullable=False)
+    created_by_id = db.Column(db.String(36), db.ForeignKey('employee_identities.id'), nullable=False)
+
+
+class StockImportResolution(TimestampMixin, db.Model):
+    """Append-only completion or cancellation, independent of business resets."""
+    __tablename__ = 'stock_import_resolutions'
+    __table_args__ = (db.CheckConstraint("outcome IN ('completed','cancelled')", name='stock_resolution_outcome'),)
+    pending_id = db.Column(db.String(36), db.ForeignKey('stock_import_pending.id'), nullable=False, unique=True)
+    outcome = db.Column(db.String(12), nullable=False)
+    stock_item_id = db.Column(db.String(36), db.ForeignKey('stock_items.id'), nullable=True)
+    created_by_id = db.Column(db.String(36), db.ForeignKey('employee_identities.id'), nullable=False)
 
 
 class StockMovement(PeriodMixin, TimestampMixin, db.Model):
@@ -371,7 +430,7 @@ class StockMovement(PeriodMixin, TimestampMixin, db.Model):
     package_unit_snapshot = db.Column(db.String(20), nullable=False)
     reference_type = db.Column(db.String(40))
     reference_id = db.Column(db.String(36), index=True)
-    operator_id = db.Column(db.String(36), db.ForeignKey('employees.id'), nullable=False)
+    operator_id = db.Column(db.String(36), db.ForeignKey('employee_identities.id'), nullable=False)
     reason = db.Column(db.String(255), nullable=False)
 
 
@@ -383,7 +442,7 @@ class StockCost(TimestampMixin, db.Model):
     stock_movement_id = db.Column(db.String(36), db.ForeignKey('stock_movements.id'), nullable=False, index=True)
     unit_cost = db.Column(MONEY, nullable=False)
     total_cost = db.Column(MONEY, nullable=False)
-    operator_id = db.Column(db.String(36), db.ForeignKey('employees.id'), nullable=False)
+    operator_id = db.Column(db.String(36), db.ForeignKey('employee_identities.id'), nullable=False)
 
 
 class OrderStockConsumption(PeriodMixin, TimestampMixin, db.Model):
@@ -421,6 +480,9 @@ class IdempotencyRecord(PeriodMixin, db.Model):
 from .registration_models import (  # noqa: E402,F401: register additive metadata
     RegistrationRateLimit, RegistrationReceipt, RegistrationTokenState, RegistrationTokenView,
 )
+from . import employee_identity  # noqa: E402,F401: register transactional identity insertion
+from .receipt_models import ServicePrintJob, ServicePrintAttempt, SettlementPrintAttempt  # noqa: E402,F401
+from .member_card_models import MemberCardBinding, SettlementPassRedemption  # noqa: E402,F401
 
 
 @event.listens_for(db.metadata, "after_create")

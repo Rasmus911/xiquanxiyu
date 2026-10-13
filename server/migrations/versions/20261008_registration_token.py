@@ -14,8 +14,9 @@ def upgrade():
         RegistrationRateLimit, RegistrationReceipt, RegistrationTokenState, RegistrationTokenView,
     )
     connection = op.get_bind()
+    from app.schema_history import create_pre_identity_table
     for model in (RegistrationTokenState, RegistrationRateLimit, RegistrationReceipt, RegistrationTokenView):
-        model.__table__.create(connection, checkfirst=True)
+        create_pre_identity_table(connection, model.__table__)
     install_database_guards(connection)
     install_barrier_guards(connection)
     if connection.dialect.name == 'postgresql':

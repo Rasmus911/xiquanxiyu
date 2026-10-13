@@ -16,6 +16,10 @@ from .models import (
 )
 
 ACTION_LABELS = {
+    'wristband.chip_bind': '录入或更换手牌芯片',
+    'wristband.chip_unbind': '解除手牌芯片绑定',
+    'wristband.chip_open': '刷手牌芯片开牌',
+    'account.password_change': '本人修改登录密码',
     "system.bootstrap": "初始化系统管理员",
     "auth.login": "员工登录",
     "auth.logout": "员工退出登录",
@@ -49,6 +53,9 @@ ACTION_LABELS = {
     "member.pass_issue": "发放会员次卡",
     "member.pass_consume": "核销会员次卡",
     "member.card_sms": "发送会员开卡短信",
+    "member.physical_open": "已收款实体会员卡开户",
+    "member.card_bind": "绑定实体会员卡",
+    "member.card_replace": "补换实体会员卡",
     "inventory.adjust": "调整商品库存",
     "stock.create": "新增库存主档",
     "stock.update": "修改库存主档",
@@ -231,12 +238,14 @@ def order_item_dict(item: OrderItem):
 
 
 def stock_item_dict(item):
+    from .stock_cost_basis import stock_cost_values
     return {"id": item.id, "name": item.name, "category": item.category, "base_unit": item.base_unit,
         "package_unit": item.package_unit, "units_per_package": f'{item.units_per_package:.3f}',
         "package_spec": item.package_spec, "stock_quantity": f'{item.stock_quantity:.3f}',
         "low_stock_threshold": f'{item.low_stock_threshold:.3f}', "is_active": item.is_active,
         "version": item.version, "legacy_catalog_item_id": item.legacy_catalog_item_id,
-        "unit_cost": f'{item.unit_cost:.2f}' if item.unit_cost is not None else None}
+        "unit_cost": f'{item.unit_cost:.2f}' if item.unit_cost is not None else None,
+        **stock_cost_values(item)}
 
 
 def stock_movement_dict(row):
@@ -251,12 +260,26 @@ def stock_movement_dict(row):
         "cost": cost_dict(current_cost(row.id), row)}
 
 
+def member_card_binding_dict(item):
+    return {'id': item.id, 'member_id': item.member_id, 'card_uid': item.card_uid,
+        'is_active': item.is_active, 'created_at': iso(item.created_at),
+        'revoked_at': iso(item.revoked_at), 'replaced_by_id': item.replaced_by_id,
+        'version': item.version}
+
+
 def member_dict(item: Member, include_phone=True):
-    phone = item.phone if include_phone else f"{item.phone[:3]}****{item.phone[-4:]}"
+    from .models import MemberCardBinding
+    phone = item.phone or ''
+    if phone and not include_phone:
+        phone = f"{phone[:3]}****{phone[-4:]}"
+    binding = MemberCardBinding.query.filter_by(
+        period_id=item.period_id, member_id=item.id, is_active=True).first()
     return {
         "id": item.id,
         "phone": phone,
         "name": item.name,
+        "holder_surname": item.holder_surname,
+        "card_binding": member_card_binding_dict(binding) if binding else None,
         "balance": decimal_str(item.balance),
         "is_active": item.is_active,
         "note": item.note,
@@ -297,12 +320,25 @@ def payment_dict(item: Payment):
 
 
 def settlement_dict(item: Settlement, payments=None, visits=None):
+    from .member_card_models import SettlementPassRedemption
+    redemptions = SettlementPassRedemption.query.filter_by(settlement_id=item.id).order_by(
+        SettlementPassRedemption.visit_id, SettlementPassRedemption.id).all()
+    pass_amount = sum((Decimal(row.amount) for row in redemptions), Decimal('0.00'))
+    checkout_audit = AuditLog.query.filter_by(action='checkout.complete', entity_type='settlement',
+        entity_id=item.id).first() if item.member_id else None
     return {
         "id": item.id,
         "number": item.number,
         "status": item.status,
         "total_amount": decimal_str(item.total_amount),
         "paid_amount": decimal_str(item.paid_amount),
+        "amount_due": decimal_str(Decimal(item.total_amount) - pass_amount),
+        "pass_redemption_amount": decimal_str(pass_amount),
+        "pass_redemption_count": sum(row.count for row in redemptions),
+        "member_card": (checkout_audit.details or {}).get('member_card') if checkout_audit else None,
+        "pass_redemptions": [{"visit_id": row.visit_id, "order_item_id": row.order_item_id,
+            "member_pass_id": row.member_pass_id, "count": row.count, "amount": decimal_str(row.amount)}
+            for row in redemptions],
         "completed_at": iso(item.completed_at),
         "payments": [payment_dict(row) for row in (payments or [])],
         "visits": visits or [],

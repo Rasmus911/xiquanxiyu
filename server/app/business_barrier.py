@@ -40,6 +40,7 @@ def register_barrier(app):
             @event.listens_for(db.engine, 'connect')
             def sqlite_owner(raw, record):
                 raw.create_function('xiquan_reset_owner', 0, lambda: record.info.get('reset_task_id', ''))
+                raw.create_function('xiquan_receipt_cutoff', 0, lambda: record.info.get('receipt_cleanup_cutoff', ''))
     if not _registered:
         @event.listens_for(Session, 'before_flush')
         def flush_barrier(session, _context, _instances):

@@ -18,4 +18,23 @@ describe('checkout retry request', () => {
     clearCheckoutRequest()
     expect(checkoutRequestKey(fingerprint)).not.toBe(first)
   })
+
+  it('includes pass, people, member, binding, method and surname in the stable checkout identity', () => {
+    const rows = [{ method: 'cash', amount: 10 }]
+    const benefits = { pass_use: { member_pass_id: 'p1', visit_ids: ['v2', 'v1'] },
+      member_verification: { method: 'card' as const, card_binding_id: 'c1', surname_confirmed: true } }
+    const base = checkoutFingerprint(['v1', 'v2'], rows, 'm1', benefits)
+    expect(base).toBe(checkoutFingerprint(['v2', 'v1'], rows, 'm1', {
+      ...benefits, pass_use: { ...benefits.pass_use, visit_ids: ['v1', 'v2'] } }))
+    for (const changed of [
+      { ...benefits, pass_use: null },
+      { ...benefits, pass_use: { ...benefits.pass_use, member_pass_id: 'p2' } },
+      { ...benefits, pass_use: { ...benefits.pass_use, visit_ids: ['v1'] } },
+      { ...benefits, member_verification: { ...benefits.member_verification, card_binding_id: 'c2' } },
+      { ...benefits, member_verification: { ...benefits.member_verification, surname_confirmed: false } },
+      { ...benefits, member_verification: { method: 'phone' as const, surname_confirmed: true } },
+    ]) expect(base).not.toBe(checkoutFingerprint(['v1', 'v2'], rows, 'm1', changed))
+    expect(base).not.toBe(checkoutFingerprint(['v1', 'v2'], rows, 'm2', benefits))
+    expect(checkoutFingerprint(['v1'], rows, null)).toBe(checkoutFingerprint(['v1'], rows, null, { pass_use: null, member_verification: null }))
+  })
 })

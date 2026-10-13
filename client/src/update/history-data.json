@@ -1,0 +1,66 @@
+[
+  {
+    "version": "0.4.7",
+    "publishedAt": null,
+    "state": "unverified",
+    "source": "user",
+    "notes": ["给前台收银和库管增补“经营报表”权限", "“经营报表”UI优化", "“库存管理”界面 UI优化", "库存预警值设置为商品入库数量的15%"]
+  },
+  {
+    "version": "0.4.8",
+    "publishedAt": null,
+    "state": "unverified",
+    "source": "backfilled",
+    "notes": ["澡巾、备品、搓泥宝按服务项目下单", "加单后弹窗选择耗材", "库存及项目商品每页十项，右上角换页", "库存成本单价可编辑，首次赋值免密码，后续修改核对本人密码", "手机版同步更新"]
+  },
+  {
+    "version": "0.4.9",
+    "publishedAt": "2026-10-08T12:21:56.498Z",
+    "state": "published",
+    "source": "user",
+    "notes": ["新增 账号注册功能"]
+  },
+  {
+    "version": "0.5.0",
+    "publishedAt": "2026-10-11T16:23:00.648Z",
+    "state": "published",
+    "source": "user",
+    "notes": ["优化主登录页面", "新增账号密码修改功能", "新增搓澡师下单打印小票的功能", "新增每天小票补打的功能"]
+  },
+  {
+    "version": "0.5.1",
+    "publishedAt": null,
+    "state": "pending",
+    "source": "user",
+    "notes": ["增加实体卡消费功能"]
+  },
+  {
+    "version": "0.5.2",
+    "publishedAt": null,
+    "state": "pending",
+    "source": "backfilled",
+    "notes": ["修复实体卡结账时会员查询一闪而过、无法消费的问题"]
+  },
+  {
+    "version": "0.5.3",
+    "publishedAt": null,
+    "state": "pending",
+    "source": "user",
+    "notes": ["修复更新通道BUG", "美化UI"]
+  },
+  {
+    "version": "0.5.4",
+    "publishedAt": null,
+    "state": "pending",
+    "source": "user",
+    "notes": ["用ID卡读取手牌号来实现开牌的效果"]
+  },
+  {
+    "version": "0.5.5",
+    "publishedAt": null,
+    "state": "pending",
+    "source": "user",
+    "notes": ["取消下单“选择耗材”的步骤", "可以通过导入外部Excel来整理库存"]
+  },
+  {"version":"0.5.6","publishedAt":null,"state":"pending","source":"user","notes":["给桌面端的图标做出更换","优化“库存”页面布局"]}
+]

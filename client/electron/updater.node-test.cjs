@@ -8,7 +8,7 @@ const crypto = require('node:crypto')
 const {EventEmitter}=require('node:events')
 const {getTarget}=require('./target-profiles.cjs')
 
-function loadAdapter({testOnly=false,packaged=true,metadataMissing=false,target='win7-x86',currentVersion='0.4.2',latestVersion='0.4.3'}={}) {
+function loadAdapter({testOnly=false,packaged=true,metadataMissing=false,target='win7-x86',currentVersion='0.4.2',latestVersion='0.4.3',sequence=1,cachedSequence}={}) {
   const directory=fs.mkdtempSync(path.join(os.tmpdir(),'xiquan-updater-adapter-'))
   const {publicKey,privateKey}=crypto.generateKeyPairSync('ed25519')
   const publicKeyPem=publicKey.export({type:'spki',format:'pem'})
@@ -16,12 +16,13 @@ function loadAdapter({testOnly=false,packaged=true,metadataMissing=false,target=
   const profile=getTarget(target),body=Buffer.from('release-bytes'),yaml=Buffer.from(`version: ${latestVersion}\n`)
   const artifact={fileName:`Xiquan-Bathhouse-Setup-${latestVersion}-${target}.exe`,size:body.length,
     sha256:crypto.createHash('sha256').update(body).digest('hex'),sha512:crypto.createHash('sha512').update(body).digest('base64')}
-  const payload={schemaVersion:2,keyId,sequence:1,buildId:'adapter-fixture',...profile,
+  const payload={schemaVersion:2,keyId,sequence,buildId:'adapter-fixture',...profile,
     desktop:{latestVersion,minimumVersion:'0.4.2',required:false,releaseNotes:[],publishedAt:'2026-10-03T00:00:00Z',
       downloadUrl:`https://api.pqxqxy.xyz/updates/desktop/${target}/${artifact.fileName}`,sha256:artifact.sha256},artifact,
     blockmap:{fileName:artifact.fileName+'.blockmap',size:2,sha256:'b'.repeat(64)},
     updaterManifest:{fileName:'latest.yml',sha256:crypto.createHash('sha256').update(yaml).digest('hex')}}
   const bytes=Buffer.from(JSON.stringify(payload)),envelope={payload:bytes.toString('base64'),signature:crypto.sign(null,bytes,privateKey).toString('base64')}
+  if(cachedSequence!==undefined)fs.writeFileSync(path.join(directory,`desktop-update-state-${target}.json`),JSON.stringify({sequence:cachedSequence,payloadHash:'a'.repeat(64)}))
   const calls=[]
   const updater=new EventEmitter()
   updater.setFeedURL=value=>calls.push(value.url)
@@ -103,4 +104,110 @@ test('0.4.4 through 0.4.8 metadata verifies and downloads signed 0.4.9 on each m
       } finally {f.close()}
     }
   }
+})
+
+test('0.4.4 through 0.4.9 download signed 0.5.0 only from their matching modern channel', async () => {
+  for (const currentVersion of ['0.4.4','0.4.5','0.4.6','0.4.7','0.4.8','0.4.9']) {
+    for (const target of ['win10-x86','win10-x64','win11-x86','win11-x64']) {
+      const f=loadAdapter({target,currentVersion,latestVersion:'0.5.0'})
+      try {
+        f.adapter.start('https://api.pqxqxy.xyz/api',()=>null)
+        await f.adapter.checkForUpdates()
+        assert.equal(f.adapter.getState().status,'downloaded',`${currentVersion}/${target}`)
+        assert.equal(f.calls.includes(`https://api.pqxqxy.xyz/updates/desktop/${target}/`),true)
+        assert.equal(f.calls.some(value=>value==='https://api.pqxqxy.xyz/updates/'),false)
+      } finally {f.close()}
+    }
+  }
+})
+
+test('0.4.4 through 0.5.0 accept 0.5.1 with unchanged original channel protocol',async()=>{
+  for(const currentVersion of ['0.4.4','0.4.5','0.4.6','0.4.7','0.4.8','0.4.9','0.5.0']){
+    for(const target of ['win10-x86','win10-x64','win11-x86','win11-x64']){
+      const f=loadAdapter({target,currentVersion,latestVersion:'0.5.1'})
+      try{
+        f.adapter.start('https://api.pqxqxy.xyz/api',()=>null)
+        await f.adapter.checkForUpdates()
+        assert.equal(f.adapter.getState().status,'downloaded',`${currentVersion}/${target}`)
+        assert.equal(f.calls.includes(`https://api.pqxqxy.xyz/releases/desktop/${target}.json`),true)
+        assert.equal(f.calls.some(url=>url==='https://api.pqxqxy.xyz/updates/'),false)
+      }finally{f.close()}
+    }
+  }
+})
+
+test('0.4.4 through 0.5.1 download the 0.5.2 card checkout fix on each original signed channel',async()=>{
+  for(const currentVersion of ['0.4.4','0.4.5','0.4.6','0.4.7','0.4.8','0.4.9','0.5.0','0.5.1']){
+    for(const target of ['win10-x86','win10-x64','win11-x86','win11-x64']){
+      const f=loadAdapter({target,currentVersion,latestVersion:'0.5.2'})
+      try{
+        f.adapter.start('https://api.pqxqxy.xyz/api',()=>null)
+        await f.adapter.checkForUpdates()
+        assert.equal(f.adapter.getState().status,'downloaded',`${currentVersion}/${target}`)
+        assert.equal(f.adapter.getState().availableVersion,'0.5.2')
+        assert.equal(f.calls.includes(`https://api.pqxqxy.xyz/releases/desktop/${target}.json`),true)
+        assert.equal(f.calls.includes(`https://api.pqxqxy.xyz/updates/desktop/${target}/`),true)
+      }finally{f.close()}
+    }
+  }
+})
+
+test('0.4.4 through 0.5.2 metadata downloads signed 0.5.3 on the original matching channel',async()=>{
+  for(const currentVersion of ['0.4.4','0.4.5','0.4.6','0.4.7','0.4.8','0.4.9','0.5.0','0.5.1','0.5.2']){
+    for(const target of ['win10-x86','win10-x64','win11-x86','win11-x64']){
+      const f=loadAdapter({target,currentVersion,latestVersion:'0.5.3'})
+      try{
+        f.adapter.start('https://api.pqxqxy.xyz/api',()=>null)
+        await f.adapter.checkForUpdates()
+        assert.equal(f.adapter.getState().status,'downloaded',`${currentVersion}/${target}`)
+        assert.equal(f.adapter.getState().availableVersion,'0.5.3')
+      }finally{f.close()}
+    }
+  }
+})
+
+test('0.4.4 through 0.5.3 download signed 0.5.4 on each matching original channel',async()=>{
+  for(const currentVersion of ['0.4.4','0.4.5','0.4.6','0.4.7','0.4.8','0.4.9','0.5.0','0.5.1','0.5.2','0.5.3']){
+    for(const target of ['win10-x86','win10-x64','win11-x86','win11-x64']){
+      const f=loadAdapter({target,currentVersion,latestVersion:'0.5.4'})
+      try{
+        f.adapter.start('https://api.pqxqxy.xyz/api',()=>null)
+        await f.adapter.checkForUpdates()
+        assert.equal(f.adapter.getState().status,'downloaded',`${currentVersion}/${target}`)
+        assert.equal(f.adapter.getState().availableVersion,'0.5.4')
+        assert.equal(f.calls.includes(`https://api.pqxqxy.xyz/updates/desktop/${target}/`),true)
+      }finally{f.close()}
+    }
+  }
+})
+
+test('a higher signed sequence recovers a legitimate cached collision without removing state',async()=>{
+  for(const sequence of [9,10]){
+    const f=loadAdapter({target:'win10-x64',currentVersion:'0.5.2',latestVersion:'0.5.3',sequence,cachedSequence:9})
+    try{
+      await f.adapter.checkForUpdates()
+      assert.equal(f.adapter.getState().status,sequence===9?'error':'downloaded')
+      assert.equal(fs.existsSync(path.join(f.directory,'desktop-update-state-win10-x64.json')),true)
+      const saved=JSON.parse(fs.readFileSync(path.join(f.directory,'desktop-update-state-win10-x64.json'),'utf8'))
+      assert.equal(saved.sequence,sequence)
+    }finally{f.close()}
+  }
+})
+
+test('0.4.4 through 0.5.4 download signed0.5.5 on all matching Win10/11 channels',async()=>{
+ for(const currentVersion of ['0.4.4','0.4.5','0.4.6','0.4.7','0.4.8','0.4.9','0.5.0','0.5.1','0.5.2','0.5.3','0.5.4']){
+  for(const target of ['win10-x86','win10-x64','win11-x86','win11-x64']){
+   const f=loadAdapter({target,currentVersion,latestVersion:'0.5.5'})
+   try{f.adapter.start('https://api.pqxqxy.xyz/api',()=>null);await f.adapter.checkForUpdates();assert.equal(f.adapter.getState().status,'downloaded',`${currentVersion}/${target}`);assert.equal(f.adapter.getState().availableVersion,'0.5.5');assert.equal(f.calls.includes(`https://api.pqxqxy.xyz/updates/desktop/${target}/`),true)}finally{f.close()}
+  }
+ }
+})
+
+test('0.4.4 through 0.5.5 download signed0.5.6 on their original channels without clearing saved trust',async()=>{
+ for(const currentVersion of ['0.4.4','0.4.5','0.4.6','0.4.7','0.4.8','0.4.9','0.5.0','0.5.1','0.5.2','0.5.3','0.5.4','0.5.5']){
+  for(const target of ['win10-x86','win10-x64','win11-x86','win11-x64']){
+   const f=loadAdapter({target,currentVersion,latestVersion:'0.5.6'})
+   try{f.adapter.start('https://api.pqxqxy.xyz/api',()=>null);await f.adapter.checkForUpdates();assert.equal(f.adapter.getState().status,'downloaded',`${currentVersion}/${target}`);assert.equal(f.adapter.getState().availableVersion,'0.5.6');assert.equal(f.calls.includes(`https://api.pqxqxy.xyz/updates/desktop/${target}/`),true)}finally{f.close()}
+  }
+ }
 })

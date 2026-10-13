@@ -57,6 +57,20 @@ test('test-only, missing or modified files stop before a stage directory is crea
     assert.equal(fs.existsSync(outputRoot), false)
   } finally { f.close() }
 })
+test('all four modern channels also refresh the legacy entry without changing Win7',async()=>{
+  const f=await fixture(false)
+  try {
+    await signFixture(f)
+    const targets=['win10-x86','win10-x64','win11-x86','win11-x64']
+    const outputRoot=path.join(f.root,'xiquan-windows-modern-fixture')
+    await stageWindowsRelease({releaseRoot:f.root,outputRoot,targets,legacyPolicy:{schemaVersion:1,android:{latestVersion:'1.2.9'},web:{buildId:'preserved'}}})
+    assert.equal(fs.existsSync(path.join(outputRoot,'updates/latest.yml')),true)
+    assert.equal(fs.existsSync(path.join(outputRoot,'releases/desktop/win7-x64.json')),false)
+    const activation=fs.readFileSync(path.join(outputRoot,'activate.sh'),'utf8')
+    assert.match(activation,/merge-legacy-policy/)
+    assert.doesNotMatch(activation,/for id in .*win7/)
+  }finally{f.close()}
+})
 test('activation parameters cannot inject shell or target broad paths', () => {
   for (const remoteCloudDir of ['/', '/opt', '/opt/../etc', '/opt/test;id']) assert.throws(() => activationScript({ remoteStage: '/tmp/xiquan-windows-fixture', remoteCloudDir }))
   const script = activationScript({ remoteStage: '/tmp/xiquan-windows-fixture', remoteCloudDir: '/opt/xiquan/xiquan/deploy/cloud' })

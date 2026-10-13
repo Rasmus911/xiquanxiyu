@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from flask import Blueprint, request
+from flask_jwt_extended import get_jwt
 
 from ..access_policy import emit_business_event
 from ..audit_service import write_audit
@@ -65,10 +66,12 @@ def _has_management_access(employee):
 def _capabilities(employee):
     full = _has_management_access(employee)
     from ..access_policy import policy_enforced
+    from ..registration_access import can_view_registration_token
 
     reports = has_permission(employee, 'report:read') and (full or employee.role in ('cashier', 'inventory'))
     inventory = has_permission(employee, 'inventory:write') and (policy_enforced() or full or employee.role == 'inventory')
     return {
+        'registration_token_view': can_view_registration_token(employee, get_jwt().get('client_channel')),
         'orders_view': has_permission(employee, 'mobile:order'),
         "order_all": full or employee.role == 'inventory',
         "catalog_all": full or employee.role == 'inventory',

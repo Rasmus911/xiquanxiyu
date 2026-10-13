@@ -21,7 +21,7 @@ async function mountOperation(kind: 'order' | 'inventory', stale = false) {
   const pinia = createPinia(); setActivePinia(pinia)
   const adapter=http.defaults.adapter as (config:any)=>Promise<any>
   http.defaults.adapter=async config=>{
-    if(['/inventory/consumables','/inventory/stock-items','/inventory/usage','/inventory/stock-movements'].includes(config.url || ''))return {config,headers:{},status:200,statusText:'',data:{data:config.url==='/inventory/stock-items'?[stock]:[]}}
+    if(['/inventory/consumables','/inventory/stock-items','/inventory/usage','/inventory/stock-movements','/inventory/excel/pending'].includes(config.url || ''))return {config,headers:{},status:200,statusText:'',data:{data:config.url==='/inventory/stock-items'?[stock]:[]}}
     return adapter(config)
   }
   useSessionStore().setEmployee({id:'e',username:'inventory',display_name:'库管',role:'inventory',role_label:'库管',capabilities:{inventory_manage:true,orders_view:true}})
@@ -34,9 +34,9 @@ async function mountOperation(kind: 'order' | 'inventory', stale = false) {
   host = document.createElement('div'); document.body.append(host)
   app = createApp({ template: '<router-view />' }); app.use(pinia); app.use(router); app.mount(host)
   await new Promise(resolve => setTimeout(resolve, 0))
-  if (kind === 'order') { store.quantities = { item1: 1 }; store.materials={item1:[]}; await nextTick();(host.querySelector('.summary-bar button') as HTMLButtonElement).click();await nextTick() }
+  if (kind === 'order') { store.quantities = { item1: 1 }; await nextTick() }
   else { store.inventory=[stock];await nextTick();(host.querySelector('[data-testid="stock-receive-stock1"]') as HTMLButtonElement).click(); await nextTick() }
-  return { router, store, button: host.querySelector(kind === 'order' ? '[data-testid="confirm-consumption"]' : '.sheet .primary-button') as HTMLButtonElement }
+  return { router, store, button: host.querySelector(kind === 'order' ? '[data-testid="submit-order"]' : '.sheet .primary-button') as HTMLButtonElement }
 }
 
 test('inactive wristband navigation releases the shared order busy flag', async () => {
@@ -100,7 +100,6 @@ test.each(['resolve', 'reject'])('old mounted order %s cannot finalize a newer o
   http.defaults.adapter = config => new Promise((resolve, reject) => { finish = () => outcome === 'resolve' ? resolve({ config, headers: {}, status: 200, statusText: '', data: { data: {} } }) : reject(new Error('old failure')) })
   ;(host.querySelector('.summary-bar button') as HTMLButtonElement).click()
   await nextTick()
-  ;(host.querySelector('[data-testid="confirm-consumption"]') as HTMLButtonElement).click()
   await Promise.resolve(); await Promise.resolve()
   clearBusinessSession(); store.sending = true; store.quantities = { newer: 2 }
   localStorage.setItem('xiquan_mobile_pending_order_key', 'new-key')

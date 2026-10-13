@@ -20,6 +20,8 @@ if __name__ == "__main__":
             from app.security_spool import import_spool_events
             recover_reset_tasks()
             import_spool_events()
+    from app.receipt_retention import start_receipt_cleanup
+    start_receipt_cleanup(app)
     socketio.run(
         app,
         host=os.getenv("XIQUAN_HOST", "0.0.0.0"),

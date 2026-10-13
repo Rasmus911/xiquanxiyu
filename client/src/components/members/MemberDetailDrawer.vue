@@ -9,12 +9,14 @@ defineEmits<{
   recharge: [member: Member]
   purchasePass: [member: Member]
   consumePass: [passId: string]
+  bindCard: [member: Member]
 }>()
 </script>
 
 <template>
-  <el-drawer :model-value="modelValue" size="720px" :title="`会员详情：${member?.name || member?.phone || ''}`" @update:model-value="$emit('update:modelValue', $event)">
-    <el-descriptions :column="3" border><el-descriptions-item label="手机号">{{ member?.phone }}</el-descriptions-item><el-descriptions-item label="姓名">{{ member?.name || '-' }}</el-descriptions-item><el-descriptions-item label="储值余额"><strong class="money">¥{{ member?.balance }}</strong></el-descriptions-item></el-descriptions>
+  <el-drawer :model-value="modelValue" size="720px" :title="`会员详情：${member?.name || member?.phone || '未留手机号'}`" @update:model-value="$emit('update:modelValue', $event)">
+    <el-descriptions :column="3" border><el-descriptions-item label="手机号">{{ member?.phone || '未留手机号' }}</el-descriptions-item><el-descriptions-item label="姓名">{{ member?.name || '-' }}</el-descriptions-item><el-descriptions-item label="储值余额"><strong class="money">¥{{ member?.balance }}</strong></el-descriptions-item><el-descriptions-item label="持卡人姓氏">{{ member?.holder_surname || '未留姓氏' }}</el-descriptions-item><el-descriptions-item label="实体卡">{{ member?.card_binding?.is_active ? member.card_binding.card_uid : '未绑定' }}</el-descriptions-item></el-descriptions>
+    <el-button v-if="member" data-testid="member-card-binding" style="margin-top:12px" @click="$emit('bindCard', member)">{{ member.card_binding?.is_active ? '补办实体卡' : '绑定实体卡' }}</el-button>
     <el-tabs :model-value="activeTab" style="margin-top: 16px" @update:model-value="$emit('update:activeTab', $event as 'stored' | 'pass')">
       <el-tab-pane label="储值卡" name="stored">
         <div class="pane-header"><div><strong>储值卡账户</strong><span>充值收款确认后立即到账</span></div><el-button v-if="member" type="success" @click="$emit('recharge', member)">储值充值</el-button></div>

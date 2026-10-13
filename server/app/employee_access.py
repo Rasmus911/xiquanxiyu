@@ -35,6 +35,10 @@ def is_protected_employee(employee):
     return employee.id in {policy.owner_id, *policy.mobile_employee_ids, *policy.administrator_employee_ids}
 
 
+def can_bind_wristband(employee, channel):
+    return channel in {'desktop', 'web'} and (employee.role == 'cashier' or is_protected_employee(employee))
+
+
 def session_ui(employee, channel, permissions):
     from .registration_access import can_view_registration_token
     def permits(permission):
@@ -42,6 +46,8 @@ def session_ui(employee, channel, permissions):
 
     mobile = channel == 'mobile'
     caps = {
+        'wristband_bind': can_bind_wristband(employee, channel) and permits('wristband:bind'),
+        'account_password_change': not mobile,
         'registration_token_view': can_view_registration_token(employee, channel),
         'visit_clear': not mobile and permits('visit:clear'),
         'member_delete': not mobile and permits('member:delete'),
@@ -53,15 +59,25 @@ def session_ui(employee, channel, permissions):
         'checkout_write': not mobile and permits('checkout:write'),
         'member_write': not mobile and permits('member:write'),
         'receipt_reprint': not mobile and permits('print:write'),
+        'order_receipt_reprint': not mobile and permits('print:order'),
+        'service_receipt_reprint': not mobile and permits('print:order'),
+        'settlement_receipt_reprint': not mobile and permits('print:write'),
         'inventory_write': permits('inventory:write'),
         'catalog_layout': permits('catalog:layout'),
         'package_write': permits('visit:package'),
     }
     candidates = [('wristbands', 'mobile:order' if mobile else 'visit:read')]
     if not mobile:
-        candidates += [('members', 'member:read'), ('print-jobs', 'print:write')]
+        candidates += [('members', 'member:read')]
+        if permits('print:write') or permits('print:order'):
+            candidates += [('print-jobs', 'print:order' if not permits('print:write') else 'print:write')]
         candidates.append(('catalog', 'catalog:write'))
     candidates += [('inventory', 'inventory:read'), ('reports', 'report:read')]
     if not mobile:
         candidates += [('audit', 'audit:read'), ('employees', 'employee:read'), ('settings', 'settings:read')]
-    return {'ui_pages': [page for page, permission in candidates if permits(permission)], 'capabilities': caps}
+    pages = [page for page, permission in candidates if permits(permission)]
+    if not mobile:
+        if caps['wristband_bind']:
+            pages.append('wristband-bindings')
+        pages.append('account-password')
+    return {'ui_pages': pages, 'capabilities': caps}

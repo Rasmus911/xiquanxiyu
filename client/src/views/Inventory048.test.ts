@@ -31,7 +31,7 @@ it.each([[null,'0',false],['0.00','1.20',true],['1.20','1.2',false]])('master pr
   expect(requests).toHaveLength(1)
   expect(requests[0]).toMatchObject({url:'/inventory/stock-items/s1',method:'patch',body:{version:7}})
   if(previous!==null&&Number(previous)===Number(next))expect(requests[0].body).not.toHaveProperty('unit_cost')
-  else expect(requests[0].body.unit_cost).toBe(next)
+  else expect(requests[0].body).toMatchObject({reference_cost:next,cost_basis:'base'})
   if(password)expect(requests[0].body.password).toBe('own-password')
   else expect(requests[0].body).not.toHaveProperty('password')
  }finally{wrapper.unmount()}

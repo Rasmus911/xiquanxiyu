@@ -4,7 +4,7 @@ import { menuGroupsForPermissions, menuGroupsForRole } from './menu'
 describe('menuGroupsForRole', () => {
   it('shows only cashier work areas to a cashier', () => {
     expect(menuGroupsForRole('cashier').flatMap((group) => group.items.map((item) => item.path)))
-      .toEqual(['/', '/members', '/print-jobs'])
+      .toEqual(['/', '/members', '/print-jobs', '/wristband-bindings', '/account-password'])
   })
 
   it('groups all administrator tools predictably', () => {

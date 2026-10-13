@@ -228,6 +228,35 @@ def test_capability_login_me_refresh_and_revocation(app, client, registration049
     assert client.post('/api/auth/registration-token/current', headers=registration049_sessions['first']).status_code == 403
 
 
+@pytest.mark.parametrize('session_name', ['first', 'second'])
+def test_mobile_bootstrap_keeps_registration_token_capability(client, registration049_sessions, session_name):
+    headers = registration049_sessions[session_name]
+    me = client.get('/api/auth/me', headers=headers)
+    assert me.status_code == 200
+    assert me.get_json()['data']['capabilities']['registration_token_view'] is True
+    bootstrap = client.get('/api/mobile/bootstrap', headers=headers)
+    assert bootstrap.status_code == 200
+    assert bootstrap.get_json()['data']['employee']['capabilities'].get('registration_token_view') is True
+
+
+def test_mobile_bootstrap_does_not_grant_registration_token_to_third_admin(client, registration049_sessions):
+    login = client.post('/api/auth/login', json={'username': '15133863898',
+        'password': registration049_sessions['password'], 'terminal_code': 'ENTRY-TEST', 'client_channel': 'mobile'})
+    assert login.status_code == 200
+    headers = {'Authorization': 'Bearer ' + login.get_json()['data']['access_token'],
+               'X-Business-Period': registration049_sessions['headers']['X-Business-Period']}
+    bootstrap = client.get('/api/mobile/bootstrap', headers=headers)
+    assert bootstrap.status_code == 200
+    assert bootstrap.get_json()['data']['employee']['capabilities'].get('registration_token_view') is False
+    assert client.post('/api/auth/registration-token/current', headers=headers).status_code == 403
+
+
+def test_desktop_session_cannot_receive_mobile_registration_token_capability(client, registration049_sessions):
+    bootstrap = client.get('/api/mobile/bootstrap', headers=registration049_sessions['headers'])
+    assert bootstrap.status_code == 200
+    assert bootstrap.get_json()['data']['employee']['capabilities'].get('registration_token_view') is False
+
+
 def test_secret_missing_and_maintenance(app, client, registration049_sessions):
     from app.models import BusinessStateModel
     first = token(client, registration049_sessions)
@@ -266,8 +295,8 @@ def test_safe_storage_view_dedup_and_desktop_only_permissions(app, client, regis
             'terminal_code': 'ENTRY-TEST', 'client_channel': channel})
         assert login.status_code == status
         if channel == 'desktop':
-            assert set(login.get_json()['data']['permissions']) == {'visit:read', 'visit:order', 'mobile:order'}
-            assert login.get_json()['data']['employee']['ui_pages'] == ['wristbands']
+            assert set(login.get_json()['data']['permissions']) == {'visit:read', 'visit:order', 'mobile:order', 'print:order'}
+            assert login.get_json()['data']['employee']['ui_pages'] == ['wristbands', 'print-jobs', 'account-password']
             assert login.get_json()['data']['employee']['capabilities']['registration_token_view'] is False
 
 

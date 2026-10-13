@@ -56,7 +56,7 @@ async function checkPublic(root, targets) {
     }
     console.log(`Public signature and bytes verified: ${id}`)
   }
-  if (!index.allTargets) return
+  if (!require('./windows-publish.cjs').supportsLegacyBridge(index.requestedTargets)) return
   const bootstrap = index.targets.find(report => report.profile.targetId === 'win10-x64')
   for (const key of ['artifact', 'blockmap', 'updaterManifest']) await verifyHttpsFile(`${origin}/updates/${bootstrap[key].fileName}`, bootstrap[key])
   const policy = await requestHttpsJson(`${origin}/releases/client-policy.json`, { allowedOrigin: origin })

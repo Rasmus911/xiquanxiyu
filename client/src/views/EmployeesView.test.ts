@@ -64,13 +64,12 @@ it('only ordinary rows can be deleted and cancellation never sends DELETE', asyn
     expect(calls.filter(row => row.method === 'delete').map(row => row.url)).toEqual(['/employees/ordinary'])
   } finally { wrapper.unmount() }
 })
-it('deleted filter requests only deleted employees', async () => {
+it('removed accounts have no recovery list and current accounts need no deleted filter', async () => {
   const wrapper = mount(EmployeesView, { global: { plugins: [ElementPlus] } })
   try {
     await flushPromises()
-    await wrapper.findAll('label').find(node => node.text() === '已删除账号')!.find('input').setValue(true)
-    await flushPromises()
-    expect(calls.at(-1)?.deleted).toBe('only')
+    expect(wrapper.text()).not.toContain('已删除账号')
+    expect(calls.at(-1)?.deleted).toBeUndefined()
   } finally { wrapper.unmount() }
 })
 it('an action denial leaves the employee form and operator login intact', async () => {

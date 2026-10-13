@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { formatStockQuantity as stockNumber } from '../format/stock-quantity'
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { costPreview, warningPreview } from '../domain/inventory/receiving'
+import {costBaseChanged,referenceCostPreview,type CostBasis} from '../domain/inventory/reference-cost'
 import { canAccess, permissions, useBusinessGuard } from '../business/state'
 import { dataOf, errorMessage, http } from '../api'
 import InventoryAddSheet from '../components/inventory/InventoryAddSheet.vue'
+import InventoryExcelPanel from '../components/inventory/InventoryExcelPanel.vue'
 import MobileTopbar from '../components/navigation/MobileTopbar.vue'
 import MobileState from '../components/common/MobileState.vue'
 import { clearPendingOperationKey, pendingOperationKey } from '../idempotency'
@@ -16,6 +19,7 @@ const guard = useBusinessGuard(); const business=useBusinessStore();const sessio
 const allowed=computed(()=>canAccess('inventory:write')&&scopedMobileCapabilities(session.employee?.capabilities,permissions.value).inventory_manage)
 const search=ref('');const message=ref('');const receiving=ref<StockItem|null>(null)
 const editing=ref<StockItem|null>(null);const editorOpen=ref(false)
+const costBasis=ref<CostBasis>('base')
 const usage=ref<StockUsage[]>([])
 interface Movement{id:string;stock_item_id:string;movement_type:string;quantity:string;input_quantity:string;input_unit:string;conversion_factor:string;base_unit:string;package_unit:string;reason:string;cost?:{id:string;unit_cost:string;total_cost:string;base_unit_cost:string}|null}
 const movements=ref<Movement[]>([])
@@ -37,10 +41,11 @@ const openingError=computed(()=>{
   if(!editing.value&&form.unit_cost.trim()&&!openingCost.value)return '成本须为非负金额，最多两位小数；有入库数量才能记成本'
   return editing.value?'':stockConversionError(form.opening_quantity,form.opening_unit,form.units_per_package,true)
 })
-const masterCost=computed(()=>costPreview('1',form.master_unit_cost,'1')?.total)
+const referencePreview=computed(()=>referenceCostPreview(form.master_unit_cost,costBasis.value,form.package_unit.trim()?form.units_per_package:'1'))
+const masterCost=computed(()=>referencePreview.value?.baseCost)
 const masterCostError=computed(()=>editing.value&&((form.master_unit_cost.trim()&&!masterCost.value)||(!form.master_unit_cost.trim()&&editing.value.unit_cost!=null))?'成本须为非负金额，最多两位小数且小于100亿元，已设置成本不可清空':'')
-const masterCostChanged=computed(()=>!!editing.value&&!!masterCost.value&&(editing.value.unit_cost==null||Number(masterCost.value)!==Number(editing.value.unit_cost)))
-const passwordRequired=computed(()=>masterCostChanged.value&&editing.value?.unit_cost!=null)
+const masterCostChanged=computed(()=>!!editing.value&&!!masterCost.value&&((editing.value.reference_cost??editing.value.unit_cost)==null||Number(form.master_unit_cost)!==Number(editing.value.reference_cost??editing.value.unit_cost)||costBasis.value!==(editing.value.reference_cost!=null?editing.value.cost_basis:'base')))
+const passwordRequired=computed(()=>!!editing.value&&costBaseChanged(editing.value,form.master_unit_cost,costBasis.value,form.units_per_package,!!form.package_unit.trim()))
 const validForm=computed(()=>form.name.trim()&&form.base_unit.trim()&&validQuantity(form.units_per_package)&&!openingError.value&&!masterCostError.value&&(!passwordRequired.value||form.password.trim()))
 async function load(){
   if(!allowed.value)return
@@ -54,6 +59,7 @@ async function load(){
 function openEditor(item:StockItem|null){
   if(!allowed.value||business.inventorySaving)return
   editing.value=item;Object.assign(form,item?{...item,opening_quantity:'0',opening_unit:'base',unit_cost:'',master_unit_cost:item.unit_cost??'',password:''}:{name:'',base_unit:'',package_unit:'',units_per_package:'1',opening_quantity:'0',opening_unit:'base',unit_cost:'',master_unit_cost:'',password:''});editorOpen.value=true
+  if(item){form.master_unit_cost=item.reference_cost??item.unit_cost??'';costBasis.value=item.reference_cost!=null?item.cost_basis??'base':'base'}else costBasis.value='base'
 }
 async function write(method:'post'|'patch'|'delete',url:string,body:Record<string,unknown>){
   if(!allowed.value||business.inventorySaving)return false
@@ -73,7 +79,7 @@ async function saveMaster(){
   if(!validForm.value)return
   const body:Record<string,unknown>={name:form.name.trim(),package_unit:form.package_unit.trim(),units_per_package:form.units_per_package}
   const item=editing.value
-  if(item){body.version=item.version;if(masterCostChanged.value){body.unit_cost=masterCost.value;if(passwordRequired.value)body.password=form.password}}
+  if(item){body.version=item.version;if(masterCostChanged.value){body.reference_cost=form.master_unit_cost.trim();body.cost_basis=costBasis.value}if(passwordRequired.value)body.password=form.password}
   else{body.base_unit=form.base_unit.trim();if(Number(form.opening_quantity)>0){body.opening_quantity=form.opening_quantity;body.opening_unit=form.opening_unit;if(form.unit_cost.trim())body.unit_cost=form.unit_cost.trim()}}
   if(await write(item?'patch':'post',item?`/inventory/stock-items/${item.id}`:'/inventory/stock-items',body)){editorOpen.value=false;editing.value=null;await load()}
 }
@@ -101,6 +107,7 @@ onBeforeUnmount(()=>{document.removeEventListener('xiquan:back-request',back);wi
     <main class="mobile-page">
       <MobileState v-if="!allowed" kind="error" title="无权访问库存管理"/>
       <template v-else>
+        <InventoryExcelPanel :can-write="allowed" @changed="load()"/>
         <div v-if="message" class="notice">{{message}}</div>
         <div class="mini-metrics"><article><span>库存项目</span><strong>{{business.inventory.length}}</strong></article><article><span>低库存</span><strong>{{low}}</strong></article></div>
         <button data-testid="stock-create" :disabled="business.inventorySaving" @click="openEditor(null)">新增库存项目</button>
@@ -109,8 +116,8 @@ onBeforeUnmount(()=>{document.removeEventListener('xiquan:back-request',back);wi
         <MobileState v-else-if="business.error&&!rows.length" kind="error" title="库存读取失败" :description="business.error" @retry="load"/>
         <section class="mobile-card stock-list" data-testid="inventory-list"><div class="list-header"><strong>库存列表</strong><nav class="pagination" aria-label="库存分页"><button :disabled="page===1" @click="page--">上一页</button><span>{{page}} / {{Math.max(1,Math.ceil(rows.length/10))}} · 共{{rows.length}}项</span><button :disabled="page*10>=rows.length" @click="page++">下一页</button></nav></div>
         <section v-for="row in paged" :key="row.id" class="stock-row">
-          <strong>{{row.name}}</strong><p>{{row.category}} · 现存 {{row.stock_quantity}} {{row.base_unit}}</p><p>{{row.package_spec}} · 每{{row.package_unit || '包装'}} {{row.units_per_package}} {{row.base_unit}} · 预警 {{row.low_stock_threshold}} {{row.base_unit}}</p>
-          <p :data-testid="`stock-cost-${row.id}`">成本单价：{{row.unit_cost==null?'未设置':`¥${row.unit_cost} / ${row.base_unit}`}}</p>
+          <strong>{{row.name}}</strong><p>{{row.category}} · 现存 {{stockNumber(row.stock_quantity)}} {{row.base_unit}}</p><p>{{row.package_spec}} · 每{{row.package_unit || '包装'}} {{stockNumber(row.units_per_package)}} {{row.base_unit}} · 预警 {{stockNumber(row.low_stock_threshold)}} {{row.base_unit}}</p>
+          <p :data-testid="`stock-cost-${row.id}`">参考成本：{{row.package_cost==null?(row.unit_cost==null?'未设置':`¥${row.unit_cost} / ${row.base_unit}`):`¥${row.package_cost} / ${row.package_unit||row.base_unit}`}}<template v-if="row.package_unit&&row.base_unit_cost!=null"> · ¥{{row.base_unit_cost}}/{{row.base_unit}}</template></p>
           <button :data-testid="`stock-receive-${row.id}`" :disabled="business.inventorySaving" @click="receiving=row">入库</button>
           <button :data-testid="`stock-edit-${row.id}`" :disabled="business.inventorySaving" @click="openEditor(row)">编辑</button>
           <button class="archive-action" :data-testid="`stock-delete-${row.id}`" :disabled="business.inventorySaving" @click="archive(row)">归档</button>
@@ -129,7 +136,7 @@ onBeforeUnmount(()=>{document.removeEventListener('xiquan:back-request',back);wi
       <template v-if="!editing"><label>期初数量（0 表示暂不入库）<input v-model="form.opening_quantity" name="opening_quantity" inputmode="decimal" :disabled="business.inventorySaving"/></label><label>期初输入单位<select v-model="form.opening_unit" :disabled="business.inventorySaving"><option value="base">{{form.base_unit}}</option><option v-if="form.package_unit" value="package">{{form.package_unit}}</option></select></label><p>折算期初：{{preview}} {{form.base_unit}}</p></template>
       <p v-if="openingError" role="alert">{{openingError}}</p>
       <template v-if="!editing"><p>自动预警 {{warningPreview(preview)}} {{form.base_unit}}（期初数量15%）</p><label>成本单价（元/{{form.opening_unit==='package'?form.package_unit:form.base_unit}}，可后补）<input v-model="form.unit_cost" name="unit_cost" inputmode="decimal" :disabled="business.inventorySaving" placeholder="未设置"/></label><p v-if="openingCost">总成本 ¥{{openingCost.total}} · 每{{form.base_unit}} ¥{{openingCost.baseUnit}}</p></template>
-      <template v-if="editing"><label>库存成本单价（元/{{form.base_unit}}）<input v-model="form.master_unit_cost" name="master_unit_cost" inputmode="decimal" :disabled="business.inventorySaving" placeholder="未设置"/></label><p>首次设置免密码；修改已设置成本须验证本人登录密码。历史入库成本保留。</p><p v-if="masterCostError" role="alert">{{masterCostError}}</p><label v-if="passwordRequired">本人登录密码<input v-model="form.password" name="password" type="password" autocomplete="current-password" :disabled="business.inventorySaving"/></label><p>修改包装规格不会改变现存量及历史换算记录。</p></template>
+      <template v-if="editing"><label>成本计价单位<select v-model="costBasis" name="cost_basis" :disabled="business.inventorySaving"><option value="base">每{{form.base_unit}}</option><option v-if="form.package_unit.trim()" value="package">每{{form.package_unit}}</option></select></label><label>库存参考成本（元/{{costBasis==='package'?form.package_unit:form.base_unit}}）<input v-model="form.master_unit_cost" name="master_unit_cost" inputmode="decimal" :disabled="business.inventorySaving" placeholder="未设置"/></label><p data-testid="master-cost-preview" v-if="referencePreview">包装 ¥{{referencePreview.packageCost}}/{{form.package_unit||form.base_unit}} · 基本 ¥{{referencePreview.baseCost}}/{{form.base_unit}}</p><p>可按箱或袋设置，另一项自动换算。首次设置免密码；修改已有成本须验证本人密码。历史入库成本保留。</p><p v-if="masterCostError" role="alert">{{masterCostError}}</p><label v-if="passwordRequired">本人登录密码<input v-model="form.password" name="password" type="password" autocomplete="current-password" :disabled="business.inventorySaving"/></label><p>修改包装规格不会改变现存量及历史换算记录。</p></template>
       <div v-if="message" class="notice">{{message}}</div>
       <button data-testid="stock-save" :disabled="business.inventorySaving||!validForm" @click="saveMaster">保存</button><button :disabled="business.inventorySaving" @click="editorOpen=false">取消</button>
     </section></div>

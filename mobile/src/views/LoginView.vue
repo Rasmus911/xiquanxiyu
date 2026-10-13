@@ -8,6 +8,7 @@ import { useSessionStore } from '../stores/session'
 import { StaleBusinessResponse } from '../business/state'
 import { mobileLanding } from '../router/access'
 import version from '../../version.json'
+import LoginScene from '../components/auth/LoginScene.vue'
 const router=useRouter();const session=useSessionStore();const business=useBusinessStore();const username=ref('');const password=ref('');const loading=ref(false);const error=ref('')
 let active = true
 onBeforeUnmount(() => { active = false })
@@ -31,5 +32,19 @@ async function login() {
 .update-button { width: 100%; min-height: 44px; margin-top: 10px; border: 1px solid var(--m-border); border-radius: 7px; color: var(--m-primary); background: white; font-weight: 650; }
 .update-button:disabled { opacity: .5; }
 </style>
-<template><main class="login-view"><section><div class="brand-mark">溪</div><h1>员工点单端</h1><p>仅显示已开牌客人和当前岗位可售项目</p><label>员工账号<input v-model="username" autocomplete="username" placeholder="请输入登录账号"/></label><label>密码<input v-model="password" type="password" autocomplete="current-password" placeholder="请输入密码" @keyup.enter="login"/></label><div v-if="error" class="form-error">{{error}}</div><button class="primary-button" :disabled="loading" @click="login">{{loading?'正在登录':'登录'}}</button><button class="update-button" :disabled="loading" @click="checkUpdate">检查应用更新</button><small>v{{version.version}} · 管理员会话最长 8 小时，点单员工最长 7 天。不保存密码。</small></section></main></template>
-<style scoped>.login-view{min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--m-bg)}section{width:min(100%,390px);padding:28px 22px;border:1px solid var(--m-border);border-radius:10px;background:white;box-shadow:none}.brand-mark{display:grid;place-items:center;width:58px;height:58px;margin-bottom:16px;border-radius:8px;color:white;background:var(--m-primary);font-size:28px;font-weight:900}.eyebrow{color:var(--m-primary);font-size:10px;font-weight:850;letter-spacing:.15em}h1{margin:6px 0 4px;color:var(--m-text-1)}p{margin:0 0 20px;color:var(--m-text-3);font-size:12px}label{display:grid;gap:6px;margin-top:13px;color:var(--m-text-2);font-size:12px}input{min-height:48px;padding:0 14px;border:1px solid var(--m-border);border-radius:7px;outline:none}.primary-button{width:100%;min-height:50px;margin-top:18px;border:0;border-radius:7px;color:white;background:var(--m-primary);font-weight:850}.primary-button:disabled{opacity:.5}.form-error{margin-top:12px;padding:10px;color:#a63f32;border-radius:10px;background:#fff0ec;font-size:12px}small{display:block;margin-top:12px;color:var(--m-text-3);text-align:center}</style>
+<template><LoginScene compact><form class="login-view" @submit.prevent="login"><span class="eyebrow">员工点单端</span><h2>欢迎回来</h2><p>请使用您的员工账号登录</p><label>员工账号<input v-model="username" autocomplete="username" placeholder="请输入登录账号"/></label><label>密码<input v-model="password" type="password" autocomplete="current-password" placeholder="请输入密码"/></label><div v-if="error" class="form-error" role="alert">{{error}}</div><button type="submit" class="primary-button" :disabled="loading">{{loading?'正在登录':'登录'}}</button><button type="button" class="update-button" :disabled="loading" @click="checkUpdate">检查应用更新</button><small>v{{version.version}} · 不保存密码</small></form></LoginScene></template>
+<style scoped>
+.login-view { width:100%; }
+.eyebrow { color:#947d62;font-size:12px;letter-spacing:.14em; }
+h2 { color:#40332d;font-size:26px;margin:12px 0 8px; }
+p { color:#8b7a68;font-size:13px;margin:0 0 24px; }
+label { display:grid;gap:8px;margin-top:18px;color:#66574d;font-size:13px; }
+input { width:100%;box-sizing:border-box;min-height:48px;padding:0 14px;border:1px solid #d9cdbc;border-radius:8px;outline:none;background:#fffdf9;color:#40332d;font-size:16px; }
+input:focus-visible { border-color:#925a43;box-shadow:0 0 0 3px #925a4315; }
+.primary-button { width:100%;min-height:50px;margin-top:24px;border:0;border-radius:8px;color:#fffdf9;background:#925a43;font-weight:700;font-size:16px; }
+.primary-button:active { background:#744532; }
+.primary-button:disabled { opacity:.5; }
+.update-button { width:100%;min-height:44px;margin-top:12px;border:1px solid #d9cdbc;border-radius:8px;color:#925a43;background:transparent;font-weight:600; }
+.form-error { margin-top:12px;color:#a23c2c;font-size:13px;line-height:1.6; }
+small { display:block;margin-top:20px;color:#9e8f7c;font-size:11px;text-align:center; }
+</style>

@@ -5,6 +5,7 @@ from .models import Member, MemberPass, OrderItem, PassLedger, Payment, Settleme
 from .package_billing import BillingLine, allocate_inclusions, line_net_total
 from .package_service import validate_package_definition
 from .api.errors import ApiError
+from .member_card_models import SettlementPassRedemption
 
 
 def check_financial_integrity(period_id=None):
@@ -65,6 +66,23 @@ def _check_financial_integrity():
     for settlement in Settlement.query.yield_per(500):
         compare("settlement_payment", settlement.id, settlement.paid_amount, payments.get(settlement.id, 0))
         compare("settlement_total", settlement.id, settlement.total_amount, links.get(settlement.id, 0))
+        redemptions = SettlementPassRedemption.query.filter_by(settlement_id=settlement.id).all()
+        pass_amount = sum((Decimal(row.amount) for row in redemptions), Decimal(0))
+        compare('settlement_funding', settlement.id, settlement.total_amount, Decimal(settlement.paid_amount) + pass_amount)
+        counts = {}
+        for row in redemptions:
+            counts[row.member_pass_id] = counts.get(row.member_pass_id, 0) + row.count
+        ledgers = PassLedger.query.filter(PassLedger.settlement_id == settlement.id,
+            PassLedger.entry_type.in_(['checkout_consume', 'checkout_refund'])).all()
+        for row in ledgers:
+            compare('pass_checkout_cash', row.id, row.amount_paid, 0)
+        for pass_id in counts.keys() | {row.member_pass_id for row in ledgers}:
+            count = counts.get(pass_id, 0)
+            compare('pass_checkout_consume', settlement.id,
+                sum(row.delta for row in ledgers if row.member_pass_id == pass_id and row.entry_type == 'checkout_consume'), -count)
+            compare('pass_checkout_refund', settlement.id,
+                sum(row.delta for row in ledgers if row.member_pass_id == pass_id and row.entry_type == 'checkout_refund'),
+                count if settlement.status == 'refunded' else 0)
         expected_refund = -Decimal(settlement.paid_amount) if settlement.status == "refunded" else Decimal(0)
         compare("settlement_refund", settlement.id, refunds.get(settlement.id, 0), expected_refund)
     for link, item_total in (

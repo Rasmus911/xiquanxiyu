@@ -52,6 +52,7 @@ def test_named_mobile_owner_gets_management_capabilities_and_full_catalog(client
     assert response.status_code == 200
     data = response.get_json()["data"]
     assert data["employee"]["capabilities"] == {
+        'registration_token_view': False,
         'orders_view': True,
         "order_all": True,
         "catalog_all": True,
@@ -76,6 +77,7 @@ def test_named_mobile_owner_display_name_gets_management_capabilities(client, ad
 
     assert response.status_code == 200
     assert response.get_json()["data"]["employee"]["capabilities"] == {
+        'registration_token_view': False,
         'orders_view': True,
         "order_all": True,
         "catalog_all": True,
@@ -135,6 +137,7 @@ def test_new_admin_cannot_gain_mobile_management_by_reusing_owner_name(client, a
     report = client.get("/api/mobile/management/report", headers=copied_name_headers)
 
     assert bootstrap.get_json()["data"]["employee"]["capabilities"] == {
+        'registration_token_view': False,
         'orders_view': True,
         "order_all": False,
         "catalog_all": False,
@@ -156,6 +159,7 @@ def test_other_admin_cannot_use_mobile_management_endpoints(client, admin_sessio
 
     assert bootstrap.status_code == 200
     assert bootstrap.get_json()["data"]["employee"]["capabilities"] == {
+        'registration_token_view': False,
         'orders_view': True,
         "order_all": False,
         "catalog_all": False,

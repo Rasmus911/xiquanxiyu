@@ -58,6 +58,10 @@ export interface StockItem {
   is_active: boolean
   version: number
   unit_cost?: string | null
+  reference_cost?: string | null
+  cost_basis?: 'base' | 'package' | null
+  package_cost?: string | null
+  base_unit_cost?: string | null
 }
 export type Consumable = Pick<StockItem, 'id' | 'name' | 'category' | 'base_unit' | 'package_spec' | 'stock_quantity' | 'version'>
 export interface Consumption { stock_item_id: string; quantity: string }

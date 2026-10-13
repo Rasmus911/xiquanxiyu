@@ -161,7 +161,10 @@ def test_mobile_bootstrap_explicit_management_capabilities(client, bound_owner_a
         data = login(client, name, 'mobile').get_json()['data']
         response = client.get('/api/mobile/bootstrap', headers=headers(data))
         assert response.status_code == 200
-        assert all(response.get_json()['data']['employee']['capabilities'].values())
+        capabilities = response.get_json()['data']['employee']['capabilities']
+        assert all(capabilities[key] for key in ('orders_view', 'order_all', 'catalog_all',
+            'reports_view', 'inventory_manage', 'reports', 'inventory_add'))
+        assert capabilities['registration_token_view'] is False  # These fixtures use names, not the two authorized phone usernames.
 
 
 def test_activation_preserves_passwords_and_activation_states_revokes_sessions(client, accounts):

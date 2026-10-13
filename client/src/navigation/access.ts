@@ -1,9 +1,13 @@
 const pagesByPath: Record<string, string> = {
   '/': 'wristbands', '/members': 'members', '/print-jobs': 'print-jobs', '/catalog': 'catalog',
   '/inventory': 'inventory', '/reports': 'reports', '/audit': 'audit', '/employees': 'employees', '/settings': 'settings',
+  '/account-password': 'account-password',
+  '/wristband-bindings': 'wristband-bindings',
 }
 
 export function pageAllowed(pages: string[], path: string, caps: Record<string, boolean>): boolean {
+  if (path === '/wristband-bindings') return pages.includes('wristband-bindings') && caps.wristband_bind === true
+  if (path === '/account-password') return pages.includes('account-password') && caps.account_password_change === true
   if (path === '/checkout') return pages.includes('wristbands') && caps.checkout_write === true
   if (/^\/visits\/[^/]+$/.test(path)) return pages.includes('wristbands')
   if (/^\/members\/[^/]+\/(recharge|pass-purchase)$/.test(path)) return pages.includes('members') && caps.member_write === true

@@ -38,10 +38,11 @@ def write_environment(path, variables):
         raise DeploymentError('Private environment output already exists or is inaccessible') from None
 
 
-def wait_healthy(name, timeout=150):
+def wait_healthy(name, timeout=150, *, runner=None):
+    runner = runner or run
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
-        info = json.loads(run(['docker', 'inspect', name], timeout=20))[0]
+        info = json.loads(runner(['docker', 'inspect', name], timeout=20))[0]
         status = info['State'].get('Health', {}).get('Status')
         if info['State'].get('Running') and status == 'healthy': return
         if not info['State'].get('Running') or status == 'unhealthy':
@@ -50,13 +51,14 @@ def wait_healthy(name, timeout=150):
     raise DeploymentError('Maintenance health check timed out')
 
 
-def inspect_database(container, *, legacy_projection=False):
+def inspect_database(container, *, legacy_projection=False, runner=None):
     """Exact hashes of all public rows, without returning passwords or customer data."""
+    runner = runner or run
     prefix = "BEGIN READ ONLY; SET LOCAL TIME ZONE 'UTC'; SET LOCAL DateStyle='ISO,YMD'; "
     prefix += "SET LOCAL IntervalStyle='postgres'; SET LOCAL extra_float_digits=3; "
     shell = 'exec psql -X -q -A -t -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "$1"'
     def query(sql):
-        return json.loads(run(['docker', 'exec', container, 'sh', '-eu', '-c', shell,
+        return json.loads(runner(['docker', 'exec', container, 'sh', '-eu', '-c', shell,
             'sh', prefix + sql + '; ROLLBACK;'], timeout=120))
     info = query("SELECT json_build_object('pg_major',current_setting('server_version_num')::integer/10000,"
                  "'system_identifier',(SELECT system_identifier::text FROM pg_control_system()))")
@@ -87,8 +89,12 @@ def verify_full_restore(source, restored):
 
 
 class IsolatedRestore:
-    def __init__(self, root, image, network):
+    def __init__(self, root, image, network, *, runner=None, memory_mib=None, health_checker=None):
         self.root, self.image, self.network = Path(root), image, network
+        self.runner, self.memory_mib = runner or run, memory_mib
+        self.health_checker = health_checker
+        if memory_mib is not None and (type(memory_mib) is not int or memory_mib <= 0):
+            raise DeploymentError('Invalid isolated restore memory limit')
         self.name = 'xiquan-operations-restore-' + uuid.uuid4().hex
         self.volume = self.name + '-data'
         self.password = secrets.token_urlsafe(48)
@@ -98,19 +104,27 @@ class IsolatedRestore:
         env = self.root / (self.name + '.env')
         write_environment(env, dict(POSTGRES_USER='operations_restore',
             POSTGRES_DB='operations_restore', POSTGRES_PASSWORD=self.password))
-        run(['docker', 'volume', 'create', '--label', 'xiquan.operations.restore=' + self.name, self.volume])
-        run(['docker', 'run', '-d', '--name', self.name, '--restart', 'no',
+        self.runner(['docker', 'volume', 'create', '--label', 'xiquan.operations.restore=' + self.name, self.volume])
+        limits = [] if self.memory_mib is None else ['--memory', str(self.memory_mib) + 'm',
+            '--memory-swap', str(self.memory_mib) + 'm', '--cpus', '1', '--pids-limit', '128']
+        settings = [] if self.memory_mib is None else ['-c', 'shared_buffers=16MB', '-c', 'work_mem=4MB',
+            '-c', 'maintenance_work_mem=64MB', '-c', 'max_connections=20', '-c', 'max_parallel_workers=0',
+            '-c', 'max_parallel_maintenance_workers=0']
+        self.runner(['docker', 'run', '-d', '--name', self.name, '--restart', 'no', *limits,
             '--label', 'xiquan.operations.restore=' + self.name,
             '--network', self.network, '--env-file', str(env),
             '--mount', 'type=volume,src=' + self.volume + ',dst=/var/lib/postgresql/data',
             '--health-cmd', 'pg_isready -U operations_restore -d operations_restore',
-            '--health-interval', '2s', '--health-start-period', '20s', '--health-retries', '30', self.image])
+            '--health-interval', '2s', '--health-start-period', '20s', '--health-retries', '30', self.image, *settings])
         self.started = True
-        wait_healthy(self.name)
+        if self.health_checker is None:
+            wait_healthy(self.name, runner=self.runner)
+        else:
+            self.health_checker(self.name)
 
     def restore(self, dump):
         if not self.started: raise DeploymentError('Isolated restore container has not started')
-        run(['docker', 'exec', '-i', self.name, 'pg_restore', '--exit-on-error', '--no-owner', '--no-acl',
+        self.runner(['docker', 'exec', '-i', self.name, 'pg_restore', '--exit-on-error', '--no-owner', '--no-acl',
             '-U', 'operations_restore', '-d', 'operations_restore'], input_file=Path(dump))
 
     @property
@@ -119,8 +133,9 @@ class IsolatedRestore:
 
     def stop(self):
         if not self.started: return
-        info = json.loads(run(['docker', 'inspect', self.name], timeout=20))[0]
+        info = json.loads(self.runner(['docker', 'inspect', self.name], timeout=20))[0]
         if info['Config'].get('Labels', {}).get('xiquan.operations.restore') != self.name:
             raise DeploymentError('Restore container identity changed; refuse to stop another container')
-        run(['docker', 'stop', self.name], timeout=60)
+        self.runner(['docker', 'stop', self.name], timeout=60)
+        self.started = False
         # Container, volume, private evidence and env remain; no deletion/prune.

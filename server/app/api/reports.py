@@ -6,6 +6,8 @@ from flask import Blueprint, request
 from ..auth_service import require_permission
 from ..models import OrderItem, PassLedger, Payment, Settlement, SettlementVisit, StoredValueLedger, Visit
 from ..serializers import decimal_str
+from ..extensions import db
+from ..member_card_models import SettlementPassRedemption
 from .errors import ApiError, success
 
 bp = Blueprint("reports", __name__, url_prefix="/reports")
@@ -35,6 +37,16 @@ def _range():
     return start_date, end_date
 
 
+def _pass_refund_values(start, end):
+    # The refund ledger timestamp assigns face value to the refund day, including
+    # pass-only checkouts that have no monetary Payment refund at all.
+    return db.session.query(PassLedger, db.func.sum(SettlementPassRedemption.amount)).join(
+        SettlementPassRedemption, db.and_(SettlementPassRedemption.settlement_id == PassLedger.settlement_id,
+            SettlementPassRedemption.member_pass_id == PassLedger.member_pass_id)).filter(
+        PassLedger.entry_type == 'checkout_refund', PassLedger.created_at >= start,
+        PassLedger.created_at < end).group_by(PassLedger.id).all()
+
+
 @bp.get("/summary")
 @require_permission("report:read")
 def summary():
@@ -56,6 +68,7 @@ def summary_data(start, end):
         (Decimal(row.amount) for row in payments if row.kind == "refund"),
         Decimal("0.00"),
     )
+    refund_total += sum((Decimal(amount) for _, amount in _pass_refund_values(start, end)), Decimal('0.00'))
     operating_revenue = gross_sales - refund_total
     recharges = StoredValueLedger.query.filter(
         StoredValueLedger.created_at >= start,
@@ -191,6 +204,11 @@ def trend_data(start, end):
             bucket["revenue"] += Decimal(payment.amount)
         if payment.method != "balance":
             bucket["cash_inflow"] += Decimal(payment.amount)
+
+    for ledger, amount in _pass_refund_values(start, end):
+        bucket = days.get(_local(ledger.created_at).date().isoformat())
+        if bucket:
+            bucket['revenue'] -= Decimal(amount)
 
     recharges = StoredValueLedger.query.filter(
         StoredValueLedger.created_at >= start,

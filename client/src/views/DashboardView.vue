@@ -13,6 +13,7 @@ import AppPageHeader from '../components/app/AppPageHeader.vue'
 import BatchActionBar from '../components/wristbands/BatchActionBar.vue'
 import WristbandCard from '../components/wristbands/WristbandCard.vue'
 import AdmissionDialog from '../components/wristbands/AdmissionDialog.vue'
+import WristbandReaderPanel from '../components/wristbands/WristbandReaderPanel.vue'
 import { useAdmissionDialog } from '../composables/useAdmissionDialog'
 import { beginBatch, cancelBatch, finishBatch, toggleSelected, type WristbandSelectionState } from '../domain/wristbands/selection'
 import { subscribeRealtime } from '../realtime/events'
@@ -361,6 +362,9 @@ onBeforeUnmount(() => {
         <el-button v-else-if="batchState.active" @click="cancelBatchMode">退出批量</el-button>
       </template>
     </AppPageHeader>
+
+    <WristbandReaderPanel v-if="canCapability('visit_open')" :enabled="canCapability('visit_open')"
+      :paused="admission.visible.value || batchState.active || clearing || loading" @changed="load(true)" />
 
     <div class="area-tabs">
       <button

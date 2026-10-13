@@ -62,6 +62,9 @@ def create_app(config_object=None):
 
     @app.before_request
     def attach_request_context():
+        # Base64 JSON carries a <=10MiB XLSX. Do not relax other endpoints.
+        if request.path in {'/api/inventory/excel/preview', '/api/inventory/excel/apply'} and request.method == 'POST':
+            request.max_content_length = 15 * 1024**2
         supplied = request.headers.get("X-Request-ID", "")
         g.request_id = supplied if re.fullmatch(r"[A-Za-z0-9._:-]{1,80}", supplied) else str(uuid.uuid4())
         if request.path.startswith("/api/") and request.is_json:

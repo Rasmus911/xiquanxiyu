@@ -22,10 +22,13 @@ if (-not (Test-Path -LiteralPath (Join-Path $stage 'SHA256SUMS'))) { throw 'Stag
 if ($StageOnly) { Write-Host ('Verified local stage: ' + $stage); return }
 $remoteStage = '/tmp/' + (Split-Path -Leaf $stage)
 Write-Host 'Uploading verified installers; database/accounts are not modified.'
-& scp.exe -r $stage ($EcsTarget + ':/tmp/')
-if ($LASTEXITCODE -ne 0) { throw 'Upload failed. No channels were activated.' }
-& ssh.exe $EcsTarget ('bash ' + $remoteStage + '/activate.sh')
-if ($LASTEXITCODE -ne 0) { throw 'Activation stopped. Review which channels were activated; old files remain. Do not claim all targets succeeded.' }
+. (Join-Path $PSScriptRoot 'lib\mobile-128-transport.ps1')
+$options=@('-o','ConnectTimeout=20','-o','ServerAliveInterval=15','-o','ServerAliveCountMax=3')
+$uploaded=Invoke-TokenNative -Executable 'scp.exe' -Arguments @($options + @('-r',$stage,($EcsTarget+':/tmp/'))) -TimeoutSeconds 600 -Label 'DESKTOP INSTALLERS upload'
+if($uploaded.ExitCode-ne 0){throw 'Upload stopped. No channels were activated.'}
+$activated=Invoke-TokenNative -Executable 'ssh.exe' -Arguments @($options + @($EcsTarget,('bash '+$remoteStage+'/activate.sh'))) -TimeoutSeconds 180 -Label 'DESKTOP CHANNEL activation'
+Write-Host $activated.Stdout
+if($activated.ExitCode-ne 0){throw 'Activation stopped. Preserve output; do not claim all channels succeeded.'}
 & node.exe (Join-Path $PSScriptRoot 'lib\windows-public-check.cjs') $root ($Targets -join ',')
 if ($LASTEXITCODE -ne 0) { throw 'Public content verification failed; inspect published channels before using automatic updates.' }
 Write-Host ('Requested channels activated and publicly verified: ' + ($Targets -join ',') + '. Existing cloud data/mobile/web and unrequested policies preserved.')

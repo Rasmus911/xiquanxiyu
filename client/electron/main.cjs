@@ -99,6 +99,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     ...windowBounds(screen.getPrimaryDisplay().workAreaSize),
     show: false,
+    icon: path.join(__dirname, 'assets', 'xiquan.ico'),
     backgroundColor: '#f3f6fa',
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),

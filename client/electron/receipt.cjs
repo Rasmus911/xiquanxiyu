@@ -1,18 +1,15 @@
-function escapeHtml(value) {
-  return String(value ?? '')
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#039;')
-}
+const { escapeHtml } = require('./receipt-escape.cjs')
+const { serviceReceiptHtml } = require('./service-receipt.cjs')
 
 const paymentNames = { cash: '现金', wechat: '微信', alipay: '支付宝', balance: '会员储值' }
 
 function receiptHtml(receipt) {
+  if (receipt.receipt_kind === 'order') return serviceReceiptHtml(receipt)
   const settlement = receipt.settlement || {}
   const visits = Array.isArray(receipt.visits) ? receipt.visits : []
   const attempts = Number(receipt.print_attempts || 0)
+  const hasPass = Number(settlement.pass_redemption_count) > 0
+  const memberCard = settlement.member_card
   const visitHtml = visits.map((visit) => `
     <section>
       <div class="line strong"><span>手牌 ${escapeHtml(visit.wristband_number)}</span><span>¥${escapeHtml(visit.amount)}</span></div>
@@ -41,10 +38,14 @@ function receiptHtml(receipt) {
     ${attempts > 0 ? `<div class="reprint">补打小票 第 ${attempts + 1} 次</div>` : ''}
     <div>单号：${escapeHtml(settlement.number)}</div>
     <div>时间：${escapeHtml(settlement.completed_at)}</div>
+    ${memberCard?.card_uid ? `<div>会员卡：${escapeHtml(memberCard.card_uid)}</div>` : ''}
+    ${memberCard?.holder_surname ? `<div>持卡人姓氏：${escapeHtml(memberCard.holder_surname)}</div>` : ''}
     <div class="divider"></div>
     ${visitHtml}
     <div class="divider"></div>
-    <div class="line total"><span>合计</span><span>¥${escapeHtml(settlement.total_amount)}</span></div>
+    <div class="line total"><span>${hasPass ? '原消费合计' : '合计'}</span><span>¥${escapeHtml(settlement.total_amount)}</span></div>
+    ${hasPass ? `<div class="line"><span>次卡抵票 ${escapeHtml(settlement.pass_redemption_count)} 次</span><span>-¥${escapeHtml(settlement.pass_redemption_amount)}</span></div>
+    <div class="line total"><span>货币应付</span><span>¥${escapeHtml(settlement.amount_due)}</span></div>` : ''}
     ${paymentHtml}
     <div class="divider"></div>
     <div class="center">谢谢惠顾，请携带好随身物品</div>

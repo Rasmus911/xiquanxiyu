@@ -40,7 +40,8 @@ function dismiss() {
 }
 
 async function installDownloaded() {
-  if (!state.value.path || props.businessBusy) return
+  const path = state.value.path
+  if (!path || props.businessBusy) return
   const permission = await ApkUpdater.canInstallPackages()
   if (!permission.allowed) {
     state.value = reduceUpdater(state.value, { type: 'permission-required' })
@@ -48,7 +49,7 @@ async function installDownloaded() {
   }
   state.value = reduceUpdater(state.value, { type: 'installing' })
   try {
-    await ApkUpdater.install({ path: state.value.path || '' })
+    await ApkUpdater.install({ path })
   } catch (error) {
     const text = error instanceof Error ? error.message : String(error)
     if (text.includes('INSTALL_PERMISSION_REQUIRED')) {

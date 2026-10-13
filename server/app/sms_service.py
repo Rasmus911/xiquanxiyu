@@ -100,11 +100,11 @@ def notify_card_opened(member, employee, card_type, balance=None, remaining=None
     else:
         raise ValueError("不支持的会员卡类型")
 
-    member_label = member.name or member.phone
+    member_label = member.name or member.phone or member.holder_surname or '实体卡会员'
     employee_label = f"{employee.username}员工"
-    results = [
-        send_template_sms(member.phone, customer_template, customer_params, "member"),
-    ]
+    results = []
+    if member.phone:
+        results.append(send_template_sms(member.phone, customer_template, customer_params, "member"))
     # 支持多个管理员手机号，用逗号分隔
     admin_phones = str(current_app.config.get("SMS_ADMIN_PHONE") or "").strip()
     for admin_phone in [p.strip() for p in admin_phones.split(",") if p.strip()]:

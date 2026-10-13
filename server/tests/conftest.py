@@ -83,3 +83,24 @@ def strict_owner_session(app, client):
         'headers': {'Authorization': f"Bearer {data['access_token']}",
                     'X-Business-Period': state.period_id}, 'terminal_code': 'ENTRY-TEST',
         'login': data}
+
+
+@pytest.fixture()
+def desktop050_employee_session(client, strict_owner_session):
+    def create_session(role='cashier', username='13800000001'):
+        password = 'isolated-employee-password-2026'
+        created = client.post('/api/employees', headers=strict_owner_session['headers'], json={
+            'username': username, 'display_name': '隔离员工', 'role': role,
+            'password': password, 'allowed_channels': ['desktop'], 'is_active': True,
+        })
+        assert created.status_code == 201, created.get_json()
+        logged = client.post('/api/auth/login', json={
+            'username': username, 'password': password, 'client_channel': 'desktop',
+            'terminal_code': strict_owner_session['terminal_code'],
+        })
+        assert logged.status_code == 200, logged.get_json()
+        data = logged.get_json()['data']
+        return {'id': created.get_json()['data']['id'], 'username': username, 'password': password,
+            'login': data, 'headers': {'Authorization': 'Bearer ' + data['access_token'],
+                                     'X-Business-Period': data['business_state']['period_id']}}
+    return create_session

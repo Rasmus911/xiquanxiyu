@@ -44,32 +44,29 @@ def test_rejected_target_grant_does_not_look_like_session_revocation(client, str
     assert client.get('/api/business/state', headers=strict_owner_session['headers']).status_code == 200
 
 
-def test_soft_delete_retains_identity_audit_and_invalidates_old_token(client, strict_owner_session):
+def test_true_delete_retains_history_and_invalidates_old_token(client, strict_owner_session):
     created = create(client, strict_owner_session)
     assert created.status_code == 201
     employee_id = created.get_json()['data']['id']
     session = login(client, strict_owner_session).get_json()['data']
     employee_headers = {'Authorization': 'Bearer ' + session['access_token'],
         'X-Business-Period': session['business_state']['period_id']}
-    original = db.session.get(Employee, employee_id).password_hash
     response = client.delete('/api/employees/' + employee_id, headers=strict_owner_session['headers'])
     assert response.status_code == 200
-    row = db.session.get(Employee, employee_id)
-    assert row.deleted_at is not None and not row.is_active
-    assert row.allowed_channels == [] and row.password_hash == original
-    assert row.username == 'fixture-cashier'
+    assert db.session.get(Employee, employee_id) is None
     assert AuditLog.query.filter_by(action='employee.delete', entity_id=employee_id).count() == 1
     assert login(client, strict_owner_session).status_code == 401
     assert client.get('/api/business/state', headers=employee_headers).status_code == 401
     normal = client.get('/api/employees', headers=strict_owner_session['headers']).get_json()['data']
     assert employee_id not in {item['id'] for item in normal}
     deleted = client.get('/api/employees?deleted=only', headers=strict_owner_session['headers']).get_json()['data']
-    assert [item['id'] for item in deleted] == [employee_id]
-    assert 'password_hash' not in deleted[0]
-    assert client.delete('/api/employees/' + employee_id, headers=strict_owner_session['headers']).status_code == 200
+    assert deleted == []
+    assert client.delete('/api/employees/' + employee_id, headers=strict_owner_session['headers']).status_code == 404
     assert AuditLog.query.filter_by(action='employee.delete', entity_id=employee_id).count() == 1
-    assert client.patch('/api/employees/' + employee_id, headers=strict_owner_session['headers'], json={'is_active': True}).status_code == 409
-    assert create(client, strict_owner_session).status_code == 409
+    assert client.patch('/api/employees/' + employee_id, headers=strict_owner_session['headers'], json={'is_active': True}).status_code == 404
+    replacement = create(client, strict_owner_session)
+    assert replacement.status_code == 201
+    assert replacement.get_json()['data']['id'] != employee_id
 
 
 def test_protected_admins_cannot_be_deleted_disabled_or_downgraded(client, strict_owner_session):

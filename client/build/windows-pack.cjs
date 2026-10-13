@@ -18,6 +18,16 @@ function publicTrust(file) {
   return normalizeReleaseTrust({ publicKeyPem, testOnly: false,
     keyId: crypto.createHash('sha256').update(key.export({ type: 'spki', format: 'der' })).digest('hex').slice(0, 16) })
 }
+async function buildTargetWithRetry(config,buildTarget,wait=ms=>new Promise(resolve=>setTimeout(resolve,ms))){
+  for(let attempt=1;attempt<=3;attempt++){
+    try{return await buildTarget(config)}catch(error){
+      const outputLock=(error.code||error.constructor?.code)==='ERR_ELECTRON_BUILDER_CANNOT_EXECUTE'&&/makensis\.exe/i.test(error.message)&&/Can(?:not|'t) open output file/i.test(error.message)
+      if(!outputLock||attempt===3)throw error
+      console.log(`NSIS_OUTPUT_LOCK_RETRY=${attempt}/2`)
+      await wait(attempt*2000)
+    }
+  }
+}
 async function buildWindowsRelease({ projectRoot, version, buildId, targets = targetIds, trust, offlineRuntimeCache, skipRenderer = false, dryRun = false }, boundary = {}) {
   if (!Array.isArray(targets) || !targets.length || new Set(targets).size !== targets.length) throw new Error('构建目标集无效')
   const configs = targets.map(targetId => makeWindowsConfig({ projectRoot, version, buildId, targetId, trust }))
@@ -52,7 +62,7 @@ async function buildWindowsRelease({ projectRoot, version, buildId, targets = ta
     const profile = getTarget(config.extraMetadata.xiquanDesktop.targetId)
     fs.writeFileSync(config.nsis.include, `!define XQ_TARGET_FAMILY "${profile.targetId.split('-')[0]}"\n!define XQ_TARGET_ARCH "${profile.arch}"\n!include "${include}"\n`, 'utf8')
     console.log(`Building ${profile.targetId}: Electron ${profile.electronVersion}, ${profile.arch}`)
-    await buildTarget(config)
+    await buildTargetWithRetry(config,buildTarget)
   }
   const index = await verifyReleaseSet(releaseRoot, targets, { mode: 'candidate', trust })
   fs.writeFileSync(path.join(releaseRoot, 'delivery-index.json'), JSON.stringify(index, null, 2), 'utf8')
@@ -79,4 +89,4 @@ async function cli() {
   console.log(JSON.stringify(result, null, 2))
 }
 if (require.main === module) cli().catch(error => { console.error(error.message); process.exitCode = 1 })
-module.exports = { buildWindowsRelease, testTrust, publicTrust }
+module.exports = { buildWindowsRelease, buildTargetWithRetry, testTrust, publicTrust }

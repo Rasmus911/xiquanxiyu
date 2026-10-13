@@ -3,11 +3,12 @@ const path = require('node:path')
 const { targetIds, getTarget } = require('../../client/electron/target-profiles.cjs')
 const { verifySignedRelease } = require('../../client/electron/desktop-release.cjs')
 const { verifyReleaseSet, fileRecord } = require('./desktop-release.cjs')
+const supportsLegacyBridge = targets => ['win10-x86','win10-x64','win11-x86','win11-x64'].every(id => targets.includes(id))
 
 function activationScript({ remoteStage, remoteCloudDir, targets = targetIds }) {
   if (!Array.isArray(targets) || !targets.length || new Set(targets).size !== targets.length) throw new Error('发布目标集无效')
   targets.forEach(getTarget)
-  const legacy = targetIds.every(id => targets.includes(id))
+  const legacy = supportsLegacyBridge(targets)
   if (!/^\/tmp\/xiquan-windows-[A-Za-z0-9._-]+$/.test(remoteStage) || remoteStage.includes('..') ||
       !/^\/opt\/[A-Za-z0-9/_.-]+\/deploy\/cloud$/.test(remoteCloudDir) || remoteCloudDir.split('/').includes('..')) throw new Error('远端发布路径无效')
   return `#!/bin/bash
@@ -72,7 +73,7 @@ policy['desktop']=new['desktop']
 async function stageWindowsRelease({ releaseRoot, outputRoot, targets = targetIds, legacyPolicy, dryRun = false, remoteCloudDir = '/opt/xiquan/xiquan/deploy/cloud' }) {
   const index = await verifyReleaseSet(releaseRoot, targets, { mode: 'release' })
   if (!index.complete) throw new Error('请求安装包不完整，不能发布')
-  const legacy = index.allTargets
+  const legacy = supportsLegacyBridge(targets)
   const remoteStage = `/tmp/${path.basename(outputRoot)}`
   const activate = activationScript({ remoteStage, remoteCloudDir, targets })
   if (dryRun) return { dryRun: true, index, outputRoot }
@@ -111,7 +112,7 @@ if (require.main === module) {
   const [releaseRoot, outputRoot, policyPath, remoteCloudDir, dry, selected] = process.argv.slice(2)
   const targets = selected === undefined ? targetIds : selected.split(',')
   stageWindowsRelease({ releaseRoot, outputRoot, remoteCloudDir,
-    targets, legacyPolicy: targetIds.every(id => targets.includes(id)) ? JSON.parse(fs.readFileSync(policyPath, 'utf8').replace(/^\uFEFF/, '')) : undefined, dryRun: dry === 'dry' })
+    targets, legacyPolicy: supportsLegacyBridge(targets) ? JSON.parse(fs.readFileSync(policyPath, 'utf8').replace(/^\uFEFF/, '')) : undefined, dryRun: dry === 'dry' })
     .then(result => console.log(JSON.stringify(result))).catch(error => { console.error(error.message); process.exitCode = 1 })
 }
-module.exports = { stageWindowsRelease, activationScript }
+module.exports = { stageWindowsRelease, activationScript, supportsLegacyBridge }

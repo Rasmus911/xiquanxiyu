@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { businessState, onBusinessSessionClear, canCapability, useBusinessGuard } from '../business/state'
+import { businessGeneration, businessState, canCapability, useBusinessGuard } from '../business/state'
 const guardBusinessOperation = useBusinessGuard()
 
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
@@ -10,8 +10,6 @@ import AppPageHeader from '../components/app/AppPageHeader.vue'
 import CatalogPicker from '../components/orders/CatalogPicker.vue'
 import OrderCart from '../components/orders/OrderCart.vue'
 import PartyTabs from '../components/orders/PartyTabs.vue'
-import ConsumptionEditor from '../components/orders/ConsumptionEditor.vue'
-import { buildManualConsumption } from '../domain/orders/consumption'
 import AdmissionDialog from '../components/wristbands/AdmissionDialog.vue'
 import { useAdmissionDialog } from '../composables/useAdmissionDialog'
 import { setOrderQuantity, toggleOrderItem } from '../domain/orders/selection'
@@ -22,39 +20,23 @@ import { clearPendingRequestKey, pendingRequestKey } from '../domain/requests/pe
 import { subscribeRealtime } from '../realtime/events'
 import { useConnectivityStore } from '../stores/connectivity'
 import { useRuntimeStore } from '../stores/runtime'
-import type { CatalogItem, Visit, Consumable, ManualConsumption } from '../types'
+import { useAuthStore } from '../stores/auth'
+import { printServiceJob } from '../domain/receipts/printing'
+import type { CatalogItem, Visit } from '../types'
 import { formatBusinessTime } from '../format/business-time'
 
 const route = useRoute()
 const router = useRouter()
 const connectivity = useConnectivityStore()
 const runtime = useRuntimeStore()
+const auth = useAuthStore()
+const securityContext={period:businessState.value?.period_id,policy:businessState.value?.policy_version}
+const canOrder=computed(()=>canCapability('visit_order')&&!businessState.value?.maintenance&&
+ businessState.value?.period_id===securityContext.period&&businessState.value?.policy_version===securityContext.policy)
 const ordering = useVisitOrdering()
 const visit = ordering.currentVisit
 const catalog = ref<CatalogItem[]>([])
-const consumables = ref<Consumable[]>([])
-const consumptions = ref<Record<string, ManualConsumption[] | undefined>>({})
-const materialsDialog = ref(false)
-const confirmingMaterials = ref(false)
-const materialTarget = ref<SubmissionSnapshot | null>(null)
-const materialItems = ref<CatalogItem[]>([])
-const materialBand = ref('')
-let materialCurrent: (() => boolean) | undefined
-function closeMaterials() {
-  materialsDialog.value = false
-  confirmingMaterials.value = false
-  materialTarget.value = null
-  materialItems.value = []
-  consumptions.value = {}
-  materialCurrent = undefined
-}
-onBusinessSessionClear(closeMaterials)
-watch([
-  () => businessState.value?.period_id,
-  () => businessState.value?.policy_version,
-  () => businessState.value?.maintenance,
-  () => canCapability('visit_order'),
-], closeMaterials)
+const confirmingPackage = ref(false)
 const loading = ordering.loading
 const adding = ref(false)
 const layoutEditing = ref(false)
@@ -93,10 +75,9 @@ async function load(silent = false) {
   if (!isCurrent()) return
   const detail = ordering.load(id)
   try {
-    const [result, stock] = await Promise.all([http.get('/catalog', { params: { active: true } }), canCapability('visit_order') ? http.get('/inventory/consumables') : Promise.resolve(null)])
+    const result = await http.get('/catalog', { params: { active: true } })
     if (!isCurrent()) return
     catalog.value = apiData<CatalogItem[]>(result)
-    consumables.value = stock ? apiData<Consumable[]>(stock) : []
   } catch (error) { if (!isCurrent()) return;
     if (!silent) ElMessage.error(apiErrorMessage(error))
   } finally { await detail }
@@ -107,14 +88,14 @@ function selectedQuantity(itemId: string) {
 }
 
 function setQuantity(item: CatalogItem, value: number | undefined) {
-  if (materialsDialog.value || adding.value || loading.value || !canCapability('visit_order')) return
+  if (confirmingPackage.value || adding.value || loading.value || !canOrder.value) return
   if(item.kind === 'package') return
   const maximum = item.kind === 'service' ? 1 : 99
   selectedQuantities.value = setOrderQuantity(selectedQuantities.value, item.id, Number(value || 0), maximum)
 }
 
 function selectItem(item: CatalogItem) {
-  if (materialsDialog.value || adding.value || loading.value || !canCapability('visit_order')) return
+  if (confirmingPackage.value || adding.value || loading.value || !canOrder.value) return
   if(item.kind==='package') {
     if(!canCapability('package_write')) return
     selectedQuantities.value=togglePackageSelection(selectedQuantities.value,catalog.value,item.id)
@@ -125,86 +106,67 @@ function selectItem(item: CatalogItem) {
 }
 
 function clearSelectedItems() {
-  if (materialsDialog.value || adding.value) return
+  if (confirmingPackage.value || adding.value) return
   selectedQuantities.value = {}
-  consumptions.value = {}
 }
 
 async function addSelectedItems() {
-  if (materialsDialog.value || adding.value || layoutEditing.value || !connectivity.isOnline || !canCapability('visit_order')) return
+  if (confirmingPackage.value || adding.value || layoutEditing.value || !connectivity.isOnline || !canOrder.value) return
   const isCurrent = guardBusinessOperation('addSelectedItems')
   if (!isCurrent()) return
 
   if (!visit.value || visit.value.id !== String(route.params.id) || loading.value) return
   if (pendingOrder.value) return ElMessage.warning('上一笔加单尚未确认，请点击“重试原操作”')
   if (!selectedCount.value) return ElMessage.warning('请先选择要添加的项目')
-  materialTarget.value = ordering.drafts.capture(visit.value.id, visit.value.version)
-  materialItems.value = catalog.value.filter(item => materialTarget.value!.quantities[item.id]).map(item => ({...item}))
-  materialBand.value = visit.value.wristband_number
-  consumptions.value = {}
-  materialCurrent = isCurrent
-  materialsDialog.value = true
-}
-
-async function confirmMaterials() {
-  if (confirmingMaterials.value || adding.value || !materialsDialog.value || !materialTarget.value || !connectivity.isOnline || !canCapability('visit_order')) return
-  const isCurrent = materialCurrent
-  let target = materialTarget.value
-  if (!isCurrent?.() || target.visitId !== String(route.params.id) || visit.value?.id !== target.visitId) { closeMaterials(); return }
-  const materials: Record<string, readonly ManualConsumption[]> = {}
-  try {
-    for (const id of Object.keys(target.quantities)) {
-      const rows = consumptions.value[id]
-      if (rows === undefined) throw new Error('请为每个项目选择耗材，或明确勾选本行无耗材')
-      materials[id] = Object.freeze(buildManualConsumption(rows).inventory_consumption.map(row => Object.freeze(row)))
-    }
-  } catch (error) { return ElMessage.warning(apiErrorMessage(error)) }
-  target = Object.freeze({...target, consumptions: Object.freeze(materials)})
-  const selectedPackage=materialItems.value.find(item=>item.kind==='package' && target.quantities[item.id])
+  const snapshot = ordering.drafts.capture(visit.value.id, visit.value.version)
+  let target = Object.freeze({...snapshot, consumptions:Object.freeze(Object.fromEntries(
+    Object.keys(snapshot.quantities).map(id=>[id,Object.freeze([])])))}) as SubmissionSnapshot
+  const selectedPackage=catalog.value.find(item=>item.kind==='package' && target.quantities[item.id])
   const currentPackage=visit.value.items.find(item=>item.kind==='package' && item.status==='active')
   if(selectedPackage && currentPackage && selectedPackage.id!==currentPackage.catalog_item_id) {
-    confirmingMaterials.value = true
+    confirmingPackage.value = true
     try {
       await ElMessageBox.confirm(`将当前手牌的套票更换为${selectedPackage.name}？未结账包含项目会重新计算。`,'更换套票',
         {confirmButtonText:'确认更换',cancelButtonText:'取消',type:'warning'})
-    } catch { if(materialCurrent===isCurrent)confirmingMaterials.value=false; return }
-    if(!isCurrent() || !materialsDialog.value || String(route.params.id)!==target.visitId || adding.value) return
+    } catch { return }
+    finally { confirmingPackage.value=false }
+    if(!isCurrent() || !canOrder.value || String(route.params.id)!==target.visitId || visit.value?.id!==target.visitId || adding.value) return
     target=Object.freeze({...target,confirmReplace:true})
   }
-  closeMaterials()
-  // Preserve the exact submitted choices so retry compares the draft with the saved operation.
-  consumptions.value = Object.fromEntries(Object.entries(target.consumptions || {}).map(([id, rows]) => [id, rows.map(row=>({...row}))]))
   await submitOrder(target, isCurrent)
 }
 
 async function retryOriginalOrder() {
-  if (adding.value || layoutEditing.value || loading.value || !connectivity.isOnline || !canCapability('visit_order')) return
+  if (adding.value || layoutEditing.value || loading.value || !connectivity.isOnline || !canOrder.value) return
   const target = pendingOrder.value
   if (!target || !visit.value || visit.value.id !== target.visitId || target.visitId !== String(route.params.id)) return
   const isCurrent = guardBusinessOperation('addSelectedItems')
   if (!isCurrent()) return
   // A new form is separate from the saved operation. Only clear a form that still
   // represents the original selection, never one edited after the lost reply.
-  const sameDraft = JSON.stringify(selectedQuantities.value) === JSON.stringify(target.quantities) &&
-    JSON.stringify(consumptions.value) === JSON.stringify(target.consumptions || {})
+  const sameDraft = JSON.stringify(selectedQuantities.value) === JSON.stringify(target.quantities)
   await submitOrder(target, isCurrent, true, sameDraft)
 }
 
 async function submitOrder(target: SubmissionSnapshot, isCurrent: () => boolean, retry = false, clearDraft = true) {
+  const generation = businessGeneration.capture()
   adding.value = true
   let releaseBusy = async () => {}
   try {
     releaseBusy = await runtime.setBusinessBusy(retry ? '正在重试原加单' : '正在提交加单')
+    if (!isCurrent() || !canOrder.value) return
+    const result = retry ? await ordering.retryPending(target.visitId) : await ordering.submitSnapshot(target)
     if (!isCurrent()) return
-    if (retry) await ordering.retryPending(target.visitId)
-    else await ordering.submitSnapshot(target)
-    if (!isCurrent()) return
-    ElMessage.success(`已添加 ${target.kinds} 种，共 ${target.units} 份`)
+    ElMessage.success(`已添加 ${result.target.kinds} 种，共 ${result.target.units} 份`)
     if (clearDraft) {
-      ordering.drafts.clear(target.visitId); draftRevision.value++
-      if (String(route.params.id) === target.visitId) consumptions.value = {}
+      ordering.drafts.clear(result.target.visitId); draftRevision.value++
     }
     await load(); if (!isCurrent()) return;
+    if (result.servicePrintJob) {
+      const printed = await printServiceJob(result.servicePrintJob.id,'automatic',
+        auth.terminal?.printer_name || localStorage.getItem('xiquan_printer_name') || undefined,generation)
+      if (isCurrent() && printed.state !== 'success') ElMessage.warning(printed.message)
+    }
   } catch (error) { if (!isCurrent()) return; 
     ElMessage.error(apiErrorMessage(error))
   } finally {
@@ -238,7 +200,7 @@ function checkout(scope: 'party' | 'selected' = 'party') {
 }
 
 function selectPartyVisit(visitId: string) {
-  if (materialsDialog.value || adding.value || loading.value) return
+  if (confirmingPackage.value || adding.value || loading.value) return
   void router.push({ path: `/visits/${visitId}`, query: { returnTo: String(route.query.returnTo || '/') } })
 }
 
@@ -278,10 +240,7 @@ async function changeTicket() {
   }
 }
 
-watch(selectedQuantities, (values, previous) => {
-  consumptions.value = Object.fromEntries(Object.entries(consumptions.value).filter(([id]) => values[id] && values[id] === previous[id]))
-})
-watch(() => route.params.id, () => { closeMaterials(); admission.close(); void load() }, { immediate: true })
+watch(() => route.params.id, () => { admission.close(); void load() }, { immediate: true })
 onMounted(() => {
   unsubscribeRealtime = subscribeRealtime(['visits', 'wristbands', 'catalog', 'inventory', 'checkout'], () => load(true))
   refreshTimer = window.setInterval(() => {
@@ -310,7 +269,7 @@ onBeforeUnmount(() => {
         <el-button v-if="canCapability('checkout_write')" type="success" size="large" @click="checkout('party')">{{ linkedVisits.length > 1 ? '联动整组结账' : '结账' }}</el-button>
       </template>
     </AppPageHeader>
-    <PartyTabs :visits="linkedVisits" :current-id="String(route.params.id)" :elapsed="elapsed" :disabled="materialsDialog || adding || loading" @select="selectPartyVisit" />
+    <PartyTabs :visits="linkedVisits" :current-id="String(route.params.id)" :elapsed="elapsed" :disabled="confirmingPackage || adding || loading" @select="selectPartyVisit" />
     <el-alert v-if="ordering.error.value" :title="ordering.error.value" type="error" :closable="false" />
     <el-row :gutter="18" v-loading="loading">
       <el-col :xs="24" :lg="14">
@@ -319,16 +278,16 @@ onBeforeUnmount(() => {
             <div data-testid="quick-order-header" class="quick-order-header">
               <div><strong>快速加单</strong><div class="muted">服务选一次，商品可调整数量</div></div>
               <div class="quick-order-header">
-                <el-button v-if="pendingOrder && canCapability('visit_order')" data-testid="retry-order" type="warning"
+                <el-button v-if="pendingOrder && canOrder" data-testid="retry-order" type="warning"
                   :loading="adding" :disabled="adding || loading || layoutEditing || !connectivity.isOnline || visit?.id !== String(route.params.id)"
                   @click="retryOriginalOrder">重试 {{ visit?.wristband_number || '—' }} 号手牌原操作</el-button>
                 <OrderCart :items="catalog" :quantities="selectedQuantities" :adding="adding" compact
-                  :disabled="materialsDialog || !!pendingOrder || layoutEditing || loading || !connectivity.isOnline || visit?.id !== String(route.params.id) || !canCapability('visit_order')"
+                  :disabled="confirmingPackage || !!pendingOrder || layoutEditing || loading || !connectivity.isOnline || visit?.id !== String(route.params.id) || !canOrder"
                   @clear="clearSelectedItems" @submit="addSelectedItems" />
               </div>
             </div>
           </template>
-          <CatalogPicker :items="catalog" :quantities="selectedQuantities" manual-inventory :disabled="materialsDialog || adding || loading || !canCapability('visit_order')" :can-arrange="canCapability('catalog_layout') && !adding && !materialsDialog" @select="selectItem" @quantity="setQuantity" @arranged="load(true)" @editing-change="layoutEditing = $event" />
+          <CatalogPicker :items="catalog" :quantities="selectedQuantities" manual-inventory :disabled="confirmingPackage || adding || loading || !canOrder" :can-arrange="canCapability('catalog_layout') && !adding && !confirmingPackage" @select="selectItem" @quantity="setQuantity" @arranged="load(true)" @editing-change="layoutEditing = $event" />
         </el-card>
       </el-col>
       <el-col :xs="24" :lg="10">
@@ -346,12 +305,6 @@ onBeforeUnmount(() => {
         </el-card>
       </el-col>
     </el-row>
-    <el-dialog :model-value="materialsDialog" title="确认耗材并加单" width="min(760px, 94vw)" :close-on-click-modal="!adding && !confirmingMaterials" :close-on-press-escape="!adding && !confirmingMaterials" :show-close="!adding && !confirmingMaterials" @update:model-value="!$event && closeMaterials()">
-      <div v-if="materialsDialog && materialTarget" data-testid="order-materials-dialog">
-        <ConsumptionEditor v-model="consumptions" :items="materialItems" :quantities="materialTarget.quantities" :stock="consumables" :target="materialBand" :disabled="confirmingMaterials || adding || !connectivity.isOnline || !canCapability('visit_order')" />
-      </div>
-      <template #footer><el-button data-testid="cancel-order-materials" :disabled="adding || confirmingMaterials" @click="closeMaterials">取消</el-button><el-button data-testid="confirm-order-materials" type="primary" :loading="adding || confirmingMaterials" :disabled="adding || confirmingMaterials || !connectivity.isOnline || !canCapability('visit_order')" @click="confirmMaterials">确认加单</el-button></template>
-    </el-dialog>
   </div>
 </template>
 

@@ -36,4 +36,4 @@ def test_stale_order_version_writes_nothing_and_replay_returns_original(client, 
     assert saved.status_code == 201
     assert client.post(endpoint, headers=headers, json=body).status_code in (200, 201)
     assert OrderItem.query.count() == count + 1
-    assert Decimal(product.stock_quantity) == stock - 2
+    assert Decimal(product.stock_quantity) == stock

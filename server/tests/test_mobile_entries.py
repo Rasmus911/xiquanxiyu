@@ -64,7 +64,9 @@ def test_bound_mobile_administrators_can_use_every_existing_mobile_module(client
         headers = {'Authorization': 'Bearer ' + data['access_token'], 'X-Business-Period': data['business_state']['period_id']}
         response = client.get('/api/mobile/bootstrap', headers=headers)
         assert response.status_code == 200
-        assert all(response.get_json()['data']['employee']['capabilities'].values())
+        capabilities = response.get_json()['data']['employee']['capabilities']
+        assert all(value for key, value in capabilities.items() if key != 'registration_token_view')
+        assert capabilities['registration_token_view'] is (employee.username in {'18603346509','18631459666'})
         assert client.get('/api/mobile/management/report', headers=headers).status_code == 200
         assert client.get('/api/mobile/management/inventory', headers=headers).status_code == 200
 

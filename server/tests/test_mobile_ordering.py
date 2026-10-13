@@ -90,7 +90,7 @@ def test_mobile_valid_order_updates_shared_bill_and_stock(app, client, admin_ses
     with app.app_context():
         product = db.session.get(CatalogItem, towel["id"])
         order = OrderItem.query.filter_by(visit_id=male_visit["id"], catalog_item_id=towel["id"]).first()
-        assert Decimal(product.stock_quantity) == Decimal("7")
+        assert Decimal(product.stock_quantity) == Decimal("10")
         assert Decimal(order.quantity) == Decimal("3")
 
 
@@ -186,4 +186,4 @@ def test_mobile_order_idempotency_does_not_double_charge_or_decrement_stock(app,
         orders = OrderItem.query.filter_by(visit_id=visit["id"], catalog_item_id=towel["id"]).all()
         product = db.session.get(CatalogItem, towel["id"])
         assert len(orders) == 1
-        assert Decimal(product.stock_quantity) == Decimal("8")
+        assert Decimal(product.stock_quantity) == Decimal("10")

@@ -15,6 +15,8 @@ interface UpdateState {
   required: boolean
   currentVersion: string
   availableVersion: string | null
+  releaseVersion: string | null
+  releasePublishedAt: string | null
   percent: number
   message: string
   releaseNotes: string[]

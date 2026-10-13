@@ -30,6 +30,8 @@ services:
 
   api:
     image: xiquan-api:owner-reset
+    mem_limit: 512m
+    memswap_limit: 512m
     build:
       context: ../../server
       dockerfile: Dockerfile
@@ -80,6 +82,54 @@ services:
     networks:
       - backend
       - public
+    logging: *default-logging
+
+  # Dedicated owner cleanup: no HTTP listener, no public network or ports.
+  # The normal API deliberately does NOT receive MAINTENANCE_DATABASE_URL.
+  receipt-cleanup:
+    image: xiquan-api:owner-reset
+    entrypoint: ["python", "-m", "app.receipt_cleanup_worker"]
+    restart: unless-stopped
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 64
+    environment:
+      DATABASE_URL: ${MAINTENANCE_DATABASE_URL:?Set the schema-owner maintenance URL}
+      MAINTENANCE_DATABASE_URL: ${MAINTENANCE_DATABASE_URL:?Set the schema-owner maintenance URL}
+      MAINTENANCE_PROCESS: "1"
+      RESET_WORKER_ENABLED: "0"
+      XIQUAN_PRODUCTION: "1"
+      FLASK_DEBUG: "0"
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      AUDIT_HMAC_KEY: ${AUDIT_HMAC_KEY:-}
+      AUTO_CREATE_DB: "0"
+      RUN_MIGRATIONS: "0"
+      SEED_DEFAULTS: "0"
+      SOCKETIO_ASYNC_MODE: gevent
+      SMS_ENABLED: "0"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - |-
+          import json, sys, time
+          from pathlib import Path
+          try:
+              beat = json.loads(Path('/tmp/xiquan-receipt-cleanup-health.json').read_text())
+              healthy = beat['ok'] is True and 0 <= time.time() - beat['checked_at'] <= 120
+          except Exception:
+              healthy = False
+          sys.exit(0 if healthy else 1)
+      interval: 10s
+      timeout: 3s
+      retries: 6
+      start_period: 15s
+    networks: [backend]
+    depends_on:
+      postgres:
+        condition: service_healthy
     logging: *default-logging
 
   # Explicit one-shot user maintenance, never invoked by normal API startup.

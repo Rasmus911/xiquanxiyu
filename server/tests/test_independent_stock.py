@@ -4,6 +4,7 @@ import pytest
 
 from app.extensions import db
 from app.models import CatalogItem, InventoryMovement, OrderItem
+from historical_stock_fixture import historical_consumption
 
 
 def post(client, headers, path, body, key):
@@ -76,7 +77,8 @@ def test_manual_total_consumption_void_exactly_once(client, admin_session, route
     response = post(client, h, path, body, 'order')
     assert response.status_code == 201, response.get_json()
     item = response.get_json()['data'] if route == 'single' else response.get_json()['data'][0]
-    assert item['inventory_consumption'][0]['quantity'] == '1.000'
+    assert item['inventory_consumption'] == []
+    historical_consumption(item['id'], [(s['id'], '1')])
     assert balance(client, h, s['id'])['stock_quantity'] == '799.000'
     assert post(client, h, path, body, 'order').status_code in {200, 201}
     assert balance(client, h, s['id'])['stock_quantity'] == '799.000'
@@ -88,7 +90,7 @@ def test_manual_total_consumption_void_exactly_once(client, admin_session, route
 
 
 @pytest.mark.parametrize('route', ['batch', 'mobile'])
-def test_aggregate_shortage_rolls_back_all_lines(client, admin_session, route):
+def test_new_orders_ignore_aggregate_consumable_shortage(client, admin_session, route):
     h = admin_session['headers']; s = stock(client, h, opening_quantity='1', opening_unit='base'); c, v = setup_order(client, h)
     row = {'catalog_item_id': c['id'], 'inventory_mode': 'manual',
            'inventory_consumption': [{'stock_item_id': s['id'], 'quantity': '0.6'}]}
@@ -96,9 +98,8 @@ def test_aggregate_shortage_rolls_back_all_lines(client, admin_session, route):
     path = ('/api/mobile/visits/' if route == 'mobile' else '/api/visits/') + v['id'] + '/items'
     if route == 'batch': path += '/batch'
     response = post(client, h, path, {'items': [row, row]}, 'shortage')
-    assert response.status_code == 409
-    assert response.get_json()['error']['code'] == 'INSUFFICIENT_STOCK'
-    assert OrderItem.query.count() == count
+    assert response.status_code == 201
+    assert OrderItem.query.count() == count + 2
     assert balance(client, h, s['id'])['stock_quantity'] == '1.000'
 
 
@@ -112,19 +113,20 @@ def test_manual_empty_product_does_not_auto_deduct_and_old_api_shares_balance(cl
         'inventory_consumption': []}, 'manual-empty').status_code == 201
     assert balance(client, h, migrated['id'])['stock_quantity'] == '10.000'
     assert post(client, h, path, {'catalog_item_id': c['id'], 'quantity': '2'}, 'old-order').status_code == 201
-    assert balance(client, h, migrated['id'])['stock_quantity'] == '8.000'
+    assert balance(client, h, migrated['id'])['stock_quantity'] == '10.000'
     current = balance(client, h, migrated['id'])
     assert post(client, h, '/api/inventory/stock-adjust', {'stock_item_id': migrated['id'], 'version': current['version'],
         'movement_type': 'purchase', 'quantity': '1', 'input_unit': 'base', 'reason': '采购'}, 'new-writer').status_code == 200
-    assert Decimal(db.session.get(CatalogItem, c['id']).stock_quantity) == Decimal('9')
+    assert Decimal(db.session.get(CatalogItem, c['id']).stock_quantity) == Decimal('11')
     assert InventoryMovement.query.filter_by(catalog_item_id=c['id'], movement_type='purchase').count() == 1
-    assert InventoryMovement.query.filter_by(catalog_item_id=c['id'], movement_type='sale').count() == 1
+    assert InventoryMovement.query.filter_by(catalog_item_id=c['id'], movement_type='sale').count() == 0
 
 
 def test_archive_requires_writeoff_and_historical_void_restores_archive(client, admin_session):
     h = admin_session['headers']; s = stock(client, h); c, v = setup_order(client, h)
     item = post(client, h, '/api/visits/' + v['id'] + '/items', {'catalog_item_id': c['id'], 'inventory_mode': 'manual',
         'inventory_consumption': [{'stock_item_id': s['id'], 'quantity': '1'}]}, 'consume').get_json()['data']
+    historical_consumption(item['id'], [(s['id'], '1')])
     path = '/api/inventory/stock-items/' + s['id']; current = balance(client, h, s['id'])
     assert client.delete(path, headers={**h, 'Idempotency-Key': 'deny-delete'}, json={'version': current['version']}).status_code == 409
     assert client.delete(path, headers={**h, 'Idempotency-Key': 'delete'}, json={'version': current['version'], 'confirm_writeoff': True}).status_code == 200
@@ -138,7 +140,9 @@ def test_usage_ties_and_renames_keep_stable_ids(client, admin_session):
     h = admin_session['headers']; a = stock(client, h); b = stock(client, h, name='盐'); c, v = setup_order(client, h)
     row = {'catalog_item_id': c['id'], 'inventory_mode': 'manual', 'inventory_consumption': [
         {'stock_item_id': a['id'], 'quantity': '1'}, {'stock_item_id': b['id'], 'quantity': '2'}]}
-    assert post(client, h, '/api/visits/' + v['id'] + '/items', row, 'usage').status_code == 201
+    response = post(client, h, '/api/visits/' + v['id'] + '/items', row, 'usage')
+    assert response.status_code == 201
+    historical_consumption(response.get_json()['data']['id'], [(a['id'],'1'),(b['id'],'2')])
     assert client.patch('/api/catalog/' + c['id'], headers=h, json={'name': '改名'}).status_code == 200
     rows = client.get('/api/inventory/usage', headers=h).get_json()['data']
     assert len(rows) == 2
@@ -186,12 +190,12 @@ def test_password_authorized_force_clear_returns_service_consumption(client, adm
     assert balance(client,h,s['id'])['stock_quantity'] == '800.000'
 
 
-def test_manual_product_uses_selected_stock_even_when_legacy_balance_zero(client, admin_session):
+def test_new_product_order_does_not_use_selected_stock_even_when_legacy_balance_zero(client, admin_session):
     h = admin_session['headers']; s = stock(client,h); c,v = setup_order(client,h,product=True)
     response = post(client,h,'/api/visits/'+v['id']+'/items', {'catalog_item_id':c['id'], 'quantity':'10',
         'inventory_mode':'manual','inventory_consumption':[{'stock_item_id':s['id'],'quantity':'1'}]}, 'other-stock')
     assert response.status_code == 201
-    assert balance(client,h,s['id'])['stock_quantity'] == '799.000'
+    assert balance(client,h,s['id'])['stock_quantity'] == '800.000'
     assert db.session.get(CatalogItem,c['id']).stock_quantity == 0
 
 
@@ -208,13 +212,14 @@ def test_package_manual_consumption_returned_once_on_every_cancel_path(client, f
     response = post(client,h,path,body,'package-stock')
     assert response.status_code == 201
     parent = response.get_json()['data'][0]
+    historical_consumption(parent['id'], [(s['id'],'1')])
     assert balance(client,h,s['id'])['stock_quantity'] == '799.000'
     same = post(client,h,path,body,'package-repeat')
     assert same.status_code == 201
     assert same.get_json()['data'][0]['id'] == parent['id']
     assert balance(client,h,s['id'])['stock_quantity'] == '799.000'
     different = {'items':[{**body['items'][0], 'inventory_consumption':[]}]}
-    assert post(client,h,path,different,'package-different').status_code == 409
+    assert post(client,h,path,different,'package-different').status_code == 201
     if action == 'force':
         r = post(client,h,'/api/wristbands/'+band.id+'/force-clear',{'password':strict_owner_session['password'], 'reason':'取消测试'},'force-package')
     elif action == 'void':
@@ -274,7 +279,7 @@ def test_reactivated_legacy_product_can_sell_without_reopening_explicit_archive(
     first = post(client,h,path,{'catalog_item_id':catalog_id,'quantity':'1'},'reactivation-sale')
     assert first.status_code == 201,first.get_json()
     current = balance(client,h,stock_id)
-    assert current['is_active'] is True and current['stock_quantity'] == '4.000'
+    assert current['is_active'] is True and current['stock_quantity'] == '5.000'
     archived = client.delete('/api/inventory/stock-items/'+stock_id,headers={**h,'Idempotency-Key':'explicit-archive'},
         json={'version':current['version'],'confirm_writeoff':True})
     assert archived.status_code == 200
@@ -283,7 +288,7 @@ def test_reactivated_legacy_product_can_sell_without_reopening_explicit_archive(
     assert balance(client,h,stock_id)['is_active'] is False
     assert balance(client,h,stock_id)['stock_quantity'] == '0.000'
     denied = post(client,h,path,{'catalog_item_id':catalog_id,'quantity':'1'},'archived-sale')
-    assert denied.status_code == 404 and denied.get_json()['error']['code'] == 'STOCK_NOT_AVAILABLE'
+    assert denied.status_code == 201
     assert db.session.get(StockItem,stock_id).is_active is False
 
 
@@ -306,7 +311,7 @@ def test_zero_balance_mapped_archive_cannot_be_reactivated_by_catalog(client, ad
 
 
 @pytest.mark.parametrize('route', ['desktop','mobile'])
-def test_package_replacement_can_reuse_last_recorded_stock_atomically(client,formal_catalog,strict_owner_session,route):
+def test_package_replacement_returns_historical_stock_once_but_never_deducts_new_selections(client,formal_catalog,strict_owner_session,route):
     from app.models import Wristband,StockMovement,OrderStockConsumption
     h = strict_owner_session['headers']; s = stock(client,h,opening_quantity='1',opening_unit='base')
     other = stock(client,h,name='另一个耗材',opening_quantity='1',opening_unit='base')
@@ -316,54 +321,24 @@ def test_package_replacement_can_reuse_last_recorded_stock_atomically(client,for
     if route=='desktop': path += '/batch'
     a = CatalogItem.query.filter_by(reference_code='package.A').one()
     b = CatalogItem.query.filter_by(reference_code='package.B').one()
-    def body(catalog_id,quantity='1',extra=None):
-        selections = [{'stock_item_id':s['id'],'quantity':quantity}]
-        if extra: selections.append({'stock_item_id':other['id'],'quantity':extra})
+    def body(catalog_id):
         return {'confirm_replace':True,'items':[{'catalog_item_id':catalog_id,'inventory_mode':'manual',
-            'inventory_consumption':selections}]}
+            'inventory_consumption':[{'stock_item_id':s['id'],'quantity':'2'},{'stock_item_id':other['id'],'quantity':'2'}]}]}
     first = post(client,h,path,body(a.id),'package-last-a')
     assert first.status_code == 201
     parent_id = first.get_json()['data'][0]['id']
+    historical_consumption(parent_id, [(s['id'],'1')])
     assert balance(client,h,s['id'])['stock_quantity'] == '0.000'
-    count = StockMovement.query.count()
-    repeated = post(client,h,path,body(a.id),'same-package-zero-stock')
-    assert repeated.status_code == 201
-    assert repeated.get_json()['data'][0]['id'] == parent_id
-    assert StockMovement.query.count() == count
-    # Net replacement shortage must not cancel the original or return its stock.
-    insufficient = post(client,h,path,body(b.id,quantity='2'),'replace-too-much')
-    assert insufficient.status_code == 409
-    assert db.session.get(OrderItem,parent_id).status == 'active'
-    assert balance(client,h,s['id'])['stock_quantity'] == '0.000'
-    assert StockMovement.query.count() == count
-    assert OrderStockConsumption.query.count() == 1
-    # The old unit is credited once across all new lines, not once per line.
-    aggregate_body = body(b.id)
-    ordinary = CatalogItem.query.filter_by(reference_code='bath.scrub').one()
-    aggregate_body['items'].append({'catalog_item_id':ordinary.id,'inventory_mode':'manual',
-        'inventory_consumption':[{'stock_item_id':s['id'],'quantity':'1'}]})
-    aggregate_shortage = post(client,h,path,aggregate_body,'replace-aggregate-shortage')
-    assert aggregate_shortage.status_code == 409
-    assert db.session.get(OrderItem,parent_id).status == 'active'
-    assert balance(client,h,s['id'])['stock_quantity'] == '0.000'
-    assert StockMovement.query.count() == count
-    # All affected masters participate: a second insufficient selected item also rolls back.
-    insufficient_other = post(client,h,path,body(b.id,extra='2'),'replace-other-shortage')
-    assert insufficient_other.status_code == 409
-    assert db.session.get(OrderItem,parent_id).status == 'active'
-    assert balance(client,h,other['id'])['stock_quantity'] == '1.000'
-    assert StockMovement.query.count() == count
-    replacement_body = body(b.id,extra='1')
+    replacement_body = body(b.id)
     replaced = post(client,h,path,replacement_body,'package-last-b')
     assert replaced.status_code == 201,replaced.get_json()
-    new_parent = replaced.get_json()['data'][0]['id']
-    assert new_parent != parent_id
+    assert replaced.get_json()['data'][0]['id'] != parent_id
     assert db.session.get(OrderItem,parent_id).status == 'voided'
-    assert balance(client,h,s['id'])['stock_quantity'] == '0.000'
-    assert balance(client,h,other['id'])['stock_quantity'] == '0.000'
+    assert balance(client,h,s['id'])['stock_quantity'] == '1.000'
+    assert balance(client,h,other['id'])['stock_quantity'] == '1.000'
+    assert OrderStockConsumption.query.count() == 1
     assert StockMovement.query.filter_by(stock_item_id=s['id'],movement_type='void_return').count() == 1
-    assert StockMovement.query.filter_by(stock_item_id=s['id'],movement_type='sale').count() == 2
-    replay = post(client,h,path,replacement_body,'package-last-b')
-    assert replay.status_code in {200,201}
+    assert StockMovement.query.filter_by(stock_item_id=s['id'],movement_type='sale').count() == 1
+    assert post(client,h,path,replacement_body,'package-last-b').status_code in {200,201}
     assert StockMovement.query.filter_by(stock_item_id=s['id'],movement_type='void_return').count() == 1
-    assert StockMovement.query.filter_by(stock_item_id=s['id'],movement_type='sale').count() == 2
+    assert StockMovement.query.filter_by(stock_item_id=s['id'],movement_type='sale').count() == 1

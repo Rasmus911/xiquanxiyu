@@ -17,6 +17,7 @@ from ..models import StockItem, StockMovement, OrderStockConsumption, OrderItem
 from ..serializers import stock_item_dict, stock_movement_dict
 from ..stock_service import change_balance, legacy_stock, stock_quantity
 from ..stock_cost_service import record_cost, cost_amount, current_cost
+from ..stock_cost_basis import plan_stock_cost, apply_stock_cost
 from ..idempotency_service import idempotency_lookup, idempotency_record_key, idempotency_store
 
 bp = Blueprint("inventory", __name__, url_prefix="/inventory")
@@ -195,11 +196,13 @@ def stock_items():
 def create_stock_item():
     context = _stock_request(); body, _, employee, _, existing = context
     if existing: return success(existing.response_body['data'], '已返回原库存结果', existing.response_status)
-    allowed = {'name','category','base_unit','package_unit','units_per_package','package_spec','opening_quantity','opening_unit','low_stock_threshold','unit_cost'}
+    allowed = {'name','category','base_unit','package_unit','units_per_package','package_spec','opening_quantity','opening_unit','low_stock_threshold','unit_cost','reference_cost','cost_basis'}
     if set(body)-allowed or not body.get('name') or not body.get('base_unit'): raise ApiError('库存参数无效')
     master = StockItem(name='', base_unit='', category='默认', package_unit='', package_spec='',
         stock_quantity=Decimal(0), units_per_package=Decimal(1), low_stock_threshold=Decimal(0))
     _stock_fields(master, body)
+    if 'reference_cost' in body or 'cost_basis' in body:
+        apply_stock_cost(master, plan_stock_cost(master, body))
     unit = body.get('opening_unit', 'base')
     if unit not in {'base','package'} or (unit == 'package' and not master.package_unit): raise ApiError('入库单位无效')
     # Omission permits a zero master; an explicit opening must be positive.
@@ -223,13 +226,13 @@ def create_stock_item():
 def update_stock_item(id_):
     context = _stock_request(); body, _, employee, _, existing = context
     if existing: return success(existing.response_body['data'], '已返回原库存结果')
-    if set(body)-{'version','name','category','base_unit','package_unit','units_per_package','package_spec','low_stock_threshold','unit_cost','password'}:
+    if set(body)-{'version','name','category','base_unit','package_unit','units_per_package','package_spec','low_stock_threshold','unit_cost','password','reference_cost','cost_basis'}:
         raise ApiError('库存参数无效')
     master = _stock_master(id_); _stock_version(master, body)
     if not master.is_active: raise ApiError('库存项目已归档', 409, 'STOCK_NOT_AVAILABLE')
     before = stock_item_dict(master)
-    next_cost = cost_amount(body['unit_cost']) if 'unit_cost' in body else master.unit_cost
-    if master.unit_cost is not None and next_cost != master.unit_cost:
+    cost_plan = plan_stock_cost(master, body)
+    if cost_plan['password_required']:
         # Authenticate BEFORE mutating any master fields: failed reauth commits
         # only the account's failure counter, never the requested stock edits.
         from ..auth_service import verify_sensitive_password
@@ -240,7 +243,7 @@ def update_stock_item(id_):
             has_movement = StockMovement.query.filter_by(stock_item_id=id_).first() is not None
         if has_movement or master.legacy_catalog_item_id or master.unit_cost is not None:
             raise ApiError('已有流水的基本单位不能更改', 409, 'STOCK_UNIT_IMMUTABLE')
-    _stock_fields(master, body); master.unit_cost = next_cost; master.version += 1
+    _stock_fields(master, body); apply_stock_cost(master, cost_plan); master.version += 1
     write_audit('stock.update', 'stock_item', master.id, {'before':before, 'after':stock_item_dict(master)})
     return _stock_result(stock_item_dict(master), context)
 

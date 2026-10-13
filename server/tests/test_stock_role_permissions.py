@@ -12,7 +12,9 @@ def test_six_modules_without_sensitive_authority(client, strict_owner_session, r
     assert r.status_code == 201
     login = client.post('/api/auth/login', json={'username': 'five-' + role, 'password': 'fixture-five-2026',
         'terminal_code': 'ENTRY-TEST', 'client_channel': 'desktop'}).get_json()['data']
-    assert set(login['business_state']['ui_pages']) == {'wristbands', 'members', 'print-jobs', 'catalog', 'inventory', 'reports'}
+    expected = {'wristbands', 'members', 'print-jobs', 'catalog', 'inventory', 'reports', 'account-password'}
+    if role == 'cashier': expected.add('wristband-bindings')
+    assert set(login['business_state']['ui_pages']) == expected
     h = {'Authorization': 'Bearer ' + login['access_token'], 'X-Business-Period': login['business_state']['period_id']}
     for path in ('/api/wristbands', '/api/members', '/api/catalog', '/api/inventory/stock-items'):
         assert client.get(path, headers=h).status_code == 200

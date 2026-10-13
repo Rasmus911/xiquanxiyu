@@ -4,19 +4,23 @@ import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { apiData, apiErrorMessage, http } from '../api/http'
 import AppPageHeader from '../components/app/AppPageHeader.vue'
+import InventoryExcelPanel from '../components/inventory/InventoryExcelPanel.vue'
 import { clearPendingRequestKey, pendingRequestKey } from '../domain/requests/pending-key'
 import { previewStockQuantity } from '../domain/inventory/quantity'
 import { costPreview, warningPreview, receivingReasons } from '../domain/inventory/receiving'
+import {costBaseChanged,referenceCostPreview,type CostBasis} from '../domain/inventory/reference-cost'
 import { pendingStockWrite } from '../domain/inventory/pending-write'
 import { subscribeRealtime } from '../realtime/events'
 import type { StockItem, StockMovement, StockUsage } from '../types'
 import { formatBusinessTime } from '../format/business-time'
+import { formatStockQuantity as stockNumber } from '../format/stock-quantity'
 const guardBusinessOperation = useBusinessGuard()
 const products=ref<StockItem[]>([]),movements=ref<StockMovement[]>([]),usage=ref<StockUsage[]>([])
 const drawerOpen=ref(false),masterOpen=ref(false),editingId=ref(''),editingVersion=ref(0),saving=ref(false)
 const keyword=ref(''),category=ref(''),includeInactive=ref(false),historyId=ref(''),page=ref(1)
 const costOpen=ref(false),costReceipt=ref<StockMovement|null>(null),costInput=ref('')
 const editingCost=ref<string|null>(null),authorizing=ref(false)
+const editingMaster=ref<StockItem|null>(null),costBasis=ref<CostBasis>('base')
 const form=reactive({stock_item_id:'',version:0,movement_type:'purchase',quantity:'1',input_unit:'base',reason:'采购入库',unit_cost:''})
 const masterForm=reactive({name:'',category:'默认',base_unit:'',package_unit:'',units_per_package:'1',package_spec:'',low_stock_threshold:'0',opening_quantity:'0',opening_unit:'base',unit_cost:''})
 let unsubscribeRealtime:(()=>void)|undefined
@@ -28,6 +32,7 @@ watch(()=>filtered.value.length,length=>{page.value=Math.min(page.value,Math.max
 const openingCost=computed(()=>costPreview(masterForm.opening_quantity,masterForm.unit_cost,masterForm.opening_unit==='package'?masterForm.units_per_package:'1'))
 const receivingCost=computed(()=>costPreview(form.quantity,form.unit_cost,form.input_unit==='package'?selectedStock.value?.units_per_package||'1':'1'))
 const correctionCost=computed(()=>costReceipt.value?costPreview(costReceipt.value.input_quantity,costInput.value,costReceipt.value.conversion_factor):null)
+const referencePreview=computed(()=>referenceCostPreview(masterForm.unit_cost,costBasis.value,masterForm.package_unit?masterForm.units_per_package:'1'))
 const summary=computed(()=>{
   const active=products.value.filter(row=>row.is_active)
   return {products:active.length,low:active.filter(row=>Number(row.stock_quantity)<=Number(row.low_stock_threshold)).length}
@@ -41,7 +46,8 @@ const adjustPreview=computed(()=>previewStockQuantity(form.quantity,form.input_u
 const quantityRule='最多三位小数，绝对值须小于 1000000000，换算结果也须符合此规则'
 const masterValidation=computed(()=>{
   if(editingId.value&&editingCost.value!==null&&!masterForm.unit_cost.trim())return '已设置的库存成本不能清空，请填写有效金额'
-  if(editingId.value&&masterForm.unit_cost.trim()&&!costPreview('1',masterForm.unit_cost,'1'))return '成本须为非负金额，最多两位小数'
+  if(editingId.value&&masterForm.unit_cost.trim()&&!referencePreview.value)return '成本须为非负金额，最多两位小数；包装换算须有效'
+  if(editingId.value&&costBasis.value==='package'&&!masterForm.package_unit.trim())return '按包装计价须填写包装单位'
   if(previewStockQuantity(masterForm.units_per_package,'base','1')==='—')return `每包装数量须大于零，${quantityRule}`
   if(!editingId.value&&masterForm.unit_cost.trim()&&!openingCost.value)return '成本须为非负金额、最多两位小数；有入库数量才能记成本'
   if(!editingId.value&&openingPreview.value==='—')return `期初数量须为非负数，${quantityRule}`
@@ -66,14 +72,15 @@ async function load(silent=false){
 function createNew(){
   if(!canCapability('inventory_write')||saving.value||authorizing.value)return
   editingId.value='';editingVersion.value=0
+  editingMaster.value=null;editingCost.value=null;costBasis.value='base'
   Object.assign(masterForm,{name:'',category:'默认',base_unit:'',package_unit:'',units_per_package:'1',package_spec:'',low_stock_threshold:'0',opening_quantity:'0',opening_unit:'base',unit_cost:''})
   masterOpen.value=true
 }
 function edit(row:StockItem){
   if(!canCapability('inventory_write')||saving.value||authorizing.value)return
   editingId.value=row.id;editingVersion.value=row.version
-  editingCost.value=row.unit_cost??null
-  Object.assign(masterForm,{name:row.name,category:row.category,base_unit:row.base_unit,package_unit:row.package_unit,units_per_package:row.units_per_package,package_spec:row.package_spec,low_stock_threshold:row.low_stock_threshold,opening_quantity:'0',opening_unit:'base',unit_cost:row.unit_cost??''})
+  editingMaster.value={...row};editingCost.value=row.reference_cost??row.unit_cost??null;costBasis.value=row.reference_cost!=null?row.cost_basis??'base':'base'
+  Object.assign(masterForm,{name:row.name,category:row.category,base_unit:row.base_unit,package_unit:row.package_unit,units_per_package:row.units_per_package,package_spec:row.package_spec,low_stock_threshold:row.low_stock_threshold,opening_quantity:'0',opening_unit:'base',unit_cost:editingCost.value??''})
   masterOpen.value=true
 }
 function adjust(row?:StockItem){
@@ -113,9 +120,9 @@ async function saveMaster(){
   const {opening_quantity,opening_unit,unit_cost}=masterForm
   const fields={name:masterForm.name.trim(),base_unit:masterForm.base_unit.trim(),package_unit:masterForm.package_unit.trim(),units_per_package:masterForm.units_per_package}
   const id=editingId.value
-  const costChanged=!!id&&!!unit_cost.trim()&&(editingCost.value===null||Number(unit_cost)!==Number(editingCost.value))
-  const body:Record<string,unknown>=id?{...fields,version:editingVersion.value,...(costChanged?{unit_cost:unit_cost.trim()}:{})}:{...fields,opening_unit,...(openingPreview.value!=='0.000'?{opening_quantity,...(unit_cost.trim()?{unit_cost:unit_cost.trim()}:{})}:{})}
-  if(costChanged&&editingCost.value!==null){
+  const costChanged=!!id&&!!unit_cost.trim()&&(editingCost.value===null||Number(unit_cost)!==Number(editingCost.value)||costBasis.value!==(editingMaster.value?.reference_cost!=null?editingMaster.value.cost_basis:'base'))
+  const body:Record<string,unknown>=id?{...fields,version:editingVersion.value,...(costChanged?{reference_cost:unit_cost.trim(),cost_basis:costBasis.value}:{})}:{...fields,opening_unit,...(openingPreview.value!=='0.000'?{opening_quantity,...(unit_cost.trim()?{unit_cost:unit_cost.trim()}:{})}:{})}
+  if(id&&editingMaster.value&&costBaseChanged(editingMaster.value,unit_cost,costBasis.value,masterForm.units_per_package,!!masterForm.package_unit.trim())){
     const current=guardBusinessOperation('authorizeMasterCost');authorizing.value=true
     try{
       const {value}=await ElMessageBox.prompt('修改已设置的库存成本，请输入本人登录密码。','修改库存成本',{inputType:'password',inputPattern:/\S+/,inputErrorMessage:'请输入本人登录密码',confirmButtonText:'确认修改',cancelButtonText:'取消'})
@@ -160,20 +167,21 @@ onMounted(()=>{load();unsubscribeRealtime=subscribeRealtime(['inventory','catalo
 onBeforeUnmount(()=>unsubscribeRealtime?.())
 </script>
 <template>
-  <div>
-    <AppPageHeader title="库存管理" description="整箱入库，按袋、瓶等实际单位耗用。" eyebrow="INVENTORY"><template #actions>
+  <div class="page inventory-page">
+    <AppPageHeader title="库存管理" description="人工每日盘点，Excel批量核对最终结存。下单不自动扣库存。" eyebrow="INVENTORY"><template #actions>
       <el-button v-if="canCapability('inventory_write')&&pending" data-testid="stock-retry" :loading="saving" type="warning" @click="retryPending">重试待确认操作</el-button>
       <el-button v-if="canCapability('inventory_write')" @click="adjust()">入库 / 调整</el-button>
       <el-button v-if="canCapability('inventory_write')" data-testid="stock-new" type="primary" @click="createNew">新增库存</el-button>
     </template></AppPageHeader>
+    <InventoryExcelPanel compact :can-write="canCapability('inventory_write')" @changed="load()"/>
     <section class="inventory-summary"><article><span>库存项目</span><strong>{{summary.products}}</strong><small>种</small></article><article :class="{warning:summary.low}"><span>低库存</span><strong>{{summary.low}}</strong><small>种需要关注</small></article></section>
     <div class="inventory-toolbar"><el-input v-model="keyword" clearable placeholder="搜索库存项目"/><el-checkbox v-if="canCapability('inventory_write')" v-model="includeInactive">包含已归档</el-checkbox><span>每页10条 · 共{{filtered.length}}条</span></div>
     <el-card shadow="never"><template #header><div class="history-header"><strong>库存项目</strong><el-pagination v-model:current-page="page" :page-size="10" :total="filtered.length" layout="total, prev, pager, next" background class="stock-pagination"/></div></template><el-table :data="paged" row-key="id">
       <el-table-column prop="name" label="库存项目" min-width="160"/>
-      <el-table-column label="现存数量" min-width="160"><template #default="scope"><strong>{{scope.row.stock_quantity}} {{scope.row.base_unit}}</strong></template></el-table-column>
-      <el-table-column label="入库包装" min-width="150"><template #default="scope">{{scope.row.package_unit?'1 '+scope.row.package_unit+' = '+scope.row.units_per_package+' '+scope.row.base_unit:'按基本单位入库'}}</template></el-table-column>
-      <el-table-column label="成本单价" min-width="130"><template #default="scope">{{scope.row.unit_cost==null?'未设置':'¥'+scope.row.unit_cost+'/'+scope.row.base_unit}}</template></el-table-column>
-      <el-table-column label="预警 / 状态" min-width="165"><template #default="scope"><span class="alert-quantity">{{scope.row.low_stock_threshold}} {{scope.row.base_unit}}</span><el-tag :type="!scope.row.is_active?'info':Number(scope.row.stock_quantity)<=Number(scope.row.low_stock_threshold)?'danger':'success'">{{!scope.row.is_active?'已归档':Number(scope.row.stock_quantity)<=Number(scope.row.low_stock_threshold)?'库存偏低':'充足'}}</el-tag></template></el-table-column>
+      <el-table-column label="现存数量" min-width="160"><template #default="scope"><strong>{{stockNumber(scope.row.stock_quantity)}} {{scope.row.base_unit}}</strong></template></el-table-column>
+      <el-table-column label="入库包装" min-width="150"><template #default="scope">{{scope.row.package_unit?'1 '+scope.row.package_unit+' = '+stockNumber(scope.row.units_per_package)+' '+scope.row.base_unit:'按基本单位入库'}}</template></el-table-column>
+      <el-table-column label="参考成本" min-width="185"><template #default="scope"><div>{{scope.row.package_cost==null?(scope.row.unit_cost==null?'未设置':'¥'+scope.row.unit_cost+'/'+scope.row.base_unit):'¥'+scope.row.package_cost+'/'+(scope.row.package_unit||scope.row.base_unit)}}</div><small v-if="scope.row.base_unit_cost!=null&&scope.row.package_unit">¥{{scope.row.base_unit_cost}}/{{scope.row.base_unit}}</small></template></el-table-column>
+      <el-table-column label="预警 / 状态" min-width="165"><template #default="scope"><span class="alert-quantity">{{stockNumber(scope.row.low_stock_threshold)}} {{scope.row.base_unit}}</span><el-tag :type="!scope.row.is_active?'info':Number(scope.row.stock_quantity)<=Number(scope.row.low_stock_threshold)?'danger':'success'">{{!scope.row.is_active?'已归档':Number(scope.row.stock_quantity)<=Number(scope.row.low_stock_threshold)?'库存偏低':'充足'}}</el-tag></template></el-table-column>
       <el-table-column label="操作" width="290" fixed="right"><template #default="scope"><div class="stock-actions"><template v-if="canCapability('inventory_write')&&scope.row.is_active"><el-button data-testid="stock-adjust" size="small" type="primary" plain :disabled="saving" @click="adjust(scope.row)">入库</el-button><el-button data-testid="stock-edit" size="small" :disabled="saving" @click="edit(scope.row)">编辑</el-button></template><el-button size="small" @click="historyId=scope.row.id">流水</el-button><el-button v-if="canCapability('inventory_write')&&scope.row.is_active" class="archive-action" data-testid="stock-archive" link type="danger" :disabled="saving" @click="archive(scope.row)">归档</el-button></div></template></el-table-column>
     </el-table></el-card>
     <section class="stock-details">
@@ -186,7 +194,7 @@ onBeforeUnmount(()=>unsubscribeRealtime?.())
       <el-alert v-if="masterValidation" data-testid="stock-validation" :title="masterValidation" type="warning" :closable="false"/>
       <el-form label-position="top" :disabled="saving || authorizing"><el-form-item label="库存名称"><el-input v-model="masterForm.name"/></el-form-item><el-form-item label="基本单位（例如袋、瓶）"><el-input v-model="masterForm.base_unit" :disabled="!!editingId"/></el-form-item><el-form-item label="入库包装单位（选填）"><el-input v-model="masterForm.package_unit" placeholder="箱、包"/></el-form-item><el-form-item label="每包装基本单位数"><el-input v-model="masterForm.units_per_package" inputmode="decimal"/></el-form-item>
         <template v-if="!editingId"><el-form-item label="期初数量（0表示暂不入库）"><el-input v-model="masterForm.opening_quantity" inputmode="decimal"/></el-form-item><el-form-item label="期初输入单位"><el-select v-model="masterForm.opening_unit"><el-option :label="masterForm.base_unit||'基本单位'" value="base"/><el-option v-if="masterForm.package_unit" :label="masterForm.package_unit" value="package"/></el-select></el-form-item><div class="receiving-preview"><p data-testid="opening-preview">换算结存 {{openingPreview}} {{masterForm.base_unit}}</p><p>自动预警 {{warningPreview(openingPreview)}} {{masterForm.base_unit}}（入库量15%）</p></div><el-form-item :label="'成本单价（元/'+(masterForm.opening_unit==='package'?masterForm.package_unit:masterForm.base_unit)+'，可后补）'"><el-input v-model="masterForm.unit_cost" inputmode="decimal" placeholder="未设置"/></el-form-item><p data-testid="opening-cost-preview"><template v-if="openingCost">总成本 ¥{{openingCost.total}} · 基本单位成本 ¥{{openingCost.baseUnit}}</template><template v-else>成本未设置，不按0元统计</template></p></template>
-        <template v-else><el-form-item :label="'库存成本单价（元/'+masterForm.base_unit+'）'"><el-input data-testid="master-unit-cost" v-model="masterForm.unit_cost" inputmode="decimal" placeholder="未设置" :disabled="authorizing"/></el-form-item><p class="muted">库存成本按基本单位设置；修改已有成本需本人登录密码。历史入库成本独立保留。预警由每次采购入库量自动计算。</p></template>
+        <template v-else><el-form-item label="成本计价单位"><select data-testid="master-cost-basis" v-model="costBasis" :disabled="saving||authorizing"><option value="base">每{{masterForm.base_unit}}</option><option v-if="masterForm.package_unit" value="package">每{{masterForm.package_unit}}</option></select></el-form-item><el-form-item :label="'库存参考成本（元/'+(costBasis==='package'?masterForm.package_unit:masterForm.base_unit)+'）'"><el-input data-testid="master-unit-cost" v-model="masterForm.unit_cost" inputmode="decimal" placeholder="未设置" :disabled="authorizing"/></el-form-item><p data-testid="master-cost-preview"><template v-if="referencePreview">包装成本 ¥{{referencePreview.packageCost}}/{{masterForm.package_unit||masterForm.base_unit}} · 基本成本 ¥{{referencePreview.baseCost}}/{{masterForm.base_unit}}</template><template v-else>参考成本未设置</template></p><p class="muted">可按箱或袋设置，另一项自动换算；修改已有成本需本人密码。历史入库成本独立保留。</p></template>
       </el-form><template #footer><el-button :disabled="saving || authorizing" @click="masterOpen=false">取消</el-button><el-button data-testid="stock-save" type="primary" :loading="saving || authorizing" :disabled="saving || authorizing" @click="saveMaster">保存库存</el-button></template>
     </el-drawer>
     <el-drawer v-model="drawerOpen" title="库存入库 / 调整" size="500px" :close-on-click-modal="!saving" :close-on-press-escape="!saving">

@@ -22,7 +22,7 @@ it('creates independent stock with four boxes previewing exactly 800.000 bags an
   try {
     await flushPromises()
     expect(wrapper.text()).toContain('800.000 袋')
-    expect(wrapper.text()).toContain('10.000 瓶')
+    expect(wrapper.text()).toContain('10 瓶')
     await wrapper.get('[data-testid="stock-new"]').trigger('click')
     const vm=wrapper.vm as any
     Object.assign(vm.masterForm,{name:'奶浴袋',category:'耗材',base_unit:'袋',package_unit:'箱',units_per_package:'200',opening_quantity:'4',opening_unit:'package'})

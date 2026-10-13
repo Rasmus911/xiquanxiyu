@@ -11,6 +11,8 @@ from ..auth_service import current_employee, require_permission, verify_sensitiv
 from ..extensions import db
 from ..financial_lock import serialized_financial_write
 from ..idempotency_service import financial_request_key, guard_financial_request
+from ..member_payment import prepare_member_payment, prepare_pass_usage, record_pass_usage, refund_pass_usage
+from ..member_card_models import MemberCardBinding
 from ..models import (
     Member,
     OrderItem,
@@ -56,7 +58,7 @@ def _checkout_scope(body):
 
 def _expand_open_visits(requested_visit_ids, lock=False, include_linked=True):
     requested_visit_ids = sorted(set(requested_visit_ids))
-    query = Visit.query.filter(Visit.id.in_(requested_visit_ids), Visit.status == "open")
+    query = Visit.query.filter(Visit.id.in_(requested_visit_ids), Visit.status == "open").order_by(Visit.id)
     if lock:
         query = query.with_for_update()
     requested_visits = query.all()
@@ -65,7 +67,7 @@ def _expand_open_visits(requested_visit_ids, lock=False, include_linked=True):
     party_ids = {row.party_id for row in requested_visits if row.party_id}
     visits = list(requested_visits)
     if party_ids:
-        party_query = Visit.query.filter(Visit.party_id.in_(party_ids), Visit.status == "open")
+        party_query = Visit.query.filter(Visit.party_id.in_(party_ids), Visit.status == "open").order_by(Visit.id)
         if lock:
             party_query = party_query.with_for_update()
         party_visits = party_query.all()
@@ -119,10 +121,18 @@ def preview():
                 "party_id": visit.party_id,
             }
         )
+    member = prepare_member_payment(visits, body, required=body.get('pass_use') is not None, lock=False)
+    usage = prepare_pass_usage(visits, body.get('pass_use'), member, lock=False)
     return success(
         {
             "visits": details,
             "total_amount": decimal_str(total),
+            "pass_redemption_amount": decimal_str(usage.amount),
+            "pass_redemption_count": usage.count,
+            "amount_due": decimal_str(total - usage.amount),
+            "pass_redemptions": [{"visit_id": row.visit_id, "order_item_id": row.order_item_id,
+                "member_pass_id": usage.member_pass_id, "count": 1, "amount": decimal_str(row.amount)}
+                for row in usage.tickets],
             "auto_included_linked_visits": len(visits) - len(requested_visit_ids),
             "checkout_scope": checkout_scope,
         }
@@ -182,24 +192,19 @@ def complete_checkout():
         amount = _money(payment.get("amount"))
         normalized_payments.append((method, amount, str(payment.get("reference", "")).strip()))
         paid_amount += amount
-    if paid_amount.quantize(Decimal("0.01")) != total_amount:
-        raise ApiError(
-            "支付金额必须等于应收金额",
-            details={"expected": decimal_str(total_amount), "actual": decimal_str(paid_amount)},
-        )
-
-    member = None
     balance_amount = sum(
         (amount for method, amount, _ref in normalized_payments if method == "balance"),
         Decimal("0.00"),
     )
-    if balance_amount:
-        member_id = body.get("member_id") or next((row.member_id for row in visits if row.member_id), None)
-        member = Member.query.with_for_update().filter_by(id=member_id, is_active=True).first()
-        if not member:
-            raise ApiError("使用储值支付时必须选择有效会员")
-        if Decimal(member.balance) < balance_amount:
-            raise ApiError("会员储值余额不足", 409, "INSUFFICIENT_BALANCE")
+    member = prepare_member_payment(visits, body,
+        required=bool(balance_amount) or body.get('pass_use') is not None, lock=True)
+    usage = prepare_pass_usage(visits, body.get('pass_use'), member, lock=True)
+    amount_due = total_amount - usage.amount
+    if paid_amount.quantize(Decimal("0.01")) != amount_due:
+        raise ApiError('组合支付金额必须等于次卡抵扣后的应付金额',
+            details={'expected': decimal_str(amount_due), 'actual': decimal_str(paid_amount)})
+    if balance_amount and Decimal(member.balance) < balance_amount:
+        raise ApiError("会员储值余额不足", 409, "INSUFFICIENT_BALANCE")
 
     settlement = Settlement(
         number=_receipt_number(),
@@ -213,6 +218,7 @@ def complete_checkout():
     )
     db.session.add(settlement)
     db.session.flush()
+    record_pass_usage(settlement, usage, employee)
 
     for visit, amount in totals:
         db.session.add(SettlementVisit(settlement_id=settlement.id, visit_id=visit.id, amount=amount))
@@ -266,6 +272,10 @@ def complete_checkout():
 
     print_job = PrintJob(settlement_id=settlement.id, terminal_id=terminal_id)
     db.session.add(print_job)
+    verification = body.get('member_verification') or {}
+    binding = db.session.get(MemberCardBinding, verification['card_binding_id']) if verification.get('method') == 'card' else None
+    member_card = {'card_uid': binding.card_uid if binding else None,
+                   'holder_surname': member.holder_surname} if member else None
     write_audit(
         "checkout.complete",
         "settlement",
@@ -275,6 +285,9 @@ def complete_checkout():
             "visit_ids": visit_ids,
             "checkout_scope": checkout_scope,
             "total_amount": str(total_amount),
+            "pass_redemption_count": usage.count,
+            "pass_redemption_amount": str(usage.amount),
+            "member_card": member_card,
             "payments": [
                 {"method": method, "amount": str(amount), "reference": reference}
                 for method, amount, reference in normalized_payments
@@ -290,9 +303,20 @@ def complete_checkout():
 @bp.get("/<settlement_id>/receipt")
 @require_permission("checkout:write")
 def receipt(settlement_id):
+    return success(_current_settlement_receipt(settlement_id))
+
+
+def _current_settlement_receipt(settlement_id):
     settlement = db.session.get(Settlement, settlement_id)
     if not settlement:
         raise ApiError("结算单不存在", 404, "NOT_FOUND")
+    job = PrintJob.query.filter_by(settlement_id=settlement.id).first()
+    if not job:
+        from ..receipt_retention import require_current_receipt
+        require_current_receipt(settlement)
+        raise ApiError('小票记录已清理',410,'RECEIPT_EXPIRED')
+    from ..receipt_retention import require_current_receipt
+    require_current_receipt(job)
     links = SettlementVisit.query.filter_by(settlement_id=settlement.id).all()
     visit_rows = []
     for link in links:
@@ -318,24 +342,33 @@ def receipt(settlement_id):
         )
     setting = SystemSetting.query.filter_by(key="store_name").first()
     payments = Payment.query.filter_by(settlement_id=settlement.id).all()
-    job = PrintJob.query.filter_by(settlement_id=settlement.id).first()
-    return success(
-        {
+    return _settlement_receipt_payload(settlement,visit_rows,payments,setting,job)
+
+
+def _settlement_receipt_payload(settlement,visits,payments,setting,job):
+    return {
             "store_name": setting.value if setting else "溪泉洗浴",
             "settlement": _load_settlement_payload(settlement),
-            "visits": visit_rows,
+            "visits": visits,
             "payments": [payment_dict(row) for row in payments],
             "print_job_id": job.id if job else None,
             "print_attempts": job.attempts if job else 0,
         }
-    )
 
 
 @bp.get("/print-jobs")
 @require_permission("print:write")
 def list_print_jobs():
+    from ..receipt_retention import as_utc, business_day_bounds
+    from .service_print import pagination
     statuses = request.args.getlist("status") or ["pending", "failed"]
-    jobs = PrintJob.query.filter(PrintJob.status.in_(statuses)).order_by(PrintJob.created_at.desc()).limit(100).all()
+    if any(value not in {'pending','failed','success'} for value in statuses):
+        raise ApiError('打印状态筛选无效')
+    now = utcnow(); start,end = business_day_bounds(now)
+    query = PrintJob.query.filter(PrintJob.status.in_(statuses),PrintJob.created_at>=start,PrintJob.created_at<end)
+    total = query.count(); paged = request.args.get('paged')=='true'
+    page,size = pagination() if paged else (1,100)
+    jobs = query.order_by(PrintJob.created_at.desc(),PrintJob.id.desc()).offset((page-1)*size).limit(size).all()
     result = []
     for job in jobs:
         settlement = db.session.get(Settlement, job.settlement_id)
@@ -348,19 +381,45 @@ def list_print_jobs():
                 "status": job.status,
                 "attempts": job.attempts,
                 "last_error": job.last_error,
-                "created_at": job.created_at.isoformat(),
+                "created_at": as_utc(job.created_at).isoformat(),
             }
         )
-    return success(result)
+    return success({'items':result,'total':total,'page':page,'page_size':size,
+                    'server_time':as_utc(now).isoformat(),'expires_at':end.isoformat()} if paged else result)
+
+
+@bp.post('/<settlement_id>/print-attempts')
+@require_permission('print:write')
+def begin_print_attempt(settlement_id):
+    from ..receipt_service import begin_attempt
+    employee = current_employee()
+    job = PrintJob.query.populate_existing().filter_by(settlement_id=settlement_id).with_for_update().first()
+    if not job: raise ApiError('打印任务不存在',404,'NOT_FOUND')
+    result,status = begin_attempt(employee,job,request.get_json(silent=True),_current_settlement_receipt(settlement_id),False)
+    return success(result,status=status)
+
+
+@bp.post('/<settlement_id>/print-attempts/<attempt_id>/result')
+@require_permission('print:write')
+def finish_print_attempt(settlement_id,attempt_id):
+    from ..receipt_service import finish_attempt
+    employee = current_employee()
+    job = PrintJob.query.populate_existing().filter_by(settlement_id=settlement_id).with_for_update().first()
+    if not job: raise ApiError('打印任务不存在',404,'NOT_FOUND')
+    return success(finish_attempt(employee,job,attempt_id,request.get_json(silent=True),False))
 
 
 @bp.post("/<settlement_id>/print-result")
 @require_permission("print:write")
 def record_print_result(settlement_id):
-    job = PrintJob.query.filter_by(settlement_id=settlement_id).first()
+    job = PrintJob.query.populate_existing().filter_by(settlement_id=settlement_id).with_for_update().first()
     if not job:
         raise ApiError("打印任务不存在", 404, "NOT_FOUND")
     body = request.get_json(silent=True) or {}
+    from ..receipt_retention import require_current_receipt
+    require_current_receipt(job)
+    if not isinstance(body,dict) or type(body.get('success')) is not bool:
+        raise ApiError('打印结果格式无效',400,'INVALID_PRINT_RESULT')
     job.attempts += 1
     if body.get("success"):
         job.status = "success"
@@ -423,6 +482,7 @@ def refund(settlement_id):
                     note=reason,
                 )
             )
+    refund_pass_usage(settlement, employee, reason)
     settlement.status = "refunded"
     settlement.version += 1
     write_audit(

@@ -6,6 +6,7 @@ import re
 import stat
 import subprocess
 import hmac
+import traceback
 from types import SimpleNamespace
 from datetime import datetime, timezone
 from pathlib import Path
@@ -249,7 +250,39 @@ def collect_snapshot_checks(connection):
         audit_valid=_verify_snapshot_audit(connection))
 
 
-def run_snapshot_dump(source_url, exported_snapshot, target):
+class PrivateBackupDiagnostic:
+    """Explicit maintenance-CLI opt-in; record once before legacy masking."""
+    def __init__(self, path):
+        if not current_app.config.get('MAINTENANCE_PROCESS'):
+            raise BackupReceiptError('Explicit maintenance process is required')
+        self.path = Path(path)
+        if not re.fullmatch(r'backup-diagnostic-[0-9a-f]{32}\.json', self.path.name):
+            raise BackupReceiptError('Invalid private diagnostic filename')
+        private_path(self.path.parent, directory=True)
+        if self.path.exists():
+            raise BackupReceiptError('Private diagnostic must be fresh')
+        self.record = None
+
+    def __call__(self, error, boundary):
+        if self.record is not None:
+            return
+        code = getattr(error, 'returncode', None)
+        category = ('timeout' if isinstance(error, subprocess.TimeoutExpired) else
+                    'sigkill137' if code in (137, -9) else 'exit' if code is not None else 'verification')
+        def decode(value):
+            return value.decode('utf-8', 'replace') if isinstance(value, bytes) else value or ''
+        record = dict(boundary=boundary, category=category, exit_code=code,
+            command=getattr(error, 'cmd', None), timeout_seconds=getattr(error, 'timeout', None),
+            stdout=decode(getattr(error, 'stdout', None)), stderr=decode(getattr(error, 'stderr', None)),
+            traceback=''.join(traceback.format_exception(type(error), error, error.__traceback__)))
+        write_private_json(self.path, record)
+        self.record = record
+
+    def public_summary(self):
+        return ' category=' + (self.record['category'] if self.record else 'diagnostic')
+
+
+def run_snapshot_dump(source_url, exported_snapshot, target, *, diagnostic=None):
     """Keep the owner's exported transaction open while read-only pg_dump imports it."""
     try:
         url = make_url(current_app.config.get('RESET_BACKUP_DATABASE_URL') or '')
@@ -282,11 +315,12 @@ def run_snapshot_dump(source_url, exported_snapshot, target):
         # This is only a format check, NEVER a verified restore status.
         subprocess.run([restore, '--list', str(target)], env=environment,
             capture_output=True, check=True, timeout=60)
-    except Exception:
+    except Exception as error:
+        if diagnostic is not None: diagnostic(error, 'snapshot-dump')
         raise BackupReceiptError('PostgreSQL 17 snapshot backup failed; private credentials were not logged') from None
 
 
-def create_operations_snapshot(output):
+def create_operations_snapshot(output, *, diagnostic=None):
     from .operations_upgrade import maintenance_connection
     output = Path(output)
     private_path(output, directory=True)
@@ -301,7 +335,7 @@ def create_operations_snapshot(output):
             raise BackupReceiptError('Audit chain verification failed; no verified backup may be produced')
         with target.open('xb'):
             os.chmod(target, 0o600)
-        run_snapshot_dump(connection.engine.url, exported, target)
+        run_snapshot_dump(connection.engine.url, exported, target, diagnostic=diagnostic)
         digest, size = file_digest(target)
         if size <= 0:
             raise BackupReceiptError('Snapshot dump is empty')
@@ -313,7 +347,7 @@ def create_operations_snapshot(output):
         restore_status='pending', table_count=len(checks['tables']))
 
 
-def verify_operations_restore(candidate_path, restore_url):
+def verify_operations_restore(candidate_path, restore_url, *, diagnostic=None):
     from .operations_upgrade import maintenance_connection
     candidate_path = private_path(candidate_path)
     if candidate_path.stat().st_size > 1024 * 1024:
@@ -340,9 +374,11 @@ def verify_operations_restore(candidate_path, restore_url):
             write_private_json(candidate_path.parent / 'receipt.json', verified)
             source.rollback()
             restored.rollback()
-    except BackupReceiptError:
+    except BackupReceiptError as error:
+        if diagnostic is not None: diagnostic(error, 'restore-verification')
         raise
-    except Exception:
+    except Exception as error:
+        if diagnostic is not None: diagnostic(error, 'restore-verification')
         raise BackupReceiptError('Restore verification failed; no deployment receipt was authorized') from None
     finally:
         if engine is not None:
@@ -362,23 +398,34 @@ def register_operations_backup_cli(app):
 
     @backup_cli.command('create')
     @click.option('--output', required=True, type=click.Path(path_type=Path))
-    def create_command(output):
+    @click.option('--private-evidence', type=click.Path(path_type=Path), default=None)
+    def create_command(output, private_evidence):
         require_maintenance()
+        diagnostic = None
         try:
-            result = create_operations_snapshot(output)
-        except Exception:
-            raise click.ClickException('Private snapshot failed; inspect maintenance configuration, tools and audit chain') from None
+            diagnostic = PrivateBackupDiagnostic(private_evidence) if private_evidence else None
+            result = create_operations_snapshot(output, **({'diagnostic': diagnostic} if diagnostic else {}))
+        except Exception as error:
+            if diagnostic is not None: diagnostic(error, 'snapshot-create')
+            raise click.ClickException('Private snapshot failed; inspect maintenance configuration, tools and audit chain' +
+                (diagnostic.public_summary() if diagnostic else '')) from None
         click.echo(_canonical(result))
 
     @backup_cli.command('verify-restored')
     @click.option('--database-url-env', required=True)
     @click.option('--receipt', required=True, type=click.Path(exists=True, path_type=Path))
-    def verify_command(database_url_env, receipt):
+    @click.option('--private-evidence', type=click.Path(path_type=Path), default=None)
+    def verify_command(database_url_env, receipt, private_evidence):
         require_maintenance()
         if database_url_env != 'XIQUAN_RESTORE_DATABASE_URL':
             raise click.ClickException('Only the dedicated isolated restore environment is accepted')
+        diagnostic = None
         try:
-            result = verify_operations_restore(receipt, os.environ.get(database_url_env, ''))
-        except Exception:
-            raise click.ClickException('Private restore verification failed; no verified receipt was generated') from None
+            diagnostic = PrivateBackupDiagnostic(private_evidence) if private_evidence else None
+            result = verify_operations_restore(receipt, os.environ.get(database_url_env, ''),
+                **({'diagnostic': diagnostic} if diagnostic else {}))
+        except Exception as error:
+            if diagnostic is not None: diagnostic(error, 'restore-command')
+            raise click.ClickException('Private restore verification failed; no verified receipt was generated' +
+                (diagnostic.public_summary() if diagnostic else '')) from None
         click.echo(_canonical(result))

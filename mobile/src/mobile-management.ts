@@ -1,4 +1,4 @@
-export type MobileTab = 'orders' | 'reports' | 'inventory' | 'catalog'
+export type MobileTab = 'orders' | 'reports' | 'inventory' | 'catalog' | 'registration-token'
 
 interface ManagementCapabilities {
   registration_token_view?: boolean
@@ -21,11 +21,14 @@ export function scopedMobileCapabilities(capabilities: ManagementCapabilities | 
   }
 }
 
-export function availableMobileTabs(capabilities?: ManagementCapabilities): MobileTab[] {
+export function availableMobileTabs(capabilities?: ManagementCapabilities, username?: string): MobileTab[] {
   const tabs: MobileTab[] = capabilities?.orders_view === true ? ['orders'] : []
   if (capabilities?.reports_view ?? capabilities?.reports) tabs.push('reports')
   if (capabilities?.inventory_manage ?? capabilities?.inventory_add) tabs.push('inventory')
   if (capabilities?.catalog_manage === true) tabs.push('catalog')
+  if (capabilities?.registration_token_view === true && (username === '18631459666' || username === '18603346509')) {
+    tabs.push('registration-token')
+  }
   return tabs
 }
 
@@ -57,4 +60,3 @@ export function mobileReportCards(summary: Partial<MobileReportSummary>) {
   ]
 }
 import type { MobileReportSummary } from './types'
-

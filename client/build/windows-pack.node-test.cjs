@@ -5,6 +5,15 @@ const path = require('node:path')
 const { fixture } = require('../../scripts/lib/desktop-release-fixture.cjs')
 const { targetIds } = require('../electron/target-profiles.cjs')
 const { buildWindowsRelease } = require('./windows-pack.cjs')
+test('NSIS output lock retry is bounded and does not swallow unrelated build failures',async()=>{
+  const {buildTargetWithRetry}=require('./windows-pack.cjs')
+  let calls=0;const delays=[],config={directories:{output:'fixture'}}
+  const locked=()=>{const e=new Error("makensis.exe failed: Can't open output file");e.code='ERR_ELECTRON_BUILDER_CANNOT_EXECUTE';return e}
+  await buildTargetWithRetry(config,async actual=>{assert.equal(actual,config);if(++calls<3)throw locked()},async ms=>delays.push(ms))
+  assert.equal(calls,3);assert.deepEqual(delays,[2000,4000])
+  calls=0;await assert.rejects(buildTargetWithRetry(config,async()=>{calls++;throw Error('invalid config')},async()=>{}),/invalid config/);assert.equal(calls,1)
+  calls=0;await assert.rejects(buildTargetWithRetry(config,async()=>{calls++;throw locked()},async()=>{}),/open output/);assert.equal(calls,3)
+})
 test('the runner rejects a relative offline cache before writing any build output', async () => {
   const f = await fixture()
   try {

@@ -64,7 +64,7 @@ def test_package_change_cancel_and_void_do_not_double_move_stock(client,formal_c
     client.post('/api/inventory/adjust',headers=h,json={'catalog_item_id':supplies.id,
         'quantity':10,'movement_type':'purchase','note':'隔离采购','idempotency_key':'stock'})
     sale=add(client,h,visit_id,[('bath.supplies',3)])[0]
-    assert supplies.stock_quantity==7
+    assert supplies.stock_quantity==10
     assert package(client,h,visit_id).status_code==200
     line=db.session.get(OrderItem,sale['id'])
     assert (line.quantity,line.covered_quantity,line.total_amount)==(D(3),D(1),D(14))
@@ -73,7 +73,7 @@ def test_package_change_cancel_and_void_do_not_double_move_stock(client,formal_c
     assert total(visit_id)==59
     assert package(client,h,visit_id,'B','replace',confirm_replace=True).status_code==200
     assert total(visit_id)==69
-    assert supplies.stock_quantity==7
+    assert supplies.stock_quantity==10
     movement_count=InventoryMovement.query.count()
     response=client.delete(f'/api/visits/{visit_id}/package',headers=h,json={
         'version':db.session.get(Visit,visit_id).version,'idempotency_key':'cancel'})
@@ -118,16 +118,16 @@ def test_package_replay_is_hash_bound_and_does_not_duplicate_parent(client,forma
 
 def test_batch_package_and_actual_services_commit_once_or_roll_back_together(client,formal_catalog,strict_owner_session):
     h=strict_owner_session['headers']; visit_id=open_visit(client,h)
-    # This rollback case needs a physical product, not the new no-stock service.
+    # 0.5.5 no longer blocks a sale on manual stock balance; billing stays atomic.
     supplies=item('bath.supplies')
     supplies.kind='product'; supplies.stock_tracked=True
     db.session.commit()
     response=client.post(f'/api/visits/{visit_id}/items/batch',headers=h,json={'idempotency_key':'out-stock',
         'items':[{'catalog_item_id':item('package.A').id,'quantity':1},
             {'catalog_item_id':item('bath.supplies').id,'quantity':1}]})
-    assert response.status_code==409
-    assert OrderItem.query.filter_by(visit_id=visit_id).count()==1
-    assert total(visit_id)==15
+    assert response.status_code==201
+    assert OrderItem.query.filter_by(visit_id=visit_id).count()==3
+    assert total(visit_id)==45
     add(client,h,visit_id,[('package.A',1),('bath.scrub',1),('bath.cup',1)],'mixed-package')
     assert total(visit_id)==45
     assert InventoryMovement.query.count()==0

@@ -23,4 +23,11 @@ describe('native updater state', () => {
     expect(reduceUpdater(downloaded, { type: 'permission-required' }).status).toBe('needs-install-permission')
     expect(reduceUpdater(downloaded, { type: 'installing' }).status).toBe('installing')
   })
+
+  it.each(['downloaded', 'needs-install-permission', 'installing'] as const)(
+    'ignores late native progress after reaching %s', (status) => {
+      const state = {status,percent:100 as const,error:null,path:'/cache/updates/verified.apk'}
+      expect(reduceUpdater(state, {type:'progress',percent:100})).toEqual(state)
+    },
+  )
 })

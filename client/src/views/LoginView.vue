@@ -9,6 +9,7 @@ import { StaleBusinessResponse } from '../business/state'
 import { businessState } from '../business/state'
 import { landingPath } from '../navigation/access'
 import RegistrationDialog from '../components/auth/RegistrationDialog.vue'
+import LoginScene from '../components/auth/LoginScene.vue'
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -26,6 +27,7 @@ async function checkUpdates() {
   finally { if (active) checkingUpdates.value = false }
 }
 const loading = ref(false)
+const loginError = ref('')
 let active = true
 onBeforeUnmount(() => { active = false })
 const setupOpen = ref(false)
@@ -68,6 +70,8 @@ async function saveAndRegister() {
 
 async function submitLogin() {
   if (loading.value) return
+  loginError.value = ''
+  if (!form.username.trim() || !form.password) { loginError.value = '请输入员工账号和密码'; return }
   loading.value = true
   let obsolete = false
   try {
@@ -78,7 +82,7 @@ async function submitLogin() {
     await router.replace(landingPath(businessState.value?.ui_pages || []))
   } catch (error) {
     obsolete = error instanceof StaleBusinessResponse
-    if (active && !obsolete) ElMessage.error(apiErrorMessage(error))
+    if (active && !obsolete) loginError.value = apiErrorMessage(error)
   } finally {
     if (active && !obsolete) loading.value = false
   }
@@ -98,23 +102,24 @@ async function submitBootstrap() {
 
 <template>
   <div class="login-page">
-    <el-card class="login-card" shadow="always">
-      <div class="logo">溪</div>
-      <h1>溪泉洗浴管理系统</h1>
-      <p class="muted">手牌、收银、会员、库存与经营报表</p>
+    <LoginScene>
+      <div class="login-heading"><span class="login-caption">经营管理系统</span><h2>欢迎回来</h2><p>请使用您的员工账号登录</p></div>
       <el-form label-position="top" @submit.prevent="submitLogin">
-        <el-form-item label="员工账号"><el-input v-model="form.username" size="large" autofocus /></el-form-item>
-        <el-form-item label="密码"><el-input v-model="form.password" type="password" show-password size="large" @keyup.enter="submitLogin" /></el-form-item>
+        <el-form-item label="员工账号"><el-input v-model="form.username" size="large" autofocus autocomplete="username" @keyup.enter="submitLogin" /></el-form-item>
+        <el-form-item label="密码"><el-input v-model="form.password" type="password" show-password size="large" autocomplete="current-password" @keyup.enter="submitLogin" /></el-form-item>
+        <p v-if="loginError" class="login-error" role="alert">{{ loginError }}</p>
         <el-button type="primary" size="large" class="full-width" :loading="loading" @click="submitLogin">登录</el-button>
       </el-form>
-      <div class="login-actions">
+      <div v-if="desktopUpdates" class="login-primary-actions" data-testid="login-primary-actions">
         <el-button v-if="desktopUpdates" data-testid="login-register" link @click="registrationOpen = true">注册账号</el-button>
         <el-button v-if="desktopUpdates" data-testid="login-check-updates" link :loading="checkingUpdates" @click="checkUpdates">检查更新</el-button>
+      </div>
+      <div class="login-setup-actions" data-testid="login-setup-actions">
         <el-button link @click="setupOpen = true">服务器与终端设置</el-button>
         <el-button link @click="bootstrapOpen = true">首次初始化管理员</el-button>
       </div>
       <div class="terminal-info">终端：{{ config.terminalName }}（{{ config.terminalCode }}）</div>
-    </el-card>
+    </LoginScene>
     <RegistrationDialog v-if="desktopUpdates" v-model="registrationOpen" :terminal-code="config.terminalCode" @registered="registered" />
 
     <el-dialog v-model="setupOpen" title="服务器与终端设置" width="520px">
@@ -140,11 +145,19 @@ async function submitBootstrap() {
 </template>
 
 <style scoped>
-.login-page { min-height: 100vh; display: grid; place-items: center; background: var(--xq-bg-page); }
-.login-card { width: 430px; padding: 24px; border-radius: 18px; }
-.logo { width: 58px; height: 58px; border-radius: 18px; display: grid; place-items: center; margin: 0 auto; background: #1aa994; color: white; font-weight: 800; font-size: 30px; }
-h1 { text-align: center; margin: 16px 0 5px; }
-p { text-align: center; margin: 0 0 22px; }
-.login-actions { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-.terminal-info { margin-top: 12px; text-align: center; color: #8791a5; font-size: 12px; }
+.login-page { min-height: 100vh; }
+.login-heading { margin-bottom: 32px; }
+.login-caption { color: #947d62; font-size: 12px; letter-spacing: .14em; }
+h2 { margin: 14px 0 8px; font-size: 28px; color: #40332d; }
+.login-heading p { color: #8b7a68; font-size: 13px; margin: 0; }
+.login-error { color: #a23c2c; font-size: 13px; margin: -2px 0 16px; line-height: 1.6; }
+.full-width { width: 100%; min-height: 48px; transition: background .2s, box-shadow .2s; }
+.full-width:hover { box-shadow: 0 4px 12px #925a4320; }
+.full-width:active { box-shadow: none; }
+.login-primary-actions, .login-setup-actions { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.login-primary-actions { margin-top: 18px; padding-bottom: 16px; border-bottom: 1px solid #e3d9ca; }
+.login-setup-actions { margin-top: 14px; }
+.login-primary-actions :deep(.el-button), .login-setup-actions :deep(.el-button) { margin-left: 0; min-height: 30px; }
+.login-setup-actions :deep(.el-button) { color: #8b7a68; font-size: 12px; white-space: normal; }
+.terminal-info { margin-top: 20px; text-align: center; color: #9e8f7c; font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
 </style>

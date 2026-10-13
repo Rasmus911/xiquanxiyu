@@ -44,54 +44,55 @@ async function render() {
   await flushPromises()
   return { wrapper, router }
 }
-it('opens materials only in a target-bound dialog and cancel makes no order request',async()=>{
- const {wrapper}=await render()
- try{
-  finish.get('a')!();await flushPromises()
-  wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('select',product);await flushPromises()
-  expect(wrapper.findComponent({name:'ConsumptionEditor'}).exists()).toBe(false)
-  await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-  expect(wrapper.get('[data-testid="order-materials-dialog"]').text()).toContain('001 号手牌')
-  expect(wrapper.get('[data-testid="order-materials-dialog"]').text()).toContain('搓泥宝 × 1')
-  await wrapper.get('[data-testid="cancel-order-materials"]').trigger('click');await flushPromises()
-  expect(posts).toEqual([])
-  expect(wrapper.findComponent({name:'ConsumptionEditor'}).exists()).toBe(false)
- }finally{wrapper.unmount()}
-})
-it.each([{period_id:'next-period'},{policy_version:2},{maintenance:true},{capabilities:{visit_order:false}}])('same-security refresh preserves material choices but revocation %j closes the dialog',async(change)=>{
+it('0.5.5 submits directly without a consumable choice and ignores zero stock',async()=>{
  const {wrapper}=await render()
  try{
   finish.get('a')!();await flushPromises()
   wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('select',product);await flushPromises()
   await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-  await wrapper.get('[data-testid="no-consumption-soap"]').setValue(true)
-  const initial=businessState.value!
-  acceptBusinessState({...initial,business_revision:1,capabilities:{visit_order:true}});await flushPromises()
-  expect(wrapper.findComponent({name:'ConsumptionEditor'}).exists()).toBe(true)
-  expect((wrapper.get('[data-testid="no-consumption-soap"]').element as HTMLInputElement).checked).toBe(true)
-  acceptBusinessState({...businessState.value!,...change});await flushPromises()
-  expect(wrapper.findComponent({name:'ConsumptionEditor'}).exists()).toBe(false)
-  expect(posts).toEqual([])
+  expect(posts).toHaveLength(1)
+  expect(posts[0]).toMatchObject({url:'/visits/a/items/batch',body:{items:[{catalog_item_id:'soap',quantity:1,inventory_mode:'manual',inventory_consumption:[]}]}})
+  expect(wrapper.find('[data-testid="order-materials-dialog"]').exists()).toBe(false)
  }finally{wrapper.unmount()}
 })
-it('forced band change and session invalidation discard the open dialog without copying its sales draft',async()=>{
- const {wrapper,router}=await render()
- try{
+it('clearing a selection before submit cannot create an order',async()=>{
+ const {wrapper}=await render()
+ try{finish.get('a')!();await flushPromises();const picker=wrapper.findComponent({name:'CatalogPicker'});picker.vm.$emit('quantity',product,2);await flushPromises();picker.vm.$emit('quantity',product,0);await flushPromises();await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises();expect(posts).toEqual([])}finally{wrapper.unmount()}
+})
+it('a successful staff batch prints once and USB failure never submits the order again',async()=>{
+ const previous = http.defaults.adapter as any
+ const print = vi.fn(async () => ({success:false,error:'USB offline'}))
+ window.xiquan = {printReceipt:print,setBusinessBusy:vi.fn(async () => ({}))} as any
+ http.defaults.adapter = async config => {
+  if(config.url==='/visits/a/items/batch') {
+   posts.push({url:config.url,body:JSON.parse(config.data)})
+   return {config,headers:{},status:201,statusText:'',data:{data:[],meta:{service_print_job:{id:'job',kind:'order',created_at:'2026-10-11T01:00:00Z',expires_at:'2026-10-11T16:00:00Z'}}}}
+  }
+  if(String(config.url).startsWith('/service-print-jobs/')) {
+   posts.push({url:config.url,body:JSON.parse(config.data)})
+   return {config,headers:{},status:201,statusText:'',data:{data:{id:'attempt',print_allowed:true,receipt:{receipt_kind:'order',wristband_number:'001'}}}}
+  }
+  return previous(config)
+ }
+ const {wrapper}=await render()
+ try {
   finish.get('a')!();await flushPromises()
   wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('select',product);await flushPromises()
   await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-  await wrapper.get('[data-testid="no-consumption-soap"]').setValue(true)
-  expect(wrapper.findComponent({name:'CatalogPicker'}).props('disabled')).toBe(true)
-  expect(wrapper.find('.party-tabs button').attributes('disabled')).toBeDefined()
-  await router.push('/visits/b');await flushPromises();finish.get('b')!();await flushPromises()
-  expect(wrapper.findComponent({name:'ConsumptionEditor'}).exists()).toBe(false)
-  expect(wrapper.findComponent({name:'CatalogPicker'}).props('quantities')).toEqual({})
-  await router.push('/visits/a');await flushPromises();finish.get('a')!();await flushPromises()
-  await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-  expect((wrapper.get('[data-testid="no-consumption-soap"]').element as HTMLInputElement).checked).toBe(false)
-  clearBusinessSession();await flushPromises()
-  expect(wrapper.findComponent({name:'ConsumptionEditor'}).exists()).toBe(false);expect(posts).toEqual([])
- }finally{wrapper.unmount()}
+  finish.get('a')!();await flushPromises()
+  expect(print).toHaveBeenCalledTimes(1)
+  expect(posts.filter(row=>row.url==='/visits/a/items/batch')).toHaveLength(1)
+  expect(posts.at(-1)).toMatchObject({url:'/service-print-jobs/job/attempts/attempt/result',body:{success:false,error:'USB offline'}})
+  expect(useRuntimeStore().businessBusyReason).toBeNull()
+ } finally {wrapper.unmount()}
+})
+it.each([{period_id:'next-period'},{policy_version:2},{maintenance:true},{capabilities:{visit_order:false}}])('security change %j prevents a subsequent order',async(change)=>{
+ const {wrapper}=await render()
+ try{finish.get('a')!();await flushPromises();wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('select',product);await flushPromises();acceptBusinessState({...businessState.value!,...change});await flushPromises();await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises();expect(posts).toEqual([])}finally{wrapper.unmount()}
+})
+it('session invalidation drops the sales draft without sending it',async()=>{
+ const {wrapper}=await render()
+ try{finish.get('a')!();await flushPromises();wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('select',product);await flushPromises();clearBusinessSession();await flushPromises();await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises();expect(posts).toEqual([]);expect(wrapper.findComponent({name:'ConsumptionEditor'}).exists()).toBe(false)}finally{wrapper.unmount()}
 })
 it('waits for one package replacement decision and revokes it if the target changes',async()=>{
  acceptBusinessState({period_id:'fixture',policy_version:1,business_revision:0,maintenance:false,owner_reset_allowed:false,capabilities:{visit_order:true,package_write:true}},['visit:order','visit:package'])
@@ -104,9 +105,6 @@ it('waits for one package replacement decision and revokes it if the target chan
  try{
   wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('select',replacement);await flushPromises()
   await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-  await wrapper.get('[data-testid="no-consumption-package-new"]').setValue(true)
-  await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises()
-  await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises()
   expect(confirm).toHaveBeenCalledTimes(1)
   await router.push('/visits/b');await flushPromises();resolve('confirm');await flushPromises()
   expect(posts).toEqual([])
@@ -132,11 +130,9 @@ it('a delayed desktop busy handshake cannot redirect A submission into B', async
     // Default mixed mode; use the picker event to exercise the real selection handlers.
     const picker = wrapper.findComponent({ name: 'CatalogPicker' })
     picker.vm.$emit('select', product); picker.vm.$emit('select', product); await flushPromises()
-    await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-    await wrapper.get('[data-testid="no-consumption-soap"]').setValue(true)
     let release!: () => void
     window.xiquan = { setBusinessBusy: vi.fn(reason => reason ? new Promise(resolve => { release = () => resolve({ businessBusyReason: reason } as any) }) : Promise.resolve({} as any)) } as any
-    await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click')
+    await wrapper.get('[data-testid="submit-order"]').trigger('click')
     await flushPromises()
     await router.push('/visits/b'); await flushPromises()
     release(); await flushPromises()
@@ -150,73 +146,15 @@ it('a delayed desktop busy handshake cannot redirect A submission into B', async
   } finally { wrapper.unmount() }
 })
 
-it('requires an explicit material decision and submits TOTAL base quantities at zero free stock',async()=>{
-  const {wrapper}=await render()
-  try {
-    finish.get('a')!();await flushPromises()
-    wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('quantity',product,2);await flushPromises()
-    await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-    expect(posts).toEqual([])
-    await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises()
-    expect(posts).toEqual([])
-    await wrapper.get('[data-testid="add-consumption-soap"]').trigger('click')
-    await wrapper.get('[data-testid="consumption-stock-soap-0"]').setValue('s1')
-    await wrapper.get('[data-testid="consumption-quantity-soap-0"]').setValue('1')
-    expect(wrapper.text()).toContain('0.000 袋')
-    await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises()
-    expect(posts[0].body.items).toEqual([{catalog_item_id:'soap',quantity:2,inventory_mode:'manual',inventory_consumption:[{stock_item_id:'s1',quantity:'1'}]}])
-  } finally {wrapper.unmount()}
-})
-
-it('linked targets keep separate sales drafts and explicit no consumption submits manual empty',async()=>{
-  const {wrapper}=await render()
-  try {
-    finish.get('a')!();await flushPromises()
-    wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('quantity',product,2);await flushPromises()
-    await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-    await wrapper.get('[data-testid="no-consumption-soap"]').setValue(true)
-    await wrapper.get('[data-testid="cancel-order-materials"]').trigger('click');await flushPromises()
-    wrapper.findComponent({name:'PartyTabs'}).vm.$emit('select','b');await flushPromises()
-    finish.get('b')!();await flushPromises()
-    expect(wrapper.findComponent({name:'CatalogPicker'}).props('quantities')).toEqual({})
-    wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('quantity',product,2);await flushPromises()
-    await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-    expect((wrapper.get('[data-testid="no-consumption-soap"]').element as HTMLInputElement).checked).toBe(false)
-    await wrapper.get('[data-testid="no-consumption-soap"]').setValue(true)
-    await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises()
-    expect(posts[0]).toMatchObject({url:'/visits/b/items/batch',body:{items:[{catalog_item_id:'soap',quantity:2,inventory_mode:'manual',inventory_consumption:[]}]}})
-    finish.get('b')!();await flushPromises()
-    expect(wrapper.find('[data-testid="no-consumption-soap"]').exists()).toBe(false)
-  } finally {wrapper.unmount()}
-})
-
-it('changing sales quantity requires reconfirming the line total and multiple materials are never multiplied',async()=>{
+it('linked targets retain distinct drafts and new orders submit no stock deductions',async()=>{
  const {wrapper}=await render()
- try{
-  finish.get('a')!();await flushPromises()
-  const picker=wrapper.findComponent({name:'CatalogPicker'})
-  picker.vm.$emit('quantity',product,2);await flushPromises()
-  await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-  await wrapper.get('[data-testid="no-consumption-soap"]').setValue(true)
-  await wrapper.get('[data-testid="cancel-order-materials"]').trigger('click');await flushPromises()
-  picker.vm.$emit('quantity',product,3);await flushPromises()
-  await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-  expect((wrapper.get('[data-testid="no-consumption-soap"]').element as HTMLInputElement).checked).toBe(false)
-  const previous=http.defaults.adapter as any
-  http.defaults.adapter=config=>config.url==='/inventory/consumables'?Promise.resolve({config,headers:{},status:200,statusText:'',data:{data:[{id:'s1',name:'奶浴袋',category:'耗材',base_unit:'袋',package_spec:'1*200',stock_quantity:'0.000',version:1},{id:'s2',name:'精油',category:'耗材',base_unit:'瓶',package_spec:'',stock_quantity:'10.000',version:1}]}}):previous(config)
-  const {dispatchRealtimeChange}=await import('../realtime/events')
-  dispatchRealtimeChange('stock.changed');await flushPromises();finish.get('a')!();await flushPromises()
-  await wrapper.get('[data-testid="add-consumption-soap"]').trigger('click')
-  await wrapper.get('[data-testid="consumption-stock-soap-0"]').setValue('s1')
-  await wrapper.get('[data-testid="consumption-quantity-soap-0"]').setValue('1')
-  await wrapper.get('[data-testid="add-consumption-soap"]').trigger('click')
-  await wrapper.get('[data-testid="consumption-stock-soap-1"]').setValue('s2')
-  await wrapper.get('[data-testid="consumption-quantity-soap-1"]').setValue('0.125')
-  await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises()
-  expect(posts[0].body.items[0]).toEqual({catalog_item_id:'soap',quantity:3,inventory_mode:'manual',inventory_consumption:[{stock_item_id:'s1',quantity:'1'},{stock_item_id:'s2',quantity:'0.125'}]})
- }finally{wrapper.unmount()}
+ try{finish.get('a')!();await flushPromises();wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('quantity',product,2);await flushPromises();wrapper.findComponent({name:'PartyTabs'}).vm.$emit('select','b');await flushPromises();finish.get('b')!();await flushPromises();expect(wrapper.findComponent({name:'CatalogPicker'}).props('quantities')).toEqual({});wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('quantity',product,3);await flushPromises();await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises();expect(posts[0]).toMatchObject({url:'/visits/b/items/batch',body:{items:[{catalog_item_id:'soap',quantity:3,inventory_mode:'manual',inventory_consumption:[]}]}})}finally{wrapper.unmount()}
 })
-
+it('the latest selected sale quantity is submitted without ever fetching consumables',async()=>{
+ const paths:string[]=[];const previous=http.defaults.adapter as any;http.defaults.adapter=config=>{paths.push(String(config.url));return previous(config)}
+ const {wrapper}=await render()
+ try{finish.get('a')!();await flushPromises();const picker=wrapper.findComponent({name:'CatalogPicker'});picker.vm.$emit('quantity',product,2);picker.vm.$emit('quantity',product,3);await flushPromises();await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises();expect(posts[0].body.items).toEqual([{catalog_item_id:'soap',quantity:3,inventory_mode:'manual',inventory_consumption:[]}]);expect(paths).not.toContain('/inventory/consumables')}finally{wrapper.unmount()}
+})
 it('quick-order submit is in the header and disabled without selection or connectivity', async () => {
   const { wrapper } = await render()
   try {
@@ -239,40 +177,21 @@ it('read-only visit does not request order-only consumables or block the catalog
  try{finish.get('a')!();await flushPromises();expect(requested).not.toContain('/inventory/consumables');expect(wrapper.find('[data-catalog-id="soap"]').exists()).toBe(true)}finally{wrapper.unmount()}
 })
 
-it('incomplete, duplicate and overprecision consumption cannot submit; corrective edits allow the original order',async()=>{
+it('lack of ordering permission never opens or submits material/order controls',async()=>{
+ acceptBusinessState({period_id:'fixture',policy_version:1,business_revision:0,maintenance:false,owner_reset_allowed:false,capabilities:{},ui_pages:['wristbands']},['visit:read'])
  const {wrapper}=await render()
- try{
-  finish.get('a')!();await flushPromises()
-  wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('select',product);await flushPromises()
-  await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-  await wrapper.get('[data-testid="add-consumption-soap"]').trigger('click')
-  await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises();expect(posts).toEqual([])
-  await wrapper.get('[data-testid="consumption-stock-soap-0"]').setValue('s1')
-  await wrapper.get('[data-testid="consumption-quantity-soap-0"]').setValue('1.0001')
-  await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises();expect(posts).toEqual([])
-  await wrapper.get('[data-testid="consumption-quantity-soap-0"]').setValue('1')
-  await wrapper.get('[data-testid="add-consumption-soap"]').trigger('click')
-  await wrapper.get('[data-testid="consumption-stock-soap-1"]').setValue('s1')
-  await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises();expect(posts).toEqual([])
-  const editor=wrapper.findComponent({name:'ConsumptionEditor'})
-  await editor.findAll('button').filter(button=>button.text()==='移除')[1]!.trigger('click')
-  await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises()
-  expect(posts[0].body.items[0].inventory_consumption).toEqual([{stock_item_id:'s1',quantity:'1'}])
- }finally{wrapper.unmount()}
+ try{finish.get('a')!();await flushPromises();wrapper.findComponent({name:'CatalogPicker'}).vm.$emit('select',product);await flushPromises();expect(posts).toEqual([]);expect(wrapper.findComponent({name:'ConsumptionEditor'}).exists()).toBe(false)}finally{wrapper.unmount()}
 })
-
 it('an in-flight manual order freezes selection and duplicate submit events cannot invalidate its success',async()=>{
  const {wrapper}=await render()
  try{
   finish.get('a')!();await flushPromises()
   const picker=wrapper.findComponent({name:'CatalogPicker'})
   picker.vm.$emit('quantity',product,2);await flushPromises()
-  await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-  await wrapper.get('[data-testid="no-consumption-soap"]').setValue(true)
   let complete!:()=>void
   const previous=http.defaults.adapter as any
   http.defaults.adapter=config=>config.method==='post'?new Promise(resolve=>{complete=()=>resolve({config,headers:{},status:200,statusText:'',data:{data:[]}})}):previous(config)
-  await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises()
+  await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
   picker.vm.$emit('quantity',product,3);await flushPromises()
   expect(picker.props('quantities')).toEqual({soap:2})
   wrapper.findComponent({name:'OrderCart'}).vm.$emit('submit');await flushPromises()
@@ -282,7 +201,7 @@ it('an in-flight manual order freezes selection and duplicate submit events cann
  }finally{wrapper.unmount()}
 })
 
-it('package replacement can submit recorded-return materials at zero free balance and preserves the explicit manual mode',async()=>{
+it('package replacement keeps the return to the server and new package consumes nothing',async()=>{
  acceptBusinessState({period_id:'fixture',policy_version:1,business_revision:0,maintenance:false,owner_reset_allowed:false,capabilities:{visit_order:true,package_write:true},ui_pages:['wristbands']},['visit:order','visit:package'])
  vi.spyOn(ElMessageBox,'confirm').mockResolvedValue('confirm' as any)
  const replacement={...product,id:'package-new',kind:'package',name:'新套票',stock_tracked:false}
@@ -296,10 +215,7 @@ it('package replacement can submit recorded-return materials at zero free balanc
  try{
   await wrapper.get('[data-catalog-id="package-new"]').trigger('click');await flushPromises()
   await wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-  await wrapper.get('[data-testid="add-consumption-package-new"]').trigger('click')
-  await wrapper.get('[data-testid="consumption-stock-package-new-0"]').setValue('s1')
-  await wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises()
-  expect(posts[0]).toMatchObject({url:'/visits/a/items/batch',body:{confirm_replace:true,items:[{catalog_item_id:'package-new',quantity:1,inventory_mode:'manual',inventory_consumption:[{stock_item_id:'s1',quantity:'1'}]}]}})
+  expect(posts[0]).toMatchObject({url:'/visits/a/items/batch',body:{confirm_replace:true,items:[{catalog_item_id:'package-new',quantity:1,inventory_mode:'manual',inventory_consumption:[]}]}})
  }finally{wrapper.unmount()}
 })
 
@@ -327,11 +243,7 @@ async function losePackageReplacementReply() {
   const rendered=await render()
   await rendered.wrapper.get('[data-catalog-id="package-new"]').trigger('click')
   await rendered.wrapper.get('[data-testid="submit-order"]').trigger('click');await flushPromises()
-  await rendered.wrapper.get('[data-testid="add-consumption-package-new"]').trigger('click')
-  await rendered.wrapper.get('[data-testid="consumption-stock-package-new-0"]').setValue('s1')
-  await rendered.wrapper.get('[data-testid="consumption-quantity-package-new-0"]').setValue('0.125')
-  await rendered.wrapper.get('[data-testid="confirm-order-materials"]').trigger('click');await flushPromises()
-  expect(requests[0].body).toMatchObject({version:3,confirm_replace:true,items:[{catalog_item_id:'package-new',quantity:1,inventory_mode:'manual',inventory_consumption:[{stock_item_id:'s1',quantity:'0.125'}]}]})
+  expect(requests[0].body).toMatchObject({version:3,confirm_replace:true,items:[{catalog_item_id:'package-new',quantity:1,inventory_mode:'manual',inventory_consumption:[]}]})
   return {...rendered,requests}
 }
 

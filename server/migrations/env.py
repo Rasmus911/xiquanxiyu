@@ -94,10 +94,24 @@ def run_migrations_online():
     connectable = get_engine()
 
     with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=get_metadata(), **conf_args)
-
-        with context.begin_transaction():
-            context.run_migrations()
+        # SQLite batch DDL rebuilds referenced tables. Pause FK enforcement only
+        # outside the physical migration transaction, then check and restore it.
+        # PostgreSQL keeps native constraints throughout; production uses PG17.
+        raw = connection.connection.driver_connection if connection.dialect.name == 'sqlite' else None
+        foreign_keys = raw.execute('PRAGMA foreign_keys').fetchone()[0] if raw is not None else None
+        if raw is not None and foreign_keys:
+            if raw.in_transaction:
+                raise RuntimeError('SQLite foreign-key DDL requires an idle connection')
+            raw.execute('PRAGMA foreign_keys=OFF')
+        try:
+            context.configure(connection=connection, target_metadata=get_metadata(), **conf_args)
+            with context.begin_transaction():
+                context.run_migrations()
+                if raw is not None and raw.execute('PRAGMA foreign_key_check').fetchall():
+                    raise RuntimeError('Migration left invalid historical foreign keys')
+        finally:
+            if raw is not None and foreign_keys:
+                raw.execute('PRAGMA foreign_keys=ON')
 
 
 if context.is_offline_mode():

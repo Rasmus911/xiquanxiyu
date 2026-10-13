@@ -1,11 +1,20 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { businessGeneration, onBusinessSessionClear } from '../business/state'
 
 export const useRuntimeStore = defineStore('runtime', () => {
   const businessBusyReason = ref<string | null>(null)
   const updateState = ref<UpdateState | null>(null)
   const updateCenterVisible = ref(false)
+  const updateDisplayState = computed<UpdateState>(() => ({
+    ...(updateState.value ?? {
+      status: 'error', decision: 'none', required: false, currentVersion: '', availableVersion: null,
+      releaseVersion: null, releasePublishedAt: null, percent: 0,
+      message: '更新状态暂不可用，仍可查看本地版本记录', releaseNotes: [], downloadUrl: '', businessBusyReason: null,
+    }),
+    // Local busy writes must also protect the dialog before IPC has responded.
+    businessBusyReason: businessBusyReason.value || updateState.value?.businessBusyReason || null,
+  }))
   let busyOperation = 0
   onBusinessSessionClear(() => { businessBusyReason.value = null; busyOperation++; void window.xiquan?.setBusinessBusy(null).catch(() => undefined) })
 
@@ -47,6 +56,7 @@ export const useRuntimeStore = defineStore('runtime', () => {
     setBusinessBusy,
     setUpdateState,
     updateCenterVisible,
+    updateDisplayState,
     updateState,
   }
 })

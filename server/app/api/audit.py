@@ -6,7 +6,7 @@ from ..audit_service import lock_audit_chain, sign_evidence, verify_audit_chain,
 from ..auth_service import require_permission
 from ..extensions import db
 from ..financial_integrity import check_financial_integrity
-from ..models import AuditLog, Employee, Terminal, utcnow
+from ..models import AuditLog, EmployeeIdentity, Terminal, utcnow
 from ..serializers import ACTION_LABELS, audit_dict
 from .errors import ApiError, success
 
@@ -23,10 +23,10 @@ def filtered_audit_query():
         )
     if request.args.get("employee"):
         employee_keyword = request.args["employee"].strip()
-        query = query.outerjoin(Employee, AuditLog.employee_id == Employee.id).filter(
+        query = query.outerjoin(EmployeeIdentity, AuditLog.employee_id == EmployeeIdentity.id).filter(
             db.or_(
                 AuditLog.context["employee_username"].as_string().ilike(f"%{employee_keyword}%"),
-                db.and_(AuditLog.integrity_version == 1, Employee.username.ilike(f"%{employee_keyword}%")),
+                db.and_(AuditLog.integrity_version == 1, EmployeeIdentity.username.ilike(f"%{employee_keyword}%")),
             )
         )
     if request.args.get("terminal"):
@@ -61,7 +61,7 @@ def audit_rows(rows):
     employee_ids = {row.employee_id for row in rows if row.employee_id}
     terminal_ids = {row.terminal_id for row in rows if row.terminal_id}
     employees = (
-        {row.id: row for row in Employee.query.filter(Employee.id.in_(employee_ids)).all()} if employee_ids else {}
+        {row.id: row for row in EmployeeIdentity.query.filter(EmployeeIdentity.id.in_(employee_ids)).all()} if employee_ids else {}
     )
     terminals = (
         {row.id: row for row in Terminal.query.filter(Terminal.id.in_(terminal_ids)).all()} if terminal_ids else {}

@@ -15,6 +15,19 @@ it('registration-token entry passes only explicit server capability without addi
 })
 
 describe('mobile management navigation', () => {
+  it.each(['18631459666', '18603346509'])('adds a registration-token tab for authorized phone account %s', (username) => {
+    expect(availableMobileTabs({ orders_view: true, registration_token_view: true }, username)).toEqual(['orders', 'registration-token'])
+  })
+
+  it.each(['15133863898', '于在跃', '', undefined])('does not expose registration-token navigation to other identities %s', (username) => {
+    expect(availableMobileTabs({ registration_token_view: true }, username)).toEqual([])
+  })
+
+  it.each(['18631459666', '18603346509'])('does not infer registration-token authorization from phone number %s', (username) => {
+    expect(availableMobileTabs({ orders_view: true }, username)).toEqual(['orders'])
+    expect(availableMobileTabs({ registration_token_view: false }, username)).toEqual([])
+  })
+
   it('inventory-only accounts never show ordering and absent capabilities fail closed', () => {
     expect(availableMobileTabs({ orders_view: false, reports_view: false, inventory_manage: true })).toEqual(['inventory'])
     expect(availableMobileTabs(undefined)).toEqual([])

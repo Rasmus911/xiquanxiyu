@@ -117,7 +117,14 @@ $versionConfig = [ordered]@{
     versionCode = $VersionCode
     minimumVersionCode = $MinimumVersionCode
 }
-Write-Utf8Json -Path $versionPath -Value $versionConfig
+$currentVersionConfig = if (Test-Path -LiteralPath $versionPath) {
+    Get-Content -LiteralPath $versionPath -Raw -Encoding UTF8 | ConvertFrom-Json
+} else { $null }
+if ($null -eq $currentVersionConfig -or $currentVersionConfig.version -cne $Version -or
+    $currentVersionConfig.versionCode -ne $VersionCode -or
+    $currentVersionConfig.minimumVersionCode -ne $MinimumVersionCode) {
+    Write-Utf8Json -Path $versionPath -Value $versionConfig
+}
 
 $storeSecure = $null
 $keySecure = $null

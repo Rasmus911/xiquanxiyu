@@ -106,12 +106,12 @@ def test_open_order_checkout_and_inventory(app, client, admin_session):
         stored_product = db.session.get(CatalogItem, product["id"])
         stored_band = db.session.get(Wristband, band["id"])
         stored_item = OrderItem.query.filter_by(visit_id=visit["id"], catalog_item_id=product["id"]).first()
-        assert Decimal(stored_product.stock_quantity) == Decimal("8")
+        assert Decimal(stored_product.stock_quantity) == Decimal("10")
         assert Decimal(stored_item.unit_price) == Decimal("4")
         assert Decimal(stored_item.total_amount) == Decimal("8")
         assert stored_band.status == "available"
         assert Settlement.query.count() == 1
-        assert InventoryMovement.query.count() == 2
+        assert InventoryMovement.query.count() == 1
 
 
 def test_lost_and_replace(client, admin_session):
@@ -388,7 +388,7 @@ def test_desktop_batch_order_is_idempotent(app, client, admin_session):
     with app.app_context():
         active = OrderItem.query.filter_by(visit_id=visit["id"], catalog_item_id=product["id"], status="active").all()
         assert len(active) == 1
-        assert db.session.get(CatalogItem, product["id"]).stock_quantity == Decimal("8.000")
+        assert db.session.get(CatalogItem, product["id"]).stock_quantity == Decimal("10.000")
 
 
 def test_desktop_void_is_idempotent(app, client, admin_session):
@@ -447,7 +447,7 @@ def test_desktop_void_is_idempotent(app, client, admin_session):
             reference_id=item["id"],
             movement_type="void_return",
         ).all()
-        assert len(returns) == 1
+        assert len(returns) == 0  # No consumption means no manufactured return.
 
 
 def test_password_protected_force_clear_restores_inventory(client, admin_session):

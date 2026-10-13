@@ -18,6 +18,8 @@ from ..idempotency_service import (
     idempotency_store,
 )
 from ..models import Member, MemberPass, PassLedger, StoredValueLedger, Visit, utcnow
+from ..member_card_models import MemberCardBinding
+from ..member_cards import normalize_phone
 from ..serializers import decimal_str, iso, member_dict
 from ..sms_service import notify_card_opened
 from ..validation import decimal_value
@@ -25,13 +27,6 @@ from .errors import ApiError, success
 
 bp = Blueprint("members", __name__, url_prefix="/members")
 logger = logging.getLogger(__name__)
-
-
-def normalize_phone(value):
-    phone = re.sub(r"\D", "", str(value or ""))
-    if len(phone) != 11:
-        raise ApiError("请输入 11 位手机号")
-    return phone
 
 
 def _money(value):
@@ -78,7 +73,10 @@ def list_members():
     query = Member.query.filter(Member.deleted_at.is_(None))
     if keyword:
         digits = re.sub(r"\D", "", keyword)
-        query = query.filter(db.or_(Member.phone.ilike(f"%{digits}%"), Member.name.ilike(f"%{keyword}%")))
+        conditions = [Member.name.ilike(f"%{keyword}%")]
+        if digits:
+            conditions.append(Member.phone.ilike(f"%{digits}%"))
+        query = query.filter(db.or_(*conditions))
     rows = query.order_by(Member.created_at.desc()).limit(200).all()
     member_ids = [row.id for row in rows]
     passes = (
@@ -109,16 +107,6 @@ def list_members():
             for row in rows
         ]
     )
-
-
-@bp.get("/lookup")
-@require_permission("member:read")
-def lookup_member():
-    phone = normalize_phone(request.args.get("phone"))
-    member = Member.query.filter_by(phone=phone, is_active=True).first()
-    if not member:
-        raise ApiError("未找到该手机号对应的有效会员", 404, "MEMBER_NOT_FOUND")
-    return success(member_dict(member))
 
 
 @bp.post("")
@@ -195,6 +183,10 @@ def delete_member(member_id):
     member.deleted_at = utcnow()
     member.is_active = False
     member.version += 1
+    for binding in MemberCardBinding.query.filter_by(member_id=member.id, is_active=True).with_for_update().all():
+        binding.is_active = False
+        binding.revoked_at = utcnow()
+        binding.version += 1
     write_audit('member.delete', 'member', member.id,
         {'before': before, 'after': {**member_dict(member), 'deleted_at': iso(member.deleted_at)}})
     db.session.commit()

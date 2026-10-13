@@ -8,6 +8,17 @@ const scope = effectScope()
 beforeEach(() => clearBusinessSession())
 afterEach(() => clearBusinessSession())
 
+it('returns only the confirmed batch print reference and original target', async () => {
+  const reference = {id:'service-job',kind:'order',created_at:'2026-10-11T01:00:00Z',expires_at:'2026-10-11T16:00:00Z'}
+  http.defaults.adapter = async config => ({config,headers:{},status:201,statusText:'',
+    data:{data:[],meta:{service_print_job:reference}}})
+  const ordering = scope.run(() => useVisitOrdering())!
+  ordering.drafts.replace('a',{soap:1})
+  const target = ordering.drafts.capture('a',3)
+  const result = await ordering.submitSnapshot(target)
+  expect(result).toMatchObject({target,servicePrintJob:reference})
+})
+
 it('out of order detail requests cannot overwrite the current selection', async () => {
   const finish = new Map<string, () => void>()
   http.defaults.adapter = config => new Promise(resolve => finish.set(String(config.url), () => resolve({

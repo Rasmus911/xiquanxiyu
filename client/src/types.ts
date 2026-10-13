@@ -64,6 +64,10 @@ export interface StockItem {
   stock_quantity: string
   low_stock_threshold: string
   unit_cost: string | null
+  reference_cost?: string | null
+  cost_basis?: 'base' | 'package' | null
+  package_cost?: string | null
+  base_unit_cost?: string | null
   is_active: boolean
   version: number
   legacy_catalog_item_id: string | null
@@ -116,6 +120,8 @@ export interface Visit {
 export interface Member {
   id: string
   phone: string
+  holder_surname?: string | null
+  card_binding?: MemberCardBinding | null
   name?: string
   balance: string
   is_active: boolean
@@ -126,5 +132,67 @@ export interface Member {
   pass_remaining?: number
   pass_total?: number
   ledgers?: Array<Record<string, string>>
-  passes?: Array<Record<string, string | number | boolean>>
+  passes?: MemberPass[]
+}
+
+export interface MemberCardBinding {
+  id: string
+  member_id: string
+  card_uid: string
+  is_active: boolean
+  created_at: string
+  revoked_at: string | null
+  replaced_by_id: string | null
+  version: number
+}
+
+export interface MemberPass {
+  id: string
+  name: string
+  remaining_count: number
+  valid_until: string | null
+  is_active: boolean
+}
+
+export interface PassUseSelection { member_pass_id: string; visit_ids: string[] }
+export interface MemberVerification {
+  method: 'phone' | 'card'
+  card_binding_id?: string
+  surname_confirmed: boolean
+}
+export interface CheckoutBenefits {
+  pass_use: PassUseSelection | null
+  member_verification: MemberVerification | null
+}
+
+export type MembershipType = 'stored' | 'pass'
+export interface PhysicalOpenRequest {
+  card_uid: string
+  phone: string | null
+  holder_surname: string | null
+  surname_confirmed: boolean
+  membership_type: MembershipType
+  amount: string
+  count?: number
+  pass_name?: string
+  valid_until?: string | null
+  payment_method: 'cash' | 'wechat' | 'alipay'
+  idempotency_key: string
+}
+export interface CardBindingRequest {
+  card_uid: string
+  password: string
+  idempotency_key: string
+}
+export interface PhysicalOpenResult {
+  member: Member
+  card_binding: MemberCardBinding
+  member_pass: MemberPass | null
+}
+
+export interface ServicePrintReference {
+  id: string
+  kind: 'order'
+  created_at: string
+  expires_at: string
 }

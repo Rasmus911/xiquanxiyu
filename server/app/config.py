@@ -45,6 +45,7 @@ class Config:
     API_REPLICAS = int(os.getenv('API_REPLICAS', '1'))
     SOCKETIO_POLICY_POLL_SECONDS = 1
     RESET_DATABASE_URL = os.getenv('RESET_DATABASE_URL', '').strip()
+    MAINTENANCE_DATABASE_URL = os.getenv('MAINTENANCE_DATABASE_URL', '').strip()
     RESET_BACKUP_DATABASE_URL = os.getenv('RESET_BACKUP_DATABASE_URL', '').strip()
     RESET_PRIVATE_DIR = os.getenv('RESET_PRIVATE_DIR', '').strip()
     PG_DUMP_PATH = os.getenv('PG_DUMP_PATH', 'pg_dump')

@@ -9,6 +9,53 @@ const TREES = ['server/app', 'server/migrations', 'server/tests', 'client/src',
   'mobile/android/app/src/test/java', 'mobile/android/app/src/androidTest/java',
   'docs/superpowers', 'docs/releases']
 const FILES = new Set([
+  ...['build-brand-icon.ps1','build-desktop-056.ps1','build-desktop-056-source.ps1','publish-desktop-056.ps1','publish-mobile-1213.ps1','publish-cloud-056.ps1','archive-desktop-056.cjs'].map(file=>`scripts/${file}`),
+  ...['desktop-056.cjs','desktop-056-source.cjs','mobile-1213-public.cjs','static-056-public.cjs'].map(file=>`scripts/lib/${file}`),
+  ...['desktop056_format_patch.py','static056_publication.py','android_1213_publication.py'].map(file=>`deploy/cloud/scripts/${file}`),
+  ...['desktop-056.node-test.cjs','test_desktop056_patch.py'].map(file=>`scripts/tests/${file}`),
+  ...['build-desktop-055-source.ps1','build-desktop-055.ps1','invoke-desktop-055.ps1',
+    'publish-desktop-055.ps1','publish-mobile-1212.ps1','desktop-055-cloud-entry.ps1',
+    'desktop-055-windows-entry.ps1','desktop-055-mobile-entry.ps1',
+    'desktop-055-full-entry.ps1','archive-desktop-055.cjs'].map(file=>`scripts/${file}`),
+  ...['desktop_055_deploy.py','desktop_055_guard.py','desktop_055_pgproof.py',
+    'android_1212_publication.py'].map(file=>`deploy/cloud/scripts/${file}`),
+  ...['desktop-055.cjs','desktop-055-source.cjs','desktop-055-transport.ps1','mobile-1212-public.cjs'].map(file=>`scripts/lib/${file}`),
+  ...['desktop-055.node-test.cjs','test_desktop055.py','test_android_1212_publication.py','archive-055.node-test.cjs'].map(file=>`scripts/tests/${file}`),
+  ...['archive-desktop-054.cjs','build-desktop-054-source.ps1','build-desktop-054.ps1','invoke-desktop-054.ps1',
+    'publish-desktop-054.ps1','publish-mobile-1211.ps1','desktop-054-cloud-entry.ps1',
+    'desktop-054-windows-entry.ps1','desktop-054-mobile-entry.ps1'].map(file=>`scripts/${file}`),
+  ...['desktop_054_deploy.py','desktop_054_guard.py','desktop_054_pgproof.py',
+    'android_1211_publication.py'].map(file=>`deploy/cloud/scripts/${file}`),
+  ...['desktop-054.cjs','desktop-054-source.cjs','desktop-054-transport.ps1',
+    'mobile-1211-public.cjs','desktop-053-transport.ps1','windows-public-recovery.cjs',
+    'windows-public-recovery.node-test.cjs'].map(file=>`scripts/lib/${file}`),
+  ...['archive-054.node-test.cjs','desktop-054.node-test.cjs','test_desktop054.py','desktop-054-source.node-test.cjs'].map(file=>`scripts/tests/${file}`),
+  ...['invoke-desktop-051.ps1','build-desktop-051.ps1','sign-desktop-051.ps1',
+    'desktop-051-deploy-entry.ps1','desktop-051-publish-entry.ps1','desktop-051-verify-entry.ps1',
+    'archive-desktop-051.ps1'].map(file => `scripts/${file}`),
+  ...['desktop_051_deploy.py','desktop_051_guard.py','desktop_051_pgproof.py',
+    'desktop_051_completion.py'].map(file => `deploy/cloud/scripts/${file}`),
+  ...['desktop-051.cjs','desktop-051-transport.ps1','archive-plan-051.cjs'].map(file => `scripts/lib/${file}`),
+  ...['desktop-051.node-test.cjs','archive-plan-051.node-test.cjs',
+    'test_desktop_051_guard.py','test_desktop_051_recovery.py','test_desktop_051_entrypoints.py',
+    'test_desktop_051_pgproof.py','test_desktop_051_source.py','test_desktop_051_completion.py'].map(file => `scripts/tests/${file}`),
+  'deploy/cloud/scripts/desktop_050_probe_recovery.py',
+  'scripts/tests/test_desktop_050_probe_recovery.py',
+  ...['invoke-desktop-050.ps1','desktop-050-deploy-entry.ps1','build-desktop-050.ps1',
+    'sign-desktop-050.ps1','desktop-050-publish-entry.ps1','archive-desktop-050.ps1'].map(file => `scripts/${file}`),
+  ...['desktop_050_guard.py','desktop_050_deploy.py'].map(file => `deploy/cloud/scripts/${file}`),
+  ...['test_desktop_050_guard.py','test_desktop_050_recovery.py','test_desktop_050_entrypoints.py',
+    'test_desktop_050_source.py'].map(file => `scripts/tests/${file}`),
+  ...['desktop-050.cjs','desktop-050.node-test.cjs','archive-proof.cjs',
+    'archive-proof.node-test.cjs','archive-zip-read.ps1'].map(file => `scripts/lib/${file}`),
+  'scripts/mobile-128-entry.ps1',
+  'scripts/lib/mobile-128-transport.ps1',
+  'scripts/tests/test_mobile128_transport.py',
+  'deploy/cloud/scripts/android_128_publication.py',
+  'deploy/cloud/scripts/registration_token128_patch.py',
+  'scripts/tests/test_android_128_publication.py',
+  'scripts/tests/test_registration_token128_patch.py',
+  'scripts/tests/test_mobile128_entry.py',
   ...['build-desktop-049.ps1','sign-desktop-049.ps1','invoke-desktop-049.ps1',
     'desktop-049-deploy-entry.ps1','desktop-049-publish-entry.ps1','desktop-049-android-entry.ps1'].map(file => `scripts/${file}`),
   ...['desktop_049_guard.py','desktop_049_deploy.py','android_127_publication.py'].map(file => `deploy/cloud/scripts/${file}`),
@@ -109,8 +156,8 @@ const FILES = new Set([
     'test-operations-cutover.ps1', 'test-operations-resume.ps1'].map(file => `scripts/tests/${file}`),
 ])
 const SOURCE_EXT = new Set(['.py', '.ts', '.vue', '.cjs', '.js', '.json', '.md',
-  '.sql', '.sh', '.ps1', '.html', '.css', '.svg', '.java', '.xml', '.png', '.webmanifest'])
-const BINARY_EXT = new Set(['.png', '.jar'])
+  '.sql', '.sh', '.ps1', '.html', '.css', '.svg', '.java', '.xml', '.png', '.ico', '.webmanifest'])
+const BINARY_EXT = new Set(['.png', '.ico', '.jar'])
 
 function normalized(relative) {
   if (typeof relative !== 'string' || path.win32.isAbsolute(relative) || path.posix.isAbsolute(relative))
@@ -174,7 +221,7 @@ function enumerateSourceFiles(root) {
 }
 function findingsFor(relative, content) {
   const results = []
-  const testFile = /^server\/tests\//.test(relative) ||
+  const testFile = /^(?:server|scripts)\/tests\//.test(relative) ||
     /(?:\.test\.ts|\.node-test\.cjs|scripts\/tests\/|\.fixture\.cjs|desktop-release-fixture\.cjs)$/.test(relative)
   const doc = relative.startsWith('docs/')
   const template = relative.endsWith('.env.example')
@@ -190,7 +237,7 @@ function findingsFor(relative, content) {
     if (/-----BEGIN (?:[A-Z]+ )?PRIVATE KEY-----/.test(line) &&
         lines.slice(i+1, i+10).some(value => /^[A-Za-z0-9+/]{40,}={0,2}$/.test(value.trim()))) report(i, 'private-key-material')
     if (/\bLTAI[A-Za-z0-9]{12,}\b/.test(line) && !testFile) report(i, 'cloud-access-key')
-    const literal = /\b(?:password|passwd|secret|token|api_key|access_key_secret|jwt_secret_key|secret_key|audit_hmac_key)\b["']?\s*(?:=|:)\s*["']([^"'\r\n]+)["']/ig
+    const literal = /(?<![A-Za-z0-9_/-])\b(?:password|passwd|secret|token|api_key|access_key_secret|jwt_secret_key|secret_key|audit_hmac_key)\b["']?\s*(?:=|:)\s*["']([^"'\r\n]+)["']/ig
     for (const match of line.matchAll(literal)) {
       const value = match[1]
       if (testFile || /^(?:\$\{|\$\(|<|dev-only-)/.test(value)) continue
@@ -224,7 +271,11 @@ function assertSourceSafe(root, files, options) {
   const findings = scanSourceFiles(root, files, options)
   if (findings.length) throw new Error(findings.map(row => `${row.path}:${row.line} [${row.rule}]`).join('\n'))
 }
-module.exports = {enumerateSourceFiles, scanSourceFiles, assertSourceSafe, allowed}
+function assertArchiveContentSafe(relative,content){
+  const findings=findingsFor(relative,content)
+  if(findings.length)throw Error('Private content must not enter a public archive')
+}
+module.exports = {enumerateSourceFiles, scanSourceFiles, assertSourceSafe, allowed, assertArchiveContentSafe}
 if (require.main === module) {
   try {
     const root = path.resolve(__dirname, '../..')

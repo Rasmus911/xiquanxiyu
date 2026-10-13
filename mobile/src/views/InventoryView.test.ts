@@ -54,6 +54,18 @@ it('mounted staff page cannot load or mutate global stock',async()=>{
   const root=await render(false);await nextTick();expect(requests).toHaveLength(0);expect(root.querySelector('[data-testid="stock-create"]')).toBeNull()
 })
 
+it('sets 120 per box and derives 0.600000 per bag using an explicit reference basis',async()=>{
+ const root=await render();await vi.waitFor(()=>expect(root.querySelector('[data-testid="stock-edit-s"]')).not.toBeNull())
+ root.querySelector<HTMLButtonElement>('[data-testid="stock-edit-s"]')!.click();await nextTick()
+ const basis=root.querySelector<HTMLSelectElement>('[name="cost_basis"]')!
+ expect(basis).not.toBeNull();basis.value='package';basis.dispatchEvent(new Event('change'));await nextTick()
+ await input(root,'master_unit_cost','120')
+ expect(root.querySelector('[data-testid="master-cost-preview"]')?.textContent).toContain('0.600000')
+ root.querySelector<HTMLButtonElement>('[data-testid="stock-save"]')!.click()
+ await vi.waitFor(()=>expect(requests.some(row=>row.method==='patch')).toBe(true))
+ expect(requests.find(row=>row.method==='patch').body).toMatchObject({reference_cost:'120',cost_basis:'package'})
+})
+
 it.each([null,'0.00','2.50'])('edits master cost %s with first assignment and own-password protection independent of receipt history',async(currentCost)=>{
   const root=await render(true,{...stock,unit_cost:currentCost} as StockItem)
   await vi.waitFor(()=>expect(root.querySelector('[data-testid="stock-edit-s"]')).not.toBeNull())
@@ -67,7 +79,7 @@ it.each([null,'0.00','2.50'])('edits master cost %s with first assignment and ow
     await input(root,'password','my-own-password')
   }else expect(root.querySelector('[name="password"]')).toBeNull()
   save.click();await vi.waitFor(()=>expect(requests.some(r=>r.method==='patch')).toBe(true))
-  expect(requests.find(r=>r.method==='patch').body).toEqual({name:'奶浴袋',package_unit:'箱',units_per_package:'200.000',version:3,unit_cost:'3.00',...(currentCost===null?{}:{password:'my-own-password'})})
+  expect(requests.find(r=>r.method==='patch').body).toEqual({name:'奶浴袋',package_unit:'箱',units_per_package:'200.000',version:3,reference_cost:'3.00',cost_basis:'base',...(currentCost===null?{}:{password:'my-own-password'})})
   expect(requests.filter(r=>r.method!=='get').map(r=>r.url)).toEqual(['/inventory/stock-items/s'])
 })
 

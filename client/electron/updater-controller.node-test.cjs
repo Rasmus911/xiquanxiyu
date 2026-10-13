@@ -3,19 +3,19 @@ const assert = require('node:assert/strict')
 const { EventEmitter } = require('node:events')
 const { createUpdaterController } = require('./updater-controller.cjs')
 
-function fixture() {
+function fixture(currentVersion = '0.4.2') {
   const updater = new EventEmitter()
   const calls = { check:0, download:0, verify:0, install:0 }
   const immediate = []
   const artifact = { fileName:'Xiquan-Bathhouse-Setup-0.4.3-win7-x86.exe', size:17, sha512:'a'.repeat(86)+'==', sha256:'b'.repeat(64) }
   const release = { profile:{targetId:'win7-x86'}, artifact,
-    desktop:{ latestVersion:'0.4.3',minimumVersion:'0.4.2',required:false,releaseNotes:['test'],downloadUrl:'https://api.pqxqxy.xyz/updates/desktop/win7-x86/a.exe' } }
+    desktop:{ latestVersion:'0.4.3',minimumVersion:'0.4.2',required:false,publishedAt:'2026-10-08T12:21:56.498Z',releaseNotes:['test'],downloadUrl:'https://api.pqxqxy.xyz/updates/desktop/win7-x86/a.exe' } }
   let load = async () => release
   let verify = async () => { calls.verify++ }
   updater.checkForUpdates = async () => { calls.check++; return {updateInfo:{version:'0.4.3',files:[{url:artifact.fileName,size:17,sha512:artifact.sha512}],path:artifact.fileName,sha512:artifact.sha512}} }
   updater.downloadUpdate = async () => { calls.download++; updater.emit('download-progress',{percent:100}); return ['candidate.exe'] }
   updater.quitAndInstall = () => { calls.install++ }
-  const controller = createUpdaterController({ updater, app:{isPackaged:true,getVersion:()=>'0.4.2'},
+  const controller = createUpdaterController({ updater, app:{isPackaged:true,getVersion:()=>currentVersion},
     clock:{setImmediate:fn=>immediate.push(fn)}, loadRelease:()=>load(), verifyArtifact:(...args)=>verify(...args), emit:()=>{}, notify:()=>{} })
   return { controller, updater, calls, release, immediate,
     setLoad:fn=>{load=fn},setVerify:fn=>{verify=fn},flush:()=>{while(immediate.length)immediate.shift()()} }
@@ -87,4 +87,29 @@ test('an updater error invalidates previously downloaded installation eligibilit
   f.updater.emit('error',Error('network token secret'))
   assert.equal(f.controller.installUpdate().ok,false)
   assert.equal(f.controller.getState().message.includes('secret'),false)
+})
+
+test('publication metadata starts empty and comes from verified policy even when already latest', async () => {
+  const f = fixture('0.4.3')
+  assert.equal(f.controller.getState().releaseVersion, null)
+  assert.equal(f.controller.getState().releasePublishedAt, null)
+  await f.controller.checkForUpdates()
+  assert.equal(f.controller.getState().status, 'not-available')
+  assert.equal(f.controller.getState().availableVersion, null)
+  assert.equal(f.controller.getState().releaseVersion, '0.4.3')
+  assert.equal(f.controller.getState().releasePublishedAt, '2026-10-08T12:21:56.498Z')
+  assert.equal(f.calls.check, 0)
+  assert.equal(f.calls.download, 0)
+})
+
+test('failed signature and network checks cannot replace previously verified publication metadata', async () => {
+  const f = fixture('0.4.3')
+  await f.controller.checkForUpdates()
+  f.setLoad(async () => { throw Object.assign(Error('签名无效'), { desktop: { latestVersion: '9.9.9', publishedAt: '2099-01-01T00:00:00Z' } }) })
+  await f.controller.checkForUpdates()
+  assert.equal(f.controller.getState().status, 'error')
+  assert.equal(f.controller.getState().releaseVersion, '0.4.3')
+  assert.equal(f.controller.getState().releasePublishedAt, '2026-10-08T12:21:56.498Z')
+  f.updater.emit('error', Error('network'))
+  assert.equal(f.controller.getState().releasePublishedAt, '2026-10-08T12:21:56.498Z')
 })

@@ -6,9 +6,9 @@ const path = require('node:path')
 const { getTarget } = require('../electron/target-profiles.cjs')
 const { prepareRuntime, offlineRuntimeDownloader } = require('./runtime-download.cjs')
 const { spawnSync } = require('node:child_process')
-test('all four production runtime tuples verify the official offline bytes', async () => {
-  const cache = path.resolve(__dirname, '../../release/runtime-cache/stock-20261005')
-  for (const [version, arch] of [['22.3.27','ia32'], ['22.3.27','x64'], ['43.7.7','ia32'], ['44.5.1','x64']]) {
+test('supported Win10/11 production runtimes verify the current official offline bytes', async () => {
+  const cache = path.resolve(__dirname, '../../release/runtime-cache/current-windows')
+  for (const [version, arch] of [['43.7.7','ia32'], ['44.5.1','x64']]) {
     assert.equal(await offlineRuntimeDownloader(cache)({version, arch, platform:'win32', artifactName:'electron'}),
       path.join(cache, `electron-v${version}-win32-${arch}.zip`))
   }

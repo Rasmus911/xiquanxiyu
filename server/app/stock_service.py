@@ -76,23 +76,16 @@ def normalize_consumption(body):
 
 
 def prepare_consumption(rows, catalogs, *, recorded_returns=None):
-    """Lock requested + returned masters together and validate net availability.
+    """0.5.5 uses manual daily stocktaking, including calls from old clients.
 
-    recorded_returns comes only from a locked old package's immutable records;
-    this plans availability without returning anything before full validation.
+    Historical returns remain evidence-backed. New order fields cannot authorize
+    a deduction, create legacy stock or cause an availability failure.
     """
     recorded_returns = recorded_returns or {}
     required = {}
     for row in rows:
-        catalog = catalogs[row['catalog_item_id']]
-        selection = row.get('inventory_consumption')
-        row['_legacy_consumption'] = selection is None
-        if selection is None:
-            selection = ([{'stock_item_id': legacy_stock(catalog,lock=False).id, 'quantity': row['quantity']}]
-                         if catalog.kind == 'product' and catalog.stock_tracked else [])
-            row['inventory_consumption'] = selection
-        for selected in selection:
-            required[selected['stock_item_id']] = required.get(selected['stock_item_id'], Decimal(0)) + selected['quantity']
+        row['_legacy_consumption'] = False
+        row['inventory_consumption'] = []
     affected = sorted(set(required) | set(recorded_returns))
     masters = StockItem.query.filter(StockItem.id.in_(affected)).order_by(StockItem.id).with_for_update().all() if affected else []
     by_id = {row.id: row for row in masters}

@@ -5,7 +5,7 @@ from ..audit_service import write_audit
 from ..auth_service import current_employee, hash_password, require_permission
 from ..extensions import db
 from ..employee_access import DEFAULT_CHANNELS, is_protected_employee, validate_employee_channels
-from ..models import Employee, utcnow
+from ..models import Employee
 from ..serializers import employee_dict
 from .errors import ApiError, success
 
@@ -158,14 +158,11 @@ def delete_employee(employee_id):
     employee = Employee.query.populate_existing().filter_by(id=employee_id).with_for_update().first_or_404()
     if employee.id == current_employee().id or is_protected_employee(employee):
         raise ApiError('不能删除自己或受保护的既有管理员', 403, 'PROTECTED_ACCOUNT')
-    if employee.deleted_at:
-        return success(employee_dict(employee), '账号已删除')
     before = employee_dict(employee)
-    employee.deleted_at = utcnow()
-    employee.is_active = False
-    employee.allowed_channels = []
-    employee.session_version += 1
-    write_audit('employee.delete', 'employee', employee.id, {'before': before, 'after': employee_dict(employee)})
+    from ..employee_identity import ensure_employee_identity
+    ensure_employee_identity(db.session.connection(), employee)
+    write_audit('employee.delete', 'employee', employee.id, {'before': before, 'physically_deleted': True})
+    db.session.delete(employee)
     db.session.commit()
     revalidate_sockets()
-    return success(employee_dict(employee), '账号已删除，历史操作记录保留')
+    return success({'id': employee_id, 'deleted': True}, '账号已删除，历史操作记录保留')

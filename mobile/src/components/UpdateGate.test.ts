@@ -33,3 +33,33 @@ test('Android downloads inside the old app, blocks duplicate download and opens 
   expect(native.install).toHaveBeenCalledWith({path:'/safe/app/cache/update.apk'})
   expect(native.external).not.toHaveBeenCalled()
 })
+
+test('a late final progress event cannot erase the APK path while install permission is being checked', async () => {
+  let progress!: (event:{percent:number;bytesDownloaded:number;totalBytes:number}) => void
+  let allowInstall!: (result:{allowed:boolean}) => void
+  native.listener.mockImplementation((_name, listener) => {
+    progress = listener
+    return Promise.resolve({remove:async () => {}})
+  })
+  native.permission.mockImplementation(() => new Promise(resolve => {allowInstall = resolve}))
+  native.download.mockResolvedValue({path:'/storage/emulated/0/Android/data/com.xiquan.mobileordering/cache/updates/xiquan-mobile-ordering-1.2.8.apk'})
+  native.install.mockImplementation(({path}) => {
+    if (!path) return Promise.reject(new Error('无法打开系统安装器：安装包不在应用更新目录中'))
+    return Promise.resolve()
+  })
+  const host = document.createElement('div'); document.body.append(host)
+  const app = createApp(UpdateGate,{policy:{latestVersion:'1.2.8',latestVersionCode:15,minimumVersionCode:9,required:false,
+    downloadUrl:'https://api.pqxqxy.xyz/mobile/downloads/xiquan-mobile-ordering-1.2.8.apk',sha256:'a'.repeat(64),releaseNotes:[]},
+    decision:'optional',businessBusy:null})
+  app.mount(host); cleanup=() => {app.unmount(); host.remove()}
+  await new Promise(resolve => setTimeout(resolve,0))
+  ;(host.querySelector('.update-primary') as HTMLButtonElement).click()
+  await new Promise(resolve => setTimeout(resolve,0))
+  // Native progress is dispatched on the UI thread independently of resolve.
+  progress({percent:100,bytesDownloaded:3000000,totalBytes:3000000})
+  allowInstall({allowed:true})
+  await new Promise(resolve => setTimeout(resolve,0)); await nextTick()
+  expect(native.install).toHaveBeenCalledWith({path:'/storage/emulated/0/Android/data/com.xiquan.mobileordering/cache/updates/xiquan-mobile-ordering-1.2.8.apk'})
+  expect(host.textContent).not.toContain('安装包不在应用更新目录中')
+  expect(host.querySelector('.update-primary')?.textContent).toBe('再次打开安装确认')
+})

@@ -23,8 +23,8 @@ it.each(['catalog', 'members'])('%s deletion sends own password, rejects without
     return {config,headers:{},status:200,statusText:'',data:{data:[row]}}
   }
   vi.spyOn(ElMessageBox,'prompt').mockResolvedValue({value:'own-password',action:'confirm'} as any)
-  const router=createRouter({history:createMemoryHistory(),routes:[{path:'/',component:{template:'<div />'}}]}); await router.push('/'); await router.isReady()
-  const wrapper=mount(resource==='catalog'?CatalogView:MembersView,{global:{plugins:[ElementPlus,router]}})
+  const router=createRouter({history:createMemoryHistory(),routes:[{path:'/',component:resource==='members'?MembersView:{template:'<div />'}}]}); await router.push('/'); await router.isReady()
+  const wrapper=mount(resource==='catalog'?CatalogView:{template:'<router-view />'},{global:{plugins:[ElementPlus,router]}})
   try {
     await flushPromises(); const button=`[data-testid="${resource==='catalog'?'catalog':'member'}-delete"]`
     await wrapper.get(button).trigger('click');await flushPromises()
@@ -41,8 +41,8 @@ it.each(['catalog','members'])('%s duplicate prompts are blocked and session cha
   let resolve!:(value:any)=>void;const prompt=vi.spyOn(ElMessageBox,'prompt').mockImplementation(()=>new Promise(done=>{resolve=done}))
   const writes:string[]=[]
   http.defaults.adapter=async config=>{if(config.method==='delete')writes.push(config.url!);return {config,headers:{},status:200,statusText:'',data:{data:[{id:'one',name:'记录',phone:'138',kind:'service',category:'服务',is_active:true,balance:'0'}]}}}
-  const router=createRouter({history:createMemoryHistory(),routes:[{path:'/',component:{template:'<div />'}}]});await router.push('/');await router.isReady()
-  const wrapper=mount(resource==='catalog'?CatalogView:MembersView,{global:{plugins:[ElementPlus,router]}})
+  const router=createRouter({history:createMemoryHistory(),routes:[{path:'/',component:resource==='members'?MembersView:{template:'<div />'}}]});await router.push('/');await router.isReady()
+  const wrapper=mount(resource==='catalog'?CatalogView:{template:'<router-view />'},{global:{plugins:[ElementPlus,router]}})
   try {await flushPromises();const button=wrapper.get(`[data-testid="${resource==='catalog'?'catalog':'member'}-delete"]`);await button.trigger('click');await button.trigger('click');expect(prompt).toHaveBeenCalledTimes(1);clearBusinessSession();resolve({value:'old-password'});await flushPromises();expect(writes).toEqual([])}finally{wrapper.unmount()}
 })
 it('login checks updates through the desktop IPC before login and opens the existing center',async()=>{

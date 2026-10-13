@@ -21,6 +21,7 @@ function createUpdaterController({ updater, app, clock = { setImmediate }, loadR
   let state = {
     status: app.isPackaged ? 'idle' : 'disabled', decision: 'none', required: false,
     currentVersion: app.getVersion(), availableVersion: null, percent: 0,
+    releaseVersion: null, releasePublishedAt: null,
     message: app.isPackaged ? '可以检查更新' : '开发模式不检查更新',
     releaseNotes: [], downloadUrl: '', businessBusyReason: null,
   }
@@ -52,6 +53,8 @@ function createUpdaterController({ updater, app, clock = { setImmediate }, loadR
       if (decision === 'optional' && release.desktop.required) decision = 'required'
       broadcast({ decision, required: decision === 'required',
         availableVersion: decision === 'none' ? null : release.desktop.latestVersion,
+        // loadRelease returns the normalized, signature-verified desktop policy.
+        releaseVersion: release.desktop.latestVersion, releasePublishedAt: release.desktop.publishedAt,
         releaseNotes: release.desktop.releaseNotes,
         downloadUrl: release.desktop.downloadUrl })
       if (decision === 'none') {

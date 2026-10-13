@@ -20,6 +20,9 @@ from ..serializers import order_item_dict, visit_dict
 from ..validation import decimal_value
 from .errors import ApiError, success
 from ..stock_service import normalize_consumption, prepare_consumption, consume_order, return_order_stock
+from ..receipt_service import create_service_print_job, service_reference
+from ..models import new_uuid
+from flask_jwt_extended import get_jwt
 
 bp = Blueprint("visits", __name__, url_prefix="/visits")
 
@@ -169,11 +172,6 @@ def _create_order_selection(visit,normalized,catalog_by_id,employee,body):
         parent = OrderItem.query.filter_by(visit_id=visit.id,kind='package',status='active',
             catalog_item_id=row['catalog_item_id']).with_for_update().first()
         if parent:
-            if row.get('inventory_consumption') is not None:
-                original = {r.stock_item_id:r.quantity for r in OrderStockConsumption.query.filter_by(order_item_id=parent.id).all()}
-                requested = {r['stock_item_id']:r['quantity'] for r in row['inventory_consumption']}
-                if requested != original:
-                    raise ApiError('套票已在账单中，请先取消后重新选择耗材',409,'PACKAGE_CONSUMPTION_CONFLICT')
             row['inventory_consumption']=[]
             row['_existing_package']=True
     recorded_returns = {}
@@ -246,7 +244,8 @@ def add_item(visit_id):
     raw_key = str(request.headers.get('Idempotency-Key') or body.get('idempotency_key') or '').strip()
     endpoint = f'visits:{visit_id}:items'
     existing = idempotency_lookup(endpoint, employee.id, raw_key) if raw_key else None
-    if existing: return success(existing.response_body['data'], '已返回原加单结果', existing.response_status)
+    if existing: return success(existing.response_body['data'], '已返回原加单结果', existing.response_status,
+                                meta=existing.response_body.get('meta'))
     selection = normalize_consumption(body)
     if selection is not None and not raw_key:
         raise ApiError('缺少幂等请求编号',400,'IDEMPOTENCY_REQUIRED')
@@ -272,11 +271,15 @@ def add_item(visit_id):
     recompute_visit_billing(db.session,visit)
     visit.version += 1
     payload = order_item_dict(item)
-    if raw_key: idempotency_store(idempotency_record_key(endpoint, employee.id, raw_key), endpoint, 201, {'data':payload})
+    job = create_service_print_job(db.session,employee,visit,[item],get_jwt()['terminal_id'],
+        idempotency_record_key(endpoint,employee.id,raw_key) if raw_key else new_uuid())
+    meta = {'service_print_job':service_reference(job)} if job else None
+    if raw_key: idempotency_store(idempotency_record_key(endpoint, employee.id, raw_key), endpoint, 201,
+                                 {'data':payload, **({'meta':meta} if meta else {})})
     db.session.commit()
     emit_business_event("visit.changed", {"visit_id": visit.id})
     emit_business_event("inventory.changed", {"catalog_item_id": catalog.id})
-    return success(payload, "加单成功", 201)
+    return success(payload, "加单成功", 201, meta=meta)
 
 
 @bp.post("/<visit_id>/items/batch")
@@ -297,6 +300,7 @@ def add_items_batch(visit_id):
             existing.response_body["data"],
             "已返回原加单结果",
             existing.response_status,
+            meta=existing.response_body.get('meta'),
         )
     _validate_visit_version(visit, body)
     requested_items = body.get("items")
@@ -346,17 +350,20 @@ def add_items_batch(visit_id):
     items = _create_order_selection(visit,normalized,catalog_by_id,employee,body)
     visit.version += 1
     payload = [order_item_dict(item) for item in items]
+    job = create_service_print_job(db.session,employee,visit,items,get_jwt()['terminal_id'],
+                                  idempotency_record_key(endpoint,employee.id,raw_key))
+    meta = {'service_print_job':service_reference(job)} if job else None
     idempotency_store(
         idempotency_record_key(endpoint, employee.id, raw_key),
         endpoint,
         201,
-        {"data": payload},
+        {"data": payload, **({'meta':meta} if meta else {})},
     )
     db.session.commit()
     emit_business_event("visit.changed", {"visit_id": visit.id})
     if required_stock or any(row['inventory_consumption'] for row in normalized):
         emit_business_event("inventory.changed", {"reason": "batch_sale"})
-    return success(payload, f"成功添加 {len(items)} 个项目", 201)
+    return success(payload, f"成功添加 {len(items)} 个项目", 201, meta=meta)
 
 
 @bp.post("/<visit_id>/items/<item_id>/void")

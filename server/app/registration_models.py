@@ -27,7 +27,7 @@ class RegistrationReceipt(db.Model):
     key = db.Column(db.String(64), primary_key=True)
     terminal_id = db.Column(db.String(36), db.ForeignKey('terminals.id'), nullable=False)
     request_digest = db.Column(db.String(64), nullable=False)
-    employee_id = db.Column(db.String(36), db.ForeignKey('employees.id'), nullable=False)
+    employee_id = db.Column(db.String(36), db.ForeignKey('employee_identities.id'), nullable=False)
     generation = db.Column(db.Integer, nullable=False)
     identity = db.Column(db.JSON, nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), nullable=False, default=utcnow)
@@ -36,6 +36,6 @@ class RegistrationReceipt(db.Model):
 class RegistrationTokenView(db.Model):
     __tablename__ = 'registration_token_views'
     key = db.Column(db.String(64), primary_key=True)
-    employee_id = db.Column(db.String(36), db.ForeignKey('employees.id'), nullable=False)
+    employee_id = db.Column(db.String(36), db.ForeignKey('employee_identities.id'), nullable=False)
     generation = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), nullable=False, default=utcnow)

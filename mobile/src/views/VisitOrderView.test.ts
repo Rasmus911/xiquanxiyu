@@ -33,7 +33,20 @@ async function render(){
 
 const product={id:'product',kind:'product',name:'奶浴',category:'服务',mobile_scope:'scrub',price:'30.00',stock_tracked:true,stock_quantity:'0',low_stock_threshold:'0',sort_order:1} as MobileCatalogItem
 function setInput(node: HTMLInputElement,value:string){node.value=value;node.dispatchEvent(new Event('input'))}
-it('staff chooses TOTAL base consumables, retries the original body after remount, and starts the next order empty',async()=>{
+it('0.5.5 submits the selected quantity directly without any materials dialog',async()=>{
+ const writes:any[]=[]
+ http.defaults.adapter=async config=>{
+  if(config.method==='post')writes.push(JSON.parse(config.data))
+  return {config,headers:{},status:200,statusText:'',data:{data:config.method==='post'||config.url==='/inventory/consumables'?[]:{employee:{id:'e'},catalog:[product],wristbands:[{number:'001',visit_id:'a',version:3,bath_area:'male',amount:'45.00',opened_at:'2026-10-04T08:00:00Z'}]}}}
+ }
+ const {root,business}=await render()
+ business.catalog=[product];business.quantities={product:3};await nextTick()
+ root.querySelector<HTMLButtonElement>('[data-testid="submit-order"]')!.click()
+ await vi.waitFor(()=>expect(writes).toHaveLength(1))
+ expect(writes[0].items).toEqual([{catalog_item_id:'product',quantity:'3',inventory_mode:'manual',inventory_consumption:[]}])
+ expect(root.querySelector('.consumption-sheet')).toBeNull()
+})
+it('staff retries the original no-consumption body after remount and the next order gets a new key',async()=>{
   const writes:any[]=[];let uncertain=true
   http.defaults.adapter=async config=>{
     if(config.method==='post'){
@@ -44,17 +57,9 @@ it('staff chooses TOTAL base consumables, retries the original body after remoun
   }
   const {root,business,router,pinia}=await render()
   business.catalog=[product];business.quantities={product:3}
-  await vi.waitFor(()=>expect(business.consumables).toHaveLength(1))
-  expect(root.querySelector('[data-testid="consumption-product"]')).toBeNull()
-  root.querySelector<HTMLButtonElement>('[data-testid="submit-order"]')!.click();await nextTick()
-  await vi.waitFor(()=>expect(root.querySelector('[data-testid="consumption-product"]')).not.toBeNull())
-  const select=root.querySelector<HTMLSelectElement>('[data-testid="stock-select-product"]')!
-  select.value='s';select.dispatchEvent(new Event('change'));await nextTick()
-  const add=root.querySelector<HTMLButtonElement>('[data-testid="stock-add-product"]')!;add.click();await nextTick()
-  setInput(root.querySelector<HTMLInputElement>('[data-testid="stock-quantity-product-s"]')!,'1.5');await nextTick()
-  root.querySelector<HTMLButtonElement>('[data-testid="confirm-consumption"]')!.click()
+  await nextTick();root.querySelector<HTMLButtonElement>('[data-testid="submit-order"]')!.click()
   await vi.waitFor(()=>expect(writes).toHaveLength(1))
-  expect(writes[0].body).toEqual({version:3,items:[{catalog_item_id:'product',quantity:'3',inventory_mode:'manual',inventory_consumption:[{stock_item_id:'s',quantity:'1.5'}]}]})
+  expect(writes[0].body).toEqual({version:3,items:[{catalog_item_id:'product',quantity:'3',inventory_mode:'manual',inventory_consumption:[]}]})
   await vi.waitFor(()=>expect(business.sending).toBe(false))
   expect(business.pendingOrder('a')).toBeDefined()
   destroy()
@@ -69,42 +74,28 @@ it('staff chooses TOTAL base consumables, retries the original body after remoun
   await vi.waitFor(()=>expect(business.sending).toBe(false))
   business.quantities={product:1};await nextTick()
   nextRoot.querySelector<HTMLButtonElement>('[data-testid="submit-order"]')!.click();await nextTick()
-  expect(nextRoot.querySelector<HTMLInputElement>('[data-testid="no-consumption-product"]')!.checked).toBe(false)
-  nextRoot.querySelector<HTMLButtonElement>('[data-testid="confirm-consumption"]')!.click();await nextTick()
-  expect(writes).toHaveLength(2)
-  nextRoot.querySelector<HTMLInputElement>('[data-testid="no-consumption-product"]')!.click();await nextTick()
-  nextRoot.querySelector<HTMLButtonElement>('[data-testid="confirm-consumption"]')!.click()
   await vi.waitFor(()=>expect(writes).toHaveLength(3))
   expect(writes[2].body.items).toEqual([{catalog_item_id:'product',quantity:'1',inventory_mode:'manual',inventory_consumption:[]}])
   expect(writes[2].key).not.toBe(writes[0].key)
 })
 
-it('cancelling the consumables sheet sends nothing and keeps the selection for another confirmation',async()=>{
-  const {root,business}=await render();const writes:any[]=[]
-  http.defaults.adapter=async config=>{if(config.method==='post')writes.push(config);return {config,headers:{},status:200,statusText:'',data:{data:[]}}}
-  business.catalog=[product];business.quantities={product:2};await nextTick()
-  root.querySelector<HTMLButtonElement>('[data-testid="submit-order"]')!.click();await nextTick()
-  expect(root.querySelector('[role="dialog"]')?.textContent).toContain('001')
-  root.querySelector<HTMLInputElement>('[data-testid="no-consumption-product"]')!.click();await nextTick()
-  root.querySelector<HTMLButtonElement>('[data-testid="cancel-consumption"]')!.click();await nextTick()
-  expect(writes).toEqual([]);expect(business.pendingOrder('a')).toBeUndefined();expect(business.quantities).toEqual({product:2})
-  expect(root.querySelector('[role="dialog"]')).toBeNull()
+it('declining a package replacement sends nothing and preserves its selection',async()=>{
+ const {root,business}=await render();const writes:any[]=[]
+ http.defaults.adapter=async config=>{if(config.method==='post')writes.push(config);return {config,headers:{},status:200,statusText:'',data:{data:[]}}}
+ vi.mocked(window.confirm).mockReturnValue(false)
+ business.catalog=[{...product,id:'packageB',kind:'package'}];business.quantities={packageB:1};await nextTick()
+ root.querySelector<HTMLButtonElement>('[data-testid="submit-order"]')!.click();await nextTick()
+ expect(writes).toEqual([]);expect(business.pendingOrder('a')).toBeUndefined();expect(business.quantities).toEqual({packageB:1})
 })
-
-it('a changed visit closes the sheet and cannot attribute the previous selection to the new band',async()=>{
-  const {root,business,router}=await render();const writes:any[]=[]
-  http.defaults.adapter=async config=>{if(config.method==='post')writes.push(config);return {config,headers:{},status:200,statusText:'',data:{data:[]}}}
-  business.wristbands.push({...business.wristbands[0]!,number:'002',visit_id:'b'})
-  business.catalog=[product];business.quantities={product:2};await nextTick()
-  root.querySelector<HTMLButtonElement>('[data-testid="submit-order"]')!.click();await nextTick()
-  const confirm=root.querySelector<HTMLButtonElement>('[data-testid="confirm-consumption"]')
-  expect(confirm).not.toBeNull()
-  await router.push('/orders/b');await nextTick()
-  expect(root.querySelector('[role="dialog"]')).toBeNull()
-  confirm!.click();await nextTick();expect(writes).toEqual([]);expect(business.pendingOrder('b')).toBeUndefined()
+it('a changed visit cannot attribute the previous selection to the new band',async()=>{
+ const {root,business,router}=await render();const writes:any[]=[]
+ http.defaults.adapter=async config=>{if(config.method==='post')writes.push(config);return {config,headers:{},status:200,statusText:'',data:{data:[]}}}
+ business.wristbands.push({...business.wristbands[0]!,number:'002',visit_id:'b'});business.catalog=[product];business.quantities={product:2};await nextTick()
+ await router.push('/orders/b');await nextTick()
+ root.querySelector<HTMLButtonElement>('[data-testid="submit-order"]')!.click();await nextTick()
+ expect(writes).toEqual([]);expect(business.pendingOrder('b')).toBeUndefined()
 })
-
-it('confirmation uses the opened selection snapshot and double taps send only one frozen request',async()=>{
+it('direct submission captures quantity/version and double taps send only one frozen request',async()=>{
   const {root,business}=await render();const writes:any[]=[];let finish!:()=>void
   http.defaults.adapter=async config=>{
     if(config.method==='post')return new Promise(resolve=>{writes.push({url:config.url,body:JSON.parse(config.data)});finish=()=>resolve({config,headers:{},status:200,statusText:'',data:{data:{}}})})
@@ -113,8 +104,7 @@ it('confirmation uses the opened selection snapshot and double taps send only on
   business.catalog=[product];business.quantities={product:2};await nextTick()
   root.querySelector<HTMLButtonElement>('[data-testid="submit-order"]')!.click();await nextTick()
   business.quantities={product:8};business.wristbands[0]!.version=10
-  root.querySelector<HTMLInputElement>('[data-testid="no-consumption-product"]')!.click();await nextTick()
-  const confirm=root.querySelector<HTMLButtonElement>('[data-testid="confirm-consumption"]')!
+  const confirm=root.querySelector<HTMLButtonElement>('[data-testid="submit-order"]')!
   confirm.click();confirm.click();await vi.waitFor(()=>expect(writes).toHaveLength(1))
   expect(writes[0]).toEqual({url:'/mobile/visits/a/items',body:{version:3,items:[{catalog_item_id:'product',quantity:'2',inventory_mode:'manual',inventory_consumption:[]}]}})
   expect(business.pendingOrder('a')?.items[0]?.quantity).toBe('2')

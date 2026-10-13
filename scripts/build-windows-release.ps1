@@ -10,6 +10,9 @@ param(
     [switch]$DryRun
 )
 $ErrorActionPreference = 'Stop'
+# powershell.exe -File receives comma-separated native arguments as one string.
+# Normalize that supported invocation before both packing and index validation.
+$Targets = @($Targets | ForEach-Object { $_.Split(',') | ForEach-Object { $_.Trim() } })
 $project = Split-Path -Parent $PSScriptRoot
 # Publishing keys and optional Authenticode signing are explicit user-only steps.
 # Reject implicit builder credentials without logging or reading their contents.

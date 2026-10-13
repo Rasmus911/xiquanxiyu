@@ -162,7 +162,43 @@ def ensure_runtime_schema():
         upgrade_desktop_ops_schema(connection)
         upgrade_insights047_schema(connection)
         upgrade_ordering048_schema(connection)
+    if db.engine.dialect.name == 'sqlite':
+        upgrade_portable_account_receipt_schema()
     db.session.expire_all()
+
+
+def upgrade_portable_account_receipt_schema():
+    """Reuse reviewed structural revisions for local SQLite only, never cloud PG."""
+    import importlib.util
+    from pathlib import Path
+    from alembic.migration import MigrationContext
+    from alembic.operations import Operations
+
+    directory = Path(__file__).resolve().parents[1] / 'migrations' / 'versions'
+    with db.engine.connect() as connection:
+        raw = connection.connection.driver_connection
+        foreign_keys = raw.execute('PRAGMA foreign_keys').fetchone()[0]
+        if raw.in_transaction:
+            raise RuntimeError('Portable SQLite migration requires an idle connection')
+        raw.execute('PRAGMA foreign_keys=OFF')
+        try:
+            connection.exec_driver_sql('BEGIN')
+            with Operations.context(MigrationContext.configure(connection)):
+                for revision in ('20261008_registration_token', '20261011_employee_identity',
+                                 '20261011_service_receipts', '20261012_physical_membership',
+                                 '20261013_wristband_chip', '20261013_manual_inventory_excel'):
+                    spec = importlib.util.spec_from_file_location(revision, directory / (revision + '.py'))
+                    module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(module)
+                    module.upgrade()
+            if raw.execute('PRAGMA foreign_key_check').fetchall():
+                raise RuntimeError('Portable migration left invalid historical foreign keys')
+            connection.commit()
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            raw.execute(f'PRAGMA foreign_keys={int(foreign_keys)}')
 
 
 def upgrade_independent_stock_schema(connection):
@@ -172,7 +208,9 @@ def upgrade_independent_stock_schema(connection):
     if 'inventory_mode' not in {column['name'] for column in inspect(connection).get_columns('order_items')}:
         connection.exec_driver_sql("ALTER TABLE order_items ADD COLUMN inventory_mode VARCHAR(20) NOT NULL DEFAULT 'legacy'")
     for model in (StockItem, StockMovement, OrderStockConsumption):
-        model.__table__.create(connection, checkfirst=True)
+        from .schema_history import create_pre_identity_table
+        create_pre_identity_table(connection, model.__table__,
+            exclude_columns=('unit_cost','reference_cost','cost_basis') if model is StockItem else ())
     mapped = set(connection.execute(select(StockItem.__table__.c.legacy_catalog_item_id)).scalars())
     # This earlier migration also runs before later additive model fields exist.
     products = connection.execute(select(*(CatalogItem.__table__.c[name] for name in
@@ -224,7 +262,8 @@ def upgrade_insights047_schema(connection):
     # Not an ORM table: create_all must not preempt this durable one-time backfill.
     connection.exec_driver_sql('CREATE TABLE IF NOT EXISTS schema_upgrade_markers (revision VARCHAR(80) PRIMARY KEY)')
     initialize_alerts = connection.execute(text("SELECT revision FROM schema_upgrade_markers WHERE revision='20261007_insights_cost'")).first() is None
-    StockCost.__table__.create(connection, checkfirst=True)
+    from .schema_history import create_pre_identity_table
+    create_pre_identity_table(connection, StockCost.__table__)
     stock = StockItem.__table__; movements = StockMovement.__table__
     # This preceding revision can run before the later nullable master cost
     # column exists. Select only its original fields, not the future ORM table.

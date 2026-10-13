@@ -71,7 +71,9 @@ def test_each_explicit_existing_admin_can_login_and_use_available_management(
         assert '*' not in data['permissions']
         response = client.get('/api/mobile/bootstrap', headers=session_headers(data))
         assert response.status_code == 200
-        assert all(response.get_json()['data']['employee']['capabilities'].values())
+        capabilities = response.get_json()['data']['employee']['capabilities']
+        assert all(value for key, value in capabilities.items() if key != 'registration_token_view')
+        assert capabilities['registration_token_view'] is (username in {'18603346509','18631459666'})
     else:
         assert client.get('/api/employees', headers=session_headers(data)).status_code == 200
         assert client.get('/api/settings', headers=session_headers(data)).status_code == 200

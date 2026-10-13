@@ -96,7 +96,10 @@ def test_upgrade_keeps_all_original_values_and_protects_archives(tmp_path, runti
                 continue
             assert db.session.query(model).count() == 0
             with archive_read(old_period):
-                assert db.session.query(model).count() == (0 if model.__tablename__ in {'stock_movements','order_stock_consumptions'} else 1)
+                empty = {'stock_movements', 'order_stock_consumptions', 'service_print_jobs',
+                         'service_print_attempts', 'settlement_print_attempts',
+                         'member_card_bindings', 'settlement_pass_redemptions', 'wristband_scan_sessions'}
+                assert db.session.query(model).count() == (0 if model.__tablename__ in empty else 1)
         db.session.add(Member(phone='13800000001'))
         db.session.commit()
         assert check_financial_integrity()['valid'] is True

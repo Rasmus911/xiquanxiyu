@@ -26,6 +26,8 @@ const router = createRouter({
         { path: 'employees', name: 'employees', component: () => import('../views/EmployeesView.vue'), meta: { title: '员工账号', section: '系统', parentRoute: '/', roles: ['admin'] } },
         { path: 'audit', name: 'audit', component: () => import('../views/AuditView.vue'), meta: { title: '操作记录', section: '经营管理', parentRoute: '/', roles: ['manager', 'admin'] } },
         { path: 'settings', name: 'settings', component: () => import('../views/SettingsView.vue'), meta: { title: '系统设置', section: '系统', parentRoute: '/', roles: ['admin'] } },
+        { path: 'wristband-bindings', name: 'wristband-bindings', component: () => import('../views/WristbandBindingsView.vue'), meta: { title: '手牌ID录入', section: '系统', parentRoute: '/' } },
+        { path: 'account-password', name: 'account-password', component: () => import('../views/AccountPasswordView.vue'), meta: { title: '账号密码修改', section: '系统', parentRoute: '/' } },
       ],
     },
     { path: '/:pathMatch(.*)*', redirect: '/' },

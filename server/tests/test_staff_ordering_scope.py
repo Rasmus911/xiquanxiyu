@@ -118,7 +118,7 @@ def test_staff_can_submit_allowed_order_but_cannot_open_void_or_collect(client, 
         json={'items': [{'catalog_item_id': linked_scope['scrub'], 'quantity': 2}]})
     assert response.status_code == 201
     item_id = response.get_json()['data'][0]['id']
-    assert Decimal(db.session.get(CatalogItem, linked_scope['scrub']).stock_quantity) == Decimal('8')
+    assert Decimal(db.session.get(CatalogItem, linked_scope['scrub']).stock_quantity) == Decimal('10')
     assert client.post('/api/visits/' + target + '/items/' + item_id + '/void', headers=headers, json={}).status_code == 403
     assert client.post('/api/checkout', headers=headers, json={}).status_code == 403
     band = Wristband.query.filter_by(number='8002').one()

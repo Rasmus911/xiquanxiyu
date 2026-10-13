@@ -22,6 +22,9 @@ export function initialNativeUpdateState(): NativeUpdateState {
 export function reduceUpdater(state: NativeUpdateState, event: NativeUpdateEvent): NativeUpdateState {
   if (event.type === 'reset') return initialNativeUpdateState()
   if (event.type === 'progress') {
+    // Native UI-thread progress may arrive after the download promise resolves.
+    // Never let it discard the verified APK path or undo installation state.
+    if (state.status !== 'idle' && state.status !== 'downloading') return state
     const percent = Math.max(0, Math.min(100, Math.round(Number(event.percent) || 0)))
     return { status: 'downloading', percent, error: null, path: null }
   }

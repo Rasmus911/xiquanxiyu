@@ -6,7 +6,14 @@ import { VisitDraftBook, type SubmissionSnapshot } from '../domain/orders/visit-
 import { orderFingerprint } from '../domain/orders/selection'
 import { buildManualConsumption } from '../domain/orders/consumption'
 import { clearPendingRequestKey, pendingRequestKey } from '../domain/requests/pending-key'
-import type { Visit } from '../types'
+import type { ServicePrintReference, Visit } from '../types'
+
+export interface OrderSubmissionResult { target:SubmissionSnapshot; servicePrintJob:ServicePrintReference|null }
+function serviceReference(value:unknown):ServicePrintReference|null {
+  const row = value as Partial<ServicePrintReference>|null
+  return row && row.kind === 'order' && typeof row.id === 'string' && !!row.id
+    && typeof row.created_at === 'string' && typeof row.expires_at === 'string' ? row as ServicePrintReference : null
+}
 
 interface PendingVisitRequest {
   target: SubmissionSnapshot
@@ -80,16 +87,16 @@ export function useVisitOrdering() {
     if (!request) throw new Error('当前手牌没有待确认操作，请重新选择项目')
     return sendRequest(request)
   }
-  async function sendRequest(request: PendingVisitRequest) {
+  async function sendRequest(request: PendingVisitRequest):Promise<OrderSubmissionResult> {
     assertCurrent(request.generation)
     const scope = `visit:${request.target.visitId}:batch-add`
     try {
-      await http.post(`/visits/${request.target.visitId}/items/batch`, request.body, { headers: { 'Idempotency-Key': request.key } })
+      const response = await http.post(`/visits/${request.target.visitId}/items/batch`, request.body, { headers: { 'Idempotency-Key': request.key } })
       assertCurrent(request.generation)
       if (pending.get(request.target.visitId) === request) {
         pending.delete(request.target.visitId); clearPendingRequestKey(scope, request.key)
       }
-      return request.target
+      return {target:request.target,servicePrintJob:serviceReference(response.data?.meta?.service_print_job)}
     } catch (cause) {
       assertCurrent(request.generation)
       const status = (cause as { response?: { status: number } })?.response?.status
