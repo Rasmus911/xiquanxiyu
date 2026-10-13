@@ -1,0 +1,300 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/SHA256SUMS",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 2766,
+      "sha256": "b1a9640b502ee02e8830a84f8c616c215afd29c1d23772d637445e65808cc14f",
+      "pieces": [
+        {
+          "file": "archive/objects/b1a9640b502ee02e8830a84f8c616c215afd29c1d23772d637445e65808cc14f",
+          "size": 2766,
+          "sha256": "b1a9640b502ee02e8830a84f8c616c215afd29c1d23772d637445e65808cc14f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/activate.sh",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 1930,
+      "sha256": "1517575b8a6f973d7fd7d0d14680aa73324c2f7e1244e85433a29a8091d28e78",
+      "pieces": [
+        {
+          "file": "archive/objects/1517575b8a6f973d7fd7d0d14680aa73324c2f7e1244e85433a29a8091d28e78",
+          "size": 1930,
+          "sha256": "1517575b8a6f973d7fd7d0d14680aa73324c2f7e1244e85433a29a8091d28e78"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/check-sequences.py",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 548,
+      "sha256": "02f8d780f1e3ccd6c976febb6fa7b1aace6248ae2fdf843bca056375ce74d7cb",
+      "pieces": [
+        {
+          "file": "archive/objects/02f8d780f1e3ccd6c976febb6fa7b1aace6248ae2fdf843bca056375ce74d7cb",
+          "size": 548,
+          "sha256": "02f8d780f1e3ccd6c976febb6fa7b1aace6248ae2fdf843bca056375ce74d7cb"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/delivery-index.json",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 6737,
+      "sha256": "929a06f2da825fcf61c00412bb9797d6bff46fdf1174034cc228e2cce4290320",
+      "pieces": [
+        {
+          "file": "archive/objects/929a06f2da825fcf61c00412bb9797d6bff46fdf1174034cc228e2cce4290320",
+          "size": 6737,
+          "sha256": "929a06f2da825fcf61c00412bb9797d6bff46fdf1174034cc228e2cce4290320"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/immutable-files.txt",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 699,
+      "sha256": "b8f629ec9fddd63a010dfddb8250280f31d7af1f1931b9d83c24e59a51fc59c5",
+      "pieces": [
+        {
+          "file": "archive/objects/b8f629ec9fddd63a010dfddb8250280f31d7af1f1931b9d83c24e59a51fc59c5",
+          "size": 699,
+          "sha256": "b8f629ec9fddd63a010dfddb8250280f31d7af1f1931b9d83c24e59a51fc59c5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/merge-legacy-policy.py",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 610,
+      "sha256": "f841d227ccb845fe6b6afeedf70f9e0b71cd195cd9d2ff9baa8c1bbed17062ac",
+      "pieces": [
+        {
+          "file": "archive/objects/f841d227ccb845fe6b6afeedf70f9e0b71cd195cd9d2ff9baa8c1bbed17062ac",
+          "size": 610,
+          "sha256": "f841d227ccb845fe6b6afeedf70f9e0b71cd195cd9d2ff9baa8c1bbed17062ac"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/releases/client-policy.json",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 1084,
+      "sha256": "79e9d3fdb076b54bad4cea13d96831498e01612f12871fbf46adbe48280bfd15",
+      "pieces": [
+        {
+          "file": "archive/objects/79e9d3fdb076b54bad4cea13d96831498e01612f12871fbf46adbe48280bfd15",
+          "size": 1084,
+          "sha256": "79e9d3fdb076b54bad4cea13d96831498e01612f12871fbf46adbe48280bfd15"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/releases/desktop/win10-x64.json",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 1941,
+      "sha256": "babe93899aeb0242a86ee616212aec6b0e136c895fceb948ac828d27b588f14a",
+      "pieces": [
+        {
+          "file": "archive/objects/babe93899aeb0242a86ee616212aec6b0e136c895fceb948ac828d27b588f14a",
+          "size": 1941,
+          "sha256": "babe93899aeb0242a86ee616212aec6b0e136c895fceb948ac828d27b588f14a"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/releases/desktop/win10-x86.json",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 1945,
+      "sha256": "cf8f36521247be473f3d0a99b5b711e12fbefe52bd72419592487443158ae239",
+      "pieces": [
+        {
+          "file": "archive/objects/cf8f36521247be473f3d0a99b5b711e12fbefe52bd72419592487443158ae239",
+          "size": 1945,
+          "sha256": "cf8f36521247be473f3d0a99b5b711e12fbefe52bd72419592487443158ae239"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/releases/desktop/win11-x64.json",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 1933,
+      "sha256": "772e3e4df7e32bb0fc818625f36a4c82bf00743a4f031a93c4caa091c5c590a5",
+      "pieces": [
+        {
+          "file": "archive/objects/772e3e4df7e32bb0fc818625f36a4c82bf00743a4f031a93c4caa091c5c590a5",
+          "size": 1933,
+          "sha256": "772e3e4df7e32bb0fc818625f36a4c82bf00743a4f031a93c4caa091c5c590a5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/releases/desktop/win11-x86.json",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 1933,
+      "sha256": "80d76555d74992dceda143c4602497fb67a5f176018fffb0c08ede4c40ab92d3",
+      "pieces": [
+        {
+          "file": "archive/objects/80d76555d74992dceda143c4602497fb67a5f176018fffb0c08ede4c40ab92d3",
+          "size": 1933,
+          "sha256": "80d76555d74992dceda143c4602497fb67a5f176018fffb0c08ede4c40ab92d3"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/Xiquan-Bathhouse-Setup-0.5.4-win10-x64.exe.blockmap",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 126877,
+      "sha256": "03b42aa3eb20079457c002277080a38a9a589de5162bde88d93d5b2e38a58e3d",
+      "pieces": [
+        {
+          "file": "archive/objects/03b42aa3eb20079457c002277080a38a9a589de5162bde88d93d5b2e38a58e3d",
+          "size": 126877,
+          "sha256": "03b42aa3eb20079457c002277080a38a9a589de5162bde88d93d5b2e38a58e3d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/desktop/win10-x64/Xiquan-Bathhouse-Setup-0.5.4-win10-x64.exe.blockmap",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 126877,
+      "sha256": "03b42aa3eb20079457c002277080a38a9a589de5162bde88d93d5b2e38a58e3d",
+      "pieces": [
+        {
+          "file": "archive/objects/03b42aa3eb20079457c002277080a38a9a589de5162bde88d93d5b2e38a58e3d",
+          "size": 126877,
+          "sha256": "03b42aa3eb20079457c002277080a38a9a589de5162bde88d93d5b2e38a58e3d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/desktop/win10-x64/latest.yml",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 395,
+      "sha256": "a93305b8574c618e98171594156ed918a6e138e73a9305fda9cf53e06e6d014d",
+      "pieces": [
+        {
+          "file": "archive/objects/a93305b8574c618e98171594156ed918a6e138e73a9305fda9cf53e06e6d014d",
+          "size": 395,
+          "sha256": "a93305b8574c618e98171594156ed918a6e138e73a9305fda9cf53e06e6d014d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/desktop/win10-x86/Xiquan-Bathhouse-Setup-0.5.4-win10-x86.exe.blockmap",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 105666,
+      "sha256": "102e59b79b97d2fc8cde17b33ad95721901589d8b883a213b849fec7ac2e6cfe",
+      "pieces": [
+        {
+          "file": "archive/objects/102e59b79b97d2fc8cde17b33ad95721901589d8b883a213b849fec7ac2e6cfe",
+          "size": 105666,
+          "sha256": "102e59b79b97d2fc8cde17b33ad95721901589d8b883a213b849fec7ac2e6cfe"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/desktop/win10-x86/latest.yml",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 395,
+      "sha256": "90386733deef8e64ceddc0ce68f9f09f4835a90951e12cabc4006f5286d2c9b1",
+      "pieces": [
+        {
+          "file": "archive/objects/90386733deef8e64ceddc0ce68f9f09f4835a90951e12cabc4006f5286d2c9b1",
+          "size": 395,
+          "sha256": "90386733deef8e64ceddc0ce68f9f09f4835a90951e12cabc4006f5286d2c9b1"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/desktop/win11-x64/Xiquan-Bathhouse-Setup-0.5.4-win11-x64.exe.blockmap",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 126961,
+      "sha256": "a2e275bc9468962a4ae2f88c4ddbd7eaa7b5a353caa91cecfe62a895b6bb8887",
+      "pieces": [
+        {
+          "file": "archive/objects/a2e275bc9468962a4ae2f88c4ddbd7eaa7b5a353caa91cecfe62a895b6bb8887",
+          "size": 126961,
+          "sha256": "a2e275bc9468962a4ae2f88c4ddbd7eaa7b5a353caa91cecfe62a895b6bb8887"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/desktop/win11-x64/latest.yml",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 395,
+      "sha256": "f2e3f8a8f12793b18d3e94d50ecb0a9cfe1f138e135859cc0613bfdaf8bd6717",
+      "pieces": [
+        {
+          "file": "archive/objects/f2e3f8a8f12793b18d3e94d50ecb0a9cfe1f138e135859cc0613bfdaf8bd6717",
+          "size": 395,
+          "sha256": "f2e3f8a8f12793b18d3e94d50ecb0a9cfe1f138e135859cc0613bfdaf8bd6717"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/desktop/win11-x86/Xiquan-Bathhouse-Setup-0.5.4-win11-x86.exe.blockmap",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 105857,
+      "sha256": "b4f61ac0cde9f14a5e46f8e9b0462ace7b9c4d907e026b22d735c90876233438",
+      "pieces": [
+        {
+          "file": "archive/objects/b4f61ac0cde9f14a5e46f8e9b0462ace7b9c4d907e026b22d735c90876233438",
+          "size": 105857,
+          "sha256": "b4f61ac0cde9f14a5e46f8e9b0462ace7b9c4d907e026b22d735c90876233438"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/desktop/win11-x86/latest.yml",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 395,
+      "sha256": "5932c09255f461bbef63ea08c9455e9284259ebe6d5fcf1fe47a6c873660b163",
+      "pieces": [
+        {
+          "file": "archive/objects/5932c09255f461bbef63ea08c9455e9284259ebe6d5fcf1fe47a6c873660b163",
+          "size": 395,
+          "sha256": "5932c09255f461bbef63ea08c9455e9284259ebe6d5fcf1fe47a6c873660b163"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/latest.yml",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 395,
+      "sha256": "a93305b8574c618e98171594156ed918a6e138e73a9305fda9cf53e06e6d014d",
+      "pieces": [
+        {
+          "file": "archive/objects/a93305b8574c618e98171594156ed918a6e138e73a9305fda9cf53e06e6d014d",
+          "size": 395,
+          "sha256": "a93305b8574c618e98171594156ed918a6e138e73a9305fda9cf53e06e6d014d"
+        }
+      ]
+    }
+  ]
+}

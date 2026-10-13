@@ -1,0 +1,34 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "release/cloud/xiquan-desktop056-SOURCE-WEB-20261014-001152-fea4bf17.zip",
+      "version": "0.5.6",
+      "category": "source/0.5.6",
+      "size": 2916726,
+      "sha256": "4ddc022c38a8860ef0507becc03105c279ce5a20f81e0e23f4f9ad25812ad670",
+      "pieces": [
+        {
+          "file": "archive/objects/4ddc022c38a8860ef0507becc03105c279ce5a20f81e0e23f4f9ad25812ad670",
+          "size": 2916726,
+          "sha256": "4ddc022c38a8860ef0507becc03105c279ce5a20f81e0e23f4f9ad25812ad670"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/xiquan-desktop056-SOURCE-WEB-20261014-001152-fea4bf17.zip",
+      "version": "0.5.6",
+      "category": "source/0.5.6",
+      "size": 2916726,
+      "sha256": "4ddc022c38a8860ef0507becc03105c279ce5a20f81e0e23f4f9ad25812ad670",
+      "pieces": [
+        {
+          "file": "archive/objects/4ddc022c38a8860ef0507becc03105c279ce5a20f81e0e23f4f9ad25812ad670",
+          "size": 2916726,
+          "sha256": "4ddc022c38a8860ef0507becc03105c279ce5a20f81e0e23f4f9ad25812ad670"
+        }
+      ]
+    }
+  ]
+}

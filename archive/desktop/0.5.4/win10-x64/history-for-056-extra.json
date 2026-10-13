@@ -1,0 +1,64 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/Xiquan-Bathhouse-Setup-0.5.4-win10-x64.exe",
+      "version": "0.5.4",
+      "category": "desktop/0.5.4/win10-x64",
+      "size": 120770855,
+      "sha256": "f862394db53607cf68d993c09eb7c89292902102894e687a1fcf9f1119b32835",
+      "pieces": [
+        {
+          "file": "archive/objects/46910353eaa6df75199bfdad94d341eecb0b801461afa493566c24218c582654",
+          "size": 33554432,
+          "sha256": "46910353eaa6df75199bfdad94d341eecb0b801461afa493566c24218c582654"
+        },
+        {
+          "file": "archive/objects/0b937bfada488efe142380d7fb8be8d1ddec3bf8c7fb546bc0bebc402dcb9ce4",
+          "size": 33554432,
+          "sha256": "0b937bfada488efe142380d7fb8be8d1ddec3bf8c7fb546bc0bebc402dcb9ce4"
+        },
+        {
+          "file": "archive/objects/708626c0c3dca9997c5d125c476cec625a4f91dff493a55ede895c930d5383bf",
+          "size": 33554432,
+          "sha256": "708626c0c3dca9997c5d125c476cec625a4f91dff493a55ede895c930d5383bf"
+        },
+        {
+          "file": "archive/objects/033f2cddec2e2598116bc1d78c4e19bab6aad44ba26623ccd60ec9e630e30ea6",
+          "size": 20107559,
+          "sha256": "033f2cddec2e2598116bc1d78c4e19bab6aad44ba26623ccd60ec9e630e30ea6"
+        }
+      ]
+    },
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/desktop/win10-x64/Xiquan-Bathhouse-Setup-0.5.4-win10-x64.exe",
+      "version": "0.5.4",
+      "category": "desktop/0.5.4/win10-x64",
+      "size": 120770855,
+      "sha256": "f862394db53607cf68d993c09eb7c89292902102894e687a1fcf9f1119b32835",
+      "pieces": [
+        {
+          "file": "archive/objects/46910353eaa6df75199bfdad94d341eecb0b801461afa493566c24218c582654",
+          "size": 33554432,
+          "sha256": "46910353eaa6df75199bfdad94d341eecb0b801461afa493566c24218c582654"
+        },
+        {
+          "file": "archive/objects/0b937bfada488efe142380d7fb8be8d1ddec3bf8c7fb546bc0bebc402dcb9ce4",
+          "size": 33554432,
+          "sha256": "0b937bfada488efe142380d7fb8be8d1ddec3bf8c7fb546bc0bebc402dcb9ce4"
+        },
+        {
+          "file": "archive/objects/708626c0c3dca9997c5d125c476cec625a4f91dff493a55ede895c930d5383bf",
+          "size": 33554432,
+          "sha256": "708626c0c3dca9997c5d125c476cec625a4f91dff493a55ede895c930d5383bf"
+        },
+        {
+          "file": "archive/objects/033f2cddec2e2598116bc1d78c4e19bab6aad44ba26623ccd60ec9e630e30ea6",
+          "size": 20107559,
+          "sha256": "033f2cddec2e2598116bc1d78c4e19bab6aad44ba26623ccd60ec9e630e30ea6"
+        }
+      ]
+    }
+  ]
+}

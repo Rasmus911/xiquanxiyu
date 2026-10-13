@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "desktop": {
+    "latestVersion": "0.5.5",
+    "minimumVersion": "0.4.2",
+    "required": false,
+    "downloadUrl": "https://api.pqxqxy.xyz/updates/Xiquan-Bathhouse-Setup-0.5.5-win10-x64.exe",
+    "sha256": "7422ddb3f19f3763557d2246876f45fd774934da345588c0df052453a8d01f4a",
+    "releaseNotes": [
+      "取消下单“选择耗材”的步骤",
+      "可以通过导入外部Excel来整理库存"
+    ],
+    "publishedAt": "2026-10-13T13:48:47.030Z"
+  },
+  "android": {
+    "releaseNotes": [
+      "新增云端数据重置功能"
+    ],
+    "latestVersionCode": 8,
+    "downloadUrl": "https://api.pqxqxy.xyz/mobile/downloads/xiquan-mobile-ordering-1.2.1.apk",
+    "required": false,
+    "latestVersion": "1.2.1",
+    "publishedAt": "2026-10-03T10:36:32.2757812+08:00",
+    "minimumVersionCode": 8,
+    "sha256": "7ea51bf6c942a3cc9532f8d469d6c2bd0708df5c79c969618659fa31aa685062"
+  },
+  "web": {
+    "buildId": "20261002-reset-041",
+    "releaseNotes": [
+      "于在跃账号经营数据重置与三端同步"
+    ],
+    "publishedAt": "2026-10-03T09:37:09.6107741+08:00",
+    "required": false
+  }
+}

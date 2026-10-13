@@ -1,0 +1,35 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "release/windows-staging/xiquan-windows-054-c4151211698846649fd2c94032159aac/updates/desktop/win10-x86/Xiquan-Bathhouse-Setup-0.5.4-win10-x86.exe",
+      "version": "0.5.4",
+      "category": "desktop/0.5.4/win10-x86",
+      "size": 100955616,
+      "sha256": "4d423ecec3bf5da0844094290de8aed17949c759c1a1be611b68abda631dddad",
+      "pieces": [
+        {
+          "file": "archive/objects/a392a3624d4a7dd6c86029e96ece75d49c272f24a0fa41739bf6a59109749e7e",
+          "size": 33554432,
+          "sha256": "a392a3624d4a7dd6c86029e96ece75d49c272f24a0fa41739bf6a59109749e7e"
+        },
+        {
+          "file": "archive/objects/b913061af96c467226ca29abbbfbe6a154d1460fe47dc7eadb4ee9579f16c5af",
+          "size": 33554432,
+          "sha256": "b913061af96c467226ca29abbbfbe6a154d1460fe47dc7eadb4ee9579f16c5af"
+        },
+        {
+          "file": "archive/objects/2cbd02ff22a72137b7d9d51c73f2119269ad2764dc062271d33eaf15b794d3b2",
+          "size": 33554432,
+          "sha256": "2cbd02ff22a72137b7d9d51c73f2119269ad2764dc062271d33eaf15b794d3b2"
+        },
+        {
+          "file": "archive/objects/b63ffcfc8da6c43e6bb288f99abde213dec41a78940a47b31aa0086d0ea49489",
+          "size": 292320,
+          "sha256": "b63ffcfc8da6c43e6bb288f99abde213dec41a78940a47b31aa0086d0ea49489"
+        }
+      ]
+    }
+  ]
+}
