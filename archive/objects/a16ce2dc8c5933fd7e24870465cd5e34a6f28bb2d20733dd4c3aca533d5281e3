@@ -1,0 +1,100 @@
+"""Human-run, static-only 0.5.3 publication. No container or database commands."""
+import argparse
+import copy
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import stat
+import uuid
+import zipfile
+
+NOTES=['修复更新通道BUG','美化UI']
+
+def safe(path):
+    path=Path(path)
+    if not path.is_absolute() or any(p.is_symlink() for p in (path,*path.parents)):
+        raise ValueError('Relative or linked publication path')
+    return path
+
+def digest(data):return hashlib.sha256(data).hexdigest()
+
+def merge_web_policy(previous,version):
+    if previous.get('schemaVersion')!=1 or not all(key in previous for key in ('desktop','android','web')):
+        raise ValueError('Existing release policy incomplete')
+    if (not re.fullmatch(r'desktop053-[A-Za-z0-9._-]+',str(version.get('buildId','')))
+        or version.get('releaseNotes')!=NOTES or version.get('required') is not False
+        or not isinstance(version.get('publishedAt'),str)):
+        raise ValueError('Unexpected 0.5.3 web identity')
+    result=copy.deepcopy(previous);result['web']=version;return result
+
+def inspect_archive(archive):
+    files={}
+    with zipfile.ZipFile(archive) as zipped:
+        entries=zipped.infolist()
+        if len(entries)>500 or sum(e.file_size for e in entries)>20*1024*1024:
+            raise ValueError('Static archive exceeds limit')
+        seen=set()
+        for entry in entries:
+            name=entry.filename.replace('\\','/')
+            if name in seen or stat.S_ISLNK(entry.external_attr>>16) or entry.flag_bits&1:
+                raise ValueError('Duplicate, linked or encrypted member')
+            seen.add(name)
+            if name=='assets/':continue
+            if name not in {'index.html','version.json','publication-manifest.json'} and not re.fullmatch(r'assets/[A-Za-z0-9_.-]+\.(?:js|css|svg|png|jpg|woff2?)',name):
+                raise ValueError('Unexpected static member')
+            files[name]=zipped.read(entry)
+    if not {'index.html','version.json','publication-manifest.json'}<=files.keys():
+        raise ValueError('Required static metadata missing')
+    manifest=json.loads(files.pop('publication-manifest.json').decode('utf-8-sig'))
+    if manifest.get('version')!='0.5.3' or set(manifest.get('files',{}))!=set(files):
+        raise ValueError('Unexpected manifest identity or membership')
+    for name,data in files.items():
+        if manifest['files'][name]!={'sha256':digest(data),'size':len(data)}:
+            raise ValueError('Static member checksum mismatch')
+    assets=re.findall(r'(?:\./|/)?(assets/[A-Za-z0-9_.-]+\.(?:js|css))',files['index.html'].decode('utf-8'))
+    if not assets or any(name not in files for name in assets):raise ValueError('Entry resources missing')
+    return files
+
+def atomic(path,data):
+    path=safe(path);path.parent.mkdir(mode=0o755,parents=True,exist_ok=True)
+    staged=safe(path.with_name(path.name+'.new-'+uuid.uuid4().hex))
+    with staged.open('xb') as stream:stream.write(data);stream.flush();os.fsync(stream.fileno())
+    staged.chmod(0o644);os.replace(staged,path)
+
+def publish(archive,expected):
+    archive=safe(archive)
+    if digest(archive.read_bytes())!=expected:raise ValueError('Uploaded archive differs')
+    files=inspect_archive(archive)
+    cloud=safe('/opt/xiquan/xiquan/deploy/cloud');live=safe(cloud/'web')
+    policy=safe(cloud/'releases/client-policy.json')
+    previous=json.loads(policy.read_text(encoding='utf-8'))
+    version=json.loads(files['version.json'].decode('utf-8-sig'));merged=merge_web_policy(previous,version)
+    # Check every immutable file before replacing any live entry.
+    for name,data in files.items():
+        final=safe(live/name)
+        if name.startswith('assets/') and final.exists() and digest(final.read_bytes())!=digest(data):
+            raise ValueError('Immutable asset differs')
+    backup=safe('/opt/xiquan-backups')/('static053-publication-'+uuid.uuid4().hex)
+    backup.mkdir(mode=0o700)
+    shutil.copy2(policy,backup/'client-policy.json')
+    for name in ('index.html','version.json'):
+        if safe(live/name).exists():shutil.copy2(live/name,backup/name)
+    for name,data in sorted(files.items(),key=lambda item:(item[0] in ('index.html','version.json'),item[0])):
+        atomic(live/name,data)
+    atomic(policy,json.dumps(merged,ensure_ascii=False,indent=2).encode())
+    receipt={'version':'0.5.3','buildId':version['buildId'],'files':{name:digest(data) for name,data in files.items()},'apiChanged':False,'databaseChanged':False}
+    (backup/'completed.json').write_text(json.dumps(receipt,indent=2),encoding='utf-8')
+    print('STATIC053_PUBLISHED; no API restart, migration or data clearing',flush=True)
+    print('PUBLICATION_BACKUP='+str(backup),flush=True)
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser();parser.add_argument('--archive',required=True);parser.add_argument('--sha256',required=True);args=parser.parse_args()
+    if os.name!='posix' or os.getuid()!=0:raise SystemExit('Human-run ECS root only')
+    if not re.fullmatch('[a-f0-9]{64}',args.sha256):raise SystemExit('Invalid archive checksum')
+    import fcntl
+    os.umask(0o077)
+    with safe('/run/lock/xiquan-release-publication.lock').open('a+') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);publish(args.archive,args.sha256)

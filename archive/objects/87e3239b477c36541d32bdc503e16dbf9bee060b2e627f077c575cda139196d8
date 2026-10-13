@@ -1,0 +1,21 @@
+const fs=require('node:fs'),path=require('node:path')
+const {verifyHttpsFile}=require('./windows-public-recovery.cjs')
+const {requestHttpsJson}=require('../../client/electron/https-json.cjs')
+function publicFileUrl(name){
+  if(!/^(?:index\.html|version\.json|assets\/[A-Za-z0-9_.-]+\.(?:js|css|svg|png|jpg|woff2?))$/.test(name))throw Error('Invalid web member')
+  return 'https://api.pqxqxy.xyz/app/'+name
+}
+async function verify(root){
+  const origin='https://api.pqxqxy.xyz'
+  const manifest=JSON.parse(fs.readFileSync(path.join(root,'publication-manifest.json'),'utf8'))
+  if(manifest.version!=='0.5.3')throw Error('Unexpected web manifest')
+  for(const [name,record] of Object.entries(manifest.files)){
+    await verifyHttpsFile(publicFileUrl(name),record,{log:console.log})
+  }
+  const version=JSON.parse(fs.readFileSync(path.join(root,'version.json'),'utf8'))
+  const policy=await requestHttpsJson(origin+'/releases/client-policy.json',{allowedOrigin:origin,timeoutMs:60000})
+  if(policy.web.buildId!==version.buildId)throw Error('Web update discovery differs')
+  return {verified:true,version:'0.5.3',buildId:version.buildId,cloudChanged:false}
+}
+module.exports={verify,publicFileUrl}
+if(require.main===module)verify(fs.realpathSync(process.argv[2])).then(value=>console.log(JSON.stringify(value))).catch(error=>{console.error(error.message);process.exitCode=1})

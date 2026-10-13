@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "server/ACCESS_POLICY.md",
+      "version": "0.4.1",
+      "category": "source/0.4.1",
+      "size": 3256,
+      "sha256": "5749e857c519ef27973186e625c50fa861e23490d155eb369da6417bb8d06ec5",
+      "pieces": [
+        {
+          "file": "archive/objects/5749e857c519ef27973186e625c50fa861e23490d155eb369da6417bb8d06ec5",
+          "size": 3256,
+          "sha256": "5749e857c519ef27973186e625c50fa861e23490d155eb369da6417bb8d06ec5"
+        }
+      ]
+    }
+  ]
+}

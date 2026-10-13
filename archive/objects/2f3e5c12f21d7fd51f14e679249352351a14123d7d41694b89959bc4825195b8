@@ -1,0 +1,23 @@
+import importlib.util
+from pathlib import Path
+import unittest
+
+class Android1210Tests(unittest.TestCase):
+    def module(self):
+        file=Path(__file__).resolve().parents[2]/'deploy/cloud/scripts/android_1210_publication.py'
+        spec=importlib.util.spec_from_file_location('android1210',file)
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+
+    def test_original_policy_members_preserved_and_only_code17_advances(self):
+        module=self.module()
+        old={'schemaVersion':1,'desktop':{'latestVersion':'0.5.3'},'web':{'buildId':'new'},'android':{'latestVersionCode':16,'minimumVersionCode':9}}
+        config={'version':'1.2.10','versionCode':17,'minimumVersionCode':9,'androidApkUrl':'/mobile/downloads/xiquan-mobile-ordering-1.2.10.apk','sha256':'a'*64,'releaseNotes':'修复更新通道BUG\n美化UI'}
+        result=module.merge_policy(old,config)
+        self.assertEqual(result['desktop'],old['desktop']);self.assertEqual(result['web'],old['web'])
+        self.assertEqual(result['android']['latestVersionCode'],17);self.assertEqual(old['android']['latestVersionCode'],16)
+        for changed in [dict(config,versionCode=16),dict(config,version='1.2.9'),dict(config,androidApkUrl='/wrong.apk')]:
+            with self.assertRaises(ValueError):module.merge_policy(old,changed)
+        for prior in [dict(old,android={'latestVersionCode':18}),dict(old,android={'latestVersionCode':17,'sha256':'b'*64,'latestVersion':'1.2.10'})]:
+            with self.assertRaises(ValueError):module.merge_policy(prior,config)
+
+if __name__=='__main__':unittest.main()

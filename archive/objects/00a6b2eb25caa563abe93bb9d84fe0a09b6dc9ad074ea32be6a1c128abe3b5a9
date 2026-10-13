@@ -1,0 +1,12 @@
+const test=require('node:test'),assert=require('node:assert/strict')
+const api=require('../archive-desktop-053.cjs')
+test('archive053 scope excludes latest, private material and traversal',()=>{
+  assert.equal(api.versionFor('release/windows/0.5.2/build/win10-x64/payload/resources/app.asar'),'0.5.2')
+  assert.equal(api.versionFor('release/mobile/xiquan-mobile-ordering-1.2.9.apk'),'1.2.9')
+  for(const name of ['release/windows/0.5.3/build/a.exe','private/key.pem','release/windows/0.5.2/../private/key','release/windows/0.5.2/build/.env','release/windows/0.5.2/build/a.jks'])assert.throws(()=>api.versionFor(name))
+})
+test('archive053 category separates versions and architectures',()=>{
+  assert.equal(api.category('release/windows/0.5.2/build/win11-x64/a.exe','0.5.2'),'desktop/0.5.2/win11-x64')
+  assert.equal(api.category('release/mobile/xiquan-mobile-ordering-1.2.9.apk','1.2.9'),'mobile/1.2.9')
+  assert.equal(api.category('release/cloud/xiquan-desktop051-SOURCE-WEB-20261012-100153-bb47426c.zip','0.5.1'),'source/0.5.1')
+})

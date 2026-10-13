@@ -1,0 +1,75 @@
+const test=require('node:test'),assert=require('node:assert/strict'),crypto=require('node:crypto')
+const fs=require('node:fs'),path=require('node:path')
+const {fixture}=require('../lib/desktop-release-fixture.cjs')
+const {inspectArtifacts,makeReleasePayload}=require('../lib/desktop-release.cjs')
+const {getTarget}=require('../../client/electron/target-profiles.cjs')
+const modulePath=path.join(__dirname,'../lib/desktop-052.cjs')
+const release=fs.existsSync(modulePath)?require(modulePath):{}
+const targets=['win10-x86','win10-x64','win11-x86','win11-x64']
+function envelope(payload,key){
+  const bytes=Buffer.from(JSON.stringify(payload))
+  return {payload:bytes.toString('base64'),signature:crypto.sign(null,bytes,key).toString('base64')}
+}
+function policies(f){
+  return new Map(targets.map((target,i)=>{
+    const filename=`Xiquan-Bathhouse-Setup-0.5.1-${target}.exe`,sha256='a'.repeat(64)
+    const payload=makeReleasePayload({profile:getTarget(target),version:'0.5.1',buildId:'old-fixture',releaseTrust:f.trust,
+      artifact:{fileName:filename,size:120,sha256,sha512:Buffer.alloc(64,1).toString('base64')},
+      blockmap:{fileName:filename+'.blockmap',size:50,sha256},updaterManifest:{fileName:'latest.yml',sha256}},
+      {sequence:41+i,minimumVersion:i===0?'0.4.3':'0.4.2'})
+    return [target,envelope(payload,f.privateKey)]
+  }))
+}
+async function currentFixture(){
+  const f=await fixture(false)
+  const asar=require('../../client/node_modules/@electron/asar')
+  const yaml=require('../../client/node_modules/js-yaml')
+  for(const target of targets){
+    const dir=path.join(f.root,target),source=path.join(f.root,'fixture-source-'+target)
+    const pkg=JSON.parse(fs.readFileSync(path.join(source,'package.json')));pkg.version='0.5.2'
+    fs.writeFileSync(path.join(source,'package.json'),JSON.stringify(pkg))
+    const unpacked=getTarget(target).arch==='ia32'?'win-ia32-unpacked':'win-unpacked'
+    await asar.createPackage(source,path.join(dir,unpacked,'resources/app.asar'))
+    const filename=`Xiquan-Bathhouse-Setup-0.5.2-${target}.exe`
+    fs.renameSync(path.join(dir,`Xiquan-Bathhouse-Setup-0.4.2-${target}.exe`),path.join(dir,filename))
+    fs.renameSync(path.join(dir,`Xiquan-Bathhouse-Setup-0.4.2-${target}.exe.blockmap`),path.join(dir,filename+'.blockmap'))
+    const bytes=fs.readFileSync(path.join(dir,filename)),sha512=crypto.createHash('sha512').update(bytes).digest('base64')
+    fs.writeFileSync(path.join(dir,'latest.yml'),yaml.dump({version:'0.5.2',files:[{url:filename,size:bytes.length,sha512}],path:filename,sha512}))
+  }
+  return f
+}
+async function signTarget(f,target,{sequence=45,minimumVersion='0.4.3',notes=release.releaseNotes}={}){
+  const report=await inspectArtifacts(path.join(f.root,target),{targetId:target,trust:f.trust})
+  fs.writeFileSync(path.join(f.root,target,'release.json'),JSON.stringify(envelope(makeReleasePayload(report,
+    {sequence,minimumVersion,releaseNotes:notes}),f.privateKey)))
+}
+test('0.5.2 plan advances real signed previous channels and keeps each minimum version',async t=>{
+  assert.equal(typeof release.signingPlan,'function')
+  const f=await fixture(false);t.after(f.close);const rows=policies(f)
+  const plan=await release.signingPlan({trust:f.trust,readPolicy:async target=>rows.get(target)})
+  assert.equal(plan.version,'0.5.2');assert.equal(plan.sequence,45)
+  assert.deepEqual(plan.previous.map(row=>row.minimum_version),['0.4.3','0.4.2','0.4.2','0.4.2'])
+  assert.deepEqual(release.releaseNotes,['修复实体卡结账时会员查询一闪而过、无法消费的问题'])
+})
+test('partial signatures are verified and only remaining targets are grouped for signing',async t=>{
+  assert.equal(typeof release.inspectPublication,'function')
+  const f=await currentFixture();t.after(f.close)
+  assert.deepEqual((await release.inspectPublication(f.root,{trust:f.trust})).unsignedTargets,targets)
+  await signTarget(f,'win10-x86')
+  const state=await release.inspectPublication(f.root,{trust:f.trust})
+  assert.deepEqual(state.signedTargets,['win10-x86'])
+  const rows=policies(f),plan=await release.signingPlan({trust:f.trust,readPolicy:async target=>rows.get(target)})
+  assert.deepEqual(await release.remainingSigningGroups(f.root,plan,{trust:f.trust}),[
+    {minimumVersion:'0.4.2',targets:['win10-x64','win11-x86','win11-x64']}
+  ])
+  await assert.rejects(release.remainingSigningGroups(f.root,{...plan,sequence:46},{trust:f.trust}),/sequence|签名/)
+})
+test('wrong notes, stale versions and offline policies cannot produce a publishable fix',async t=>{
+  assert.equal(typeof release.inspectPublication,'function')
+  const f=await currentFixture();t.after(f.close)
+  await signTarget(f,'win10-x86',{notes:['unrelated release']})
+  await assert.rejects(release.inspectPublication(f.root,{trust:f.trust}),/notes|日志/)
+  const old=await fixture(false);t.after(old.close)
+  await assert.rejects(release.inspectPublication(old.root,{trust:old.trust}),/version|版本/)
+  await assert.rejects(release.signingPlan({trust:f.trust,readPolicy:async()=>{throw Error('offline')}}),/offline/)
+})

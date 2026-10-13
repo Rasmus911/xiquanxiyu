@@ -1,0 +1,51 @@
+// Generate checked delivery artifacts from already-built 0.5.3 candidates.
+// No signing keys, networking, uploads, resets or source deletion.
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto')
+const project=path.resolve(__dirname,'..')
+const delivery=path.join(project,'最新版安装包-暖木泉境-0.5.3')
+const buildId='desktop053-warm-login-20261012-1853'
+const root=path.join(project,'release/windows/0.5.3',buildId)
+const {targets,readLocalHistory,inspectPublication,verifyDelivery,releaseNotes}=require('./lib/desktop-053.cjs')
+function hash(bytes){return crypto.createHash('sha256').update(bytes).digest('hex')}
+function record(base,file){const bytes=fs.readFileSync(path.join(base,file));return {file,sha256:hash(bytes),size:bytes.length}}
+function write(file,data){fs.writeFileSync(file,JSON.stringify(data,null,2)+'\n','utf8')}
+function walk(directory){return fs.readdirSync(directory,{withFileTypes:true}).flatMap(row=>{
+  if(row.isSymbolicLink())throw Error('Linked source/delivery path')
+  const file=path.join(directory,row.name);return row.isDirectory()?walk(file):[file]
+})}
+async function prepare(){
+  await inspectPublication(root)
+  fs.mkdirSync(delivery,{recursive:true})
+  const index=JSON.parse(fs.readFileSync(path.join(root,'delivery-index.json'),'utf8'))
+  for(const row of index.targets)fs.copyFileSync(path.join(root,row.profile.targetId,row.artifact.fileName),path.join(delivery,row.artifact.fileName))
+  fs.copyFileSync(path.join(root,'release-public-key.pem'),path.join(delivery,'release-public-key.pem'))
+  write(path.join(delivery,'historical-signed-releases.json'),readLocalHistory(project))
+  const web=path.join(delivery,'web')
+  if(fs.existsSync(web))throw Error('Web delivery directory already exists; do not overwrite a frozen bundle')
+  fs.mkdirSync(web);fs.cpSync(path.join(project,'client/dist/assets'),path.join(web,'assets'),{recursive:true})
+  fs.copyFileSync(path.join(project,'client/dist/index.html'),path.join(web,'index.html'))
+  write(path.join(web,'version.json'),{buildId,required:false,releaseNotes,publishedAt:new Date().toISOString()})
+  const records={};for(const file of walk(web)){const name=path.relative(web,file).replace(/\\/g,'/');const row=record(web,name);records[name]={sha256:row.sha256,size:row.size}}
+  write(path.join(web,'publication-manifest.json'),{version:'0.5.3',files:records})
+  const inputs=['index.html','version.json','publication-manifest.json','assets'].map(name=>path.join(web,name))
+  const quote=value=>"'"+value.replace(/'/g,"''")+"'"
+  const archive=path.join(delivery,'web-0.5.3.zip')
+  const packed=require('node:child_process').spawnSync('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-Command',
+    'Compress-Archive -LiteralPath @('+inputs.map(quote).join(',')+') -DestinationPath '+quote(archive)],{stdio:'inherit'})
+  if(packed.error||packed.status!==0)throw Error('Web archive creation failed; retained web directory is not a completed delivery')
+  const roots=['client/src','client/electron','client/build','mobile/src','scripts/lib']
+  let sourceFiles=roots.flatMap(dir=>walk(path.join(project,dir))).filter(file=>/\.(?:vue|ts|css|json|cjs|ps1|py|nsh)$/.test(file))
+  sourceFiles.push(...['client/package.json','client/package-lock.json','client/tsconfig.app.json','client/tsconfig.node.json','client/vite.config.ts','mobile/package.json','mobile/package-lock.json','mobile/vite.config.ts','mobile/capacitor.config.ts','scripts/publish-desktop-053.ps1','scripts/publish-web-053.ps1','scripts/publish-mobile-1210.ps1','scripts/build-mobile-release.ps1','scripts/build-mobile-web.ps1','deploy/cloud/scripts/static_053_publication.py','deploy/cloud/scripts/android_1210_publication.py'].map(file=>path.join(project,file)))
+  sourceFiles.push(...walk(path.join(project,'mobile/android/app/src/main/java')))
+  sourceFiles.push(...walk(path.join(project,'mobile/android/app/src/main/res/xml')))
+  sourceFiles.push(...['mobile/android/app/src/main/AndroidManifest.xml','mobile/android/app/build.gradle','mobile/android/build.gradle','mobile/android/variables.gradle','mobile/android/settings.gradle'].map(file=>path.join(project,file)))
+  const info={Version:'0.5.3',BuildId:buildId,ProjectRoot:project,ReleaseRoot:root,Targets:targets,
+    MobileVersion:'1.2.10',MobileVersionCode:17,MinimumVersionCode:9,ApiChanged:false,DatabaseChanged:false,
+    Files:walk(delivery).filter(file=>path.basename(file)!=='交付信息.json').map(file=>record(delivery,path.relative(delivery,file).replace(/\\/g,'/'))),
+    ProjectFiles:[...new Set(sourceFiles)].map(file=>record(project,path.relative(project,file).replace(/\\/g,'/'))),
+    Status:{Desktop:'candidate-built; original-key signing required',Android:'original-certificate user build required',Cloud:'not contacted',Archive:'GitHub Desktop window unavailable; no historical deletion'},
+  }
+  write(path.join(delivery,'交付信息.json'),info)
+  return verifyDelivery(delivery)
+}
+prepare().then(value=>console.log(JSON.stringify(value))).catch(error=>{console.error(error.stack||error.message);process.exitCode=1})

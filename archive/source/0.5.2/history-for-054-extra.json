@@ -1,0 +1,62 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "docs/bugfixes/2026-10-12-physical-card-checkout.md",
+      "version": "0.5.2",
+      "category": "source/0.5.2",
+      "size": 3215,
+      "sha256": "e2ba77342ee2224243b6f7c3dbdb7ed2bdf708b5f7e28997f172b88349a462fd",
+      "pieces": [
+        {
+          "file": "archive/objects/e2ba77342ee2224243b6f7c3dbdb7ed2bdf708b5f7e28997f172b88349a462fd",
+          "size": 3215,
+          "sha256": "e2ba77342ee2224243b6f7c3dbdb7ed2bdf708b5f7e28997f172b88349a462fd"
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/desktop-052.cjs",
+      "version": "0.5.2",
+      "category": "source/0.5.2",
+      "size": 4850,
+      "sha256": "f2017af4129cea3e83414c132567ab810a9151c45437f7e2bfd9c23336269153",
+      "pieces": [
+        {
+          "file": "archive/objects/f2017af4129cea3e83414c132567ab810a9151c45437f7e2bfd9c23336269153",
+          "size": 4850,
+          "sha256": "f2017af4129cea3e83414c132567ab810a9151c45437f7e2bfd9c23336269153"
+        }
+      ]
+    },
+    {
+      "path": "scripts/publish-desktop-052.ps1",
+      "version": "0.5.2",
+      "category": "source/0.5.2",
+      "size": 6029,
+      "sha256": "214f7768aa1ff1b9a7aeca62ac4f188238a740bd2edfc4cf67e546842626fcd6",
+      "pieces": [
+        {
+          "file": "archive/objects/214f7768aa1ff1b9a7aeca62ac4f188238a740bd2edfc4cf67e546842626fcd6",
+          "size": 6029,
+          "sha256": "214f7768aa1ff1b9a7aeca62ac4f188238a740bd2edfc4cf67e546842626fcd6"
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/desktop-052.node-test.cjs",
+      "version": "0.5.2",
+      "category": "source/0.5.2",
+      "size": 5069,
+      "sha256": "2537450e2e4780c8a5c38f17cee5f616ee4477a8beedbd0978dd542482fc6794",
+      "pieces": [
+        {
+          "file": "archive/objects/2537450e2e4780c8a5c38f17cee5f616ee4477a8beedbd0978dd542482fc6794",
+          "size": 5069,
+          "sha256": "2537450e2e4780c8a5c38f17cee5f616ee4477a8beedbd0978dd542482fc6794"
+        }
+      ]
+    }
+  ]
+}

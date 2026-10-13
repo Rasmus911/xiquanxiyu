@@ -1,0 +1,76 @@
+const fs=require('node:fs'),path=require('node:path')
+const base=require('./desktop-045.cjs')
+const {trust:originalTrust,checkedFile}=require('./operations-release.cjs')
+const {verifyReleaseSet}=require('./desktop-release.cjs')
+const {verifySignedRelease}=require('../../client/electron/desktop-release.cjs')
+const {verifyDeliveryFiles}=require('./desktop-051.cjs')
+const releaseVersion='0.5.2'
+const releaseNotes=Object.freeze(['修复实体卡结账时会员查询一闪而过、无法消费的问题'])
+const targets=base.targets
+const signingPlan=(options={})=>base.signingPlan({...options,version:releaseVersion})
+async function inspectPublication(root,{trust=originalTrust}={}){
+  const index=await verifyReleaseSet(root,targets,{mode:'candidate',trust})
+  if(index.version!==releaseVersion)throw Error('Expected desktop version 0.5.2')
+  const signatures=[]
+  for(const target of targets){
+    const file=path.join(root,target,'release.json')
+    if(!fs.existsSync(file))continue
+    await verifyReleaseSet(root,[target],{mode:'release',trust})
+    const signed=verifySignedRelease(JSON.parse(fs.readFileSync(file,'utf8')),
+      {trust,profile:index.targets.find(row=>row.profile.targetId===target).profile,currentVersion:releaseVersion})
+    if(JSON.stringify(signed.desktop.releaseNotes)!==JSON.stringify(releaseNotes))throw Error('Signed release notes differ from card fix')
+    signatures.push({target,sequence:signed.sequence,minimumVersion:signed.desktop.minimumVersion})
+  }
+  if(new Set(signatures.map(row=>row.sequence)).size>1)throw Error('Signed sequence differs across targets')
+  return {version:index.version,buildId:index.buildId,targets,
+    signedTargets:signatures.map(row=>row.target),unsignedTargets:targets.filter(id=>!signatures.some(row=>row.target===id)),signatures}
+}
+async function remainingSigningGroups(root,plan,{trust=originalTrust}={}){
+  if(plan.version!==releaseVersion||plan.trust_key_id!==trust.keyId||
+    JSON.stringify(plan.previous?.map(row=>row.target))!==JSON.stringify(targets)||
+    plan.sequence!==Math.max(...plan.previous.map(row=>row.sequence))+1)throw Error('Verified signing plan identity/sequence invalid')
+  const state=await inspectPublication(root,{trust})
+  for(const signed of state.signatures){
+    if(signed.sequence!==plan.sequence||signed.minimumVersion!==plan.previous.find(row=>row.target===signed.target).minimum_version){
+      throw Error('Existing signature sequence/minimum differs; no overwrite')
+    }
+  }
+  const groups=[]
+  for(const row of plan.previous){
+    if(!state.unsignedTargets.includes(row.target))continue
+    let group=groups.find(value=>value.minimumVersion===row.minimum_version)
+    if(!group){group={minimumVersion:row.minimum_version,targets:[]};groups.push(group)}
+    group.targets.push(row.target)
+  }
+  return groups
+}
+async function verifyDelivery(root){
+  const delivery=JSON.parse(fs.readFileSync(path.join(root,'交付信息.json'),'utf8').replace(/^\ufeff/,''))
+  if(delivery.Version!==releaseVersion||JSON.stringify(delivery.Targets)!==JSON.stringify(targets)||
+    !path.isAbsolute(delivery.ReleaseRoot)||!path.isAbsolute(delivery.ProjectRoot))throw Error('Delivery identity invalid')
+  await verifyDeliveryFiles(root,delivery.Files)
+  const seen=new Set()
+  for(const record of delivery.ProjectFiles)checkedFile(delivery.ProjectRoot,record,seen)
+  const state=await inspectPublication(delivery.ReleaseRoot)
+  if(state.buildId!==delivery.BuildId)throw Error('Delivery build identity differs')
+  // The installers beside the user's entry script must be the same built bytes
+  // that will be signed and uploaded from ReleaseRoot.
+  const index=await verifyReleaseSet(delivery.ReleaseRoot,targets,{mode:'candidate',trust:originalTrust})
+  for(const row of index.targets){
+    const delivered=delivery.Files.find(record=>record.file===row.artifact.fileName)
+    if(!delivered||delivered.sha256!==row.artifact.sha256||delivered.size!==row.artifact.size)throw Error('Delivery installer differs from release root')
+  }
+  return {verified:true,version:state.version,buildId:state.buildId,signedTargets:state.signedTargets,unsignedTargets:state.unsignedTargets}
+}
+module.exports={releaseVersion,releaseNotes,targets,signingPlan,inspectPublication,remainingSigningGroups,verifyDelivery}
+if(require.main===module)(async()=>{
+  const [mode,root]=process.argv.slice(2)
+  if(mode==='plan')return signingPlan()
+  if(mode==='status')return inspectPublication(root)
+  if(mode==='verify-delivery')return verifyDelivery(root)
+  if(mode==='groups'){
+    let text='';for await(const chunk of process.stdin)text+=chunk
+    return remainingSigningGroups(root,JSON.parse(text.replace(/^\ufeff/,'')))
+  }
+  throw Error('Unknown desktop052 operation')
+})().then(value=>console.log(JSON.stringify(value))).catch(error=>{console.error(error.message);process.exitCode=1})

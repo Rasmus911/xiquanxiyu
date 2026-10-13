@@ -1,0 +1,36 @@
+﻿[CmdletBinding()]
+param([Parameter(Mandatory)][string]$DeliveryRoot,[string]$EcsTarget='root@39.96.217.210',[switch]$ValidateOnly,[switch]$VerifyOnly)
+$ErrorActionPreference='Stop'
+$project=Split-Path -Parent $PSScriptRoot
+$delivery=(Resolve-Path -LiteralPath $DeliveryRoot).Path
+if ($EcsTarget -notmatch '^[A-Za-z0-9_-]+@[A-Za-z0-9.-]+$') { throw 'Invalid SSH target.' }
+& node.exe (Join-Path $PSScriptRoot 'lib\desktop-053.cjs') verify-delivery $delivery
+if ($LASTEXITCODE -ne 0) { throw 'Frozen delivery invalid. Nothing uploaded.' }
+$archive=Join-Path $delivery 'web-0.5.3.zip'
+if ($ValidateOnly) { Write-Host 'LOCAL_WEB053_VERIFIED; no SSH, restart or database change.'; return }
+if ($VerifyOnly) {
+    & node.exe (Join-Path $PSScriptRoot 'lib\web-053-public.cjs') (Join-Path $delivery 'web')
+    if ($LASTEXITCODE -ne 0) { throw 'Public web verification incomplete. No upload or cloud change performed.' }
+    Write-Host 'WEB053_PUBLIC_VERIFICATION_OK; read-only, no upload, restart or database change.'
+    return
+}
+$hash=(Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+if ((Read-Host 'Publish only web static files. No API/database change. Type PUBLISH WEB 0.5.3') -cne 'PUBLISH WEB 0.5.3') { throw 'Cancelled.' }
+. (Join-Path $PSScriptRoot 'lib\desktop-053-transport.ps1')
+$options=@('-T','-o','BatchMode=yes','-o','ConnectTimeout=20','-o','ConnectionAttempts=1','-o','ServerAliveInterval=15','-o','ServerAliveCountMax=3')
+$remote='/tmp/xiquan-web053-'+[guid]::NewGuid().ToString('N')
+$result=Invoke-TokenNative -Executable 'ssh.exe' -Arguments ($options+@($EcsTarget,('umask 077 && mkdir -m 700 '+$remote))) -TimeoutSeconds 45 -Label 'WEB053 staging'
+if ($result.ExitCode -ne 0) { throw ('SSH staging failed: '+$result.Stderr) }
+$scpOptions=@('-o','ConnectTimeout=20','-o','ConnectionAttempts=1','-o','ServerAliveInterval=15','-o','ServerAliveCountMax=3')
+foreach ($file in @($archive,(Join-Path $project 'deploy\cloud\scripts\static_053_publication.py'))) {
+    $result=Invoke-TokenNative -Executable 'scp.exe' -Arguments ($scpOptions+@($file,($EcsTarget+':'+$remote+'/'))) -TimeoutSeconds 180 -Label ('WEB053 upload '+[IO.Path]::GetFileName($file))
+    if ($result.ExitCode -ne 0) { throw ('Upload failed; no activation. Retain '+$remote) }
+}
+$helperHash=(Get-FileHash -LiteralPath (Join-Path $project 'deploy\cloud\scripts\static_053_publication.py') -Algorithm SHA256).Hash.ToLowerInvariant()
+$command="echo '$helperHash  $remote/static_053_publication.py' | sha256sum -c - && python3 -u $remote/static_053_publication.py --archive $remote/web-0.5.3.zip --sha256 $hash"
+$result=Invoke-TokenNative -Executable 'ssh.exe' -Arguments ($options+@($EcsTarget,$command)) -TimeoutSeconds 180 -Label 'WEB053 static activation'
+Write-Host $result.Stdout
+if ($result.ExitCode -ne 0) { Write-Host $result.Stderr; throw ('Static publication stopped. Retain '+$remote+' and printed backup. Do not run database deployment.') }
+& node.exe (Join-Path $PSScriptRoot 'lib\web-053-public.cjs') (Join-Path $delivery 'web')
+if ($LASTEXITCODE -ne 0) { throw 'Public web verification incomplete. Files retained; no database restore or API rebuild.' }
+Write-Host 'WEB053_PUBLICATION_VERIFIED; refresh the web page to use the new login.'

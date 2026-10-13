@@ -1,0 +1,33 @@
+const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path')
+const {spawnSync}=require('node:child_process')
+const web=require('../lib/web-053-public.cjs')
+
+test('public web members use the nginx /app mount, not the API root',()=>{
+  assert.equal(typeof web.publicFileUrl,'function')
+  assert.equal(web.publicFileUrl('assets/AccountPasswordView-CgGTONvb.js'),
+    'https://api.pqxqxy.xyz/app/assets/AccountPasswordView-CgGTONvb.js')
+  assert.equal(web.publicFileUrl('index.html'),'https://api.pqxqxy.xyz/app/index.html')
+  assert.equal(web.publicFileUrl('version.json'),'https://api.pqxqxy.xyz/app/version.json')
+})
+
+test('public member paths cannot escape the static mount',()=>{
+  assert.equal(typeof web.publicFileUrl,'function')
+  for(const name of ['../index.html','/assets/file.js','assets/../../file.js','https://evil.example/file.js'])
+    assert.throws(()=>web.publicFileUrl(name),/Invalid web member/)
+})
+
+test('verify-only runs frozen local checks and public verification without SSH or upload',()=>{
+  const script=path.resolve(__dirname,'../publish-web-053.ps1').replaceAll("'","''")
+  const command=`$ErrorActionPreference='Stop';
+    function global:node.exe { $global:LASTEXITCODE=0; Write-Output ('NODE_CALL:'+($args -join '|')) }
+    function global:ssh.exe { throw 'SSH must not run' }
+    function global:scp.exe { throw 'SCP must not run' }
+    function global:Read-Host { throw 'Publish confirmation must not run' }
+    & '${script}' -DeliveryRoot (Resolve-Path .).Path -VerifyOnly`
+  const result=spawnSync('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-Command',command],
+    {cwd:path.resolve(__dirname,'..'),encoding:'utf8',timeout:30000})
+  assert.equal(result.status,0,result.stderr)
+  assert.match(result.stdout,/verify-delivery/)
+  assert.match(result.stdout,/web-053-public\.cjs/)
+  assert.match(result.stdout,/WEB053_PUBLIC_VERIFICATION_OK/)
+})

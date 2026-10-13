@@ -1,0 +1,34 @@
+import importlib.util
+from pathlib import Path
+import tempfile
+import unittest
+import zipfile
+
+ROOT=Path(__file__).resolve().parents[2]
+FILE=ROOT/'deploy/cloud/scripts/static_053_publication.py'
+
+class StaticReleaseTests(unittest.TestCase):
+    def load(self):
+        spec=importlib.util.spec_from_file_location('static053',FILE)
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+
+    def test_policy_preserves_desktop_android_and_has_exact_log(self):
+        module=self.load()
+        previous={'schemaVersion':1,'desktop':{'sequence':9},'android':{'latestVersionCode':16},'web':{'buildId':'old'}}
+        version={'buildId':'desktop053-warm-login-20261012-1853','required':False,'releaseNotes':['修复更新通道BUG','美化UI'],'publishedAt':'2026-10-12T10:00:00Z'}
+        merged=module.merge_web_policy(previous,version)
+        self.assertEqual(merged['desktop'],previous['desktop']);self.assertEqual(merged['android'],previous['android'])
+        self.assertEqual(previous['web']['buildId'],'old');self.assertEqual(merged['web'],version)
+        with self.assertRaises(ValueError):module.merge_web_policy(previous,{**version,'releaseNotes':['wrong']})
+
+    def test_zip_rejects_traversal_and_policies_before_any_live_write(self):
+        module=self.load()
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            for name in ['../outside','releases/client-policy.json','private/key.pem']:
+                archive=root/'test.zip'
+                with zipfile.ZipFile(archive,'w') as zipped:zipped.writestr(name,'no')
+                with self.assertRaises(ValueError):module.inspect_archive(archive)
+                self.assertFalse((root/'outside').exists())
+
+if __name__=='__main__':unittest.main()

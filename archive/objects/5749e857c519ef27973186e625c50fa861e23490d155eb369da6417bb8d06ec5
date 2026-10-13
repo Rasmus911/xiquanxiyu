@@ -1,0 +1,21 @@
+# UUID 入口策略运行约束
+
+本版本只支持 **一个 API 进程、一个 API 容器副本**。默认 `python run.py` 符合这一约束。`API_WORKERS`、`WEB_CONCURRENCY`、`API_REPLICAS` 均必须为 `1`；应用工厂拒绝其他已配置值。不能另开 API 进程、手动设置进程管理器的多 worker，或让编排平台扩容副本。程序不能发现未知的外部手工启动实例。此版本没有 Redis 消息管理器，也不声称提供多 API 进程广播。
+
+Socket 身份包含已签名的入口、策略版本、经营期与权限范围。广播只发到已授权的经营期／策略／入口／事件房间，发送前重新校验账号、终端、会话、JWT 有效期和当前策略。后台每秒核验空闲连接，使独立维护 CLI 提交的策略变化也会断开旧连接。该轮询不是跨进程业务写入屏障；写入与重置的数据库屏障由重置服务负责。
+
+安装、迁移、seed、容器启动不激活策略，不重置数据。缺少有效策略时登录失败并返回 `ACCESS_POLICY_NOT_CONFIGURED`。生产模式始终强制策略；`TestConfig.ACCESS_POLICY_LEGACY_COMPAT` 仅供旧隔离测试显式兼容，新策略测试必须将其设为 `False`。
+
+用户必须先在维护终端核对账号 UUID、用户名与显示名。昵称、用户名文字、admin 角色、终端前缀及客户端请求头都不能增加白名单资格。先运行 `flask --app run.py access-policy preview` 查看映射，再使用明确核对过的三个不同既有且启用 UUID：
+
+```sh
+flask --app run.py access-policy activate --owner-id OWNER_UUID --mobile-id MOBILE_UUID_1 --mobile-id MOBILE_UUID_2
+```
+
+以上是维护命令说明，交付代码不会替用户自动绑定或执行。维护 CLI 需要 schema-owner 数据库角色；普通 API 运行角色不得拥有策略表写权限。激活会在同一事务中设定三人管理员及手机完整管理属性、停用其他员工而不删除、保留所有密码哈希，并递增全部账号的会话版本。无效 UUID、重复 UUID、缺失账号或停用账号会在变更前拒绝。审计写入失败会回滚整次激活。
+
+登录必须传入 `client_channel`（`desktop`、`web`、`mobile`），响应返回 `permissions` 和 `business_state`。桌面和电脑网页仅 owner UUID；手机限三个 UUID。手机 scope 不包含员工、设置、结账、打印等桌面权限，owner 手机额外具有 `business:reset` 和 `business:archive`。刷新保持入口并取原令牌范围与当前权限交集。
+
+认证后的业务请求必须传 `X-Business-Period`，与 JWT 及数据库当前经营期一致。认证接口 refresh/me/logout 校验 JWT 的经营期；如传该头，也必须一致。响应提供且通过 CORS 暴露 `X-Business-Period`、`X-Access-Policy-Version`。请求头只用于一致性检查，不授予权限。
+
+客户端必须在完整登录和 bootstrap 成功后保存会话，或在 bootstrap 失败时清除已保存凭据；网络失败后的本地清理与异步响应失效属于客户端接入工作。后续重置服务应在事务提交后调用 `invalidate_sockets(data, event='business.reset')`，并通过持久事件处理恢复／重投；此模块不实现重置任务。

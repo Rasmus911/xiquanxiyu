@@ -1,0 +1,90 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "deploy/cloud/scripts/android_1210_publication.py",
+      "version": "1.2.10",
+      "category": "source/1.2.10",
+      "size": 9704,
+      "sha256": "b98ed21500fa4fd1cc29c2f3d6f8f62e05d88f8505cf2d350163acbfe7440c85",
+      "pieces": [
+        {
+          "file": "archive/objects/b98ed21500fa4fd1cc29c2f3d6f8f62e05d88f8505cf2d350163acbfe7440c85",
+          "size": 9704,
+          "sha256": "b98ed21500fa4fd1cc29c2f3d6f8f62e05d88f8505cf2d350163acbfe7440c85"
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/mobile-1210-public.cjs",
+      "version": "1.2.10",
+      "category": "source/1.2.10",
+      "size": 1308,
+      "sha256": "e8ec24bcd5edcdd13bf554706573835a0a443cd481744a41f153b71ee63fcb67",
+      "pieces": [
+        {
+          "file": "archive/objects/e8ec24bcd5edcdd13bf554706573835a0a443cd481744a41f153b71ee63fcb67",
+          "size": 1308,
+          "sha256": "e8ec24bcd5edcdd13bf554706573835a0a443cd481744a41f153b71ee63fcb67"
+        }
+      ]
+    },
+    {
+      "path": "scripts/publish-mobile-1210.ps1",
+      "version": "1.2.10",
+      "category": "source/1.2.10",
+      "size": 6228,
+      "sha256": "07fc553d81195d0fb09ab76cbbae5e815aeb52b0a63e561f8e2938393d1bfb63",
+      "pieces": [
+        {
+          "file": "archive/objects/07fc553d81195d0fb09ab76cbbae5e815aeb52b0a63e561f8e2938393d1bfb63",
+          "size": 6228,
+          "sha256": "07fc553d81195d0fb09ab76cbbae5e815aeb52b0a63e561f8e2938393d1bfb63"
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/test_android_1210_publication.py",
+      "version": "1.2.10",
+      "category": "source/1.2.10",
+      "size": 1620,
+      "sha256": "2f3e5c12f21d7fd51f14e679249352351a14123d7d41694b89959bc4825195b8",
+      "pieces": [
+        {
+          "file": "archive/objects/2f3e5c12f21d7fd51f14e679249352351a14123d7d41694b89959bc4825195b8",
+          "size": 1620,
+          "sha256": "2f3e5c12f21d7fd51f14e679249352351a14123d7d41694b89959bc4825195b8"
+        }
+      ]
+    },
+    {
+      "path": "deploy/cloud/mobile/downloads/xiquan-mobile-ordering-1.2.10.apk",
+      "version": "1.2.10",
+      "category": "source/1.2.10",
+      "size": 3373501,
+      "sha256": "4ca711088ecfde7a508679f9edd63309c12a683cb939e857114cfe5223f7a4a5",
+      "pieces": [
+        {
+          "file": "archive/objects/4ca711088ecfde7a508679f9edd63309c12a683cb939e857114cfe5223f7a4a5",
+          "size": 3373501,
+          "sha256": "4ca711088ecfde7a508679f9edd63309c12a683cb939e857114cfe5223f7a4a5"
+        }
+      ]
+    },
+    {
+      "path": "release/mobile-staging/mobile1210-c2021957f21e46cf8a32b9b5c6a4c0ff/web.zip",
+      "version": "1.2.10",
+      "category": "source/1.2.10",
+      "size": 139379,
+      "sha256": "8dbcc3c1bb506a98a7a14b891dc56260a918109f1559215035fa12ad8c1ff2d6",
+      "pieces": [
+        {
+          "file": "archive/objects/8dbcc3c1bb506a98a7a14b891dc56260a918109f1559215035fa12ad8c1ff2d6",
+          "size": 139379,
+          "sha256": "8dbcc3c1bb506a98a7a14b891dc56260a918109f1559215035fa12ad8c1ff2d6"
+        }
+      ]
+    }
+  ]
+}
