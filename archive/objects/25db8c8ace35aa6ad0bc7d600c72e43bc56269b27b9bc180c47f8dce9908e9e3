@@ -1,0 +1,5 @@
+﻿[CmdletBinding()]
+param([ValidateSet('build','publish','all','validate')][string]$Mode='all',[string]$EcsTarget='root@39.96.217.210',[string]$PreviousApkPath='F:\溪泉洗浴系统\release\mobile\xiquan-mobile-ordering-1.2.9.apk')
+$ErrorActionPreference='Stop'
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'F:\溪泉洗浴系统\scripts\publish-mobile-1210.ps1' -DeliveryRoot $PSScriptRoot -Mode $Mode -EcsTarget $EcsTarget -PreviousApkPath $PreviousApkPath
+if ($LASTEXITCODE -ne 0) { throw '手机更新未完成。保留原证书与 1.2.9 APK，不卸载旧 APP、不更换证书。' }

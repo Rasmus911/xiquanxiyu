@@ -1,0 +1,7 @@
+﻿[CmdletBinding()]
+param([ValidateSet('all','sign','publish','verify')][string]$Mode='all',[string]$EcsTarget='root@39.96.217.210',[switch]$PreflightOnly)
+$ErrorActionPreference='Stop'
+$arguments=@('-NoProfile','-ExecutionPolicy','Bypass','-File','F:\溪泉洗浴系统\scripts\publish-desktop-053.ps1','-DeliveryRoot',$PSScriptRoot,'-Mode',$Mode,'-EcsTarget',$EcsTarget)
+if ($PreflightOnly) { $arguments+='-PreflightOnly' }
+& powershell.exe @arguments
+if ($LASTEXITCODE -ne 0) { throw '已停止；保留原签名和发布暂存目录。若只因公开文件超时，使用 -Mode verify 复核，不要重复签名或部署数据库。' }

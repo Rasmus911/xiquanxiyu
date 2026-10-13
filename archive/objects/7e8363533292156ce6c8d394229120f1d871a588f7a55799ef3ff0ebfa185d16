@@ -1,0 +1,8 @@
+﻿[CmdletBinding()]
+param([string]$EcsTarget='root@39.96.217.210',[switch]$ValidateOnly,[switch]$VerifyOnly)
+$ErrorActionPreference='Stop'
+$arguments=@('-NoProfile','-ExecutionPolicy','Bypass','-File','F:\溪泉洗浴系统\scripts\publish-web-053.ps1','-DeliveryRoot',$PSScriptRoot,'-EcsTarget',$EcsTarget)
+if ($ValidateOnly) { $arguments+='-ValidateOnly' }
+if ($VerifyOnly) { $arguments+='-VerifyOnly' }
+& powershell.exe @arguments
+if ($LASTEXITCODE -ne 0) { throw '网页静态发布未完整验证。保留证据，不运行 API 镜像或数据库迁移脚本。' }

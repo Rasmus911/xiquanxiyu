@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web-0.5.3.zip",
+      "version": "0.5.3",
+      "category": "source/0.5.3",
+      "size": 577437,
+      "sha256": "0a813b1a0cc32d63572e70db594882d90c6baae5f96596ebc2925dc5b8e3b9c0",
+      "pieces": [
+        {
+          "file": "archive/objects/0a813b1a0cc32d63572e70db594882d90c6baae5f96596ebc2925dc5b8e3b9c0",
+          "size": 577437,
+          "sha256": "0a813b1a0cc32d63572e70db594882d90c6baae5f96596ebc2925dc5b8e3b9c0"
+        }
+      ]
+    }
+  ]
+}

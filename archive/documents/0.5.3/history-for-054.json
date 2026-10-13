@@ -1,0 +1,720 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/01-签名并发布桌面更新.ps1",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 642,
+      "sha256": "bdec5d80d88ab01b2be08b0d63dc28653ef77c0a01d5272c10f9c66b6c5da5bc",
+      "pieces": [
+        {
+          "file": "archive/objects/bdec5d80d88ab01b2be08b0d63dc28653ef77c0a01d5272c10f9c66b6c5da5bc",
+          "size": 642,
+          "sha256": "bdec5d80d88ab01b2be08b0d63dc28653ef77c0a01d5272c10f9c66b6c5da5bc"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/02-发布网页静态页面.ps1",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 571,
+      "sha256": "7e8363533292156ce6c8d394229120f1d871a588f7a55799ef3ff0ebfa185d16",
+      "pieces": [
+        {
+          "file": "archive/objects/7e8363533292156ce6c8d394229120f1d871a588f7a55799ef3ff0ebfa185d16",
+          "size": 571,
+          "sha256": "7e8363533292156ce6c8d394229120f1d871a588f7a55799ef3ff0ebfa185d16"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/03-构建并发布安卓更新.ps1",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 604,
+      "sha256": "25db8c8ace35aa6ad0bc7d600c72e43bc56269b27b9bc180c47f8dce9908e9e3",
+      "pieces": [
+        {
+          "file": "archive/objects/25db8c8ace35aa6ad0bc7d600c72e43bc56269b27b9bc180c47f8dce9908e9e3",
+          "size": 604,
+          "sha256": "25db8c8ace35aa6ad0bc7d600c72e43bc56269b27b9bc180c47f8dce9908e9e3"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/historical-signed-releases.json",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 16091,
+      "sha256": "3f3e3844efffa27e4a4f6bcf799a5573f46dad7acd067a403d6ef9ef672de44c",
+      "pieces": [
+        {
+          "file": "archive/objects/3f3e3844efffa27e4a4f6bcf799a5573f46dad7acd067a403d6ef9ef672de44c",
+          "size": 16091,
+          "sha256": "3f3e3844efffa27e4a4f6bcf799a5573f46dad7acd067a403d6ef9ef672de44c"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/release-public-key.pem",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 113,
+      "sha256": "35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba",
+      "pieces": [
+        {
+          "file": "archive/objects/35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba",
+          "size": 113,
+          "sha256": "35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/AccountPasswordView-CgGTONvb.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 2919,
+      "sha256": "0404c896d76c6962d9c191c3a9762c345c8222438a04dd35b85c1a1587fdb315",
+      "pieces": [
+        {
+          "file": "archive/objects/0404c896d76c6962d9c191c3a9762c345c8222438a04dd35b85c1a1587fdb315",
+          "size": 2919,
+          "sha256": "0404c896d76c6962d9c191c3a9762c345c8222438a04dd35b85c1a1587fdb315"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/AccountPasswordView-DybWzvpr.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 203,
+      "sha256": "951a648a687f476742e46e1b8b616637ed2d81c3bf8a98862e328aec54948304",
+      "pieces": [
+        {
+          "file": "archive/objects/951a648a687f476742e46e1b8b616637ed2d81c3bf8a98862e328aec54948304",
+          "size": 203,
+          "sha256": "951a648a687f476742e46e1b8b616637ed2d81c3bf8a98862e328aec54948304"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/AppPageHeader-BgzFSGYN.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 481,
+      "sha256": "e25213c5331a5ec71967cd3604d2da396760daf6999d01b9dc113c64ee91d62a",
+      "pieces": [
+        {
+          "file": "archive/objects/e25213c5331a5ec71967cd3604d2da396760daf6999d01b9dc113c64ee91d62a",
+          "size": 481,
+          "sha256": "e25213c5331a5ec71967cd3604d2da396760daf6999d01b9dc113c64ee91d62a"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/AppPageHeader-CkHBXYk0.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 347,
+      "sha256": "c41756b454a5676517a3d54543f0c06b340b2ca03f4913a11c06695f61e50eda",
+      "pieces": [
+        {
+          "file": "archive/objects/c41756b454a5676517a3d54543f0c06b340b2ca03f4913a11c06695f61e50eda",
+          "size": 347,
+          "sha256": "c41756b454a5676517a3d54543f0c06b340b2ca03f4913a11c06695f61e50eda"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/AuditView-D7J93kjj.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 796,
+      "sha256": "46e197755a5b7701cebd2e0f3656b314d661052c90fb0b8adc767a63e236182a",
+      "pieces": [
+        {
+          "file": "archive/objects/46e197755a5b7701cebd2e0f3656b314d661052c90fb0b8adc767a63e236182a",
+          "size": 796,
+          "sha256": "46e197755a5b7701cebd2e0f3656b314d661052c90fb0b8adc767a63e236182a"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/AuditView-Dyc7lyMK.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 9417,
+      "sha256": "9f8fd30df6d9a60120dd3c802f21e52735c4cde035c7eddae8a9d8d3f16de933",
+      "pieces": [
+        {
+          "file": "archive/objects/9f8fd30df6d9a60120dd3c802f21e52735c4cde035c7eddae8a9d8d3f16de933",
+          "size": 9417,
+          "sha256": "9f8fd30df6d9a60120dd3c802f21e52735c4cde035c7eddae8a9d8d3f16de933"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/CardScanDialog.vue_vue_type_script_setup_true_lang-CB7QO1Vk.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 2022,
+      "sha256": "5a27305c932f030f8be64d0693c0c5eebc97b016d8cd5a80f055ce3b9463798f",
+      "pieces": [
+        {
+          "file": "archive/objects/5a27305c932f030f8be64d0693c0c5eebc97b016d8cd5a80f055ce3b9463798f",
+          "size": 2022,
+          "sha256": "5a27305c932f030f8be64d0693c0c5eebc97b016d8cd5a80f055ce3b9463798f"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/CatalogView-BL9gmHcF.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 302,
+      "sha256": "14f7ad0f5ef46249dec2c2d8597bf7b1ef021ee00a3196ec102a887fd1014dd0",
+      "pieces": [
+        {
+          "file": "archive/objects/14f7ad0f5ef46249dec2c2d8597bf7b1ef021ee00a3196ec102a887fd1014dd0",
+          "size": 302,
+          "sha256": "14f7ad0f5ef46249dec2c2d8597bf7b1ef021ee00a3196ec102a887fd1014dd0"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/CatalogView-DxZK1gB3.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 8549,
+      "sha256": "4dae801602816f9f227c3f26912ce43fcd4fbda05999546f48d3352b2e291f36",
+      "pieces": [
+        {
+          "file": "archive/objects/4dae801602816f9f227c3f26912ce43fcd4fbda05999546f48d3352b2e291f36",
+          "size": 8549,
+          "sha256": "4dae801602816f9f227c3f26912ce43fcd4fbda05999546f48d3352b2e291f36"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/CheckoutView-BVLnyHGe.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 18144,
+      "sha256": "fdbed20af508e182681e2890c7930171c92c544f2e3e7450c4abaefd8cf4ddd2",
+      "pieces": [
+        {
+          "file": "archive/objects/fdbed20af508e182681e2890c7930171c92c544f2e3e7450c4abaefd8cf4ddd2",
+          "size": 18144,
+          "sha256": "fdbed20af508e182681e2890c7930171c92c544f2e3e7450c4abaefd8cf4ddd2"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/CheckoutView-QJkKYah5.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 2665,
+      "sha256": "ac705908330aaacc2766cdf6e602ba6f9ca9d1f040b07a85db3b6701d1336c4f",
+      "pieces": [
+        {
+          "file": "archive/objects/ac705908330aaacc2766cdf6e602ba6f9ca9d1f040b07a85db3b6701d1336c4f",
+          "size": 2665,
+          "sha256": "ac705908330aaacc2766cdf6e602ba6f9ca9d1f040b07a85db3b6701d1336c4f"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/DashboardView-BzdupH7Y.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 5313,
+      "sha256": "370ab2ef5bf2e9ee7f7c0ec2618b636f4f6af1b7adc56025d053562db4bcca5f",
+      "pieces": [
+        {
+          "file": "archive/objects/370ab2ef5bf2e9ee7f7c0ec2618b636f4f6af1b7adc56025d053562db4bcca5f",
+          "size": 5313,
+          "sha256": "370ab2ef5bf2e9ee7f7c0ec2618b636f4f6af1b7adc56025d053562db4bcca5f"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/DashboardView-CkEGRDnO.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 17930,
+      "sha256": "5e0f9cceab2998dce6771e2288d9c39aa1f64cdf47aa884152d9501593e31010",
+      "pieces": [
+        {
+          "file": "archive/objects/5e0f9cceab2998dce6771e2288d9c39aa1f64cdf47aa884152d9501593e31010",
+          "size": 17930,
+          "sha256": "5e0f9cceab2998dce6771e2288d9c39aa1f64cdf47aa884152d9501593e31010"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/EmployeesView-ChZBO2s-.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 7423,
+      "sha256": "435fd5210b7ddef1938b7a0777f49c583aa011c35f31f946bde6bec07df1e3fd",
+      "pieces": [
+        {
+          "file": "archive/objects/435fd5210b7ddef1938b7a0777f49c583aa011c35f31f946bde6bec07df1e3fd",
+          "size": 7423,
+          "sha256": "435fd5210b7ddef1938b7a0777f49c583aa011c35f31f946bde6bec07df1e3fd"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/InventoryView-DSROM1BH.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 24033,
+      "sha256": "275d9a676eeb49c37b022052342555ca63fb8e31bb4bbbf4e1b9bd45c94e1cf3",
+      "pieces": [
+        {
+          "file": "archive/objects/275d9a676eeb49c37b022052342555ca63fb8e31bb4bbbf4e1b9bd45c94e1cf3",
+          "size": 24033,
+          "sha256": "275d9a676eeb49c37b022052342555ca63fb8e31bb4bbbf4e1b9bd45c94e1cf3"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/InventoryView-DcVbd6i_.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 2265,
+      "sha256": "9f6d71c4e4f1017c7226ad7f3c16b6c7f25035cd4ff6ce994f13c0dd5c4468e4",
+      "pieces": [
+        {
+          "file": "archive/objects/9f6d71c4e4f1017c7226ad7f3c16b6c7f25035cd4ff6ce994f13c0dd5c4468e4",
+          "size": 2265,
+          "sha256": "9f6d71c4e4f1017c7226ad7f3c16b6c7f25035cd4ff6ce994f13c0dd5c4468e4"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/MemberPassPurchaseView-Cp6nAA_3.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 4474,
+      "sha256": "9cd352ce90cd85f10cddc246e348d04efffbf187bbabfee7436a4eb078facaba",
+      "pieces": [
+        {
+          "file": "archive/objects/9cd352ce90cd85f10cddc246e348d04efffbf187bbabfee7436a4eb078facaba",
+          "size": 4474,
+          "sha256": "9cd352ce90cd85f10cddc246e348d04efffbf187bbabfee7436a4eb078facaba"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/MemberPassPurchaseView-RqiroTTO.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 965,
+      "sha256": "403e1a75007aa325af75870dbf343ab03227d700c5582d696e2767c3b6850dba",
+      "pieces": [
+        {
+          "file": "archive/objects/403e1a75007aa325af75870dbf343ab03227d700c5582d696e2767c3b6850dba",
+          "size": 965,
+          "sha256": "403e1a75007aa325af75870dbf343ab03227d700c5582d696e2767c3b6850dba"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/MemberRechargeView-Bkwc9ekN.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 4938,
+      "sha256": "5a0b03a2c26f5f12a70775b421d1108881645b132993ab7a9ab7a59ca8775af9",
+      "pieces": [
+        {
+          "file": "archive/objects/5a0b03a2c26f5f12a70775b421d1108881645b132993ab7a9ab7a59ca8775af9",
+          "size": 4938,
+          "sha256": "5a0b03a2c26f5f12a70775b421d1108881645b132993ab7a9ab7a59ca8775af9"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/MemberRechargeView-CroIyV3V.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 2508,
+      "sha256": "2d43671b5a9f8755a80c29c68113c7b9f4f120d08bf9101df3de9f1e2af85273",
+      "pieces": [
+        {
+          "file": "archive/objects/2d43671b5a9f8755a80c29c68113c7b9f4f120d08bf9101df3de9f1e2af85273",
+          "size": 2508,
+          "sha256": "2d43671b5a9f8755a80c29c68113c7b9f4f120d08bf9101df3de9f1e2af85273"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/MembersView-BjqKdv_b.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 1685,
+      "sha256": "35bee9416f1fb8325a01748a0a3af8346ca426d31e2a1be75538e1497fefcd58",
+      "pieces": [
+        {
+          "file": "archive/objects/35bee9416f1fb8325a01748a0a3af8346ca426d31e2a1be75538e1497fefcd58",
+          "size": 1685,
+          "sha256": "35bee9416f1fb8325a01748a0a3af8346ca426d31e2a1be75538e1497fefcd58"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/MembersView-CnRsqlYD.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 24508,
+      "sha256": "e3f5cd441cb4ac1725c1636ddea6c4b98b5fa18cf021866886e6624960a5cf3a",
+      "pieces": [
+        {
+          "file": "archive/objects/e3f5cd441cb4ac1725c1636ddea6c4b98b5fa18cf021866886e6624960a5cf3a",
+          "size": 24508,
+          "sha256": "e3f5cd441cb4ac1725c1636ddea6c4b98b5fa18cf021866886e6624960a5cf3a"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/PrintJobsView-DEpDBpMH.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 753,
+      "sha256": "c92890e92a812e1b09969c4ecfa88e1349c1432861dcd40c2d6d244b618f7e72",
+      "pieces": [
+        {
+          "file": "archive/objects/c92890e92a812e1b09969c4ecfa88e1349c1432861dcd40c2d6d244b618f7e72",
+          "size": 753,
+          "sha256": "c92890e92a812e1b09969c4ecfa88e1349c1432861dcd40c2d6d244b618f7e72"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/PrintJobsView-DmukZnXt.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 6051,
+      "sha256": "349d03a6639c56c32cbc3fcbd7c6dce2929fd900b66af69dd52d9812bddf59d2",
+      "pieces": [
+        {
+          "file": "archive/objects/349d03a6639c56c32cbc3fcbd7c6dce2929fd900b66af69dd52d9812bddf59d2",
+          "size": 6051,
+          "sha256": "349d03a6639c56c32cbc3fcbd7c6dce2929fd900b66af69dd52d9812bddf59d2"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/ReportsView-BMgW3jeB.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 5424,
+      "sha256": "34315b05008379a5ca08d821716a06db5bd04f7428aeac757ee68ed7985ba31e",
+      "pieces": [
+        {
+          "file": "archive/objects/34315b05008379a5ca08d821716a06db5bd04f7428aeac757ee68ed7985ba31e",
+          "size": 5424,
+          "sha256": "34315b05008379a5ca08d821716a06db5bd04f7428aeac757ee68ed7985ba31e"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/ReportsView-CyJPP-t1.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 14378,
+      "sha256": "a6da47e834148c0f69c645f9b06946d724c07517845572f22f86934e1676fb15",
+      "pieces": [
+        {
+          "file": "archive/objects/a6da47e834148c0f69c645f9b06946d724c07517845572f22f86934e1676fb15",
+          "size": 14378,
+          "sha256": "a6da47e834148c0f69c645f9b06946d724c07517845572f22f86934e1676fb15"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/SettingsView-BcRztx38.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 1949,
+      "sha256": "9a9e5e7223d6c9baefc3e56a7bc470520ce0671098828638f0483435d04669dd",
+      "pieces": [
+        {
+          "file": "archive/objects/9a9e5e7223d6c9baefc3e56a7bc470520ce0671098828638f0483435d04669dd",
+          "size": 1949,
+          "sha256": "9a9e5e7223d6c9baefc3e56a7bc470520ce0671098828638f0483435d04669dd"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/SettingsView-C6SYqD7x.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 17111,
+      "sha256": "1ec0270fd7aaef5ea157a46704dfcaa53f44e110786f4a0dc69a80ce35636277",
+      "pieces": [
+        {
+          "file": "archive/objects/1ec0270fd7aaef5ea157a46704dfcaa53f44e110786f4a0dc69a80ce35636277",
+          "size": 17111,
+          "sha256": "1ec0270fd7aaef5ea157a46704dfcaa53f44e110786f4a0dc69a80ce35636277"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/VisitView-04ll_Jq_.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 30264,
+      "sha256": "b6f77d272db82365e71cd63ef104b8b6e9cd1cd503b97d1bb80778974cafa555",
+      "pieces": [
+        {
+          "file": "archive/objects/b6f77d272db82365e71cd63ef104b8b6e9cd1cd503b97d1bb80778974cafa555",
+          "size": 30264,
+          "sha256": "b6f77d272db82365e71cd63ef104b8b6e9cd1cd503b97d1bb80778974cafa555"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/VisitView-r8PwvqaO.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 5121,
+      "sha256": "e4617d240d8c89f7ab5ab56ec192b9f8d75d5c459dc6b7d6646ae5dd1f3cb55f",
+      "pieces": [
+        {
+          "file": "archive/objects/e4617d240d8c89f7ab5ab56ec192b9f8d75d5c459dc6b7d6646ae5dd1f3cb55f",
+          "size": 5121,
+          "sha256": "e4617d240d8c89f7ab5ab56ec192b9f8d75d5c459dc6b7d6646ae5dd1f3cb55f"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/business-time-B_6AJBGW.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 291,
+      "sha256": "57df39b35a5912d1c7e60747b52e4aa30ffdbe4d743d9675e96c4291767d8229",
+      "pieces": [
+        {
+          "file": "archive/objects/57df39b35a5912d1c7e60747b52e4aa30ffdbe4d743d9675e96c4291767d8229",
+          "size": 291,
+          "sha256": "57df39b35a5912d1c7e60747b52e4aa30ffdbe4d743d9675e96c4291767d8229"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/index-CbSyV1qe.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 376827,
+      "sha256": "43f09229432ff3a42504cf24c834a2fa10f44ad6dcf65e8bd94b1c67265c5909",
+      "pieces": [
+        {
+          "file": "archive/objects/43f09229432ff3a42504cf24c834a2fa10f44ad6dcf65e8bd94b1c67265c5909",
+          "size": 376827,
+          "sha256": "43f09229432ff3a42504cf24c834a2fa10f44ad6dcf65e8bd94b1c67265c5909"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/index-DYjHT32B.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 1325785,
+      "sha256": "9192ca005a5731bc07a1b764541ab3834511deda681a14625ba446accc88e1a7",
+      "pieces": [
+        {
+          "file": "archive/objects/9192ca005a5731bc07a1b764541ab3834511deda681a14625ba446accc88e1a7",
+          "size": 1325785,
+          "sha256": "9192ca005a5731bc07a1b764541ab3834511deda681a14625ba446accc88e1a7"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/pending-key-CUxqM8PE.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 478,
+      "sha256": "47604b267e95dec8c9337aebd93ae7dfacf1531419f651df998df28491054f6d",
+      "pieces": [
+        {
+          "file": "archive/objects/47604b267e95dec8c9337aebd93ae7dfacf1531419f651df998df28491054f6d",
+          "size": 478,
+          "sha256": "47604b267e95dec8c9337aebd93ae7dfacf1531419f651df998df28491054f6d"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/printing-DV0uSfJ3.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 1723,
+      "sha256": "d3729e05b5f2e76209e5261a39409f11371ac8089d1db1240355fbdd97bf7d41",
+      "pieces": [
+        {
+          "file": "archive/objects/d3729e05b5f2e76209e5261a39409f11371ac8089d1db1240355fbdd97bf7d41",
+          "size": 1723,
+          "sha256": "d3729e05b5f2e76209e5261a39409f11371ac8089d1db1240355fbdd97bf7d41"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/receiving-BlcMLimj.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 920,
+      "sha256": "747b499fb2f063e6df9d8a2715ff09be38fba76298f45cb690914373bb586895",
+      "pieces": [
+        {
+          "file": "archive/objects/747b499fb2f063e6df9d8a2715ff09be38fba76298f45cb690914373bb586895",
+          "size": 920,
+          "sha256": "747b499fb2f063e6df9d8a2715ff09be38fba76298f45cb690914373bb586895"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/useAdmissionDialog-D8ZjZb6f.css",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 373,
+      "sha256": "faec9629eca2132d1fe68869e6db46a7c277c8359a6c93dfd0c557012bde25e1",
+      "pieces": [
+        {
+          "file": "archive/objects/faec9629eca2132d1fe68869e6db46a7c277c8359a6c93dfd0c557012bde25e1",
+          "size": 373,
+          "sha256": "faec9629eca2132d1fe68869e6db46a7c277c8359a6c93dfd0c557012bde25e1"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/useAdmissionDialog-DCPgi7nz.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 3320,
+      "sha256": "12471186aa13bf91d1a2fb50acb48148e13cee3d07380fa1e4ade3e2dfbf1a3c",
+      "pieces": [
+        {
+          "file": "archive/objects/12471186aa13bf91d1a2fb50acb48148e13cee3d07380fa1e4ade3e2dfbf1a3c",
+          "size": 3320,
+          "sha256": "12471186aa13bf91d1a2fb50acb48148e13cee3d07380fa1e4ade3e2dfbf1a3c"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/assets/usePageRefresh-BNWp31RW.js",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 210,
+      "sha256": "a1f06b3adbff5aab25d90979ecd92ecaaf316a72353a6bfbb7ca6b7c7e742603",
+      "pieces": [
+        {
+          "file": "archive/objects/a1f06b3adbff5aab25d90979ecd92ecaaf316a72353a6bfbb7ca6b7c7e742603",
+          "size": 210,
+          "sha256": "a1f06b3adbff5aab25d90979ecd92ecaaf316a72353a6bfbb7ca6b7c7e742603"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/index.html",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 750,
+      "sha256": "218a44cfc2b050990970f8c7f0f9d4a4c6d55d67bba803855050e4e137bfa3b0",
+      "pieces": [
+        {
+          "file": "archive/objects/218a44cfc2b050990970f8c7f0f9d4a4c6d55d67bba803855050e4e137bfa3b0",
+          "size": 750,
+          "sha256": "218a44cfc2b050990970f8c7f0f9d4a4c6d55d67bba803855050e4e137bfa3b0"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/publication-manifest.json",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 6275,
+      "sha256": "a5d51db3854a750536afe7190ada14679c26e6ce0f1dcb7c13a0b8dabe54f742",
+      "pieces": [
+        {
+          "file": "archive/objects/a5d51db3854a750536afe7190ada14679c26e6ce0f1dcb7c13a0b8dabe54f742",
+          "size": 6275,
+          "sha256": "a5d51db3854a750536afe7190ada14679c26e6ce0f1dcb7c13a0b8dabe54f742"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/web/version.json",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 190,
+      "sha256": "18a2f1cf5d4f3eaf18b1886589c66c0f31c517de560bc24ddbb769afa3ad53ca",
+      "pieces": [
+        {
+          "file": "archive/objects/18a2f1cf5d4f3eaf18b1886589c66c0f31c517de560bc24ddbb769afa3ad53ca",
+          "size": 190,
+          "sha256": "18a2f1cf5d4f3eaf18b1886589c66c0f31c517de560bc24ddbb769afa3ad53ca"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/xiquan-mobile-ordering-1.2.10.apk",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 3373501,
+      "sha256": "4ca711088ecfde7a508679f9edd63309c12a683cb939e857114cfe5223f7a4a5",
+      "pieces": [
+        {
+          "file": "archive/objects/4ca711088ecfde7a508679f9edd63309c12a683cb939e857114cfe5223f7a4a5",
+          "size": 3373501,
+          "sha256": "4ca711088ecfde7a508679f9edd63309c12a683cb939e857114cfe5223f7a4a5"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/交付信息.json",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 75729,
+      "sha256": "7ac47c78d24f0d237a26a5e105c04444a534ff63dbabe336a70f7af8c6a519f5",
+      "pieces": [
+        {
+          "file": "archive/objects/7ac47c78d24f0d237a26a5e105c04444a534ff63dbabe336a70f7af8c6a519f5",
+          "size": 75729,
+          "sha256": "7ac47c78d24f0d237a26a5e105c04444a534ff63dbabe336a70f7af8c6a519f5"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/完整发布指令.ps1",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 1480,
+      "sha256": "b7f7f86a2e1d6c3d1ba188773944f449baf34cf64e5720544d1af37127551c70",
+      "pieces": [
+        {
+          "file": "archive/objects/b7f7f86a2e1d6c3d1ba188773944f449baf34cf64e5720544d1af37127551c70",
+          "size": 1480,
+          "sha256": "b7f7f86a2e1d6c3d1ba188773944f449baf34cf64e5720544d1af37127551c70"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-暖木泉境-0.5.3/操作说明.md",
+      "version": "0.5.3",
+      "category": "documents/0.5.3",
+      "size": 3417,
+      "sha256": "2b805ddc4e2b371bfcacd98ea3014e22d46ccefda3ff27287866ec7e64f4ced0",
+      "pieces": [
+        {
+          "file": "archive/objects/2b805ddc4e2b371bfcacd98ea3014e22d46ccefda3ff27287866ec7e64f4ced0",
+          "size": 3417,
+          "sha256": "2b805ddc4e2b371bfcacd98ea3014e22d46ccefda3ff27287866ec7e64f4ced0"
+        }
+      ]
+    }
+  ]
+}
