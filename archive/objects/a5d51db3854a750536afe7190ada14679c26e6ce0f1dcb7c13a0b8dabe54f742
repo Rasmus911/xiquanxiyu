@@ -1,0 +1,169 @@
+{
+  "version": "0.5.3",
+  "files": {
+    "assets/AccountPasswordView-CgGTONvb.js": {
+      "sha256": "0404c896d76c6962d9c191c3a9762c345c8222438a04dd35b85c1a1587fdb315",
+      "size": 2919
+    },
+    "assets/AccountPasswordView-DybWzvpr.css": {
+      "sha256": "951a648a687f476742e46e1b8b616637ed2d81c3bf8a98862e328aec54948304",
+      "size": 203
+    },
+    "assets/AppPageHeader-BgzFSGYN.js": {
+      "sha256": "e25213c5331a5ec71967cd3604d2da396760daf6999d01b9dc113c64ee91d62a",
+      "size": 481
+    },
+    "assets/AppPageHeader-CkHBXYk0.css": {
+      "sha256": "c41756b454a5676517a3d54543f0c06b340b2ca03f4913a11c06695f61e50eda",
+      "size": 347
+    },
+    "assets/AuditView-D7J93kjj.css": {
+      "sha256": "46e197755a5b7701cebd2e0f3656b314d661052c90fb0b8adc767a63e236182a",
+      "size": 796
+    },
+    "assets/AuditView-Dyc7lyMK.js": {
+      "sha256": "9f8fd30df6d9a60120dd3c802f21e52735c4cde035c7eddae8a9d8d3f16de933",
+      "size": 9417
+    },
+    "assets/business-time-B_6AJBGW.js": {
+      "sha256": "57df39b35a5912d1c7e60747b52e4aa30ffdbe4d743d9675e96c4291767d8229",
+      "size": 291
+    },
+    "assets/CardScanDialog.vue_vue_type_script_setup_true_lang-CB7QO1Vk.js": {
+      "sha256": "5a27305c932f030f8be64d0693c0c5eebc97b016d8cd5a80f055ce3b9463798f",
+      "size": 2022
+    },
+    "assets/CatalogView-BL9gmHcF.css": {
+      "sha256": "14f7ad0f5ef46249dec2c2d8597bf7b1ef021ee00a3196ec102a887fd1014dd0",
+      "size": 302
+    },
+    "assets/CatalogView-DxZK1gB3.js": {
+      "sha256": "4dae801602816f9f227c3f26912ce43fcd4fbda05999546f48d3352b2e291f36",
+      "size": 8549
+    },
+    "assets/CheckoutView-BVLnyHGe.js": {
+      "sha256": "fdbed20af508e182681e2890c7930171c92c544f2e3e7450c4abaefd8cf4ddd2",
+      "size": 18144
+    },
+    "assets/CheckoutView-QJkKYah5.css": {
+      "sha256": "ac705908330aaacc2766cdf6e602ba6f9ca9d1f040b07a85db3b6701d1336c4f",
+      "size": 2665
+    },
+    "assets/DashboardView-BzdupH7Y.css": {
+      "sha256": "370ab2ef5bf2e9ee7f7c0ec2618b636f4f6af1b7adc56025d053562db4bcca5f",
+      "size": 5313
+    },
+    "assets/DashboardView-CkEGRDnO.js": {
+      "sha256": "5e0f9cceab2998dce6771e2288d9c39aa1f64cdf47aa884152d9501593e31010",
+      "size": 17930
+    },
+    "assets/EmployeesView-ChZBO2s-.js": {
+      "sha256": "435fd5210b7ddef1938b7a0777f49c583aa011c35f31f946bde6bec07df1e3fd",
+      "size": 7423
+    },
+    "assets/index-CbSyV1qe.css": {
+      "sha256": "43f09229432ff3a42504cf24c834a2fa10f44ad6dcf65e8bd94b1c67265c5909",
+      "size": 376827
+    },
+    "assets/index-DYjHT32B.js": {
+      "sha256": "9192ca005a5731bc07a1b764541ab3834511deda681a14625ba446accc88e1a7",
+      "size": 1325785
+    },
+    "assets/InventoryView-DcVbd6i_.css": {
+      "sha256": "9f6d71c4e4f1017c7226ad7f3c16b6c7f25035cd4ff6ce994f13c0dd5c4468e4",
+      "size": 2265
+    },
+    "assets/InventoryView-DSROM1BH.js": {
+      "sha256": "275d9a676eeb49c37b022052342555ca63fb8e31bb4bbbf4e1b9bd45c94e1cf3",
+      "size": 24033
+    },
+    "assets/MemberPassPurchaseView-Cp6nAA_3.js": {
+      "sha256": "9cd352ce90cd85f10cddc246e348d04efffbf187bbabfee7436a4eb078facaba",
+      "size": 4474
+    },
+    "assets/MemberPassPurchaseView-RqiroTTO.css": {
+      "sha256": "403e1a75007aa325af75870dbf343ab03227d700c5582d696e2767c3b6850dba",
+      "size": 965
+    },
+    "assets/MemberRechargeView-Bkwc9ekN.js": {
+      "sha256": "5a0b03a2c26f5f12a70775b421d1108881645b132993ab7a9ab7a59ca8775af9",
+      "size": 4938
+    },
+    "assets/MemberRechargeView-CroIyV3V.css": {
+      "sha256": "2d43671b5a9f8755a80c29c68113c7b9f4f120d08bf9101df3de9f1e2af85273",
+      "size": 2508
+    },
+    "assets/MembersView-BjqKdv_b.css": {
+      "sha256": "35bee9416f1fb8325a01748a0a3af8346ca426d31e2a1be75538e1497fefcd58",
+      "size": 1685
+    },
+    "assets/MembersView-CnRsqlYD.js": {
+      "sha256": "e3f5cd441cb4ac1725c1636ddea6c4b98b5fa18cf021866886e6624960a5cf3a",
+      "size": 24508
+    },
+    "assets/pending-key-CUxqM8PE.js": {
+      "sha256": "47604b267e95dec8c9337aebd93ae7dfacf1531419f651df998df28491054f6d",
+      "size": 478
+    },
+    "assets/printing-DV0uSfJ3.js": {
+      "sha256": "d3729e05b5f2e76209e5261a39409f11371ac8089d1db1240355fbdd97bf7d41",
+      "size": 1723
+    },
+    "assets/PrintJobsView-DEpDBpMH.css": {
+      "sha256": "c92890e92a812e1b09969c4ecfa88e1349c1432861dcd40c2d6d244b618f7e72",
+      "size": 753
+    },
+    "assets/PrintJobsView-DmukZnXt.js": {
+      "sha256": "349d03a6639c56c32cbc3fcbd7c6dce2929fd900b66af69dd52d9812bddf59d2",
+      "size": 6051
+    },
+    "assets/receiving-BlcMLimj.js": {
+      "sha256": "747b499fb2f063e6df9d8a2715ff09be38fba76298f45cb690914373bb586895",
+      "size": 920
+    },
+    "assets/ReportsView-BMgW3jeB.css": {
+      "sha256": "34315b05008379a5ca08d821716a06db5bd04f7428aeac757ee68ed7985ba31e",
+      "size": 5424
+    },
+    "assets/ReportsView-CyJPP-t1.js": {
+      "sha256": "a6da47e834148c0f69c645f9b06946d724c07517845572f22f86934e1676fb15",
+      "size": 14378
+    },
+    "assets/SettingsView-BcRztx38.css": {
+      "sha256": "9a9e5e7223d6c9baefc3e56a7bc470520ce0671098828638f0483435d04669dd",
+      "size": 1949
+    },
+    "assets/SettingsView-C6SYqD7x.js": {
+      "sha256": "1ec0270fd7aaef5ea157a46704dfcaa53f44e110786f4a0dc69a80ce35636277",
+      "size": 17111
+    },
+    "assets/useAdmissionDialog-D8ZjZb6f.css": {
+      "sha256": "faec9629eca2132d1fe68869e6db46a7c277c8359a6c93dfd0c557012bde25e1",
+      "size": 373
+    },
+    "assets/useAdmissionDialog-DCPgi7nz.js": {
+      "sha256": "12471186aa13bf91d1a2fb50acb48148e13cee3d07380fa1e4ade3e2dfbf1a3c",
+      "size": 3320
+    },
+    "assets/usePageRefresh-BNWp31RW.js": {
+      "sha256": "a1f06b3adbff5aab25d90979ecd92ecaaf316a72353a6bfbb7ca6b7c7e742603",
+      "size": 210
+    },
+    "assets/VisitView-04ll_Jq_.js": {
+      "sha256": "b6f77d272db82365e71cd63ef104b8b6e9cd1cd503b97d1bb80778974cafa555",
+      "size": 30264
+    },
+    "assets/VisitView-r8PwvqaO.css": {
+      "sha256": "e4617d240d8c89f7ab5ab56ec192b9f8d75d5c459dc6b7d6646ae5dd1f3cb55f",
+      "size": 5121
+    },
+    "index.html": {
+      "sha256": "218a44cfc2b050990970f8c7f0f9d4a4c6d55d67bba803855050e4e137bfa3b0",
+      "size": 750
+    },
+    "version.json": {
+      "sha256": "18a2f1cf5d4f3eaf18b1886589c66c0f31c517de560bc24ddbb769afa3ad53ca",
+      "size": 190
+    }
+  }
+}

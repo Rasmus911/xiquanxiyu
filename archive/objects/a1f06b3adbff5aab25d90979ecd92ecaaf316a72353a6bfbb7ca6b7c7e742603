@@ -1,0 +1,1 @@
+import{v as o,z as r}from"./index-DYjHT32B.js";function t(n){const e=()=>{n()};o(()=>window.addEventListener("xiquan:refresh-page",e)),r(()=>window.removeEventListener("xiquan:refresh-page",e))}export{t as u};
