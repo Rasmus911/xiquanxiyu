@@ -1,0 +1,172 @@
+"""One reviewed API-line correction atop a frozen failed 0.5.5 checkpoint.
+
+Parent SOURCE, context and receipts are immutable. Derived receipts retain their
+parent hashes; the actual new image and exact server correction are explicit.
+No ACL relaxation, repeated backup/claim, financial clearing or rollback.
+"""
+import argparse
+import copy
+import hashlib
+import os
+import re
+import shutil
+import sys
+import traceback
+import uuid
+from pathlib import Path
+
+BASE_COMMIT='55def01314722f2e5bc74444cbfc0fa9b8009dcf'
+BASE_SHA='f6c3b329d46d0b7585a90ebc40f9cb4b0950991c7fc01eabce17bd658cf73e97'
+API_FILE='server/app/api/inventory_excel.py'
+ORIGINAL_SHA='780d3b27644cbdceb2937168de35f4e4d628417798b482770872445e5d902dbf'
+CORRECTED_SHA='077d79cd1035634cec142b8b3f232c15ea30bb30d705edfbc4f54feb3fd74598'
+CORRECTION=dict(kind='pending-readonly-select',file=API_FILE,original_sha256=ORIGINAL_SHA,corrected_sha256=CORRECTED_SHA)
+
+def corrected_api(original):
+    before=b'StockImportPending.query.filter_by(id=id_).with_for_update().first()'
+    after=b'StockImportPending.query.filter_by(id=id_).first()'
+    if original.count(before)!=1:raise ValueError('Expected exact original pending query; refuse any other patch')
+    return original.replace(before,after,1)
+
+def validate_original_receipts(records,identity):
+    if [row.get('phase') for row in records]!=['before','maintenance']:
+        raise ValueError('Only the exact pre-migration backup and owned claim can seed corrected receipts')
+    for row in records:
+        if any(row.get(key)!=value for key,value in identity.items()) or not isinstance(row.get('result'),dict):
+            raise ValueError('Original checkpoint identity differs')
+    return records
+
+def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--stage',required=True);parser.add_argument('--job',required=True)
+    parser.add_argument('--apply',action='store_true')
+    args=parser.parse_args()
+    if os.name!='posix' or os.getuid()!=0:raise ValueError('Human-run ECS root only')
+    if not re.fullmatch('/opt/xiquan-releases/desktop055-stage-[a-f0-9]{32}',args.stage) or not re.fullmatch('/opt/xiquan-backups/desktop055-cutover-[a-f0-9]{32}',args.job):
+        raise ValueError('Exact retained stage and job required')
+    sys.path.insert(0,str(Path(args.stage)/'xiquan/deploy/cloud/scripts'))
+    import desktop_055_deploy as base
+    from operations_deploy import json_read,json_write,CLOUD
+    from operations_preflight import no_links,digest_file
+    from operations_offline_build import expected_payload
+    import fcntl
+    os.umask(0o077)
+    driver=None
+    with no_links('/run/lock/xiquan-stock-cutover.lock').open('a+') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        try:
+            original=base.Desktop055(args.stage,args.job);driver=original
+            original.protected()
+            base.require(original.report['source_commit']==BASE_COMMIT and original.report['bundle_sha256']==BASE_SHA,'Wrong frozen SOURCE')
+            base.require(original.context['stage']==args.stage and original.context['source_commit']==BASE_COMMIT and original.context['source_sha256']==BASE_SHA,'Wrong original job')
+            base.require(original.context['tools']=={name:digest_file(Path(args.stage)/'xiquan/deploy/cloud/scripts'/name) for name in base.TOOLS},'Original tools changed')
+            base.require(digest_file(CLOUD/'.env')==original.context['env_sha256'],'Private environment changed')
+            base.require(digest_file(original.source/API_FILE)==ORIGINAL_SHA,'Original API bytes changed')
+            base.require(original.image_probe(original.context['image_id'])['payload']==expected_payload(original.source/'server'),'Original pinned image changed')
+            running=original.run(['docker','ps','--filter','label=xiquan.desktop055.job='+original.context['owner'],'--format','{{.ID}}'])
+            base.require(not running,'An owned maintenance command is still running; do not start another')
+            parent_identity=original.identity()
+            parent_records=validate_original_receipts([json_read(original.job/(phase+'.json')) for phase in ('before','maintenance')],parent_identity)
+            base.require(not any((original.job/(phase+'.json')).exists() for phase in base.PHASES[2:]),'Parent checkpoint advanced; use checkpoint-specific recovery')
+            state=base.cloud_state(original.run)
+            root=no_links(original.job/'pending-readonly-correction-v1')
+            state_file=root/'corrected-image.json'
+            if not state_file.exists():
+                base.require(state['schema_revision']==base.OLD and not state['pending_resets'] and state['business_state']['maintenance'] and state['business_state']['maintenance_reset_id']==original.context['owner'],'Owned exact pre-migration maintenance required')
+                base.require(original.guard('inspect')==parent_records[1]['result'],'Production snapshot changed since owned maintenance')
+            if not args.apply:
+                print('PENDING055_RECOVERY_PREFLIGHT_OK; exact frozen SOURCE, image and retained checkpoints verified; no restart or database write',flush=True)
+                return
+            if not state_file.exists():
+                if root.exists():root.rename(original.job/('pending-readonly-partial-retained-'+uuid.uuid4().hex))
+                root.mkdir(mode=0o700)
+                source=root/'source';source.mkdir(mode=0o700)
+                for row in original.manifest['files']:
+                    target=no_links(source/row['file']);target.parent.mkdir(parents=True,exist_ok=True,mode=0o700)
+                    shutil.copy2(original.source/row['file'],target)
+                fixed=corrected_api((source/API_FILE).read_bytes())
+                base.require(hashlib.sha256(fixed).hexdigest()==CORRECTED_SHA,'Correction is not the reviewed one-line fix')
+                (source/API_FILE).write_bytes(fixed)
+                manifest=copy.deepcopy(original.manifest)
+                for row in manifest['files']:
+                    if row['file']==API_FILE:row.update(size=len(fixed),sha256=CORRECTED_SHA)
+                manifest['server_correction']=CORRECTION
+                json_write(source/'source-manifest.json',manifest)
+                dockerfile=root/'Dockerfile'
+                base_tag='xiquan-api:desktop055-pending-base-'+original.context['owner'].replace('-','')
+                tag='xiquan-api:desktop055-pending-corrected-'+original.context['owner'].replace('-','')
+                original.run(['docker','tag',original.context['image_id'],base_tag])
+                shutil.copy2(source/API_FILE,root/'inventory_excel.py')
+                dockerfile.write_text('FROM '+base_tag+'\nUSER root\nCOPY --chown=xiquan:xiquan inventory_excel.py /app/app/api/inventory_excel.py\nUSER xiquan\n',encoding='utf-8')
+                print('DESKTOP055_PHASE=build-exact-pending-query-correction',flush=True)
+                original.run(['docker','build','--pull=false','--network=none','--memory','256m','-f',str(dockerfile),'-t',tag,str(root)])
+                image=__import__('json').loads(original.run(['docker','image','inspect',tag]))[0]['Id']
+                base.require(original.image_probe(image)['payload']==expected_payload(source/'server'),'Corrected actual image bytes differ')
+                json_write(state_file,dict(parent_identity=parent_identity,server_correction=CORRECTION,image_id=image,
+                    recovery_sha256=digest_file(Path(__file__)),source=str(source)))
+            correction=json_read(state_file)
+            base.require(correction['parent_identity']==parent_identity and correction['server_correction']==CORRECTION and correction['recovery_sha256']==digest_file(Path(__file__)),'Corrected recovery receipt changed')
+            source=no_links(correction['source']);manifest=json_read(source/'source-manifest.json')
+            expected=copy.deepcopy(original.manifest)
+            for row in expected['files']:
+                if row['file']==API_FILE:row.update(size=len(corrected_api((original.source/API_FILE).read_bytes())),sha256=CORRECTED_SHA)
+            expected['server_correction']=CORRECTION
+            base.require(manifest==expected,'Corrected source manifest changed beyond the API query')
+            for row in manifest['files']:
+                file=no_links(source/row['file']);base.require(file.stat().st_size==row['size'] and digest_file(file)==row['sha256'],'Corrected source bytes changed')
+            base.require(original.image_probe(correction['image_id'])['payload']==expected_payload(source/'server'),'Corrected pinned image differs')
+            receipts=root/'receipts';receipts.mkdir(mode=0o700,exist_ok=True)
+            class CorrectedDesktop(base.Desktop055):
+                def identity(self):return dict(super().identity(),server_correction=CORRECTION)
+                def result(self,phase):return json_read(receipts/(phase+'.json'))['result']
+            driver=CorrectedDesktop(args.stage,args.job)
+            driver.source=source;driver.manifest=manifest
+            driver.context=dict(driver.context,image_id=correction['image_id'])
+            driver.run.deadline=base.OperationDeadline()
+            for record in parent_records:
+                destination=receipts/(record['phase']+'.json')
+                derived=dict(driver.identity(),phase=record['phase'],result=record['result'],
+                    parent_receipt_sha256=digest_file(driver.job/(record['phase']+'.json')))
+                if destination.exists():base.require(json_read(destination)==derived,'Derived receipt differs from original verified parent')
+                else:json_write(destination,derived)
+            checkpoints=base.Checkpoints(receipts,driver.identity())
+            state=base.cloud_state(driver.run)
+            base.require(not state['pending_resets'],'Pending reset during recovery')
+            classified=checkpoints.classify(state['schema_revision'],state['business_state']['maintenance'],state['business_state']['maintenance_reset_id'])
+            if classified=='release-receipt-required':
+                driver.verify_api('0')
+                base.verify_released_snapshot(driver.result('after'),driver.guard('inspect'),driver.context['owner'])
+                json_write(receipts/'maintenance-release.json',dict(driver.identity(),phase='maintenance-release',result=dict(released=True,owner=driver.context['owner'],schema=base.HEAD,recovered_from_exact_snapshot=True)))
+            done=checkpoints.validate()
+            if 'maintenance-release' not in done:
+                base.require(driver.guard('inspect')==driver.result('after' if 'after' in done else 'maintenance'),'Owned snapshot changed before resume')
+            if 'source-switch' in done:base.require(digest_file(CLOUD/'docker-compose.prod.yml')==driver.result('source-switch')['compose_sha256'],'Installed Compose differs')
+            print('PRIVATE_DESKTOP_JOB='+str(driver.job),flush=True)
+            print('DESKTOP055_PHASE=resume-exact-pending-query-correction',flush=True)
+            if (receipts/'completed.json').exists():
+                base.require(json_read(receipts/'completed.json')['server_correction']==CORRECTION,'Wrong completion')
+                driver.verify_api('1');driver.protected()
+            else:checkpoints.run(driver.perform)
+            completed=json_read(receipts/'completed.json')
+            completed['recovery_receipts_directory']=str(receipts)
+            if (driver.job/'completed.json').exists():base.require(json_read(driver.job/'completed.json')==completed,'Completed parent link changed')
+            else:json_write(driver.job/'completed.json',completed)
+            print('DESKTOP055_PHASE=completed',flush=True)
+            print('PENDING055_CORRECTED_DEPLOYMENT_VERIFIED; exact original backup retained; no ACL expansion or data clearing',flush=True)
+        except Exception:
+            if driver and driver.job:
+                path=driver.job/('failure-'+uuid.uuid4().hex+'.json')
+                json_write(path,dict(phase=driver.last_phase,reason=traceback.format_exc()))
+                category=re.search(r'category=([a-z0-9]+)',str(sys.exc_info()[1]))
+                print('DESKTOP055_STOPPED: phase='+driver.last_phase+' category='+(category[1] if category else 'gate')+' evidence='+str(path),file=sys.stderr,flush=True)
+            raise
+        finally:
+            if driver:
+                for restore in driver.restores:
+                    if restore.started:
+                        try:restore.stop()
+                        except Exception:pass
+
+if __name__=='__main__':
+    try:main()
+    except Exception:raise SystemExit(1)

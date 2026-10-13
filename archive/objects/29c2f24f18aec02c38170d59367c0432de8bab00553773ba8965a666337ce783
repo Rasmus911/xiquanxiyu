@@ -1,0 +1,25 @@
+﻿[CmdletBinding()]
+param([ValidateSet('all','cloud','desktop','mobile','verify')][string]$Mode='all',
+    [string]$EcsTarget='root@39.96.217.210',[string]$PreviousApkPath)
+$ErrorActionPreference='Stop'
+$info=Get-Content -LiteralPath (Join-Path $PSScriptRoot '交付信息.json') -Raw -Encoding UTF8|ConvertFrom-Json
+& node.exe (Join-Path $info.ProjectRoot 'scripts\lib\desktop-055.cjs') verify-delivery $PSScriptRoot
+if($LASTEXITCODE-ne 0){throw '交付校验失败，停止；没有连接云端。'}
+if($Mode-eq 'verify'){Write-Host '本机交付校验完成，未签名、未连接云端。';return}
+$steps=@()
+if($Mode-in @('all','cloud')){
+    if($info.PSObject.Properties.Name-contains 'ServerCorrection'){$steps+='05-修复待补库存权限并续部署.ps1'}
+    else{$steps+='01-部署云端.ps1'}
+}
+if($Mode-in @('all','desktop')){$steps+='02-签名并发布桌面更新.ps1'}
+if($Mode-in @('all','mobile')){$steps+='03-构建并发布安卓更新.ps1'}
+foreach($name in $steps){
+    $script=Join-Path $PSScriptRoot $name
+    if(-not(Test-Path -LiteralPath $script -PathType Leaf)){throw ('缺少交付入口：'+$name)}
+    $arguments=@('-NoProfile','-ExecutionPolicy','Bypass','-File',$script,'-EcsTarget',$EcsTarget)
+    if($name-eq '03-构建并发布安卓更新.ps1'-and $PreviousApkPath){$arguments+=@('-PreviousApkPath',$PreviousApkPath)}
+    Write-Host ('正在执行：'+$name)
+    & powershell.exe @arguments
+    if($LASTEXITCODE-ne 0){throw ($name+' 未完成。保留完整输出及检查点，不重复部署或恢复旧数据库。')}
+}
+Write-Host '所选发布步骤验证完成。请在旧桌面/手机应用内检查更新，验收刷卡、直接下单和Excel人工盘点。'
