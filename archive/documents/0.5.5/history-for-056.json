@@ -1,0 +1,188 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/01-部署云端.ps1",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 1863,
+      "sha256": "8935ef9ef8f3270ae4c70ad9ae71c3dd75291c6ba2c296f802d32ea1049892f7",
+      "pieces": [
+        {
+          "file": "archive/objects/8935ef9ef8f3270ae4c70ad9ae71c3dd75291c6ba2c296f802d32ea1049892f7",
+          "size": 1863,
+          "sha256": "8935ef9ef8f3270ae4c70ad9ae71c3dd75291c6ba2c296f802d32ea1049892f7"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/02-签名并发布桌面更新.ps1",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 462,
+      "sha256": "c0e52764b291a9792090a007afa458a8a4ed5f0e843283762d56ed7503256c19",
+      "pieces": [
+        {
+          "file": "archive/objects/c0e52764b291a9792090a007afa458a8a4ed5f0e843283762d56ed7503256c19",
+          "size": 462,
+          "sha256": "c0e52764b291a9792090a007afa458a8a4ed5f0e843283762d56ed7503256c19"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/03-构建并发布安卓更新.ps1",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 468,
+      "sha256": "de35c4d3f8df9fe0fa504eea4b86995abd8a812c267fab2c12a8c035397de67e",
+      "pieces": [
+        {
+          "file": "archive/objects/de35c4d3f8df9fe0fa504eea4b86995abd8a812c267fab2c12a8c035397de67e",
+          "size": 468,
+          "sha256": "de35c4d3f8df9fe0fa504eea4b86995abd8a812c267fab2c12a8c035397de67e"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/04-清理已归档旧文件.ps1",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 3651,
+      "sha256": "96da2abaff5865b98a87f3e886f2ce8ff1411e72e536498bb539e76a0b396f97",
+      "pieces": [
+        {
+          "file": "archive/objects/96da2abaff5865b98a87f3e886f2ce8ff1411e72e536498bb539e76a0b396f97",
+          "size": 3651,
+          "sha256": "96da2abaff5865b98a87f3e886f2ce8ff1411e72e536498bb539e76a0b396f97"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/05-修复待补库存权限并续部署.ps1",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 5018,
+      "sha256": "3ebb17a819c57e12b2008c150ad5e86fecbefec24fb734a175a820a2adca98b8",
+      "pieces": [
+        {
+          "file": "archive/objects/3ebb17a819c57e12b2008c150ad5e86fecbefec24fb734a175a820a2adca98b8",
+          "size": 5018,
+          "sha256": "3ebb17a819c57e12b2008c150ad5e86fecbefec24fb734a175a820a2adca98b8"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/README-完整PowerShell.md",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 5002,
+      "sha256": "c8652e6f194cca41b20274170138146fb5f85b14eb3bf0c345c1d8a8e4a5e72f",
+      "pieces": [
+        {
+          "file": "archive/objects/c8652e6f194cca41b20274170138146fb5f85b14eb3bf0c345c1d8a8e4a5e72f",
+          "size": 5002,
+          "sha256": "c8652e6f194cca41b20274170138146fb5f85b14eb3bf0c345c1d8a8e4a5e72f"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/desktop055_pending_recovery.py",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 12685,
+      "sha256": "52ff635cd47e5446335abbc758c829940c94ca9ac72fce3273f606a8b1ab6eaa",
+      "pieces": [
+        {
+          "file": "archive/objects/52ff635cd47e5446335abbc758c829940c94ca9ac72fce3273f606a8b1ab6eaa",
+          "size": 12685,
+          "sha256": "52ff635cd47e5446335abbc758c829940c94ca9ac72fce3273f606a8b1ab6eaa"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/historical-signed-releases.json",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 31681,
+      "sha256": "6bd885a83ca8a3012f1ab231e3fbaf047ecf9aa5ffaef534b1174ed3e7fd1432",
+      "pieces": [
+        {
+          "file": "archive/objects/6bd885a83ca8a3012f1ab231e3fbaf047ecf9aa5ffaef534b1174ed3e7fd1432",
+          "size": 31681,
+          "sha256": "6bd885a83ca8a3012f1ab231e3fbaf047ecf9aa5ffaef534b1174ed3e7fd1432"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/release-public-key.pem",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 113,
+      "sha256": "35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba",
+      "pieces": [
+        {
+          "file": "archive/objects/35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba",
+          "size": 113,
+          "sha256": "35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/xiquan-mobile-ordering-1.2.12.apk",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 3376882,
+      "sha256": "d5b15dc500f16d3133ecc8d7be64b11efc9bdc6287ead5196d3658c9d3fcf80f",
+      "pieces": [
+        {
+          "file": "archive/objects/d5b15dc500f16d3133ecc8d7be64b11efc9bdc6287ead5196d3658c9d3fcf80f",
+          "size": 3376882,
+          "sha256": "d5b15dc500f16d3133ecc8d7be64b11efc9bdc6287ead5196d3658c9d3fcf80f"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/交付信息.json",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 161650,
+      "sha256": "ee1829dd4ba1c6b56c14946d69cdcd7d9c75734b0e1892635ce7445f8cd46b0b",
+      "pieces": [
+        {
+          "file": "archive/objects/ee1829dd4ba1c6b56c14946d69cdcd7d9c75734b0e1892635ce7445f8cd46b0b",
+          "size": 161650,
+          "sha256": "ee1829dd4ba1c6b56c14946d69cdcd7d9c75734b0e1892635ce7445f8cd46b0b"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/完整发布指令.ps1",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 1706,
+      "sha256": "29c2f24f18aec02c38170d59367c0432de8bab00553773ba8965a666337ce783",
+      "pieces": [
+        {
+          "file": "archive/objects/29c2f24f18aec02c38170d59367c0432de8bab00553773ba8965a666337ce783",
+          "size": 1706,
+          "sha256": "29c2f24f18aec02c38170d59367c0432de8bab00553773ba8965a666337ce783"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-人工库存与Excel-0.5.5/本机交付与归档状态.md",
+      "version": "0.5.5",
+      "category": "documents/0.5.5",
+      "size": 3376,
+      "sha256": "e882720d535c42e428ee6b273e840485c10298b000111990ba8d2c0abaffa97d",
+      "pieces": [
+        {
+          "file": "archive/objects/e882720d535c42e428ee6b273e840485c10298b000111990ba8d2c0abaffa97d",
+          "size": 3376,
+          "sha256": "e882720d535c42e428ee6b273e840485c10298b000111990ba8d2c0abaffa97d"
+        }
+      ]
+    }
+  ]
+}

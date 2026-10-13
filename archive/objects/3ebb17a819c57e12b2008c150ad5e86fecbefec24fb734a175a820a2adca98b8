@@ -1,0 +1,51 @@
+﻿[CmdletBinding()]
+param([string]$EcsTarget='root@39.96.217.210',[switch]$ValidateOnly,[switch]$ContinuePublication)
+$ErrorActionPreference='Stop'
+$project='F:\溪泉洗浴系统'
+$stage='/opt/xiquan-releases/desktop055-stage-1480cf9ed773437f94cf196dbb6d9ead'
+$job='/opt/xiquan-backups/desktop055-cutover-c8fc373329154cf7a6234719447db0a4'
+if($EcsTarget-notmatch '^[A-Za-z0-9_-]+@[A-Za-z0-9.-]+$'){throw 'SSH目标格式无效。'}
+$info=Get-Content -LiteralPath (Join-Path $PSScriptRoot '交付信息.json') -Raw -Encoding UTF8|ConvertFrom-Json
+if($info.SourceCommit-cne '55def01314722f2e5bc74444cbfc0fa9b8009dcf'-or $info.SourceSha256-cne 'f6c3b329d46d0b7585a90ebc40f9cb4b0950991c7fc01eabce17bd658cf73e97'){throw '不是本次原始冻结交付。'}
+& node.exe (Join-Path $project 'scripts\lib\desktop-055.cjs') verify-delivery $PSScriptRoot
+if($LASTEXITCODE-ne 0){throw '交付哈希校验失败，没有连接服务器。'}
+$helper=Join-Path $PSScriptRoot 'desktop055_pending_recovery.py'
+if(-not(Test-Path -LiteralPath $helper -PathType Leaf)){throw '缺少本次受控修复程序。'}
+if($ValidateOnly){Write-Host 'LOCAL_PENDING055_RECOVERY_VALIDATED; 未连接服务器、未重建、未修改数据库。';return}
+. (Join-Path $project 'scripts\lib\desktop-055-transport.ps1')
+$options=@('-T','-o','ConnectTimeout=20','-o','ConnectionAttempts=1','-o','ServerAliveInterval=15','-o','ServerAliveCountMax=3')
+$remote='/tmp/xiquan-token128-'+[guid]::NewGuid().ToString('N')
+$create=Invoke-TokenNative -Executable 'ssh.exe' -Arguments ($options+@($EcsTarget,('umask 077 && mkdir -m 700 '+$remote))) -TimeoutSeconds 45 -Label 'PENDING055 private recovery upload'
+if($create.ExitCode-ne 0){throw 'SSH暂存失败，原检查点没有改变。'}
+$program=New-TokenUploadProgram -LocalPath $helper -RemotePath ($remote+'/patch.py')
+$uploaded=Invoke-TokenNative -Executable 'ssh.exe' -Arguments ($options+@($EcsTarget,'python3 -')) -InputText ($program+"`n") -TimeoutSeconds 180 -Label 'PENDING055 upload and SHA256'
+$digest=(Get-FileHash -LiteralPath $helper -Algorithm SHA256).Hash.ToLowerInvariant()
+if($uploaded.ExitCode-ne 0-or $uploaded.Stdout-notmatch ('(?m)^UPLOAD_VERIFIED '+$digest+' '+[regex]::Escape($remote+'/patch.py')+'\r?$')){throw '修复程序上传哈希未通过，原检查点没有改变。'}
+$command='python3 -u '+$remote+'/patch.py --stage '+$stage+' --job '+$job
+Write-Host '只读核验原SOURCE、镜像、已验证备份及本次拥有的维护状态。'
+$check=Invoke-TokenNative -Executable 'ssh.exe' -Arguments ($options+@($EcsTarget,$command)) -TimeoutSeconds 180 -Label 'PENDING055 exact recovery preflight'
+Write-Host $check.Stdout
+if($check.ExitCode-ne 0){Write-Host $check.Stderr;throw '原检查点核验未通过，不重建或继续迁移。'}
+if((Read-Host '仅修正待补表查询、重验PG17并续原部署。输入 RESUME 0.5.5')-cne 'RESUME 0.5.5'){throw '已取消，原检查点保留。'}
+$identityRoot=Join-Path $project 'private\desktop055-transports'
+New-Item -ItemType Directory -Force -Path $identityRoot|Out-Null
+$identity=Join-Path $identityRoot ('pending-recovery-'+[guid]::NewGuid().ToString('N')+'.json')
+$operation=Invoke-Desktop055Operation -Executable 'ssh.exe' -Arguments ($options+@($EcsTarget,($command+' --apply'))) -Stage $stage -Job $job -IdentityFile $identity -TimeoutSeconds 14430
+if($operation.ExitCode-ne 0){throw ('原检查点续部署停止。保留最后阶段/证据，不重跑完整发布。身份：'+$identity)}
+$receipt=Invoke-TokenNative -Executable 'ssh.exe' -Arguments ($options+@($EcsTarget,('cat '+$job+'/completed.json'))) -TimeoutSeconds 60 -Label 'PENDING055 exact completed receipt'
+if($receipt.ExitCode-ne 0){throw '完成回执尚未读取；不要重新部署。'}
+$result=$receipt.Stdout|ConvertFrom-Json
+if($result.phase-cne 'completed'-or $result.source_commit-cne $info.SourceCommit-or $result.source_sha256-cne $info.SourceSha256-or $result.server_correction.corrected_sha256-cne $info.ServerCorrection.corrected_sha256){throw '完成回执或本次修正身份不一致，禁止发布。'}
+$private=Join-Path $project 'private\desktop055'
+New-Item -ItemType Directory -Force -Path $private|Out-Null
+[IO.File]::WriteAllText((Join-Path $private 'completed.json'),$receipt.Stdout,[Text.UTF8Encoding]::new($false))
+& node.exe (Join-Path $project 'scripts\lib\desktop-055-source.cjs') completed $PSScriptRoot
+if($LASTEXITCODE-ne 0){throw '本机完成回执核验未通过，禁止发布。'}
+Write-Host '云端修正与续部署已验证；未放宽UPDATE权限，原备份和失败证据保留。'
+if($ContinuePublication){
+    foreach($name in @('02-签名并发布桌面更新.ps1','03-构建并发布安卓更新.ps1')){
+        Write-Host ('正在执行：'+$name)
+        & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot $name) -EcsTarget $EcsTarget
+        if($LASTEXITCODE-ne 0){throw ($name+' 未完成。不要再次部署云端；保留签名或上传检查点。')}
+    }
+}

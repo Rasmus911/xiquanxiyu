@@ -1,0 +1,47 @@
+﻿[CmdletBinding()]
+param([switch]$Apply)
+$ErrorActionPreference='Stop'
+$project='F:\溪泉洗浴系统'
+$delivery=Join-Path $project '最新版安装包-人工库存与Excel-0.5.5'
+& node.exe (Join-Path $project 'scripts\lib\desktop-055.cjs') verify-delivery $delivery
+if($LASTEXITCODE-ne 0){throw '最新版交付校验失败，禁止清理。'}
+Write-Host '只读重验GitHub归档及原文件；不连接ECS，不修改数据库。'
+& node.exe (Join-Path $project 'scripts\archive-desktop-055.cjs') verify
+if($LASTEXITCODE-ne 0){throw '远端分片与原文件核验未通过，禁止清理。'}
+& node.exe (Join-Path $project 'scripts\archive-desktop-055.cjs') eligible
+if($LASTEXITCODE-ne 0){throw '删除资格核验失败，禁止清理。'}
+$proof=Get-Content -LiteralPath (Join-Path $project 'private\desktop055-archive\remote-proof.json') -Raw -Encoding UTF8|ConvertFrom-Json
+$parents=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+$targets=@()
+foreach($row in $proof.entries){
+    if($row.path-notmatch '^(最新版安装包-刷卡开牌-0\.5\.4/|release/windows/0\.5\.4/|release/cloud/xiquan-desktop054-SOURCE-WEB-20261013-115235-9bf0698f\.zip$)'){throw '范围不是已核验的旧0.5.4文件。'}
+    $target=[IO.Path]::GetFullPath((Join-Path $project $row.path))
+    if(-not $target.StartsWith($project+'\',[StringComparison]::OrdinalIgnoreCase)){throw '删除路径越界。'}
+    $cursor=$target
+    while($cursor-ne $project){
+        if((Get-Item -LiteralPath $cursor -Force).Attributes-band [IO.FileAttributes]::ReparsePoint){throw '拒绝链接文件。'}
+        $cursor=[IO.Path]::GetDirectoryName($cursor)
+    }
+    $item=Get-Item -LiteralPath $target -Force
+    if($item.PSIsContainer-or $item.Length-ne $row.size-or (Get-FileHash -LiteralPath $target -Algorithm SHA256).Hash.ToLowerInvariant()-cne $row.sha256){throw '文件字节已改变。'}
+    $targets+=@{absolute=$target;path=$row.path;size=$row.size;sha256=$row.sha256}
+    $parent=[IO.Path]::GetDirectoryName($target)
+    while($parent-match '^F:\\溪泉洗浴系统\\(?:最新版安装包-刷卡开牌-0\.5\.4|release\\windows\\0\.5\.4)(?:\\|$)'){
+        [void]$parents.Add($parent);$parent=[IO.Path]::GetDirectoryName($parent)
+    }
+}
+Write-Host ('已验证文件数：'+$targets.Count+'；可从GitHub恢复；远端提交：'+$proof.remoteCommit)
+if(-not $Apply){Write-Host '预览完成，没有删除。确认后用 -Apply 再运行。';return}
+if((Read-Host '关闭所有旧0.5.4安装包/目录窗口，输入 CLEAN ARCHIVED 0.5.4')-cne 'CLEAN ARCHIVED 0.5.4'){throw '已取消，没有删除。'}
+$removed=@()
+try{
+    foreach($row in $targets){Remove-Item -LiteralPath $row.absolute -Force;$removed+=@{path=$row.path;size=$row.size;sha256=$row.sha256}}
+    foreach($directory in @($parents)|Sort-Object Length -Descending){
+        if((Test-Path -LiteralPath $directory)-and @((Get-ChildItem -LiteralPath $directory -Force)).Count-eq 0){Remove-Item -LiteralPath $directory -Force}
+    }
+}finally{
+    $receipt=@{repository=$proof.repository;remoteCommit=$proof.remoteCommit;removedAt=[DateTime]::UtcNow.ToString('o');entries=$removed;bytes=($removed|Measure-Object -Property size -Sum).Sum;recoverableFromRemote=$true}
+    [IO.File]::WriteAllText((Join-Path $project 'private\desktop055-archive\cleanup-receipt.json'),($receipt|ConvertTo-Json -Depth 9),[Text.UTF8Encoding]::new($false))
+}
+Write-Host ('已删除已归档旧文件：'+$removed.Count+'；可从GitHub清单还原。')
+Write-Host '未删除原密钥、证书、会员、库存、备份、恢复证据、最新交付、版本仓库和私有上传队列。'

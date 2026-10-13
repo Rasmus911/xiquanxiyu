@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "release/mobile/xiquan-mobile-ordering-1.2.11.apk",
+      "version": "1.2.11",
+      "category": "mobile/1.2.11",
+      "size": 3373538,
+      "sha256": "97143ff0eb786d4946cae77f090a9f906195083cc2cea39b87e432038b207413",
+      "pieces": [
+        {
+          "file": "archive/objects/97143ff0eb786d4946cae77f090a9f906195083cc2cea39b87e432038b207413",
+          "size": 3373538,
+          "sha256": "97143ff0eb786d4946cae77f090a9f906195083cc2cea39b87e432038b207413"
+        }
+      ]
+    }
+  ]
+}

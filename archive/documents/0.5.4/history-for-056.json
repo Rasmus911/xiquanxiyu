@@ -1,0 +1,146 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-刷卡开牌-0.5.4/01-部署云端.ps1",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 1855,
+      "sha256": "27bd93efe2fac0c88aade48eefce14feb4755922eac3dd43a7873670fba01dd4",
+      "pieces": [
+        {
+          "file": "archive/objects/27bd93efe2fac0c88aade48eefce14feb4755922eac3dd43a7873670fba01dd4",
+          "size": 1855,
+          "sha256": "27bd93efe2fac0c88aade48eefce14feb4755922eac3dd43a7873670fba01dd4"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-刷卡开牌-0.5.4/02-签名并发布桌面更新.ps1",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 462,
+      "sha256": "4dd1e06f205d0a57509cd1c02a025df081cd44cdcaac136565a95fa7124b8d0c",
+      "pieces": [
+        {
+          "file": "archive/objects/4dd1e06f205d0a57509cd1c02a025df081cd44cdcaac136565a95fa7124b8d0c",
+          "size": 462,
+          "sha256": "4dd1e06f205d0a57509cd1c02a025df081cd44cdcaac136565a95fa7124b8d0c"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-刷卡开牌-0.5.4/03-构建并发布安卓更新.ps1",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 468,
+      "sha256": "6a315ac2af01090a2555fa1d562dc7f201bb1290244181c9d4fac4c010fbd9bf",
+      "pieces": [
+        {
+          "file": "archive/objects/6a315ac2af01090a2555fa1d562dc7f201bb1290244181c9d4fac4c010fbd9bf",
+          "size": 468,
+          "sha256": "6a315ac2af01090a2555fa1d562dc7f201bb1290244181c9d4fac4c010fbd9bf"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-刷卡开牌-0.5.4/README-完整PowerShell.md",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 4097,
+      "sha256": "497af7bdf8efb34cae95fffa596cb34e8f8b892909e2e46eb9c7a19dc21d4d36",
+      "pieces": [
+        {
+          "file": "archive/objects/497af7bdf8efb34cae95fffa596cb34e8f8b892909e2e46eb9c7a19dc21d4d36",
+          "size": 4097,
+          "sha256": "497af7bdf8efb34cae95fffa596cb34e8f8b892909e2e46eb9c7a19dc21d4d36"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-刷卡开牌-0.5.4/historical-signed-releases.json",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 23733,
+      "sha256": "65c947b97d8c6acf652c56640582be15ea47536755f56ccdc50263842bdabc0e",
+      "pieces": [
+        {
+          "file": "archive/objects/65c947b97d8c6acf652c56640582be15ea47536755f56ccdc50263842bdabc0e",
+          "size": 23733,
+          "sha256": "65c947b97d8c6acf652c56640582be15ea47536755f56ccdc50263842bdabc0e"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-刷卡开牌-0.5.4/release-public-key.pem",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 113,
+      "sha256": "35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba",
+      "pieces": [
+        {
+          "file": "archive/objects/35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba",
+          "size": 113,
+          "sha256": "35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-刷卡开牌-0.5.4/xiquan-mobile-ordering-1.2.11.apk",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 3373538,
+      "sha256": "97143ff0eb786d4946cae77f090a9f906195083cc2cea39b87e432038b207413",
+      "pieces": [
+        {
+          "file": "archive/objects/97143ff0eb786d4946cae77f090a9f906195083cc2cea39b87e432038b207413",
+          "size": 3373538,
+          "sha256": "97143ff0eb786d4946cae77f090a9f906195083cc2cea39b87e432038b207413"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-刷卡开牌-0.5.4/交付信息.json",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 151914,
+      "sha256": "4d52250915861d2bc15960614d8da340c687ec085fc7794407cdd5be7bbc0106",
+      "pieces": [
+        {
+          "file": "archive/objects/4d52250915861d2bc15960614d8da340c687ec085fc7794407cdd5be7bbc0106",
+          "size": 151914,
+          "sha256": "4d52250915861d2bc15960614d8da340c687ec085fc7794407cdd5be7bbc0106"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-刷卡开牌-0.5.4/完整发布指令.ps1",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 1070,
+      "sha256": "4839c2b467de3b72d0c5505851948c621720e06c07595624c2a14b0c83e8d84d",
+      "pieces": [
+        {
+          "file": "archive/objects/4839c2b467de3b72d0c5505851948c621720e06c07595624c2a14b0c83e8d84d",
+          "size": 1070,
+          "sha256": "4839c2b467de3b72d0c5505851948c621720e06c07595624c2a14b0c83e8d84d"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-刷卡开牌-0.5.4/本机交付状态.md",
+      "version": "0.5.4",
+      "category": "documents/0.5.4",
+      "size": 1711,
+      "sha256": "032d91b09533e6aee2d829ecacaa08f9d4ad3cae943c6e79e716aac50fea64e1",
+      "pieces": [
+        {
+          "file": "archive/objects/032d91b09533e6aee2d829ecacaa08f9d4ad3cae943c6e79e716aac50fea64e1",
+          "size": 1711,
+          "sha256": "032d91b09533e6aee2d829ecacaa08f9d4ad3cae943c6e79e716aac50fea64e1"
+        }
+      ]
+    }
+  ]
+}
