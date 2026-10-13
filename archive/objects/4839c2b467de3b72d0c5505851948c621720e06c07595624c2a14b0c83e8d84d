@@ -1,0 +1,17 @@
+﻿[CmdletBinding()]
+param([string]$EcsTarget = 'root@39.96.217.210')
+$ErrorActionPreference = 'Stop'
+$delivery = $PSScriptRoot
+$info = Get-Content -LiteralPath (Join-Path $delivery '交付信息.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+Set-Location -LiteralPath $info.ProjectRoot
+& node.exe (Join-Path $info.ProjectRoot 'scripts\lib\desktop-054.cjs') verify-delivery $delivery
+if ($LASTEXITCODE -ne 0) { throw '本地交付校验失败。没有连接服务器。' }
+foreach ($name in @('01-部署云端.ps1', '02-签名并发布桌面更新.ps1', '03-构建并发布安卓更新.ps1')) {
+    $entry = Join-Path $delivery $name
+    Write-Host ('正在执行：' + $name)
+    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $entry -EcsTarget $EcsTarget
+    if ($LASTEXITCODE -ne 0) {
+        throw ($name + ' 未完成，已停止。保留完整错误和原检查点，不重复部署、不清空数据库。')
+    }
+}
+Write-Host '三端部署及完整公开文件校验通过。请在旧客户端检查更新，覆盖安装后进行实机刷卡验收。'
