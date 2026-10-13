@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 1,
+  "version": "0.5.4",
+  "buildId": "desktop054-c9376ea0c507-20261013115214",
+  "complete": true,
+  "requestedTargets": [
+    "win10-x86",
+    "win10-x64",
+    "win11-x86",
+    "win11-x64"
+  ],
+  "allTargets": false,
+  "signed": true,
+  "testOnly": false,
+  "releaseTrust": {
+    "keyId": "b26477a9ed540ad0",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAg5Euc1O6oXK6xaPLK8bFabECK024fg76iz7g0kjTEo0=\n-----END PUBLIC KEY-----\n",
+    "testOnly": false
+  },
+  "acceptance": {
+    "realOs": "not-tested",
+    "usbPrinter": "not-tested",
+    "inPlaceUpdate": "not-tested",
+    "runtimeSmoke": "not-tested"
+  },
+  "targets": [
+    {
+      "profile": {
+        "targetId": "win10-x86",
+        "arch": "ia32",
+        "electronVersion": "43.7.7",
+        "runtimeFamily": "windows-ia32",
+        "allowedHosts": [
+          "win10",
+          "win11"
+        ]
+      },
+      "version": "0.5.4",
+      "buildId": "desktop054-c9376ea0c507-20261013115214",
+      "releaseTrust": {
+        "keyId": "b26477a9ed540ad0",
+        "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAg5Euc1O6oXK6xaPLK8bFabECK024fg76iz7g0kjTEo0=\n-----END PUBLIC KEY-----\n",
+        "testOnly": false
+      },
+      "payloadArch": "ia32",
+      "artifact": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.5.4-win10-x86.exe",
+        "size": 100955616,
+        "sha256": "4d423ecec3bf5da0844094290de8aed17949c759c1a1be611b68abda631dddad",
+        "sha512": "yWrMUTTuNqRv0/UNIqt/I3GM5pL3w+ryRNzS1ZUQyjsXVdkOpat36G60k37nFI1p7mISI6lvKDrOeBH0JY5ETg=="
+      },
+      "blockmap": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.5.4-win10-x86.exe.blockmap",
+        "size": 105666,
+        "sha256": "102e59b79b97d2fc8cde17b33ad95721901589d8b883a213b849fec7ac2e6cfe",
+        "sha512": "2KfiXBopmJqnqBpcdzUV1AyPIt2lflCez5S+FepraQrnnYaQAPOyatZR60fql26sA027FHBmp+o/Q9CfAPem+w=="
+      },
+      "updaterManifest": {
+        "fileName": "latest.yml",
+        "size": 395,
+        "sha256": "90386733deef8e64ceddc0ce68f9f09f4835a90951e12cabc4006f5286d2c9b1",
+        "sha512": "PhXy7SqkhQFmk03qrx09YpxvtVsqBV05zxtWArr3OOx/Hb/ipQ/SFkQXtOdq8UyGgwdkW7maKcPz1f27CLRpqA=="
+      }
+    },
+    {
+      "profile": {
+        "targetId": "win10-x64",
+        "arch": "x64",
+        "electronVersion": "44.5.1",
+        "runtimeFamily": "windows-x64",
+        "allowedHosts": [
+          "win10",
+          "win11"
+        ]
+      },
+      "version": "0.5.4",
+      "buildId": "desktop054-c9376ea0c507-20261013115214",
+      "releaseTrust": {
+        "keyId": "b26477a9ed540ad0",
+        "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAg5Euc1O6oXK6xaPLK8bFabECK024fg76iz7g0kjTEo0=\n-----END PUBLIC KEY-----\n",
+        "testOnly": false
+      },
+      "payloadArch": "x64",
+      "artifact": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.5.4-win10-x64.exe",
+        "size": 120770855,
+        "sha256": "f862394db53607cf68d993c09eb7c89292902102894e687a1fcf9f1119b32835",
+        "sha512": "+WFBGRTGZhRVucIH3c5AdZoDhY/yoGISmGqimXw1pHWXcfau/HhEG4R5Mrh/KRCMWUEi6GV+7EvBRQhfepJWOw=="
+      },
+      "blockmap": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.5.4-win10-x64.exe.blockmap",
+        "size": 126877,
+        "sha256": "03b42aa3eb20079457c002277080a38a9a589de5162bde88d93d5b2e38a58e3d",
+        "sha512": "s1FZEUJ/C8IXl/dwwK2a6Ol4aYX4hSJwZ2hZrcAkLYGcrDaGD7C5HLhpd+pa7e/J6aU5Awa4dog8Zm9yheOZzA=="
+      },
+      "updaterManifest": {
+        "fileName": "latest.yml",
+        "size": 395,
+        "sha256": "a93305b8574c618e98171594156ed918a6e138e73a9305fda9cf53e06e6d014d",
+        "sha512": "EPUNKHwNdN3CfQCLxe049n2ojtnty4oJnkYgQ0qvDYYm3ag0CARnGM8Le3ub1R9uQziG8eLoCr+Yvz3qob030w=="
+      }
+    },
+    {
+      "profile": {
+        "targetId": "win11-x86",
+        "arch": "ia32",
+        "electronVersion": "43.7.7",
+        "runtimeFamily": "windows-ia32",
+        "allowedHosts": [
+          "win11"
+        ]
+      },
+      "version": "0.5.4",
+      "buildId": "desktop054-c9376ea0c507-20261013115214",
+      "releaseTrust": {
+        "keyId": "b26477a9ed540ad0",
+        "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAg5Euc1O6oXK6xaPLK8bFabECK024fg76iz7g0kjTEo0=\n-----END PUBLIC KEY-----\n",
+        "testOnly": false
+      },
+      "payloadArch": "ia32",
+      "artifact": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.5.4-win11-x86.exe",
+        "size": 100955697,
+        "sha256": "1c1df9ec5ffe530d72d0ad60a9227e71f055910281dd4c9a6ffd99918c95b5b0",
+        "sha512": "iSAC+u3vE4GaUDcAxVGZMEE+yO/TRkXxieFvFJ5+IGYAA5AAH9XM2JCKxG6M1PvWBODfXT47WTAJR2T+dOY6DQ=="
+      },
+      "blockmap": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.5.4-win11-x86.exe.blockmap",
+        "size": 105857,
+        "sha256": "b4f61ac0cde9f14a5e46f8e9b0462ace7b9c4d907e026b22d735c90876233438",
+        "sha512": "gWGAw+b2kyX14JZSymJJB4HOHyHvHnWGTapb1JkOOf36Rro2Q1ILhk9vhP0fdVGAWnoa46HZOxIsypJ4IIL7BA=="
+      },
+      "updaterManifest": {
+        "fileName": "latest.yml",
+        "size": 395,
+        "sha256": "5932c09255f461bbef63ea08c9455e9284259ebe6d5fcf1fe47a6c873660b163",
+        "sha512": "ahj4GO1cxseyzzIznTzMsSm27+9lfl5iIvelJv33VS3vArum9UpvqvxLWmzhAbFz6q3XmNUW8AQlHJC7XIxGHA=="
+      }
+    },
+    {
+      "profile": {
+        "targetId": "win11-x64",
+        "arch": "x64",
+        "electronVersion": "44.5.1",
+        "runtimeFamily": "windows-x64",
+        "allowedHosts": [
+          "win11"
+        ]
+      },
+      "version": "0.5.4",
+      "buildId": "desktop054-c9376ea0c507-20261013115214",
+      "releaseTrust": {
+        "keyId": "b26477a9ed540ad0",
+        "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAg5Euc1O6oXK6xaPLK8bFabECK024fg76iz7g0kjTEo0=\n-----END PUBLIC KEY-----\n",
+        "testOnly": false
+      },
+      "payloadArch": "x64",
+      "artifact": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.5.4-win11-x64.exe",
+        "size": 120771092,
+        "sha256": "3d183729d06868a09177d47978ca25390d22946ad88b8cdc2a4fcb8378506689",
+        "sha512": "C303A1x/AGvOqttmX2uUYZ5CxSvVsdQ/0xkzVPC0rvSJ50Fx7ghfQvT5au69TdQkRGzoffMyr/4EhQsaa3uhdg=="
+      },
+      "blockmap": {
+        "fileName": "Xiquan-Bathhouse-Setup-0.5.4-win11-x64.exe.blockmap",
+        "size": 126961,
+        "sha256": "a2e275bc9468962a4ae2f88c4ddbd7eaa7b5a353caa91cecfe62a895b6bb8887",
+        "sha512": "EgjG1ylXtXmm7mnnEuMgp8fD5tYroNXZIBmBqfGJKZvLpjyIdrDMJt7q/z2c2w31Yb+xCFnJTJIuv5dZeJcg3A=="
+      },
+      "updaterManifest": {
+        "fileName": "latest.yml",
+        "size": 395,
+        "sha256": "f2e3f8a8f12793b18d3e94d50ecb0a9cfe1f138e135859cc0613bfdaf8bd6717",
+        "sha512": "zTG/prqpmA1zY/69mjgerI3THgaAFYTEgMM5uKvh3wjFjc12lHo7du+dFhzEnVkq3oYCfgt7VXjZBJtZVaWAKg=="
+      }
+    }
+  ]
+}
