@@ -1,0 +1,1257 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/Xiquan-Bathhouse-Setup-0.5.6-win11-x64.exe",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 120811328,
+      "sha256": "83ec286503f5932280f43021805cccd84f6cde17b9fd91110f04d8f3caf5b572",
+      "pieces": [
+        {
+          "file": "archive/objects/2e2d0c9089e54a40e110077a201548d1636fd535c6972171b2d62fad9481b235",
+          "size": 33554432,
+          "sha256": "2e2d0c9089e54a40e110077a201548d1636fd535c6972171b2d62fad9481b235"
+        },
+        {
+          "file": "archive/objects/e52fcaeb96eb2f60ddf6019cb62d18394761863dd36468eff5f82617b29ddb2f",
+          "size": 33554432,
+          "sha256": "e52fcaeb96eb2f60ddf6019cb62d18394761863dd36468eff5f82617b29ddb2f"
+        },
+        {
+          "file": "archive/objects/40fa7fc54a8af873ca66342a1f9e43cd2dd5e11dae81c64714d904b67499904d",
+          "size": 33554432,
+          "sha256": "40fa7fc54a8af873ca66342a1f9e43cd2dd5e11dae81c64714d904b67499904d"
+        },
+        {
+          "file": "archive/objects/0823d3c2d704c78d569055178cc75f79cacaabdb5ddb11f6ebd76a9152dfd893",
+          "size": 20148032,
+          "sha256": "0823d3c2d704c78d569055178cc75f79cacaabdb5ddb11f6ebd76a9152dfd893"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/configs/win11-x64.nsh",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 127,
+      "sha256": "2de0a39706ef67483d9936bb1216a4603b7d16a3b13b07bd3e9be1a82a8ff08d",
+      "pieces": [
+        {
+          "file": "archive/objects/2de0a39706ef67483d9936bb1216a4603b7d16a3b13b07bd3e9be1a82a8ff08d",
+          "size": 127,
+          "sha256": "2de0a39706ef67483d9936bb1216a4603b7d16a3b13b07bd3e9be1a82a8ff08d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/Xiquan-Bathhouse-Setup-0.5.6-win11-x64.exe",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 120811328,
+      "sha256": "83ec286503f5932280f43021805cccd84f6cde17b9fd91110f04d8f3caf5b572",
+      "pieces": [
+        {
+          "file": "archive/objects/2e2d0c9089e54a40e110077a201548d1636fd535c6972171b2d62fad9481b235",
+          "size": 33554432,
+          "sha256": "2e2d0c9089e54a40e110077a201548d1636fd535c6972171b2d62fad9481b235"
+        },
+        {
+          "file": "archive/objects/e52fcaeb96eb2f60ddf6019cb62d18394761863dd36468eff5f82617b29ddb2f",
+          "size": 33554432,
+          "sha256": "e52fcaeb96eb2f60ddf6019cb62d18394761863dd36468eff5f82617b29ddb2f"
+        },
+        {
+          "file": "archive/objects/40fa7fc54a8af873ca66342a1f9e43cd2dd5e11dae81c64714d904b67499904d",
+          "size": 33554432,
+          "sha256": "40fa7fc54a8af873ca66342a1f9e43cd2dd5e11dae81c64714d904b67499904d"
+        },
+        {
+          "file": "archive/objects/0823d3c2d704c78d569055178cc75f79cacaabdb5ddb11f6ebd76a9152dfd893",
+          "size": 20148032,
+          "sha256": "0823d3c2d704c78d569055178cc75f79cacaabdb5ddb11f6ebd76a9152dfd893"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/Xiquan-Bathhouse-Setup-0.5.6-win11-x64.exe.blockmap",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 126945,
+      "sha256": "8bfa49147ba7f249f89b8bc969427fe614cf58b20441cea77f089d70b8371bf0",
+      "pieces": [
+        {
+          "file": "archive/objects/8bfa49147ba7f249f89b8bc969427fe614cf58b20441cea77f089d70b8371bf0",
+          "size": 126945,
+          "sha256": "8bfa49147ba7f249f89b8bc969427fe614cf58b20441cea77f089d70b8371bf0"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/builder-debug.yml",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 7683,
+      "sha256": "2121fd683244143a594924ab03d6695d6af1d42dc8914f6ad7397e7805eb94fe",
+      "pieces": [
+        {
+          "file": "archive/objects/2121fd683244143a594924ab03d6695d6af1d42dc8914f6ad7397e7805eb94fe",
+          "size": 7683,
+          "sha256": "2121fd683244143a594924ab03d6695d6af1d42dc8914f6ad7397e7805eb94fe"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/latest.yml",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 395,
+      "sha256": "9acdb095a91154777e2f99cac49631590ab4f5aab621e37bc929a8174e5c5940",
+      "pieces": [
+        {
+          "file": "archive/objects/9acdb095a91154777e2f99cac49631590ab4f5aab621e37bc929a8174e5c5940",
+          "size": 395,
+          "sha256": "9acdb095a91154777e2f99cac49631590ab4f5aab621e37bc929a8174e5c5940"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/release.json",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1957,
+      "sha256": "c75a572530578522bff932d9b7c8338a65809535505d8a3aa5bafe5aee043338",
+      "pieces": [
+        {
+          "file": "archive/objects/c75a572530578522bff932d9b7c8338a65809535505d8a3aa5bafe5aee043338",
+          "size": 1957,
+          "sha256": "c75a572530578522bff932d9b7c8338a65809535505d8a3aa5bafe5aee043338"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/LICENSE.electron.txt",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1096,
+      "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d",
+      "pieces": [
+        {
+          "file": "archive/objects/5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d",
+          "size": 1096,
+          "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/LICENSES.chromium.html",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 20472830,
+      "sha256": "7b328b8c7463ac9bfc7dc648c751533517c8441a0b5b21047d6c0b2620e60d70",
+      "pieces": [
+        {
+          "file": "archive/objects/7b328b8c7463ac9bfc7dc648c751533517c8441a0b5b21047d6c0b2620e60d70",
+          "size": 20472830,
+          "sha256": "7b328b8c7463ac9bfc7dc648c751533517c8441a0b5b21047d6c0b2620e60d70"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/chrome_100_percent.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 719654,
+      "sha256": "ab7c4b7b6cb8832a31d44b95ec50ce52294f49422a3bdde4e21968eca2930cbe",
+      "pieces": [
+        {
+          "file": "archive/objects/ab7c4b7b6cb8832a31d44b95ec50ce52294f49422a3bdde4e21968eca2930cbe",
+          "size": 719654,
+          "sha256": "ab7c4b7b6cb8832a31d44b95ec50ce52294f49422a3bdde4e21968eca2930cbe"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/chrome_200_percent.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1269017,
+      "sha256": "30fa4a6e27c9ff2fb0f939f01158477e621a67d86e9ecb84cf11b3947db8eb9d",
+      "pieces": [
+        {
+          "file": "archive/objects/30fa4a6e27c9ff2fb0f939f01158477e621a67d86e9ecb84cf11b3947db8eb9d",
+          "size": 1269017,
+          "sha256": "30fa4a6e27c9ff2fb0f939f01158477e621a67d86e9ecb84cf11b3947db8eb9d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/d3dcompiler_47.dll",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 4741488,
+      "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb",
+      "pieces": [
+        {
+          "file": "archive/objects/a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb",
+          "size": 4741488,
+          "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/dxcompiler.dll",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 25745408,
+      "sha256": "0c7a5fab6466c211fe39d90d845b7d6a64ac73e8c809d4fa0c09907bb45c1f3d",
+      "pieces": [
+        {
+          "file": "archive/objects/0c7a5fab6466c211fe39d90d845b7d6a64ac73e8c809d4fa0c09907bb45c1f3d",
+          "size": 25745408,
+          "sha256": "0c7a5fab6466c211fe39d90d845b7d6a64ac73e8c809d4fa0c09907bb45c1f3d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/dxil.dll",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1509760,
+      "sha256": "77e039c905030a641e53658a008b74e90635a5ea9b6b79eabd0f2003bdfca59a",
+      "pieces": [
+        {
+          "file": "archive/objects/77e039c905030a641e53658a008b74e90635a5ea9b6b79eabd0f2003bdfca59a",
+          "size": 1509760,
+          "sha256": "77e039c905030a641e53658a008b74e90635a5ea9b6b79eabd0f2003bdfca59a"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/ffmpeg.dll",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 3113472,
+      "sha256": "7728490eb079c19b17baeff2b6590c976f6a928b3c17923aeb4fcf1f1f31d299",
+      "pieces": [
+        {
+          "file": "archive/objects/7728490eb079c19b17baeff2b6590c976f6a928b3c17923aeb4fcf1f1f31d299",
+          "size": 3113472,
+          "sha256": "7728490eb079c19b17baeff2b6590c976f6a928b3c17923aeb4fcf1f1f31d299"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/icudtl.dat",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 10876560,
+      "sha256": "9f48c7f9c7c94d516a14870707e910ab94d75ae640ff6842c4af53276cd26ebe",
+      "pieces": [
+        {
+          "file": "archive/objects/9f48c7f9c7c94d516a14870707e910ab94d75ae640ff6842c4af53276cd26ebe",
+          "size": 10876560,
+          "sha256": "9f48c7f9c7c94d516a14870707e910ab94d75ae640ff6842c4af53276cd26ebe"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/af.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 636155,
+      "sha256": "3017b141bd16e24190d810f0748612f0fd4352ca8553002b9a63a7f77f7154f8",
+      "pieces": [
+        {
+          "file": "archive/objects/3017b141bd16e24190d810f0748612f0fd4352ca8553002b9a63a7f77f7154f8",
+          "size": 636155,
+          "sha256": "3017b141bd16e24190d810f0748612f0fd4352ca8553002b9a63a7f77f7154f8"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/am.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1029450,
+      "sha256": "67b938d162bc75db067120bb8366b5bafd9a75fa99a0ca9ad4f46b47d1d37634",
+      "pieces": [
+        {
+          "file": "archive/objects/67b938d162bc75db067120bb8366b5bafd9a75fa99a0ca9ad4f46b47d1d37634",
+          "size": 1029450,
+          "sha256": "67b938d162bc75db067120bb8366b5bafd9a75fa99a0ca9ad4f46b47d1d37634"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/ar.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1130919,
+      "sha256": "4c47004abd0969cb1174d06eb7429c024872207960986afbf3cae37e339a8d01",
+      "pieces": [
+        {
+          "file": "archive/objects/4c47004abd0969cb1174d06eb7429c024872207960986afbf3cae37e339a8d01",
+          "size": 1130919,
+          "sha256": "4c47004abd0969cb1174d06eb7429c024872207960986afbf3cae37e339a8d01"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/bg.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1178203,
+      "sha256": "2eb9c74c67e4b13b45a73061fa978738e335bc245da71bab0ea9b205fe91074e",
+      "pieces": [
+        {
+          "file": "archive/objects/2eb9c74c67e4b13b45a73061fa978738e335bc245da71bab0ea9b205fe91074e",
+          "size": 1178203,
+          "sha256": "2eb9c74c67e4b13b45a73061fa978738e335bc245da71bab0ea9b205fe91074e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/bn.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1513545,
+      "sha256": "415621a5c0b1546e6e447d43b76414425a8703cc7681d637ec1f283ad0c787e7",
+      "pieces": [
+        {
+          "file": "archive/objects/415621a5c0b1546e6e447d43b76414425a8703cc7681d637ec1f283ad0c787e7",
+          "size": 1513545,
+          "sha256": "415621a5c0b1546e6e447d43b76414425a8703cc7681d637ec1f283ad0c787e7"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/ca.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 716908,
+      "sha256": "6f28297c1ccb628f534d65dade167ae559f83eace359acf47e48ff890b9409d5",
+      "pieces": [
+        {
+          "file": "archive/objects/6f28297c1ccb628f534d65dade167ae559f83eace359acf47e48ff890b9409d5",
+          "size": 716908,
+          "sha256": "6f28297c1ccb628f534d65dade167ae559f83eace359acf47e48ff890b9409d5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/cs.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 743351,
+      "sha256": "799a789ce531991cb975425730db310f9a8fe74091eee568f3e65fcc7ef0cd57",
+      "pieces": [
+        {
+          "file": "archive/objects/799a789ce531991cb975425730db310f9a8fe74091eee568f3e65fcc7ef0cd57",
+          "size": 743351,
+          "sha256": "799a789ce531991cb975425730db310f9a8fe74091eee568f3e65fcc7ef0cd57"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/da.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 666471,
+      "sha256": "530fd95daee21d793b99492ca7d0bf9979daffe42944e24414d4b08a3d23b9fe",
+      "pieces": [
+        {
+          "file": "archive/objects/530fd95daee21d793b99492ca7d0bf9979daffe42944e24414d4b08a3d23b9fe",
+          "size": 666471,
+          "sha256": "530fd95daee21d793b99492ca7d0bf9979daffe42944e24414d4b08a3d23b9fe"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/de.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 717862,
+      "sha256": "58165025c4252ba8b2ce8203b59362b9968938cb0fef9d7da04941be22f41bb3",
+      "pieces": [
+        {
+          "file": "archive/objects/58165025c4252ba8b2ce8203b59362b9968938cb0fef9d7da04941be22f41bb3",
+          "size": 717862,
+          "sha256": "58165025c4252ba8b2ce8203b59362b9968938cb0fef9d7da04941be22f41bb3"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/el.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1295538,
+      "sha256": "37d2e1ef69fea9bdb1e0902cbc61a458baa9009fc3761029bd1c1882a7a0c9b2",
+      "pieces": [
+        {
+          "file": "archive/objects/37d2e1ef69fea9bdb1e0902cbc61a458baa9009fc3761029bd1c1882a7a0c9b2",
+          "size": 1295538,
+          "sha256": "37d2e1ef69fea9bdb1e0902cbc61a458baa9009fc3761029bd1c1882a7a0c9b2"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/en-GB.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 580030,
+      "sha256": "01d9200a5daee1770f7147b166d25baa6a8dd72c138c3c526421e656dec789f5",
+      "pieces": [
+        {
+          "file": "archive/objects/01d9200a5daee1770f7147b166d25baa6a8dd72c138c3c526421e656dec789f5",
+          "size": 580030,
+          "sha256": "01d9200a5daee1770f7147b166d25baa6a8dd72c138c3c526421e656dec789f5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/en-US.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 586582,
+      "sha256": "23b271e8009bfa14783700cd0712b4ecaa5b8f2ea28a4d81ae1d7e05bc0c96b1",
+      "pieces": [
+        {
+          "file": "archive/objects/23b271e8009bfa14783700cd0712b4ecaa5b8f2ea28a4d81ae1d7e05bc0c96b1",
+          "size": 586582,
+          "sha256": "23b271e8009bfa14783700cd0712b4ecaa5b8f2ea28a4d81ae1d7e05bc0c96b1"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/es-419.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 707627,
+      "sha256": "2766fd52da83ff679346313e66440f013a7d478b9be946df4ab197505912450b",
+      "pieces": [
+        {
+          "file": "archive/objects/2766fd52da83ff679346313e66440f013a7d478b9be946df4ab197505912450b",
+          "size": 707627,
+          "sha256": "2766fd52da83ff679346313e66440f013a7d478b9be946df4ab197505912450b"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/es.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 703941,
+      "sha256": "fe6fff51ef19db1f4fe0fc602e0bd4bd7fabcfb1ca5d6896d1ce0efcf37e49c4",
+      "pieces": [
+        {
+          "file": "archive/objects/fe6fff51ef19db1f4fe0fc602e0bd4bd7fabcfb1ca5d6896d1ce0efcf37e49c4",
+          "size": 703941,
+          "sha256": "fe6fff51ef19db1f4fe0fc602e0bd4bd7fabcfb1ca5d6896d1ce0efcf37e49c4"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/et.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 642216,
+      "sha256": "dd1205eae606f12510e24ce39f301439c98b3293d766ca5839dc292a14d7973c",
+      "pieces": [
+        {
+          "file": "archive/objects/dd1205eae606f12510e24ce39f301439c98b3293d766ca5839dc292a14d7973c",
+          "size": 642216,
+          "sha256": "dd1205eae606f12510e24ce39f301439c98b3293d766ca5839dc292a14d7973c"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/fa.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1063069,
+      "sha256": "ba33624ccad6d0e4a4339589c56be557b28968bf9422bd12a8f26e2a3d581577",
+      "pieces": [
+        {
+          "file": "archive/objects/ba33624ccad6d0e4a4339589c56be557b28968bf9422bd12a8f26e2a3d581577",
+          "size": 1063069,
+          "sha256": "ba33624ccad6d0e4a4339589c56be557b28968bf9422bd12a8f26e2a3d581577"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/fi.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 655113,
+      "sha256": "1f3123d7fb5c22a95b5250ea17450b665c3c6cd6a6dfd28bbdde15e1bf684a0e",
+      "pieces": [
+        {
+          "file": "archive/objects/1f3123d7fb5c22a95b5250ea17450b665c3c6cd6a6dfd28bbdde15e1bf684a0e",
+          "size": 655113,
+          "sha256": "1f3123d7fb5c22a95b5250ea17450b665c3c6cd6a6dfd28bbdde15e1bf684a0e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/fil.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 741385,
+      "sha256": "02e2c70d3d85b0deb677a9ae576ae3cf89e80774532cb3315c14f1e8ce64b310",
+      "pieces": [
+        {
+          "file": "archive/objects/02e2c70d3d85b0deb677a9ae576ae3cf89e80774532cb3315c14f1e8ce64b310",
+          "size": 741385,
+          "sha256": "02e2c70d3d85b0deb677a9ae576ae3cf89e80774532cb3315c14f1e8ce64b310"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/fr.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 763461,
+      "sha256": "8bad7fd88072ac66649dd9307da9163962f8ab00313e627bf1c5ca4450a48b4a",
+      "pieces": [
+        {
+          "file": "archive/objects/8bad7fd88072ac66649dd9307da9163962f8ab00313e627bf1c5ca4450a48b4a",
+          "size": 763461,
+          "sha256": "8bad7fd88072ac66649dd9307da9163962f8ab00313e627bf1c5ca4450a48b4a"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/gu.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1495625,
+      "sha256": "e86e8c240d4b6283abb03c49df9e8899607ef9def6d4933c7a541d63b5835271",
+      "pieces": [
+        {
+          "file": "archive/objects/e86e8c240d4b6283abb03c49df9e8899607ef9def6d4933c7a541d63b5835271",
+          "size": 1495625,
+          "sha256": "e86e8c240d4b6283abb03c49df9e8899607ef9def6d4933c7a541d63b5835271"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/he.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 928748,
+      "sha256": "ddc1f304ab1f4489d19ae2b31e7f8e3ffb47dae439520159e8975422c65e4115",
+      "pieces": [
+        {
+          "file": "archive/objects/ddc1f304ab1f4489d19ae2b31e7f8e3ffb47dae439520159e8975422c65e4115",
+          "size": 928748,
+          "sha256": "ddc1f304ab1f4489d19ae2b31e7f8e3ffb47dae439520159e8975422c65e4115"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/hi.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1586602,
+      "sha256": "015b3856dc05e8635a48e749e6970fe43f5d620b8dbd04e5abff586178213f6e",
+      "pieces": [
+        {
+          "file": "archive/objects/015b3856dc05e8635a48e749e6970fe43f5d620b8dbd04e5abff586178213f6e",
+          "size": 1586602,
+          "sha256": "015b3856dc05e8635a48e749e6970fe43f5d620b8dbd04e5abff586178213f6e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/hr.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 715279,
+      "sha256": "d46c64ae8af3562e37eb80438aa2bee228fafda251d58ba4d0991291f1c72aab",
+      "pieces": [
+        {
+          "file": "archive/objects/d46c64ae8af3562e37eb80438aa2bee228fafda251d58ba4d0991291f1c72aab",
+          "size": 715279,
+          "sha256": "d46c64ae8af3562e37eb80438aa2bee228fafda251d58ba4d0991291f1c72aab"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/hu.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 765640,
+      "sha256": "0a46fc8d50f74effd1cfe1979e677df3de6fc47e6b551267303d93d57bd83f50",
+      "pieces": [
+        {
+          "file": "archive/objects/0a46fc8d50f74effd1cfe1979e677df3de6fc47e6b551267303d93d57bd83f50",
+          "size": 765640,
+          "sha256": "0a46fc8d50f74effd1cfe1979e677df3de6fc47e6b551267303d93d57bd83f50"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/id.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 635080,
+      "sha256": "f567569c42a25bb2dfc5c33e13aac558c0e2a1d5d4b969592bbd0841b36438db",
+      "pieces": [
+        {
+          "file": "archive/objects/f567569c42a25bb2dfc5c33e13aac558c0e2a1d5d4b969592bbd0841b36438db",
+          "size": 635080,
+          "sha256": "f567569c42a25bb2dfc5c33e13aac558c0e2a1d5d4b969592bbd0841b36438db"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/it.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 693991,
+      "sha256": "aeb1d99a2a09476d9ee0fd133df2d4d987c731b9f91a248ac4e60377ddda1ca5",
+      "pieces": [
+        {
+          "file": "archive/objects/aeb1d99a2a09476d9ee0fd133df2d4d987c731b9f91a248ac4e60377ddda1ca5",
+          "size": 693991,
+          "sha256": "aeb1d99a2a09476d9ee0fd133df2d4d987c731b9f91a248ac4e60377ddda1ca5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/ja.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 842053,
+      "sha256": "f6e0d8eda3bc8f1112494bda96b230f3c44f054c47cced50c94c5ee9199f04c6",
+      "pieces": [
+        {
+          "file": "archive/objects/f6e0d8eda3bc8f1112494bda96b230f3c44f054c47cced50c94c5ee9199f04c6",
+          "size": 842053,
+          "sha256": "f6e0d8eda3bc8f1112494bda96b230f3c44f054c47cced50c94c5ee9199f04c6"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/kn.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1720240,
+      "sha256": "af5fed2130102ecc0c878059c88faed9d6db2e8b147fb5ae9e15e3fe69706c8a",
+      "pieces": [
+        {
+          "file": "archive/objects/af5fed2130102ecc0c878059c88faed9d6db2e8b147fb5ae9e15e3fe69706c8a",
+          "size": 1720240,
+          "sha256": "af5fed2130102ecc0c878059c88faed9d6db2e8b147fb5ae9e15e3fe69706c8a"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/ko.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 718705,
+      "sha256": "55a3a8db9c84b1fe9e50b56d68fb069ad7546117cf1f6cb89f36f49cc044ad5e",
+      "pieces": [
+        {
+          "file": "archive/objects/55a3a8db9c84b1fe9e50b56d68fb069ad7546117cf1f6cb89f36f49cc044ad5e",
+          "size": 718705,
+          "sha256": "55a3a8db9c84b1fe9e50b56d68fb069ad7546117cf1f6cb89f36f49cc044ad5e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/lt.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 777281,
+      "sha256": "af969f4407c190dd01a426fa1244cb1ec7cdf2909d1c3ba5b87ff662ba567303",
+      "pieces": [
+        {
+          "file": "archive/objects/af969f4407c190dd01a426fa1244cb1ec7cdf2909d1c3ba5b87ff662ba567303",
+          "size": 777281,
+          "sha256": "af969f4407c190dd01a426fa1244cb1ec7cdf2909d1c3ba5b87ff662ba567303"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/lv.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 774733,
+      "sha256": "4455ab7c06172c2c80796a99558e41f452cc3b33be76654d70440cf4ac7a2d34",
+      "pieces": [
+        {
+          "file": "archive/objects/4455ab7c06172c2c80796a99558e41f452cc3b33be76654d70440cf4ac7a2d34",
+          "size": 774733,
+          "sha256": "4455ab7c06172c2c80796a99558e41f452cc3b33be76654d70440cf4ac7a2d34"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/ml.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1767850,
+      "sha256": "b5606265910e45098a88e989202a550531f6d00333c6b112ed4c5cbc07b2ff6a",
+      "pieces": [
+        {
+          "file": "archive/objects/b5606265910e45098a88e989202a550531f6d00333c6b112ed4c5cbc07b2ff6a",
+          "size": 1767850,
+          "sha256": "b5606265910e45098a88e989202a550531f6d00333c6b112ed4c5cbc07b2ff6a"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/mr.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1467313,
+      "sha256": "8465d4077ed5414cbcb7d9bdb00d85e515a1a069703cdc1d4d67c9d6e5623fb0",
+      "pieces": [
+        {
+          "file": "archive/objects/8465d4077ed5414cbcb7d9bdb00d85e515a1a069703cdc1d4d67c9d6e5623fb0",
+          "size": 1467313,
+          "sha256": "8465d4077ed5414cbcb7d9bdb00d85e515a1a069703cdc1d4d67c9d6e5623fb0"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/ms.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 668356,
+      "sha256": "af7021a00befa586aa067ae3ccb339079e6f13ee0cab1621836f6abb608b6f2a",
+      "pieces": [
+        {
+          "file": "archive/objects/af7021a00befa586aa067ae3ccb339079e6f13ee0cab1621836f6abb608b6f2a",
+          "size": 668356,
+          "sha256": "af7021a00befa586aa067ae3ccb339079e6f13ee0cab1621836f6abb608b6f2a"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/nb.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 638121,
+      "sha256": "d97a2b0cbe6adc99add2ed3ce0d15d0bb124b778086c466c126634d60ea72608",
+      "pieces": [
+        {
+          "file": "archive/objects/d97a2b0cbe6adc99add2ed3ce0d15d0bb124b778086c466c126634d60ea72608",
+          "size": 638121,
+          "sha256": "d97a2b0cbe6adc99add2ed3ce0d15d0bb124b778086c466c126634d60ea72608"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/nl.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 664759,
+      "sha256": "b642c8ab5ce11438e9a8fd4639244fa8f1d55cfd70269565490bc55ee907b048",
+      "pieces": [
+        {
+          "file": "archive/objects/b642c8ab5ce11438e9a8fd4639244fa8f1d55cfd70269565490bc55ee907b048",
+          "size": 664759,
+          "sha256": "b642c8ab5ce11438e9a8fd4639244fa8f1d55cfd70269565490bc55ee907b048"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/pl.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 742064,
+      "sha256": "8a0969fc743d3e2f5111387d53c0d79e8c1d9f68256ad6553b87fca2bcaa7e6e",
+      "pieces": [
+        {
+          "file": "archive/objects/8a0969fc743d3e2f5111387d53c0d79e8c1d9f68256ad6553b87fca2bcaa7e6e",
+          "size": 742064,
+          "sha256": "8a0969fc743d3e2f5111387d53c0d79e8c1d9f68256ad6553b87fca2bcaa7e6e"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/pt-BR.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 697019,
+      "sha256": "5546559a56f9ac3191062c3fd42defd190a68e78ac988eb57fa5a6fd2dc5f874",
+      "pieces": [
+        {
+          "file": "archive/objects/5546559a56f9ac3191062c3fd42defd190a68e78ac988eb57fa5a6fd2dc5f874",
+          "size": 697019,
+          "sha256": "5546559a56f9ac3191062c3fd42defd190a68e78ac988eb57fa5a6fd2dc5f874"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/pt-PT.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 701056,
+      "sha256": "bdfa7264dddf70f936f1785737969559a577b51d1952c820a468c611d18b17ca",
+      "pieces": [
+        {
+          "file": "archive/objects/bdfa7264dddf70f936f1785737969559a577b51d1952c820a468c611d18b17ca",
+          "size": 701056,
+          "sha256": "bdfa7264dddf70f936f1785737969559a577b51d1952c820a468c611d18b17ca"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/ro.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 728144,
+      "sha256": "1e6b5b0dac63a9e951daf523de310f6bd9e5c53e281f37706d41bd35d2a08bb5",
+      "pieces": [
+        {
+          "file": "archive/objects/1e6b5b0dac63a9e951daf523de310f6bd9e5c53e281f37706d41bd35d2a08bb5",
+          "size": 728144,
+          "sha256": "1e6b5b0dac63a9e951daf523de310f6bd9e5c53e281f37706d41bd35d2a08bb5"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/ru.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1200985,
+      "sha256": "a9e76536472c45b39e7ae2af5f3ae1bc0e50a11646efdb6fb3ca373b5f2e2c70",
+      "pieces": [
+        {
+          "file": "archive/objects/a9e76536472c45b39e7ae2af5f3ae1bc0e50a11646efdb6fb3ca373b5f2e2c70",
+          "size": 1200985,
+          "sha256": "a9e76536472c45b39e7ae2af5f3ae1bc0e50a11646efdb6fb3ca373b5f2e2c70"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/sk.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 755481,
+      "sha256": "3cdc8bca8696c90a572fb15c865caa5c286df45344c72194c3eea97201cc816a",
+      "pieces": [
+        {
+          "file": "archive/objects/3cdc8bca8696c90a572fb15c865caa5c286df45344c72194c3eea97201cc816a",
+          "size": 755481,
+          "sha256": "3cdc8bca8696c90a572fb15c865caa5c286df45344c72194c3eea97201cc816a"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/sl.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 722720,
+      "sha256": "e1371c8df577b979e3a515af34b0aaa3d07153c7a5c55d39a9b49a7ffe62d3d2",
+      "pieces": [
+        {
+          "file": "archive/objects/e1371c8df577b979e3a515af34b0aaa3d07153c7a5c55d39a9b49a7ffe62d3d2",
+          "size": 722720,
+          "sha256": "e1371c8df577b979e3a515af34b0aaa3d07153c7a5c55d39a9b49a7ffe62d3d2"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/sr.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1112909,
+      "sha256": "c42a674e3f43aa70cef005931915c8b7ceb34b29566fba3309f8da931dc7861f",
+      "pieces": [
+        {
+          "file": "archive/objects/c42a674e3f43aa70cef005931915c8b7ceb34b29566fba3309f8da931dc7861f",
+          "size": 1112909,
+          "sha256": "c42a674e3f43aa70cef005931915c8b7ceb34b29566fba3309f8da931dc7861f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/sv.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 646543,
+      "sha256": "7b0399a206bfbebe77d1a4fc598c8a6636a1bd940d3ab56519cf4af0134b6edb",
+      "pieces": [
+        {
+          "file": "archive/objects/7b0399a206bfbebe77d1a4fc598c8a6636a1bd940d3ab56519cf4af0134b6edb",
+          "size": 646543,
+          "sha256": "7b0399a206bfbebe77d1a4fc598c8a6636a1bd940d3ab56519cf4af0134b6edb"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/sw.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 685127,
+      "sha256": "bd41ea707a0d90d683ec8d5d0f0c79f3e925747bc4ea1982562dfb75080199b9",
+      "pieces": [
+        {
+          "file": "archive/objects/bd41ea707a0d90d683ec8d5d0f0c79f3e925747bc4ea1982562dfb75080199b9",
+          "size": 685127,
+          "sha256": "bd41ea707a0d90d683ec8d5d0f0c79f3e925747bc4ea1982562dfb75080199b9"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/ta.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1758067,
+      "sha256": "91fb1460711df108d8d435a378c8be1d1e80b0886c0158d8c6ae92f35812681b",
+      "pieces": [
+        {
+          "file": "archive/objects/91fb1460711df108d8d435a378c8be1d1e80b0886c0158d8c6ae92f35812681b",
+          "size": 1758067,
+          "sha256": "91fb1460711df108d8d435a378c8be1d1e80b0886c0158d8c6ae92f35812681b"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/te.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1629379,
+      "sha256": "fc8c2706c5dfd36e7af8e380a240e0f697cc5fe969b512092a2185896512c4af",
+      "pieces": [
+        {
+          "file": "archive/objects/fc8c2706c5dfd36e7af8e380a240e0f697cc5fe969b512092a2185896512c4af",
+          "size": 1629379,
+          "sha256": "fc8c2706c5dfd36e7af8e380a240e0f697cc5fe969b512092a2185896512c4af"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/th.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1368866,
+      "sha256": "c1f4235c31bc05153230b0e55b7aabc9020d7460d5b0a025c386885e1e4bda3c",
+      "pieces": [
+        {
+          "file": "archive/objects/c1f4235c31bc05153230b0e55b7aabc9020d7460d5b0a025c386885e1e4bda3c",
+          "size": 1368866,
+          "sha256": "c1f4235c31bc05153230b0e55b7aabc9020d7460d5b0a025c386885e1e4bda3c"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/tr.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 697394,
+      "sha256": "d5648d7eaf1826211fb244fcf8419dabdc16c228d92139bc8b0b73c7a6b7e700",
+      "pieces": [
+        {
+          "file": "archive/objects/d5648d7eaf1826211fb244fcf8419dabdc16c228d92139bc8b0b73c7a6b7e700",
+          "size": 697394,
+          "sha256": "d5648d7eaf1826211fb244fcf8419dabdc16c228d92139bc8b0b73c7a6b7e700"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/uk.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1211563,
+      "sha256": "ec5d0b426e289c064e8f2d63636ae2a544ff30fc1e99dde04fe1920971e4d060",
+      "pieces": [
+        {
+          "file": "archive/objects/ec5d0b426e289c064e8f2d63636ae2a544ff30fc1e99dde04fe1920971e4d060",
+          "size": 1211563,
+          "sha256": "ec5d0b426e289c064e8f2d63636ae2a544ff30fc1e99dde04fe1920971e4d060"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/ur.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 1047994,
+      "sha256": "c218e21744df2ff0669a87d497d65d76333073577360d4c662c592de146bf82a",
+      "pieces": [
+        {
+          "file": "archive/objects/c218e21744df2ff0669a87d497d65d76333073577360d4c662c592de146bf82a",
+          "size": 1047994,
+          "sha256": "c218e21744df2ff0669a87d497d65d76333073577360d4c662c592de146bf82a"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/vi.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 830014,
+      "sha256": "76a32f8ad5d08a6f9899e12e4aa9b3d9a9023931e2ca0f73e5ced541c922dcfb",
+      "pieces": [
+        {
+          "file": "archive/objects/76a32f8ad5d08a6f9899e12e4aa9b3d9a9023931e2ca0f73e5ced541c922dcfb",
+          "size": 830014,
+          "sha256": "76a32f8ad5d08a6f9899e12e4aa9b3d9a9023931e2ca0f73e5ced541c922dcfb"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/zh-CN.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 592081,
+      "sha256": "7887bd3d01e12306e32a11d9a20566ca0e93688a0375e6ff59da04cf782b1681",
+      "pieces": [
+        {
+          "file": "archive/objects/7887bd3d01e12306e32a11d9a20566ca0e93688a0375e6ff59da04cf782b1681",
+          "size": 592081,
+          "sha256": "7887bd3d01e12306e32a11d9a20566ca0e93688a0375e6ff59da04cf782b1681"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/locales/zh-TW.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 583887,
+      "sha256": "7cb5f76e54a548d4e52aa8cdf226a4339bdadc304897abca690f407e95e42f4d",
+      "pieces": [
+        {
+          "file": "archive/objects/7cb5f76e54a548d4e52aa8cdf226a4339bdadc304897abca690f407e95e42f4d",
+          "size": 583887,
+          "sha256": "7cb5f76e54a548d4e52aa8cdf226a4339bdadc304897abca690f407e95e42f4d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/resources/app-update.yml",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 142,
+      "sha256": "7c43ab1c2903effc7d9fe9b528e187628d33cfeb618c9f8e74b459653a781397",
+      "pieces": [
+        {
+          "file": "archive/objects/7c43ab1c2903effc7d9fe9b528e187628d33cfeb618c9f8e74b459653a781397",
+          "size": 142,
+          "sha256": "7c43ab1c2903effc7d9fe9b528e187628d33cfeb618c9f8e74b459653a781397"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/resources/app.asar",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 72388438,
+      "sha256": "f8b8651dabb45733bb22c7f38551b19927a2b475ce132928e1b82cb9c39a6c9a",
+      "pieces": [
+        {
+          "file": "archive/objects/a292bab403ec077ae9ae490e23470a5676709ea8c2c09d8eec0941e261cafedb",
+          "size": 33554432,
+          "sha256": "a292bab403ec077ae9ae490e23470a5676709ea8c2c09d8eec0941e261cafedb"
+        },
+        {
+          "file": "archive/objects/95943121ac632311e162d5cb7c220750e4a3489f37e38279347a8166d84fe4b1",
+          "size": 33554432,
+          "sha256": "95943121ac632311e162d5cb7c220750e4a3489f37e38279347a8166d84fe4b1"
+        },
+        {
+          "file": "archive/objects/e77bba432485725eb457d452869e594d5381268812ba12d30437fdb75ad4ad7b",
+          "size": 5279574,
+          "sha256": "e77bba432485725eb457d452869e594d5381268812ba12d30437fdb75ad4ad7b"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/resources/default_app.asar",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 110862,
+      "sha256": "0eb2491b0a9ac94790389d39c09dd5005c6c1f0665842943829bbd0193f6cc4f",
+      "pieces": [
+        {
+          "file": "archive/objects/0eb2491b0a9ac94790389d39c09dd5005c6c1f0665842943829bbd0193f6cc4f",
+          "size": 110862,
+          "sha256": "0eb2491b0a9ac94790389d39c09dd5005c6c1f0665842943829bbd0193f6cc4f"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/resources/elevate.exe",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 107520,
+      "sha256": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37",
+      "pieces": [
+        {
+          "file": "archive/objects/9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37",
+          "size": 107520,
+          "sha256": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/resources.pak",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 12435875,
+      "sha256": "ee5707e9409e76742e1dacdae0ebbb3c567b8772ce5bbcb9785aa215f5784c22",
+      "pieces": [
+        {
+          "file": "archive/objects/ee5707e9409e76742e1dacdae0ebbb3c567b8772ce5bbcb9785aa215f5784c22",
+          "size": 12435875,
+          "sha256": "ee5707e9409e76742e1dacdae0ebbb3c567b8772ce5bbcb9785aa215f5784c22"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/sdk-evidence.json",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 256,
+      "sha256": "e44dbd0bc8f86d38f36d7c760a37a2a8557c2b832d35a706af2600e4e882a709",
+      "pieces": [
+        {
+          "file": "archive/objects/e44dbd0bc8f86d38f36d7c760a37a2a8557c2b832d35a706af2600e4e882a709",
+          "size": 256,
+          "sha256": "e44dbd0bc8f86d38f36d7c760a37a2a8557c2b832d35a706af2600e4e882a709"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/snapshot_blob.bin",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 368768,
+      "sha256": "0b18f38d50c8f96c9fa2b8205c66c25b3ae45c985e8f2e7b6ecfab9f4d4d19d0",
+      "pieces": [
+        {
+          "file": "archive/objects/0b18f38d50c8f96c9fa2b8205c66c25b3ae45c985e8f2e7b6ecfab9f4d4d19d0",
+          "size": 368768,
+          "sha256": "0b18f38d50c8f96c9fa2b8205c66c25b3ae45c985e8f2e7b6ecfab9f4d4d19d0"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/v8_context_snapshot.bin",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 742200,
+      "sha256": "6d747f11d721655b780a47f6010eeef8428266e7521280e1e094d27c6f34311d",
+      "pieces": [
+        {
+          "file": "archive/objects/6d747f11d721655b780a47f6010eeef8428266e7521280e1e094d27c6f34311d",
+          "size": 742200,
+          "sha256": "6d747f11d721655b780a47f6010eeef8428266e7521280e1e094d27c6f34311d"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/version",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 6,
+      "sha256": "d6a753840246d37b3b1450cce3259a0d1a1954d8d196276e11fdf094a6a04652",
+      "pieces": [
+        {
+          "file": "archive/objects/d6a753840246d37b3b1450cce3259a0d1a1954d8d196276e11fdf094a6a04652",
+          "size": 6,
+          "sha256": "d6a753840246d37b3b1450cce3259a0d1a1954d8d196276e11fdf094a6a04652"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/vk_swiftshader.dll",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 5520384,
+      "sha256": "3d8555de997bca1e58a72c6a8bc13a8267dca2c882ee0a783803470b289d1d23",
+      "pieces": [
+        {
+          "file": "archive/objects/3d8555de997bca1e58a72c6a8bc13a8267dca2c882ee0a783803470b289d1d23",
+          "size": 5520384,
+          "sha256": "3d8555de997bca1e58a72c6a8bc13a8267dca2c882ee0a783803470b289d1d23"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/vk_swiftshader_icd.json",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 106,
+      "sha256": "32d83ff113fef532a9f97e0d2831f8656628ab1c99e9060f0332b1532839afd9",
+      "pieces": [
+        {
+          "file": "archive/objects/32d83ff113fef532a9f97e0d2831f8656628ab1c99e9060f0332b1532839afd9",
+          "size": 106,
+          "sha256": "32d83ff113fef532a9f97e0d2831f8656628ab1c99e9060f0332b1532839afd9"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/vulkan-1.dll",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 939520,
+      "sha256": "5549afe706236d5c7ad5df4607c51639c790dfd118770eb27af8f2c5c076c3c7",
+      "pieces": [
+        {
+          "file": "archive/objects/5549afe706236d5c7ad5df4607c51639c790dfd118770eb27af8f2c5c076c3c7",
+          "size": 939520,
+          "sha256": "5549afe706236d5c7ad5df4607c51639c790dfd118770eb27af8f2c5c076c3c7"
+        }
+      ]
+    },
+    {
+      "path": "release/windows/0.5.6/desktop056-5a7cc3f7d956-20261014001136/win11-x64/win-unpacked/溪泉洗浴管理系统.exe",
+      "version": "0.5.6",
+      "category": "desktop/0.5.6/win11-x64",
+      "size": 245726720,
+      "sha256": "eb2383412addd5c392b5ed02caae4fe0a1058c3c91801d61296397f04e822ff0",
+      "pieces": [
+        {
+          "file": "archive/objects/88c62745ada6260249c27ef75bcc62fccbfa09b62eab7e3563f8339b1b4c18d9",
+          "size": 33554432,
+          "sha256": "88c62745ada6260249c27ef75bcc62fccbfa09b62eab7e3563f8339b1b4c18d9"
+        },
+        {
+          "file": "archive/objects/a902c8cf537fe2d1f3374ac0e766507e0d4b413f70fa2f22b8a6c7fc4f2ebe24.part0002",
+          "size": 33554432,
+          "sha256": "2f4764ace0702040482d73ba5433d0814cf84aeace8b17d92c2e6cdc09cc5f0c"
+        },
+        {
+          "file": "archive/objects/a902c8cf537fe2d1f3374ac0e766507e0d4b413f70fa2f22b8a6c7fc4f2ebe24.part0003",
+          "size": 33554432,
+          "sha256": "5596ae1ffc55d13b01250ea5ea50577e193e17303ace7812d9b37933473725fd"
+        },
+        {
+          "file": "archive/objects/a902c8cf537fe2d1f3374ac0e766507e0d4b413f70fa2f22b8a6c7fc4f2ebe24.part0004",
+          "size": 33554432,
+          "sha256": "5169795f5ff868081ea1f3c99c2693531dddef7f5a5e448bf772ee43e2bdea52"
+        },
+        {
+          "file": "archive/objects/a902c8cf537fe2d1f3374ac0e766507e0d4b413f70fa2f22b8a6c7fc4f2ebe24.part0005",
+          "size": 33554432,
+          "sha256": "017c587a095ae8ebf8eb59dd46d510f73f712b3baa5868499ceb3689a5a55be7"
+        },
+        {
+          "file": "archive/objects/a902c8cf537fe2d1f3374ac0e766507e0d4b413f70fa2f22b8a6c7fc4f2ebe24.part0006",
+          "size": 33554432,
+          "sha256": "b3b60c44d145608fbb85344c0404639f6479a3453e549a36020c3157ad522206"
+        },
+        {
+          "file": "archive/objects/a902c8cf537fe2d1f3374ac0e766507e0d4b413f70fa2f22b8a6c7fc4f2ebe24.part0007",
+          "size": 33554432,
+          "sha256": "c97e6cb4da55a5eddcc9afb04817578fcdf608eda34b233c69e41938cd85b3c9"
+        },
+        {
+          "file": "archive/objects/6ac151dec795896ee2d3206dea14df936f68dbee3db11a638e87c5a88fc66b49",
+          "size": 10845696,
+          "sha256": "6ac151dec795896ee2d3206dea14df936f68dbee3db11a638e87c5a88fc66b49"
+        }
+      ]
+    }
+  ]
+}

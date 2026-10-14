@@ -1,0 +1,5 @@
+﻿[CmdletBinding()]
+param([string]$EcsTarget='root@39.96.217.210',[switch]$ValidateOnly,[switch]$VerifyOnly)
+$ErrorActionPreference='Stop'
+$info=Get-Content -LiteralPath (Join-Path $PSScriptRoot '交付信息.json') -Raw -Encoding UTF8|ConvertFrom-Json
+& (Join-Path $info.ProjectRoot 'scripts\publish-cloud-056.ps1') -DeliveryRoot $PSScriptRoot -EcsTarget $EcsTarget -ValidateOnly:$ValidateOnly -VerifyOnly:$VerifyOnly

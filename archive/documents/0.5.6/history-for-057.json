@@ -1,0 +1,174 @@
+{
+  "repository": "https://github.com/Rasmus911/xiquanxiyu",
+  "format": "ordered-byte-concatenation",
+  "entries": [
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/01-部署云端.ps1",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 419,
+      "sha256": "a941803d333737c5f6d0bfdc8e149b3f425facf4c3a924f90f97bfd819146cf7",
+      "pieces": [
+        {
+          "file": "archive/objects/a941803d333737c5f6d0bfdc8e149b3f425facf4c3a924f90f97bfd819146cf7",
+          "size": 419,
+          "sha256": "a941803d333737c5f6d0bfdc8e149b3f425facf4c3a924f90f97bfd819146cf7"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/02-签名并发布桌面更新.ps1",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 458,
+      "sha256": "70dddb5df5e9583b3c8b5e8e2b1ac97975f0ef84887c3e5807414b5995ca0ae1",
+      "pieces": [
+        {
+          "file": "archive/objects/70dddb5df5e9583b3c8b5e8e2b1ac97975f0ef84887c3e5807414b5995ca0ae1",
+          "size": 458,
+          "sha256": "70dddb5df5e9583b3c8b5e8e2b1ac97975f0ef84887c3e5807414b5995ca0ae1"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/03-构建并发布安卓更新.ps1",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 467,
+      "sha256": "fd29f31adacba4cce5510d405890cde7c3775c447d9e01bcb3fdc80218f3991c",
+      "pieces": [
+        {
+          "file": "archive/objects/fd29f31adacba4cce5510d405890cde7c3775c447d9e01bcb3fdc80218f3991c",
+          "size": 467,
+          "sha256": "fd29f31adacba4cce5510d405890cde7c3775c447d9e01bcb3fdc80218f3991c"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/README-完整PowerShell.md",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 2504,
+      "sha256": "5bac5e6dee276a3ba1473a2e52b59745c5ac9a9c7c4c336c5b540ae03ec3c102",
+      "pieces": [
+        {
+          "file": "archive/objects/5bac5e6dee276a3ba1473a2e52b59745c5ac9a9c7c4c336c5b540ae03ec3c102",
+          "size": 2504,
+          "sha256": "5bac5e6dee276a3ba1473a2e52b59745c5ac9a9c7c4c336c5b540ae03ec3c102"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/historical-signed-releases.json",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 143033,
+      "sha256": "0bdaa52376d142cc675ccc984bc739288433e1aed10b84c110c93e06c6c9fe00",
+      "pieces": [
+        {
+          "file": "archive/objects/0bdaa52376d142cc675ccc984bc739288433e1aed10b84c110c93e06c6c9fe00",
+          "size": 143033,
+          "sha256": "0bdaa52376d142cc675ccc984bc739288433e1aed10b84c110c93e06c6c9fe00"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/inventory_xlsx.py",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 14369,
+      "sha256": "2bcb391680d9f4192d3eb16f13543e673d775ffbdfdedc2fbea596c4c58c7852",
+      "pieces": [
+        {
+          "file": "archive/objects/2bcb391680d9f4192d3eb16f13543e673d775ffbdfdedc2fbea596c4c58c7852",
+          "size": 14369,
+          "sha256": "2bcb391680d9f4192d3eb16f13543e673d775ffbdfdedc2fbea596c4c58c7852"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/release-public-key.pem",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 113,
+      "sha256": "35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba",
+      "pieces": [
+        {
+          "file": "archive/objects/35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba",
+          "size": 113,
+          "sha256": "35a0ffde230c5e81dcec63845a063e61027ada146677629251a723a7c1447bba"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/xiquan-mobile-ordering-1.2.13.apk",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 3377187,
+      "sha256": "512590e46934fe809e3c4242440a3c0193417954a3691ff685a2ece32a65a764",
+      "pieces": [
+        {
+          "file": "archive/objects/512590e46934fe809e3c4242440a3c0193417954a3691ff685a2ece32a65a764",
+          "size": 3377187,
+          "sha256": "512590e46934fe809e3c4242440a3c0193417954a3691ff685a2ece32a65a764"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/交付信息.json",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 172703,
+      "sha256": "08909bd585de9fed83e58ec1b9f22654bc1d6a184e562dc57fbe523d4b7ceaea",
+      "pieces": [
+        {
+          "file": "archive/objects/08909bd585de9fed83e58ec1b9f22654bc1d6a184e562dc57fbe523d4b7ceaea",
+          "size": 172703,
+          "sha256": "08909bd585de9fed83e58ec1b9f22654bc1d6a184e562dc57fbe523d4b7ceaea"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/图标预览.png",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 7950,
+      "sha256": "52e13e3235e8636c2587839d32886b480021c77cd784336c643ca92d3fb5076b",
+      "pieces": [
+        {
+          "file": "archive/objects/52e13e3235e8636c2587839d32886b480021c77cd784336c643ca92d3fb5076b",
+          "size": 7950,
+          "sha256": "52e13e3235e8636c2587839d32886b480021c77cd784336c643ca92d3fb5076b"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/完整发布指令.ps1",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 1053,
+      "sha256": "1e57c0665028783e12cbc0ecbb43a7f8819c0bfa336ad411876779bd31188494",
+      "pieces": [
+        {
+          "file": "archive/objects/1e57c0665028783e12cbc0ecbb43a7f8819c0bfa336ad411876779bd31188494",
+          "size": 1053,
+          "sha256": "1e57c0665028783e12cbc0ecbb43a7f8819c0bfa336ad411876779bd31188494"
+        }
+      ]
+    },
+    {
+      "path": "最新版安装包-溪泉图标与库存布局-0.5.6/本机交付状态.md",
+      "version": "0.5.6",
+      "category": "documents/0.5.6",
+      "size": 3224,
+      "sha256": "aad8181bc1449fc93bb9f322afbafe86fa46f5e45dea9f3570d5da45424c5ab0",
+      "pieces": [
+        {
+          "file": "archive/objects/aad8181bc1449fc93bb9f322afbafe86fa46f5e45dea9f3570d5da45424c5ab0",
+          "size": 3224,
+          "sha256": "aad8181bc1449fc93bb9f322afbafe86fa46f5e45dea9f3570d5da45424c5ab0"
+        }
+      ]
+    }
+  ]
+}
