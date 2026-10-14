@@ -1,0 +1,13 @@
+﻿[CmdletBinding()]
+param([ValidateSet('all','cloud','windows','android','verify')][string]$Mode='all',[string]$EcsTarget='root@39.96.217.210')
+$ErrorActionPreference='Stop'
+$info=Get-Content -LiteralPath (Join-Path $PSScriptRoot '交付信息.json') -Raw -Encoding UTF8|ConvertFrom-Json
+& node.exe (Join-Path $info.ProjectRoot 'scripts\lib\desktop-056.cjs') verify-delivery $PSScriptRoot
+if($LASTEXITCODE-ne 0){throw 'Delivery check failed; nothing uploaded.'}
+if($Mode-eq 'verify'){return}
+$steps=switch($Mode){'all'{@('01-部署云端.ps1','02-签名并发布桌面更新.ps1','03-构建并发布安卓更新.ps1')};'cloud'{@('01-部署云端.ps1')};'windows'{@('02-签名并发布桌面更新.ps1')};'android'{@('03-构建并发布安卓更新.ps1')}}
+foreach($name in $steps){
+ Write-Host ('正在执行：'+$name)
+ & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot $name) -EcsTarget $EcsTarget
+ if($LASTEXITCODE-ne 0){throw ($name+' 未完成。保留证据，只处理失败步骤，不重跑全部发布。')}
+}
